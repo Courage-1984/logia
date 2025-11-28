@@ -107,7 +107,12 @@ export const initComponents = async () => {
     });
     
     // Load footer
-    await loadComponent('components/footer.html', '#footer-placeholder');
+    await loadComponent('components/footer.html', '#footer-placeholder', () => {
+        // Re-initialize scroll handlers after footer loads (for scroll-to-top button)
+        if (typeof window.reinitScrollHandlers === 'function') {
+            window.reinitScrollHandlers();
+        }
+    });
 };
 
 // Auto-initialize when DOM is ready

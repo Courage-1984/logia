@@ -37,35 +37,29 @@ Build configuration is located in `config/build-config.js`. You can customize UR
 export const buildConfigs = {
   // Production build (normal server/FTP)
   production: {
-    baseUrl: 'https://logia.co.za',
+    baseUrl: 'https://www.logia.co.za',
     basePath: '/',
     outDir: 'dist',
-    sitemapUrl: 'https://logia.co.za/sitemap.xml',
+    sitemapUrl: 'https://www.logia.co.za/sitemap.xml',
   },
   
   // GitHub Pages build
   'gh-pages': {
-    baseUrl: 'https://logia.co.za', // Update if using GitHub Pages custom domain
-    // If using GitHub Pages without custom domain, use: 'https://username.github.io/repo-name'
-    basePath: '/',
+    baseUrl: 'https://courage-1984.github.io/logia',
+    basePath: '/logia/',
     outDir: 'dist-gh-pages',
-    sitemapUrl: 'https://logia.co.za/sitemap.xml', // Update if different
+    sitemapUrl: 'https://courage-1984.github.io/logia/sitemap.xml',
   },
 };
 ```
 
-### Updating GitHub Pages URLs
+### Current Configuration
 
-If you're using GitHub Pages **without a custom domain**, update the `gh-pages` config:
+The build system is configured for:
+- **Production**: `https://www.logia.co.za` (normal server deployment)
+- **GitHub Pages**: `https://courage-1984.github.io/logia` (GitHub Pages deployment)
 
-```javascript
-'gh-pages': {
-  baseUrl: 'https://yourusername.github.io/logia', // Replace with your GitHub Pages URL
-  basePath: '/logia/', // If your repo name is 'logia'
-  outDir: 'dist-gh-pages',
-  sitemapUrl: 'https://yourusername.github.io/logia/sitemap.xml',
-},
-```
+If you need to change these URLs, edit `config/build-config.js`.
 
 ## What Gets Transformed
 

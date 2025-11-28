@@ -14,6 +14,12 @@ build/
 .env.local
 .env.*.local
 
+# Generated data (optional - uncomment if you don't want to commit generated reviews)
+# data/google-reviews.json
+
+# Public directory (contains synced data for dev server)
+public/data/
+
 # IDE
 .vscode/
 .idea/
@@ -33,4 +39,8 @@ yarn-error.log*
 
 # Vite
 .vite/
+
+.env
+
+data/
 

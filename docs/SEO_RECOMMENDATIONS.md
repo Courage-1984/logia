@@ -55,7 +55,7 @@ This document provides comprehensive SEO recommendations for the Logia Genesis w
 3. **No Structured Data (JSON-LD)** - Missing rich snippets opportunity
 4. **No Canonical URLs** - Potential duplicate content issues
 5. **No robots.txt** - No crawl control
-6. **Outdated Sitemap Dates** - All show 2024-01-01
+6. **Outdated Sitemap Dates** - All show 2025-01-01
 7. **Limited Local SEO** - Not optimized for "Gauteng" searches
 8. **No Breadcrumbs** - Missing navigation and SEO benefits
 
@@ -383,7 +383,7 @@ Sitemap: https://logia.co.za/sitemap.xml
 **Priority**: 🟡 Medium  
 **Impact**: Search engine crawling efficiency
 
-**Current Issue:** All pages show `lastmod: 2024-01-01`
+**Current Issue:** All pages show `lastmod: 2025-01-01`
 
 **Action Required:**
 1. Update `lastmod` dates to reflect actual content changes

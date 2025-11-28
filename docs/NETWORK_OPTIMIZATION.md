@@ -501,6 +501,6 @@ These optimizations work together with existing build optimizations to deliver t
 
 ---
 
-**Last Updated:** 2024  
+**Last Updated:** 2025  
 **Version:** 1.0
 

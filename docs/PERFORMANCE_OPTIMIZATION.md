@@ -67,10 +67,10 @@ Replaced individual listeners with delegation:
 ### Compression
 - **Gzip**: Enabled for files >1KB
 - **Brotli**: Enabled for files >1KB
-- Build-time generation in `dist/`
+- Build-time generation in output directories
 
 ### Bundle Analyzer
-- Generates `dist/stats.html` after build
+- Generates `stats.html` in each build output directory
 - Visualizes bundle composition
 - Shows gzipped and brotli sizes
 
@@ -148,7 +148,7 @@ See `docs/NETWORK_OPTIMIZATION.md` for:
 1. **Lighthouse** - Chrome DevTools
 2. **WebPageTest** - https://www.webpagetest.org/
 3. **PageSpeed Insights** - https://pagespeed.web.dev/
-4. **Bundle Analyzer** - `dist/stats.html` after build
+4. **Bundle Analyzer** - `stats.html` in each build output directory
 
 ---
 
@@ -166,7 +166,7 @@ See `docs/NETWORK_OPTIMIZATION.md` for:
 - **Meta Tags**: Proper meta tags in all HTML files
 
 ### Build Integration
-All SEO files are automatically copied to `dist/` during build:
+All SEO files are automatically copied to build output directories during build:
 - `sitemap.xml`
 - `site.webmanifest`
 - All favicon files
@@ -178,17 +178,19 @@ All SEO files are automatically copied to `dist/` during build:
 
 ### Build Commands
 ```bash
-npm run build    # Build with all optimizations
-npm run preview  # Preview production build
+npm run build          # Production build (dist/)
+npm run build:gh-pages  # GitHub Pages build (dist-gh-pages/)
+npm run build:all      # Build both targets
+npm run preview        # Preview production build
 ```
 
 ### Bundle Analysis
 ```bash
 npm run build
-# Open dist/stats.html in browser
+# Open dist/stats.html or dist-gh-pages/stats.html in browser
 ```
 
 ---
 
-**Last Updated**: 2024  
+**Last Updated**: 2025  
 **Version**: 3.1

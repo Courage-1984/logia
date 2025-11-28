@@ -43,6 +43,30 @@ export const appConfig = {
     timeout: 10000,
   },
   
+  // Google Reviews configuration
+  googleReviews: {
+    enabled: true,
+    maxReviews: 3, // Maximum number of reviews to display
+    placeId: '', // Set via environment variable GOOGLE_PLACE_ID
+    apiKey: '', // Set via environment variable GOOGLE_PLACES_API_KEY
+  },
+  
+  // Instagram Feed configuration
+  instagram: {
+    enabled: true,
+    postUrls: [
+      'https://www.instagram.com/p/DCRi-2SoxNX/',
+      'https://www.instagram.com/reel/C32hCk5SoVd/',
+      'https://www.instagram.com/p/Cy03e8sIdT2/',
+      'https://www.instagram.com/reel/C2DsIuMSlyc/',
+      'https://www.instagram.com/reel/CzCAQ-MySJl/'
+      // Add your Instagram post URLs here
+      // Example: 'https://www.instagram.com/p/ABC123xyz/',
+      // Get URLs by right-clicking on an Instagram post and selecting "Copy Link"
+    ],
+    maxPosts: 0, // 0 = display all posts, or set a number to limit
+  },
+  
   // Feature flags
   features: {
     customCursor: false,

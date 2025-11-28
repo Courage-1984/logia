@@ -30,7 +30,7 @@ Located in `assets/fonts/fontawesome/`:
 
 The build process automatically:
 1. Processes font CSS (imported in `style.css`)
-2. Copies font files to `dist/assets/fonts/` with hashing
+2. Copies font files to build output (`dist/assets/fonts/` or `dist-gh-pages/assets/fonts/`) with hashing
 3. Resolves font paths in CSS to hashed filenames
 4. Compresses assets (gzip + brotli)
 
@@ -61,5 +61,5 @@ npm run setup-fonts
 
 ---
 
-**Last Updated**: 2024
+**Last Updated**: 2025
 

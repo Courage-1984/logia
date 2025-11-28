@@ -28,9 +28,9 @@ Complete guide for image implementation, optimization, and best practices.
 ### Build Process
 The project uses a custom Vite plugin that automatically:
 - Generates 6 responsive sizes: 320w, 640w, 768w, 1024w, 1280w, 1920w
-- Creates WebP versions (85% quality)
+- Creates WebP and AVIF versions (85% quality)
 - Optimizes original formats (JPEG/PNG)
-- Copies optimized images to `dist/assets/images/`
+- Copies optimized images to build output (`dist/assets/images/` or `dist-gh-pages/assets/images/`)
 
 ### HTML Pattern
 All images use this responsive pattern:
@@ -158,7 +158,7 @@ assets/images/
 
 ### Optimization
 - Optimize source images before adding (use TinyPNG, ImageOptim, or Squoosh)
-- Run `npm run build` to generate responsive sizes
+- Run `npm run build` or `npm run build:gh-pages` to generate responsive sizes
 - Test in both light and dark mode
 - Verify on all device sizes
 
@@ -172,7 +172,7 @@ assets/images/
 
 1. Place image in `assets/images/` (or appropriate subdirectory)
 2. Use the responsive image pattern in HTML
-3. Run `npm run build` to generate optimized versions
+3. Run `npm run build` or `npm run build:gh-pages` to generate optimized versions
 4. Test that images load correctly in production build
 
 ## Troubleshooting
@@ -183,7 +183,7 @@ assets/images/
 - Check build console for errors
 
 **WebP not loading:**
-- Verify WebP files generated in `dist/assets/images/`
+- Verify WebP/AVIF files generated in build output (`dist/assets/images/` or `dist-gh-pages/assets/images/`)
 - Fallback to JPEG/PNG should work automatically
 
 **Images too large:**
@@ -192,5 +192,5 @@ assets/images/
 
 ---
 
-**Last Updated:** 2024  
+**Last Updated:** 2025  
 **Version:** 2.0

@@ -116,6 +116,28 @@ function copyFontCSS(outDir) {
 }
 
 /**
+ * Vite plugin to copy data directory (Google Reviews JSON)
+ * @param {string} outDir - Output directory
+ */
+function copyDataDirectory(outDir) {
+  return {
+    name: 'copy-data-directory',
+    writeBundle() {
+      const dataDir = resolve(__dirname, 'data');
+      const destDir = resolve(__dirname, outDir, 'data');
+      
+      if (existsSync(dataDir)) {
+        if (!existsSync(destDir)) {
+          mkdirSync(destDir, { recursive: true });
+        }
+        copyRecursive(dataDir, destDir);
+        console.log(`✓ Copied data directory to ${outDir}`);
+      }
+    },
+  };
+}
+
+/**
  * Vite plugin to copy any other static assets
  * @param {string} outDir - Output directory
  */
@@ -126,6 +148,9 @@ function copyStaticAssets(outDir) {
       const staticFiles = [
         { src: 'favicon.ico', dest: `${outDir}/favicon.ico` },
         { src: 'favicon.svg', dest: `${outDir}/favicon.svg` },
+        { src: 'favicon.png', dest: `${outDir}/favicon.png` },
+        { src: 'favicon.jpg', dest: `${outDir}/favicon.jpg` },
+        { src: 'favicon.webp', dest: `${outDir}/favicon.webp` },
         { src: 'favicon-16x16.png', dest: `${outDir}/favicon-16x16.png` },
         { src: 'favicon-32x32.png', dest: `${outDir}/favicon-32x32.png` },
         { src: 'favicon-96x96.png', dest: `${outDir}/favicon-96x96.png` },
@@ -204,7 +229,7 @@ export default defineConfig(({ mode = 'production' }) => {
   return {
     root: '.',
     base: basePath, // Use basePath from config (important for GitHub Pages)
-    publicDir: false, // Disable publicDir since we handle assets manually
+    publicDir: 'public', // Use public directory for static files in dev mode
     
     build: {
       outDir: outDir,
@@ -275,6 +300,10 @@ export default defineConfig(({ mode = 'production' }) => {
       open: true,
       hot: true,
       cors: true,
+      // Serve data directory in development
+      fs: {
+        allow: ['..'],
+      },
     },
     
     preview: {
@@ -294,6 +323,7 @@ export default defineConfig(({ mode = 'production' }) => {
       copyComponents(outDir),
       copyFonts(outDir),
       copyFontCSS(outDir),
+      copyDataDirectory(outDir),
       copyStaticAssets(outDir),
       imageOptimization(),
       // URL transform plugin - transforms URLs based on build target

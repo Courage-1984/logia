@@ -45,7 +45,14 @@ logia/
 │   ├── images/         # Image files (with responsive optimization)
 │   └── fonts/          # Font files
 ├── docs/               # Documentation (all .md files)
-├── dist/               # Build output (generated, gitignored)
+├── dist/               # Production build output (generated, gitignored)
+├── dist-gh-pages/      # GitHub Pages build output (generated, gitignored)
+├── .github/workflows/  # GitHub Actions workflows
+├── robots.txt          # SEO robots file
+├── sitemap.xml         # SEO sitemap
+├── 404.html            # Custom error page
+├── privacy-policy.html  # Privacy policy
+├── terms-of-service.html # Terms of service
 └── *.html              # Page templates
 ```
 
@@ -158,7 +165,9 @@ element.dataset.initialized = 'true';
 
 ### Meta Tags
 - Include proper `<meta>` tags (charset, viewport, description, keywords)
-- Add Open Graph tags for social sharing (when implemented)
+- **Open Graph tags** - Required on all pages for social sharing
+- **Twitter Card tags** - Required on all pages for Twitter sharing
+- **Canonical URLs** - Required on all pages (automatically transformed by build)
 - Include comprehensive favicon links (SVG, PNG sizes, Windows tiles)
 
 ### Favicon Implementation
@@ -180,9 +189,13 @@ All HTML files must include complete favicon setup:
 ```
 
 ### SEO Files
-- `sitemap.xml` - XML sitemap for search engines (all pages included)
+- `sitemap.xml` - XML sitemap for search engines (all pages included, URLs auto-transformed)
 - `site.webmanifest` - Web app manifest for PWA support
-- `robots.txt` - Robots exclusion file (if needed)
+- `robots.txt` - Robots exclusion file (sitemap URL auto-transformed)
+- **Structured Data (JSON-LD)** - Organization, LocalBusiness, Service, BreadcrumbList schemas on all pages
+- **404.html** - Custom error page
+- **privacy-policy.html** - Privacy policy page
+- **terms-of-service.html** - Terms of service page
 
 ### Resource Hints
 - Use `preconnect` for external domains (fonts, CDNs)
@@ -248,31 +261,50 @@ All HTML files must include complete favicon setup:
 
 ## Build System (Vite)
 
+### Dual Build System
+The project supports two build targets:
+- **Production Build** (`npm run build`): Outputs to `dist/` for normal server/FTP deployment
+  - Base URL: `https://www.logia.co.za`
+  - For FTP upload to production server
+- **GitHub Pages Build** (`npm run build:gh-pages`): Outputs to `dist-gh-pages/` for GitHub Pages
+  - Base URL: `https://courage-1984.github.io/logia`
+  - Base Path: `/logia/`
+  - Automatically deployed via GitHub Actions
+- **Build Both** (`npm run build:all`): Builds both targets sequentially
+
 ### Build Configuration
-- **Entry points**: All HTML files in root
-- **Output**: `dist/` directory
+- **Entry points**: All HTML files in root (including 404.html, privacy-policy.html, terms-of-service.html)
+- **Output**: `dist/` (production) or `dist-gh-pages/` (GitHub Pages)
 - **Assets**: Hashed filenames for cache busting
 - **Code splitting**: Enabled for CSS and JS
 - **Minification**: Enabled for production
+- **URL Transformation**: Automatic URL transformation based on build target (canonical, OG, Twitter, structured data)
 
 ### Build Plugins
-- `copyComponents()`: Copies components to dist
-- `copyFonts()`: Copies fonts to dist
-- `copyStaticAssets()`: Copies favicons, sitemap, robots.txt, web manifest to dist
+- `copyComponents()`: Copies components to output directory
+- `copyFonts()`: Copies fonts to output directory
+- `copyStaticAssets()`: Copies favicons, sitemap, robots.txt, web manifest, 404.html, legal pages
 - `imageOptimization()`: Generates responsive images (WebP, AVIF, responsive sizes)
+- `urlTransformPlugin()`: Transforms URLs based on build target
+- `staticFilesTransformPlugin()`: Transforms sitemap.xml and robots.txt URLs
 - Compression plugins: Gzip and Brotli compression
-- Bundle analyzer: Generates `dist/stats.html` for bundle visualization
+- Bundle analyzer: Generates `stats.html` in each output directory
 
 ### Development
 - Run `npm run dev` for development server (port 3000)
 - Hot Module Replacement (HMR) enabled
 - Source maps enabled in development
 
-### Production
-- Run `npm run build` to build for production
-- All assets optimized and minified
-- Images processed and optimized
-- Output in `dist/` directory
+### Build Commands
+- `npm run build` - Production build (normal server/FTP)
+- `npm run build:gh-pages` - GitHub Pages build
+- `npm run build:all` - Build both targets
+- `npm run preview` - Preview production build
+- `npm run preview:gh-pages` - Preview GitHub Pages build
+
+### Configuration Files
+- `config/build-config.js` - Build target configuration (URLs, basePath, output directories)
+- `vite.config.js` - Vite build configuration
 
 ---
 
@@ -390,10 +422,11 @@ See `docs/PERFORMANCE_OPTIMIZATION.md` for detailed optimization strategies.
 ## Git & Version Control
 
 ### File Organization
-- Never commit `dist/` directory (should be gitignored)
-- Never commit `node_modules/` (should be gitignored)
+- Never commit `dist/` or `dist-gh-pages/` directories (gitignored)
+- Never commit `node_modules/` (gitignored)
 - Commit source files, not generated files
 - Keep `.gitignore` up-to-date
+- GitHub Actions workflow (`.github/workflows/static.yml`) handles GitHub Pages deployment automatically
 
 ### Commit Messages
 - Use descriptive commit messages
@@ -536,21 +569,86 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 
 ### Build Commands
 - `npm run dev` - Development server
-- `npm run build` - Production build
+- `npm run build` - Production build (normal server)
+- `npm run build:gh-pages` - GitHub Pages build
+- `npm run build:all` - Build both targets
 - `npm run preview` - Preview production build
+- `npm run preview:gh-pages` - Preview GitHub Pages build
+
+### Form Handling
+- Forms use **Formspree** for backend submission
+- Form endpoint: `https://formspree.io/f/xvgjddqj`
+- Forms validate client-side, then submit via fetch API
+- Loading states and error handling included
+
+### Interactive Features
+- **Testimonials Carousel**: Centered active card, infinite loop, drag & shift+scroll navigation
+- **WhatsApp Button**: Floating action button (bottom-left) with tooltip
+- **Scroll to Top**: Floating button (bottom-right) appears after 500px scroll
+- **Address Links**: All addresses link to Google Maps (`https://maps.app.goo.gl/LxbQUQxCa3b6b7Jm6`)
 
 ### Documentation
-- Architecture: `docs/ARCHITECTURE.md`
-- Style Guide: `docs/STYLE_GUIDE.md`
-- Performance: `docs/PERFORMANCE_OPTIMIZATION.md`
-- Performance Checklist: `docs/PERFORMANCE_CHECKLIST.md`
-- Image Guide: `docs/IMAGE_GUIDE.md`
-- Fonts: `docs/FONTS.md`
-- Network: `docs/NETWORK_OPTIMIZATION.md`
-- Setup: `docs/SETUP_GUIDE.md`
-- Responsive: `docs/RESPONSIVE_DESIGN.md`
+- **Setup & Getting Started**: `README.md` (quick start)
+- **Google Reviews**: `docs/GOOGLE_REVIEWS_SETUP.md` (testimonials carousel setup)
+- **Dual Build System**: `docs/DUAL_BUILD_GUIDE.md` (deployment guide)
+- **Architecture**: `docs/ARCHITECTURE.md` (project structure)
+- **Style Guide**: `docs/STYLE_GUIDE.md` (CSS conventions)
+- **Performance**: `docs/PERFORMANCE_OPTIMIZATION.md` (optimization strategies)
+- **Performance Checklist**: `docs/PERFORMANCE_CHECKLIST.md` (quick reference)
+- **SEO**: `docs/SEO_RECOMMENDATIONS.md` (SEO strategy)
+- **Image Guide**: `docs/IMAGE_GUIDE.md` (image implementation)
+- **Fonts**: `docs/FONTS.md` (font self-hosting)
+- **Network**: `docs/NETWORK_OPTIMIZATION.md` (server-side optimization)
+- **Responsive**: `docs/RESPONSIVE_DESIGN.md` (responsive patterns)
 
 ---
 
-**Last Updated**: 2024
-**Version**: 1.0
+**Last Updated**: January 2025
+**Version**: 2.1
+
+## Recent Major Updates (January 2025)
+
+### Google Reviews Integration ✅
+- Dynamic Google Reviews carousel in testimonials section
+- Build-time fetching from Google Places API (Legacy)
+- Centered active card with infinite loop
+- Interactive controls: drag, shift+scroll, arrow buttons, dots
+- Auto-scroll with pause on hover
+- Uniform card heights with responsive design
+- Fallback to manual reviews if API unavailable
+- See `docs/GOOGLE_REVIEWS_SETUP.md` for setup
+
+### Floating Action Buttons ✅
+- **WhatsApp Button**: Fixed bottom-left, always visible, tooltip on hover
+- **Scroll to Top Button**: Fixed bottom-right, appears after 500px scroll
+- Both buttons responsive, hidden in print media
+- Proper z-index layering and accessibility
+
+### Address Links ✅
+- All address instances link to Google Maps
+- Consistent implementation across footer, contact page, legal pages
+- Opens in new tab with security attributes
+
+### SEO Implementation ✅
+- Open Graph tags on all pages
+- Twitter Card tags on all pages
+- Structured Data (JSON-LD) schemas (Organization, LocalBusiness, Service, BreadcrumbList)
+- Canonical URLs on all pages
+- robots.txt file
+- Updated sitemap.xml with current dates
+
+### Dual Build System ✅
+- Production build: `dist/` → `https://www.logia.co.za`
+- GitHub Pages build: `dist-gh-pages/` → `https://courage-1984.github.io/logia`
+- Automatic URL transformation based on build target
+- GitHub Actions workflow for automated deployment
+
+### Form Integration ✅
+- Formspree backend integration
+- Client-side validation with server submission
+- Loading states and error handling
+
+### Legal Pages ✅
+- privacy-policy.html
+- terms-of-service.html
+- 404.html error page

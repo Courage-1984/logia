@@ -7,7 +7,9 @@ import { $, $$, waitForElement } from '../utils/dom.js';
 import { debounce, throttle, logPerformance } from '../utils/performance.js';
 import { validateEmail, validatePhone, showError, showSuccessMessage, clearError } from '../utils/validation.js';
 import { appConfig } from '../config/app.config.js';
-import { initScrollHandlers } from '../utils/scroll-handler.js';
+import { initScrollHandlers, createScrollToTopHandler, scrollHandler } from '../utils/scroll-handler.js';
+import { initTestimonials } from './testimonials.js';
+import { initInstagramFeed } from './instagram-feed.js';
 
 // ============================================
 // SMOOTH SCROLL (Event Delegation)
@@ -22,17 +24,17 @@ const initSmoothScroll = () => {
     document.body.addEventListener('click', (e) => {
         const anchor = e.target.closest('a[href^="#"]');
         if (!anchor) return;
-        
+
         const href = anchor.getAttribute('href');
         if (href === '#') return;
-        
+
         e.preventDefault();
         const target = $(href);
-        
+
         if (target) {
             const navHeight = $('.navbar')?.offsetHeight || 0;
             const targetPosition = target.offsetTop - navHeight;
-            
+
             window.scrollTo({
                 top: targetPosition,
                 behavior: 'smooth'
@@ -59,24 +61,24 @@ const initMobileMenu = () => {
     const toggle = $('#mobileMenuToggle');
     const menu = $('#navMenu');
     const dropdowns = $$('.dropdown');
-    
+
     if (!toggle || !menu) {
         // If elements don't exist yet, try again after a short delay
         setTimeout(initMobileMenu, 100);
         return;
     }
-    
+
     // Check if already initialized
     if (toggle.dataset.initialized === 'true') return;
     toggle.dataset.initialized = 'true';
-    
+
     toggle.addEventListener('click', (e) => {
         e.stopPropagation();
         menu.classList.toggle('active');
         toggle.classList.toggle('active');
         document.body.classList.toggle('menu-open');
     });
-    
+
     // Close menu when clicking outside
     document.addEventListener('click', (e) => {
         if (!toggle.contains(e.target) && !menu.contains(e.target)) {
@@ -85,7 +87,7 @@ const initMobileMenu = () => {
             document.body.classList.remove('menu-open');
         }
     });
-    
+
     // Close menu when clicking a nav link (event delegation)
     menu.addEventListener('click', (e) => {
         const navLink = e.target.closest('.nav-link');
@@ -94,7 +96,7 @@ const initMobileMenu = () => {
             toggle.classList.remove('active');
             document.body.classList.remove('menu-open');
         }
-        
+
         // Handle mobile dropdown toggles
         const dropdown = e.target.closest('.dropdown');
         if (dropdown && window.innerWidth <= 768) {
@@ -125,25 +127,25 @@ const initDarkMode = () => {
         setTimeout(initDarkMode, 100);
         return;
     }
-    
+
     // Check if already initialized
     if (toggle.dataset.initialized === 'true') return;
     toggle.dataset.initialized = 'true';
-    
+
     // Check for saved theme preference or use default
     const currentTheme = localStorage.getItem(appConfig.theme.storageKey) || appConfig.theme.defaultMode;
-    
+
     if (currentTheme === 'dark') {
         document.body.classList.add('dark-mode');
         toggle.innerHTML = '<i class="fas fa-sun"></i>';
     }
-    
+
     toggle.addEventListener('click', () => {
         document.body.classList.toggle('dark-mode');
-        
+
         const isDark = document.body.classList.contains('dark-mode');
         toggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-        
+
         localStorage.setItem(appConfig.theme.storageKey, isDark ? 'dark' : 'light');
     });
 };
@@ -161,7 +163,7 @@ window.initDarkMode = initDarkMode;
  */
 const initCounters = () => {
     const counters = $$('.stat-number[data-count]');
-    
+
     /**
      * Animate a single counter from 0 to target value
      * @param {Element} counter - Counter element to animate
@@ -171,7 +173,7 @@ const initCounters = () => {
         const duration = appConfig.animation.counterDuration;
         const increment = target / (duration / 16);
         let current = 0;
-        
+
         const updateCounter = () => {
             current += increment;
             if (current < target) {
@@ -181,10 +183,10 @@ const initCounters = () => {
                 counter.textContent = target;
             }
         };
-        
+
         updateCounter();
     };
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -193,7 +195,7 @@ const initCounters = () => {
             }
         });
     }, { threshold: appConfig.performance.lazyLoadThreshold });
-    
+
     counters.forEach(counter => observer.observe(counter));
 };
 
@@ -204,16 +206,16 @@ const initCounters = () => {
 /**
  * Initialize scroll to top button
  * Shows/hides button handled by unified scroll handler
- * Click handler uses event delegation
+ * Click handler uses event delegation (works even if button loads later)
  */
 const initScrollToTop = () => {
-    const scrollBtn = $('#scrollTop');
-    if (!scrollBtn) return;
-    
     // Visibility is handled by unified scroll handler
-    // Click handler uses event delegation
+    // Click handler uses event delegation - always set up, works even if button loads later
     document.body.addEventListener('click', (e) => {
-        if (e.target.closest('#scrollTop')) {
+        const scrollBtn = e.target.closest('#scrollTop');
+        if (scrollBtn) {
+            e.preventDefault();
+            e.stopPropagation();
             window.scrollTo({
                 top: 0,
                 behavior: 'smooth'
@@ -232,7 +234,7 @@ const initScrollToTop = () => {
  */
 const initAOS = () => {
     const elements = $$('[data-aos]');
-    
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -245,7 +247,7 @@ const initAOS = () => {
         threshold: appConfig.animation.aosThreshold,
         rootMargin: appConfig.animation.aosRootMargin
     });
-    
+
     elements.forEach((element, index) => {
         const delay = element.getAttribute('data-aos-delay') || 0;
         element.style.transitionDelay = `${delay}ms`;
@@ -269,21 +271,21 @@ const initAOS = () => {
  */
 const initFormValidation = () => {
     const forms = $$('form[data-validate]');
-    
+
     forms.forEach(form => {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
+
             let isValid = true;
             const inputs = form.querySelectorAll('[required]');
-            
+
             inputs.forEach(input => {
                 const value = input.value.trim();
                 const type = input.type;
-                
+
                 // Remove previous error states
                 clearError(input);
-                
+
                 // Validate
                 if (!value) {
                     showError(input, 'This field is required');
@@ -296,19 +298,19 @@ const initFormValidation = () => {
                     isValid = false;
                 }
             });
-            
+
             if (!isValid) return;
-            
+
             // Show loading state
             const submitButton = form.querySelector('button[type="submit"]');
             const originalButtonText = submitButton.innerHTML;
             submitButton.disabled = true;
             submitButton.innerHTML = '<span>Sending...</span><i class="fas fa-spinner fa-spin"></i>';
-            
+
             try {
                 // Prepare form data
                 const formData = new FormData(form);
-                
+
                 // Submit to Formspree
                 const response = await fetch(form.action, {
                     method: 'POST',
@@ -317,7 +319,7 @@ const initFormValidation = () => {
                         'Accept': 'application/json'
                     }
                 });
-                
+
                 if (response.ok) {
                     // Show success message
                     showSuccessMessage(form);
@@ -329,7 +331,7 @@ const initFormValidation = () => {
                     errorDiv.style.cssText = 'background: var(--color-accent); color: white; padding: var(--space-4); border-radius: var(--radius-lg); margin-top: var(--space-4); text-align: center;';
                     errorDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> There was an error submitting your form. Please try again or contact us directly.';
                     form.appendChild(errorDiv);
-                    
+
                     setTimeout(() => {
                         errorDiv.remove();
                     }, 5000);
@@ -341,7 +343,7 @@ const initFormValidation = () => {
                 errorDiv.style.cssText = 'background: var(--color-accent); color: white; padding: var(--space-4); border-radius: var(--radius-lg); margin-top: var(--space-4); text-align: center;';
                 errorDiv.innerHTML = '<i class="fas fa-exclamation-circle"></i> Network error. Please check your connection and try again.';
                 form.appendChild(errorDiv);
-                
+
                 setTimeout(() => {
                     errorDiv.remove();
                 }, 5000);
@@ -379,19 +381,19 @@ const initPageLoad = () => {
 const init3DTilt = () => {
     const cards = $$('.service-card, .why-card, .portfolio-card');
     if (cards.length === 0) return;
-    
+
     // Use a single event handler with event delegation for mousemove
     let activeCard = null;
-    
+
     document.body.addEventListener('mousemove', (e) => {
         const card = e.target.closest('.service-card, .why-card, .portfolio-card');
-        
+
         // Reset previous card if mouse moved to different card
         if (activeCard && activeCard !== card) {
             activeCard.style.transform = '';
             activeCard = null;
         }
-        
+
         if (!card) {
             if (activeCard) {
                 activeCard.style.transform = '';
@@ -399,21 +401,21 @@ const init3DTilt = () => {
             }
             return;
         }
-        
+
         activeCard = card;
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        
+
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
-        
+
         const rotateX = (y - centerY) / 20;
         const rotateY = (centerX - x) / 20;
-        
+
         card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
     }, { passive: true });
-    
+
     // Reset transform when mouse leaves card
     document.body.addEventListener('mouseout', (e) => {
         const card = e.target.closest('.service-card, .why-card, .portfolio-card');
@@ -436,7 +438,7 @@ const preloadImages = () => {
     const images = [
         // Add critical image paths here
     ];
-    
+
     images.forEach(src => {
         const img = new Image();
         img.src = src;
@@ -453,7 +455,7 @@ const preloadImages = () => {
  */
 const lazyLoadFAQ = () => {
     if ($$('.faq-item').length === 0) return;
-    
+
     import('./lazy/faq.js').then(({ initFAQ }) => {
         initFAQ();
     }).catch(err => {
@@ -467,7 +469,7 @@ const lazyLoadFAQ = () => {
  */
 const lazyLoadFilters = () => {
     if ($$('[data-filter]').length === 0) return;
-    
+
     import('./lazy/filters.js').then(({ initFilters }) => {
         initFilters();
     }).catch(err => {
@@ -481,7 +483,7 @@ const lazyLoadFilters = () => {
  */
 const lazyLoadSearch = () => {
     if (!$('#searchInput')) return;
-    
+
     import('./lazy/search.js').then(({ initSearch }) => {
         initSearch();
     }).catch(err => {
@@ -499,7 +501,7 @@ const lazyLoadSearch = () => {
  */
 const initLazyLoading = () => {
     const images = $$('img[data-src]');
-    
+
     const imageObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -510,7 +512,7 @@ const initLazyLoading = () => {
             }
         });
     });
-    
+
     images.forEach(img => imageObserver.observe(img));
 };
 
@@ -525,7 +527,7 @@ const initLazyLoading = () => {
 const initLinkPrefetch = () => {
     // Track prefetched URLs to avoid duplicate prefetches
     const prefetchedUrls = new Set();
-    
+
     /**
      * Check if a URL is an internal HTML page that should be prefetched
      * @param {string} href - The href attribute from the link
@@ -533,12 +535,12 @@ const initLinkPrefetch = () => {
      */
     const shouldPrefetch = (href) => {
         if (!href) return false;
-        
+
         // Skip anchors, external links, and non-HTML links
         if (href.startsWith('#') || href.startsWith('mailto:') || href.startsWith('tel:')) {
             return false;
         }
-        
+
         // Skip external URLs
         if (href.startsWith('http://') || href.startsWith('https://')) {
             // Only prefetch if it's the same origin
@@ -551,11 +553,11 @@ const initLinkPrefetch = () => {
                 return false;
             }
         }
-        
+
         // Only prefetch HTML pages
         return href.endsWith('.html') || !href.includes('.');
     };
-    
+
     /**
      * Prefetch a page URL
      * @param {string} url - The URL to prefetch
@@ -566,14 +568,14 @@ const initLinkPrefetch = () => {
         if (!url.startsWith('http://') && !url.startsWith('https://')) {
             // Remove hash if present for prefetching
             normalizedUrl = url.split('#')[0];
-            
+
             // Skip if already prefetched
             if (prefetchedUrls.has(normalizedUrl)) {
                 return;
             }
-            
+
             prefetchedUrls.add(normalizedUrl);
-            
+
             // Create prefetch link element
             const link = document.createElement('link');
             link.rel = 'prefetch';
@@ -582,7 +584,7 @@ const initLinkPrefetch = () => {
             document.head.appendChild(link);
         }
     };
-    
+
     /**
      * Handle mouseenter event on links
      * @param {Event} e - Mouse event
@@ -590,18 +592,18 @@ const initLinkPrefetch = () => {
     const handleLinkHover = (e) => {
         const link = e.currentTarget;
         const href = link.getAttribute('href');
-        
+
         if (shouldPrefetch(href)) {
             // Small delay to avoid prefetching on accidental hovers
             const timeoutId = setTimeout(() => {
                 prefetchPage(href);
             }, 100);
-            
+
             // Store timeout ID on the link element for cleanup
             link._prefetchTimeout = timeoutId;
         }
     };
-    
+
     /**
      * Handle mouseleave event to cancel prefetch if user moves away quickly
      * @param {Event} e - Mouse event
@@ -613,23 +615,23 @@ const initLinkPrefetch = () => {
             link._prefetchTimeout = null;
         }
     };
-    
+
     /**
      * Initialize prefetch listeners for a link element
      * @param {Element} link - Link element to initialize
      */
     const initializeLink = (link) => {
         if (link.hasAttribute('data-prefetch-initialized')) return;
-        
+
         const href = link.getAttribute('href');
         if (!shouldPrefetch(href)) return;
-        
+
         link.setAttribute('data-prefetch-initialized', 'true');
-        
+
         // Add hover event listeners
         link.addEventListener('mouseenter', handleLinkHover, { passive: true });
         link.addEventListener('mouseleave', handleLinkLeave, { passive: true });
-        
+
         // Also handle touch devices (for mobile)
         link.addEventListener('touchstart', () => {
             if (shouldPrefetch(href)) {
@@ -637,11 +639,11 @@ const initLinkPrefetch = () => {
             }
         }, { passive: true, once: true });
     };
-    
+
     // Initialize all existing links
     const allLinks = $$('a[href]');
     allLinks.forEach(initializeLink);
-    
+
     // Use MutationObserver to handle dynamically loaded links (navbar, footer)
     const observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
@@ -660,7 +662,7 @@ const initLinkPrefetch = () => {
             });
         });
     });
-    
+
     // Observe the entire document for new links
     observer.observe(document.body, {
         childList: true,
@@ -687,6 +689,17 @@ const init = () => {
     // initDarkMode() is now called after navbar loads in components.js
     initCounters();
     initScrollToTop(); // Only sets up click handler, visibility handled by scroll handler
+
+    // Make reinitScrollHandlers available globally for component callbacks
+    window.reinitScrollHandlers = () => {
+        // Re-register scroll-to-top handler after footer loads
+        const scrollToTopHandler = createScrollToTopHandler();
+        if (scrollToTopHandler) {
+            scrollHandler.register(scrollToTopHandler);
+            // Trigger initial check
+            setTimeout(() => scrollToTopHandler(), 50);
+        }
+    };
     initAOS();
     initFormValidation();
     init3DTilt();
@@ -697,7 +710,9 @@ const init = () => {
     initLazyLoading();
     initLinkPrefetch();
     preloadImages();
-    
+    initTestimonials(); // Load Google Reviews testimonials
+    initInstagramFeed(); // Load Instagram feed carousel
+
     // Performance logging (if enabled)
     if (appConfig.features.performanceLogging) {
         logPerformance({ enabled: true });

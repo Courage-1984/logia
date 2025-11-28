@@ -1,84 +1,79 @@
 # Setup Guide - Logia Genesis
 
-This guide will help you set up and work with the enhanced Logia Genesis project.
+Quick setup guide for developers working on the Logia Genesis project.
 
 ## Quick Start
 
-### 1. Install Dependencies
-
 ```bash
-npm install
+npm install    # Install dependencies
+npm run dev    # Start development server (http://localhost:3000)
 ```
 
-This will install:
-- Vite (build tool)
-- Alpine.js (reactive components)
+## Build Commands
 
-### 2. Development
+- `npm run build` - Production build (`dist/` → `https://www.logia.co.za`)
+- `npm run build:gh-pages` - GitHub Pages build (`dist-gh-pages/` → `https://courage-1984.github.io/logia`)
+- `npm run build:all` - Build both targets
+- `npm run preview` - Preview production build
+- `npm run preview:gh-pages` - Preview GitHub Pages build
 
-Start the development server:
+See [DUAL_BUILD_GUIDE.md](./DUAL_BUILD_GUIDE.md) for deployment details.
 
-```bash
-npm run dev
+## Project Structure
+
+```
+logia/
+├── components/     # Reusable HTML components
+├── css/           # Stylesheets
+├── js/            # JavaScript modules
+│   └── lazy/      # Lazy-loaded modules
+├── utils/         # Utility functions
+├── config/        # Configuration (app, build, plugins)
+├── assets/        # Static assets (images, fonts)
+├── docs/          # Documentation
+├── dist/          # Production build output
+└── dist-gh-pages/ # GitHub Pages build output
 ```
 
-The site will be available at `http://localhost:3000` with hot module replacement enabled.
+## Key Technologies
 
-### 3. Build for Production
+- **Vite** - Build tool and dev server
+- **Alpine.js** - Reactive components
+- **ES6 Modules** - Modern JavaScript
+- **Formspree** - Form backend
 
-Create an optimized production build:
+## Development Workflow
 
-```bash
-npm run build
-```
+### Making Changes
 
-The built files will be in the `dist/` directory.
+1. **HTML**: Edit files in root directory
+2. **CSS**: Edit in `css/` directory (use CSS variables from `style.css`)
+3. **JavaScript**: 
+   - Main logic: `js/main.js`
+   - Components: `js/components.js`
+   - Utilities: `utils/` folder
+   - Config: `config/app.config.js`
 
-### 4. Preview Production Build
+### Hot Reload
 
-Preview the production build locally:
+Vite automatically reloads when you change HTML, CSS, or JavaScript files.
 
-```bash
-npm run preview
-```
+### Adding Features
 
-## Project Structure Overview
+- **Utility Function**: Add to `utils/` folder
+- **Component**: Add HTML to `components/`, load via `components.js`
+- **Alpine Component**: Add to `js/alpine-setup.js`
+- **Configuration**: Add to `config/app.config.js`
 
-### New Folders
+## Code Patterns
 
-- **`utils/`** - Utility functions organized by purpose:
-  - `dom.js` - DOM manipulation helpers
-  - `performance.js` - Performance utilities (debounce, throttle)
-  - `validation.js` - Form validation functions
-  - `index.js` - Centralized exports
-
-- **`config/`** - Configuration files:
-  - `app.config.js` - Application-wide settings
-
-- **`assets/`** - Static assets:
-  - `images/` - Image files
-  - `fonts/` - Font files
-
-- **`public/`** - Public assets served by Vite
-
-- **`dist/`** - Build output (generated, not committed)
-
-## Key Changes
-
-### 1. ES6 Modules
-
-All JavaScript files now use ES6 module syntax:
-
+### ES6 Modules
 ```javascript
 import { $, $$ } from '../utils/dom.js';
-import { debounce, throttle } from '../utils/performance.js';
+import { debounce } from '../utils/performance.js';
 ```
 
-### 2. Alpine.js Integration
-
-Alpine.js is available for reactive components. See `js/alpine-setup.js` for examples.
-
-Usage in HTML:
+### Alpine.js
 ```html
 <div x-data="{ open: false }">
   <button @click="open = !open">Toggle</button>
@@ -86,104 +81,39 @@ Usage in HTML:
 </div>
 ```
 
-### 3. Configuration
-
-Application settings are centralized in `config/app.config.js`:
-
+### Initialization Pattern
 ```javascript
-import { appConfig } from '../config/app.config.js';
+if (element.dataset.initialized === 'true') return;
+element.dataset.initialized = 'true';
+// Initialize...
 ```
 
-### 4. Utility Functions
+## Configuration
 
-Use utility functions from the `utils/` folder:
-
-```javascript
-import { $, $$, waitForElement } from '../utils/dom.js';
-import { debounce, throttle } from '../utils/performance.js';
-import { validateEmail, validatePhone } from '../utils/validation.js';
-```
-
-## Development Workflow
-
-### Making Changes
-
-1. **HTML Files**: Edit directly in the root directory
-2. **CSS Files**: Edit in `css/` directory
-3. **JavaScript Files**: 
-   - Main logic: `js/main.js`
-   - Components: `js/components.js`
-   - Alpine setup: `js/alpine-setup.js`
-   - Utilities: `utils/` folder
-
-### Hot Reload
-
-Vite automatically reloads the page when you make changes to:
-- HTML files
-- CSS files
-- JavaScript files
-
-### Adding New Features
-
-1. **New Utility Function**: Add to appropriate file in `utils/`
-2. **New Configuration**: Add to `config/app.config.js`
-3. **New Component**: Add HTML to `components/` and load via `components.js`
-4. **Alpine Component**: Add data/function to `js/alpine-setup.js`
-
-## CSS Conventions
-
-See `docs/STYLE_GUIDE.md` for detailed naming conventions and design system.
-
-Quick reference:
-- Blocks: `.hero`, `.navbar`, `.service-card`
-- Elements: `.hero__title`, `.navbar__link`
-- Modifiers: `.btn--primary`, `.card--active`
-- States: `.active`, `.visible`, `.scrolled`
-
-## Documentation
-
-All documentation is in the `docs/` folder:
-
-- **README.md** (root) - Project overview and quick start
-- **ARCHITECTURE.md** - Detailed architecture documentation
-- **SETUP_GUIDE.md** - This file
-- **STYLE_GUIDE.md** - Design system and CSS conventions
-- **PERFORMANCE_OPTIMIZATION.md** - Performance strategies and status
-- **PERFORMANCE_CHECKLIST.md** - Quick performance reference
-- **IMAGE_GUIDE.md** - Image implementation guide
-- **FONTS.md** - Font self-hosting guide
-- **NETWORK_OPTIMIZATION.md** - Server-side optimization guide
-- **RESPONSIVE_DESIGN.md** - Responsive design patterns
+- **App Config**: `config/app.config.js` - Application settings
+- **Build Config**: `config/build-config.js` - Build target URLs and paths
+- **Vite Config**: `vite.config.js` - Build system configuration
 
 ## Troubleshooting
 
-### Module Import Errors
-
-If you see import errors, ensure:
-1. All imports use relative paths with `.js` extension
-2. Files are using ES6 module syntax (`import`/`export`)
-3. HTML files use `type="module"` on script tags
-
 ### Build Errors
+- Check Node.js version (v16+)
+- Clear `node_modules` and reinstall: `rm -rf node_modules && npm install`
+- Verify all HTML files exist in root
 
-If the build fails:
-1. Check that all dependencies are installed: `npm install`
-2. Verify Node.js version is 16 or higher
-3. Check `vite.config.js` for configuration issues
+### Module Import Errors
+- Use relative paths with `.js` extension
+- Ensure `type="module"` on script tags
+- Check file paths are correct
 
-### Alpine.js Not Working
+### GitHub Pages Issues
+- Verify `basePath` in `config/build-config.js` matches repo structure
+- Check GitHub Actions workflow (`.github/workflows/static.yml`)
 
-Ensure:
-1. Alpine.js is imported in `js/alpine-setup.js`
-2. `alpine-setup.js` is loaded in HTML files
-3. Alpine directives use correct syntax (`x-data`, `x-show`, etc.)
+## Documentation
 
-## Next Steps
+See [docs/README.md](./README.md) for complete documentation index.
 
-1. Review the architecture documentation
-2. Familiarize yourself with the utility functions
-3. Check out the CSS conventions
-4. Start developing!
+---
 
-For questions or issues, refer to the documentation files or the code comments.
-
+**Last Updated**: January 2025

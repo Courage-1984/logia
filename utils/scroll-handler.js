@@ -72,10 +72,10 @@ export const createNavbarScrollHandler = () => {
  * Scroll-to-top button handler - shows/hides button based on scroll position
  */
 export const createScrollToTopHandler = () => {
-    const scrollBtn = $('#scrollTop');
-    if (!scrollBtn) return null;
-    
     return () => {
+        const scrollBtn = $('#scrollTop');
+        if (!scrollBtn) return;
+        
         if (window.scrollY > 500) {
             scrollBtn.classList.add('visible');
         } else {
@@ -126,5 +126,19 @@ export const initScrollHandlers = () => {
     if (activeNavLinkHandler) scrollHandler.register(activeNavLinkHandler);
     
     scrollHandler.init();
+    
+    // Trigger initial check for scroll position (in case page loads scrolled)
+    // Use setTimeout to ensure DOM is ready
+    setTimeout(() => {
+        if (scrollToTopHandler) {
+            scrollToTopHandler();
+        }
+        if (navbarHandler) {
+            navbarHandler();
+        }
+        if (activeNavLinkHandler) {
+            activeNavLinkHandler();
+        }
+    }, 100);
 };
 

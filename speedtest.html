@@ -121,11 +121,25 @@
                             This speed test uses your current internet connection to measure performance
                         </p>
                         
-                        <!-- Using Cloudflare Speed Test as an example -->
-                        <iframe src="https://speed.cloudflare.com" 
+                        <!-- Start Button (shown before test starts) -->
+                        <div class="speedtest-start-container" id="speedtest-start-container">
+                            <div class="speedtest-start-content">
+                                <i class="fas fa-play-circle"></i>
+                                <h3>Ready to Test Your Speed?</h3>
+                                <p>Click the button below to begin measuring your internet connection speed</p>
+                                <button class="btn btn-primary btn-lg" id="start-speedtest-btn" onclick="startSpeedTest()">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                    Start Speed Test
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Speed Test Iframe (hidden until user clicks start) -->
+                        <iframe id="speedtest-iframe"
+                                src="" 
                                 width="100%" 
                                 height="600" 
-                                style="border:0; border-radius: var(--radius-lg);" 
+                                style="border:0; border-radius: var(--radius-lg); display: none;" 
                                 allowfullscreen>
                         </iframe>
                         
@@ -271,5 +285,22 @@
     <script type="module" src="js/components.js"></script>
     <script type="module" src="js/alpine-setup.js"></script>
     <script type="module" src="js/main.js"></script>
+    
+    <!-- Speed Test Start Handler -->
+    <script>
+        function startSpeedTest() {
+            const startContainer = document.getElementById('speedtest-start-container');
+            const iframe = document.getElementById('speedtest-iframe');
+            
+            if (startContainer && iframe) {
+                // Hide start button
+                startContainer.style.display = 'none';
+                
+                // Show and load iframe
+                iframe.style.display = 'block';
+                iframe.src = 'https://speed.cloudflare.com';
+            }
+        }
+    </script>
 </body>
 </html>

@@ -6639,7 +6639,7 @@
     font-style: normal;
     font-weight: 400;
     font-display: block;
-    src: url(../assets/fonts/fontawesome/fa-brands-400.woff2)
+    src: url(../assets/fonts/fontawesome/fa-brands-400.woff2) format("woff2")
 }
 
 .fa-brands,
@@ -8747,7 +8747,7 @@
     font-style: normal;
     font-weight: 400;
     font-display: block;
-    src: url(../assets/fonts/fontawesome/fa-regular-400.woff2)
+    src: url(../assets/fonts/fontawesome/fa-regular-400.woff2) format("woff2")
 }
 
 .far {
@@ -8771,7 +8771,7 @@
     font-style: normal;
     font-weight: 900;
     font-display: block;
-    src: url(../assets/fonts/fontawesome/fa-solid-900.woff2)
+    src: url(../assets/fonts/fontawesome/fa-solid-900.woff2) format("woff2")
 }
 
 .fas {

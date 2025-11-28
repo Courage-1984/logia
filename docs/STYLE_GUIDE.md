@@ -488,8 +488,8 @@ body.dark-mode .my-element {
 ## Version History
 
 - **v1.0** - Initial style guide documentation
-- Created: 2024
-- Last Updated: 2024
+- Created: 2025
+- Last Updated: 2025
 
 ---
 

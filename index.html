@@ -85,7 +85,7 @@
       "name": "Logia Genesis",
       "alternateName": "Logia Genesis - Switching Evolved",
       "url": "https://logia.co.za",
-      "logo": "https://logia.co.za/assets/images/logo.svg",
+      "logo": "https://logia.co.za/assets/images/logo/logo.png",
       "description": "Comprehensive business technology solutions provider in Gauteng, South Africa. Specializing in wireless networking, surveillance systems, access control, structured cabling, web development, and cloud solutions.",
       "foundingDate": "2009",
       "address": {
@@ -128,7 +128,7 @@
       "@type": "LocalBusiness",
       "@id": "https://logia.co.za/#organization",
       "name": "Logia Genesis",
-      "image": "https://logia.co.za/assets/images/logo.svg",
+      "image": "https://logia.co.za/assets/images/logo/logo.png",
       "description": "Comprehensive business technology solutions provider in Gauteng, South Africa.",
       "address": {
         "@type": "PostalAddress",
@@ -498,7 +498,9 @@
             </div>
 
             <div class="testimonials-grid">
-                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+                <!-- Testimonials will be loaded dynamically from Google Reviews -->
+                <!-- Fallback: If reviews fail to load, static testimonials will remain -->
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100" data-fallback-testimonial>
                     <div class="testimonial-stars">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
@@ -521,7 +523,7 @@
                     </div>
                 </div>
 
-                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200" data-fallback-testimonial>
                     <div class="testimonial-stars">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
@@ -544,7 +546,7 @@
                     </div>
                 </div>
 
-                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300" data-fallback-testimonial>
                     <div class="testimonial-stars">
                         <i class="fas fa-star"></i>
                         <i class="fas fa-star"></i>
@@ -566,6 +568,30 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Instagram Feed Section -->
+    <section class="section instagram-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-label">Follow Us</span>
+                <h2 class="section-title">Follow Us on Instagram</h2>
+                <p class="section-description">
+                    Stay connected and see our latest projects, updates, and behind-the-scenes content
+                </p>
+            </div>
+
+            <div class="instagram-feed-grid">
+                <!-- Instagram feed will be loaded dynamically -->
+            </div>
+
+            <div class="text-center" data-aos="fade-up" style="margin-top: var(--space-8);">
+                <a href="https://www.instagram.com/logia_genesis_inc/" target="_blank" rel="noopener noreferrer"
+                    class="btn btn-outline btn-lg">
+                    <i class="fab fa-instagram"></i> Follow Us on Instagram
+                </a>
             </div>
         </div>
     </section>
