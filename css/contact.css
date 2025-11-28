@@ -27,18 +27,36 @@
 
 .contact-methods {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: 1fr;
     gap: var(--space-6);
     margin-bottom: var(--space-12);
+}
+
+@media (min-width: 769px) {
+    .contact-methods {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1025px) {
+    .contact-methods {
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 .contact-card {
     background: var(--color-white);
     border-radius: var(--radius-xl);
-    padding: var(--space-8);
+    padding: var(--space-6);
     text-align: center;
     border: 1px solid var(--color-border);
     transition: all var(--transition-base);
+}
+
+@media (min-width: 769px) {
+    .contact-card {
+        padding: var(--space-8);
+    }
 }
 
 body.dark-mode .contact-card {
@@ -82,7 +100,7 @@ body.dark-mode .contact-card {
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     font-weight: 600;
     font-size: 1.0625rem;
     transition: all var(--transition-fast);
@@ -158,7 +176,7 @@ body.dark-mode .form-container {
 .form-group input.error,
 .form-group select.error,
 .form-group textarea.error {
-    border-color: #EF4444;
+    border-color: var(--color-error);
 }
 
 .form-group textarea {

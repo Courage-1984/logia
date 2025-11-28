@@ -1,0 +1,27 @@
+{
+  "name": "logia-genesis",
+  "version": "1.0.0",
+  "description": "Logia Genesis - Switching Evolved | Thoughtful Innovations",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve": "vite preview"
+  },
+  "keywords": [
+    "business-technology",
+    "wireless-networking",
+    "surveillance",
+    "web-development"
+  ],
+  "author": "Logia Genesis",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "alpinejs": "^3.13.0"
+  }
+}
+

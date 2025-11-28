@@ -3,13 +3,16 @@
 // Loads reusable components (navbar, footer, etc.)
 // ============================================
 
+import { $, $$ } from '../utils/dom.js';
+
 /**
  * Loads a component from a file and inserts it into the DOM
  * @param {string} componentPath - Path to the component HTML file
  * @param {string} targetSelector - CSS selector for the insertion point
  * @param {Function} callback - Optional callback after component is loaded
+ * @returns {Promise<string|undefined>} The loaded HTML content or undefined on error
  */
-const loadComponent = async (componentPath, targetSelector, callback) => {
+export const loadComponent = async (componentPath, targetSelector, callback) => {
     try {
         const response = await fetch(componentPath);
         if (!response.ok) {
@@ -17,7 +20,7 @@ const loadComponent = async (componentPath, targetSelector, callback) => {
         }
         
         const html = await response.text();
-        const target = document.querySelector(targetSelector);
+        const target = $(targetSelector);
         
         if (!target) {
             console.warn(`Target selector "${targetSelector}" not found`);
@@ -48,8 +51,9 @@ const loadComponent = async (componentPath, targetSelector, callback) => {
 
 /**
  * Sets the active navigation link based on current page
+ * Maps the current page URL to the corresponding navigation link and applies active state
  */
-const setActiveNavLink = () => {
+export const setActiveNavLink = () => {
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     const pageMap = {
         'index.html': 'index',
@@ -64,19 +68,19 @@ const setActiveNavLink = () => {
     const currentPageKey = pageMap[currentPage] || 'index';
     
     // Remove active class from all nav links
-    document.querySelectorAll('.nav-link').forEach(link => {
+    $$('.nav-link').forEach(link => {
         link.classList.remove('active');
     });
     
     // Add active class to current page link
-    const activeLink = document.querySelector(`.nav-link[data-page="${currentPageKey}"]`);
+    const activeLink = $(`.nav-link[data-page="${currentPageKey}"]`);
     if (activeLink) {
         activeLink.classList.add('active');
     }
     
     // Also handle services dropdown active state
     if (currentPageKey === 'services') {
-        const servicesLink = document.querySelector('.nav-link[data-page="services"]');
+        const servicesLink = $('.nav-link[data-page="services"]');
         if (servicesLink) {
             servicesLink.classList.add('active');
         }
@@ -85,8 +89,10 @@ const setActiveNavLink = () => {
 
 /**
  * Initialize all components
+ * Loads navbar and footer components and initializes dependent features
+ * @returns {Promise<void>}
  */
-const initComponents = async () => {
+export const initComponents = async () => {
     // Load navbar
     await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
         setActiveNavLink();
@@ -109,10 +115,5 @@ if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initComponents);
 } else {
     initComponents();
-}
-
-// Export for use in other scripts
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { loadComponent, setActiveNavLink, initComponents };
 }
 

@@ -3,38 +3,19 @@
 // Ultra-Modern, Smooth Interactions
 // ============================================
 
-// ============================================
-// UTILITY FUNCTIONS
-// ============================================
-const $ = (selector) => document.querySelector(selector);
-const $$ = (selector) => document.querySelectorAll(selector);
-
-const debounce = (func, wait) => {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
-};
-
-const throttle = (func, limit) => {
-    let inThrottle;
-    return function(...args) {
-        if (!inThrottle) {
-            func.apply(this, args);
-            inThrottle = true;
-            setTimeout(() => inThrottle = false, limit);
-        }
-    };
-};
+import { $, $$, waitForElement } from '../utils/dom.js';
+import { debounce, throttle, logPerformance } from '../utils/performance.js';
+import { validateEmail, validatePhone, showError, showSuccessMessage, clearError } from '../utils/validation.js';
+import { appConfig } from '../config/app.config.js';
 
 // ============================================
 // SMOOTH SCROLL
 // ============================================
+
+/**
+ * Initialize smooth scrolling for anchor links
+ * Adds smooth scroll behavior to all internal anchor links (#)
+ */
 const initSmoothScroll = () => {
     $$('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -45,7 +26,7 @@ const initSmoothScroll = () => {
             const target = $(href);
             
             if (target) {
-                const navHeight = $('.navbar').offsetHeight;
+                const navHeight = $('.navbar')?.offsetHeight || 0;
                 const targetPosition = target.offsetTop - navHeight;
                 
                 window.scrollTo({
@@ -60,8 +41,14 @@ const initSmoothScroll = () => {
 // ============================================
 // NAVBAR SCROLL EFFECT
 // ============================================
+
+/**
+ * Initialize navbar scroll effect
+ * Adds 'scrolled' class to navbar when user scrolls past 50px
+ */
 const initNavbarScroll = () => {
     const navbar = $('#navbar');
+    if (!navbar) return;
     
     const handleScroll = throttle(() => {
         if (window.scrollY > 50) {
@@ -69,7 +56,7 @@ const initNavbarScroll = () => {
         } else {
             navbar.classList.remove('scrolled');
         }
-    }, 100);
+    }, appConfig.performance.throttleLimit);
     
     window.addEventListener('scroll', handleScroll);
 };
@@ -77,6 +64,11 @@ const initNavbarScroll = () => {
 // ============================================
 // MOBILE MENU
 // ============================================
+
+/**
+ * Initialize mobile menu toggle functionality
+ * Handles opening/closing mobile navigation menu
+ */
 const initMobileMenu = () => {
     const toggle = $('#mobileMenuToggle');
     const menu = $('#navMenu');
@@ -140,6 +132,11 @@ window.initMobileMenu = initMobileMenu;
 // ============================================
 // DARK MODE TOGGLE
 // ============================================
+
+/**
+ * Initialize dark mode toggle functionality
+ * Handles theme switching and persistence in localStorage
+ */
 const initDarkMode = () => {
     const toggle = $('#themeToggle');
     if (!toggle) {
@@ -152,8 +149,8 @@ const initDarkMode = () => {
     if (toggle.dataset.initialized === 'true') return;
     toggle.dataset.initialized = 'true';
     
-    // Check for saved theme preference or default to light
-    const currentTheme = localStorage.getItem('theme') || 'light';
+    // Check for saved theme preference or use default
+    const currentTheme = localStorage.getItem(appConfig.theme.storageKey) || appConfig.theme.defaultMode;
     
     if (currentTheme === 'dark') {
         document.body.classList.add('dark-mode');
@@ -166,7 +163,7 @@ const initDarkMode = () => {
         const isDark = document.body.classList.contains('dark-mode');
         toggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
         
-        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        localStorage.setItem(appConfig.theme.storageKey, isDark ? 'dark' : 'light');
     });
 };
 
@@ -176,12 +173,21 @@ window.initDarkMode = initDarkMode;
 // ============================================
 // ANIMATED COUNTERS
 // ============================================
+
+/**
+ * Initialize animated counters for statistics
+ * Animates numbers from 0 to target value when element enters viewport
+ */
 const initCounters = () => {
     const counters = $$('.stat-number[data-count]');
     
+    /**
+     * Animate a single counter from 0 to target value
+     * @param {Element} counter - Counter element to animate
+     */
     const animateCounter = (counter) => {
         const target = parseInt(counter.getAttribute('data-count'));
-        const duration = 2000;
+        const duration = appConfig.animation.counterDuration;
         const increment = target / (duration / 16);
         let current = 0;
         
@@ -205,7 +211,7 @@ const initCounters = () => {
                 observer.unobserve(entry.target);
             }
         });
-    }, { threshold: 0.5 });
+    }, { threshold: appConfig.performance.lazyLoadThreshold });
     
     counters.forEach(counter => observer.observe(counter));
 };
@@ -213,6 +219,11 @@ const initCounters = () => {
 // ============================================
 // SCROLL TO TOP BUTTON
 // ============================================
+
+/**
+ * Initialize scroll to top button
+ * Shows/hides button and handles smooth scroll to top
+ */
 const initScrollToTop = () => {
     const scrollBtn = $('#scrollTop');
     if (!scrollBtn) return;
@@ -223,7 +234,7 @@ const initScrollToTop = () => {
         } else {
             scrollBtn.classList.remove('visible');
         }
-    }, 100);
+    }, appConfig.performance.throttleLimit);
     
     window.addEventListener('scroll', handleScroll);
     
@@ -238,6 +249,11 @@ const initScrollToTop = () => {
 // ============================================
 // SIMPLE AOS (ANIMATE ON SCROLL)
 // ============================================
+
+/**
+ * Initialize Animate On Scroll functionality
+ * Adds animation classes when elements enter viewport
+ */
 const initAOS = () => {
     const elements = $$('[data-aos]');
     
@@ -250,8 +266,8 @@ const initAOS = () => {
             }
         });
     }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
+        threshold: appConfig.animation.aosThreshold,
+        rootMargin: appConfig.animation.aosRootMargin
     });
     
     elements.forEach((element, index) => {
@@ -264,12 +280,17 @@ const initAOS = () => {
 // ============================================
 // ACTIVE NAV LINK
 // ============================================
+
+/**
+ * Initialize active navigation link highlighting
+ * Updates active nav link based on current scroll position
+ */
 const initActiveNavLink = () => {
     const sections = $$('section[id]');
     const navLinks = $$('.nav-link');
     
     const handleScroll = throttle(() => {
-        const scrollPos = window.scrollY + 100;
+        const scrollPos = window.scrollY + appConfig.animation.scrollOffset;
         
         sections.forEach(section => {
             const top = section.offsetTop;
@@ -285,7 +306,7 @@ const initActiveNavLink = () => {
                 });
             }
         });
-    }, 100);
+    }, appConfig.performance.throttleLimit);
     
     window.addEventListener('scroll', handleScroll);
 };
@@ -293,16 +314,11 @@ const initActiveNavLink = () => {
 // ============================================
 // FORM VALIDATION
 // ============================================
-const validateEmail = (email) => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
-};
 
-const validatePhone = (phone) => {
-    const re = /^[\d\s\-\+\(\)]+$/;
-    return re.test(phone) && phone.replace(/\D/g, '').length >= 10;
-};
-
+/**
+ * Initialize form validation
+ * Validates forms marked with data-validate attribute
+ */
 const initFormValidation = () => {
     const forms = $$('form[data-validate]');
     
@@ -318,9 +334,7 @@ const initFormValidation = () => {
                 const type = input.type;
                 
                 // Remove previous error states
-                input.classList.remove('error');
-                const errorMsg = input.parentElement.querySelector('.error-message');
-                if (errorMsg) errorMsg.remove();
+                clearError(input);
                 
                 // Validate
                 if (!value) {
@@ -344,46 +358,14 @@ const initFormValidation = () => {
     });
 };
 
-const showError = (input, message) => {
-    input.classList.add('error');
-    const errorDiv = document.createElement('div');
-    errorDiv.className = 'error-message';
-    errorDiv.textContent = message;
-    errorDiv.style.color = 'var(--color-accent)';
-    errorDiv.style.fontSize = '0.875rem';
-    errorDiv.style.marginTop = 'var(--space-2)';
-    input.parentElement.appendChild(errorDiv);
-};
-
-const showSuccessMessage = (form) => {
-    const successDiv = document.createElement('div');
-    successDiv.className = 'success-message';
-    successDiv.innerHTML = `
-        <div style="
-            background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
-            color: white;
-            padding: var(--space-6);
-            border-radius: var(--radius-lg);
-            text-align: center;
-            margin-top: var(--space-6);
-            animation: slideIn 0.3s ease-out;
-        ">
-            <i class="fas fa-check-circle" style="font-size: 2rem; margin-bottom: var(--space-3);"></i>
-            <h3 style="margin-bottom: var(--space-2); color: white;">Thank You!</h3>
-            <p style="margin: 0; color: rgba(255,255,255,0.9);">Your message has been received. We'll get back to you soon.</p>
-        </div>
-    `;
-    
-    form.appendChild(successDiv);
-    
-    setTimeout(() => {
-        successDiv.remove();
-    }, 5000);
-};
-
 // ============================================
 // LOADING ANIMATION
 // ============================================
+
+/**
+ * Initialize page load animation
+ * Adds 'loaded' class to body when page finishes loading
+ */
 const initPageLoad = () => {
     window.addEventListener('load', () => {
         document.body.classList.add('loaded');
@@ -393,6 +375,11 @@ const initPageLoad = () => {
 // ============================================
 // 3D CARD TILT EFFECT
 // ============================================
+
+/**
+ * Initialize 3D tilt effect on cards
+ * Adds interactive 3D tilt animation on hover for service/portfolio cards
+ */
 const init3DTilt = () => {
     const cards = $$('.service-card, .why-card, .portfolio-card');
     
@@ -420,6 +407,11 @@ const init3DTilt = () => {
 // ============================================
 // PRELOAD CRITICAL IMAGES
 // ============================================
+
+/**
+ * Preload critical images for better performance
+ * Loads important images before they're needed
+ */
 const preloadImages = () => {
     const images = [
         // Add critical image paths here
@@ -434,6 +426,11 @@ const preloadImages = () => {
 // ============================================
 // FILTER FUNCTIONALITY (for portfolio/services)
 // ============================================
+
+/**
+ * Initialize filter functionality
+ * Filters items based on category when filter buttons are clicked
+ */
 const initFilters = () => {
     const filterBtns = $$('[data-filter]');
     const filterItems = $$('[data-category]');
@@ -467,6 +464,11 @@ const initFilters = () => {
 // ============================================
 // SEARCH FUNCTIONALITY
 // ============================================
+
+/**
+ * Initialize search functionality
+ * Filters searchable items based on search query
+ */
 const initSearch = () => {
     const searchInput = $('#searchInput');
     const searchItems = $$('[data-searchable]');
@@ -485,7 +487,7 @@ const initSearch = () => {
                 item.style.display = 'none';
             }
         });
-    }, 300);
+    }, appConfig.performance.debounceDelay);
     
     searchInput.addEventListener('input', (e) => {
         handleSearch(e.target.value);
@@ -495,6 +497,11 @@ const initSearch = () => {
 // ============================================
 // FAQ ACCORDION
 // ============================================
+
+/**
+ * Initialize FAQ accordion functionality
+ * Handles expand/collapse behavior for FAQ items
+ */
 const initFAQ = () => {
     const faqItems = $$('.faq-item');
     
@@ -526,6 +533,11 @@ const initFAQ = () => {
 // ============================================
 // LAZY LOADING IMAGES
 // ============================================
+
+/**
+ * Initialize lazy loading for images
+ * Loads images only when they enter the viewport
+ */
 const initLazyLoading = () => {
     const images = $$('img[data-src]');
     
@@ -546,8 +558,13 @@ const initLazyLoading = () => {
 // ============================================
 // CURSOR EFFECT (Optional Enhancement)
 // ============================================
+
+/**
+ * Initialize custom cursor effect
+ * Creates a custom animated cursor (desktop only)
+ */
 const initCursorEffect = () => {
-    if (window.innerWidth < 1024) return; // Only on desktop
+    if (window.innerWidth < 1024 || !appConfig.features.customCursor) return;
     
     const cursor = document.createElement('div');
     cursor.className = 'custom-cursor';
@@ -598,29 +615,13 @@ const initCursorEffect = () => {
 };
 
 // ============================================
-// PERFORMANCE MONITORING
-// ============================================
-const logPerformance = () => {
-    if (window.performance && window.performance.timing) {
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const perfData = window.performance.timing;
-                const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
-                const connectTime = perfData.responseEnd - perfData.requestStart;
-                const renderTime = perfData.domComplete - perfData.domLoading;
-                
-                console.log(`%c⚡ Performance Metrics`, 'color: #00D9FF; font-weight: bold; font-size: 14px;');
-                console.log(`Page Load Time: ${pageLoadTime}ms`);
-                console.log(`Connect Time: ${connectTime}ms`);
-                console.log(`Render Time: ${renderTime}ms`);
-            }, 0);
-        });
-    }
-};
-
-// ============================================
 // INITIALIZE ALL
 // ============================================
+
+/**
+ * Initialize all application features
+ * Sets up all interactive features and event listeners
+ */
 const init = () => {
     initPageLoad();
     initSmoothScroll();
@@ -638,10 +639,16 @@ const init = () => {
     initFAQ();
     initLazyLoading();
     preloadImages();
-    logPerformance();
+    
+    // Performance logging (if enabled)
+    if (appConfig.features.performanceLogging) {
+        logPerformance({ enabled: true });
+    }
     
     // Optional: Uncomment for custom cursor
-    // initCursorEffect();
+    if (appConfig.features.customCursor) {
+        initCursorEffect();
+    }
 };
 
 // Run on DOM ready
@@ -649,11 +656,4 @@ if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
 } else {
     init();
-}
-
-// ============================================
-// EXPORT FOR MODULE USE (if needed)
-// ============================================
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { init };
 }

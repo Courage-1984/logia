@@ -50,7 +50,7 @@ body.dark-mode .speedtest-container {
 }
 
 .embed-notice i {
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     font-size: 1.25rem;
 }
 
@@ -64,7 +64,14 @@ body.dark-mode .speedtest-container {
 
 .info-grid {
     display: grid;
+    grid-template-columns: 1fr;
     gap: var(--space-6);
+}
+
+@media (min-width: 769px) {
+    .info-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 .info-item {
@@ -75,7 +82,7 @@ body.dark-mode .speedtest-container {
 
 .info-item i {
     font-size: 2rem;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     width: 48px;
     flex-shrink: 0;
 }
@@ -129,7 +136,7 @@ body.dark-mode .tip-card {
 
 .tip-card i {
     font-size: 3rem;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
     margin-bottom: var(--space-4);
 }
 
