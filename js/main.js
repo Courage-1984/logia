@@ -7,59 +7,45 @@ import { $, $$, waitForElement } from '../utils/dom.js';
 import { debounce, throttle, logPerformance } from '../utils/performance.js';
 import { validateEmail, validatePhone, showError, showSuccessMessage, clearError } from '../utils/validation.js';
 import { appConfig } from '../config/app.config.js';
+import { initScrollHandlers } from '../utils/scroll-handler.js';
 
 // ============================================
-// SMOOTH SCROLL
+// SMOOTH SCROLL (Event Delegation)
 // ============================================
 
 /**
- * Initialize smooth scrolling for anchor links
+ * Initialize smooth scrolling for anchor links using event delegation
  * Adds smooth scroll behavior to all internal anchor links (#)
  */
 const initSmoothScroll = () => {
-    $$('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            if (href === '#') return;
+    // Use event delegation on document body for all anchor links
+    document.body.addEventListener('click', (e) => {
+        const anchor = e.target.closest('a[href^="#"]');
+        if (!anchor) return;
+        
+        const href = anchor.getAttribute('href');
+        if (href === '#') return;
+        
+        e.preventDefault();
+        const target = $(href);
+        
+        if (target) {
+            const navHeight = $('.navbar')?.offsetHeight || 0;
+            const targetPosition = target.offsetTop - navHeight;
             
-            e.preventDefault();
-            const target = $(href);
-            
-            if (target) {
-                const navHeight = $('.navbar')?.offsetHeight || 0;
-                const targetPosition = target.offsetTop - navHeight;
-                
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
     });
 };
 
 // ============================================
 // NAVBAR SCROLL EFFECT
 // ============================================
-
-/**
- * Initialize navbar scroll effect
- * Adds 'scrolled' class to navbar when user scrolls past 50px
- */
-const initNavbarScroll = () => {
-    const navbar = $('#navbar');
-    if (!navbar) return;
-    
-    const handleScroll = throttle(() => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    }, appConfig.performance.throttleLimit);
-    
-    window.addEventListener('scroll', handleScroll);
-};
+// Now handled by unified scroll handler in utils/scroll-handler.js
+// initNavbarScroll() is replaced by initScrollHandlers()
 
 // ============================================
 // MOBILE MENU
@@ -100,28 +86,23 @@ const initMobileMenu = () => {
         }
     });
     
-    // Close menu when clicking a nav link
-    const navLinks = menu.querySelectorAll('.nav-link');
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if (window.innerWidth <= 768) {
-                menu.classList.remove('active');
-                toggle.classList.remove('active');
-                document.body.classList.remove('menu-open');
+    // Close menu when clicking a nav link (event delegation)
+    menu.addEventListener('click', (e) => {
+        const navLink = e.target.closest('.nav-link');
+        if (navLink && window.innerWidth <= 768) {
+            menu.classList.remove('active');
+            toggle.classList.remove('active');
+            document.body.classList.remove('menu-open');
+        }
+        
+        // Handle mobile dropdown toggles
+        const dropdown = e.target.closest('.dropdown');
+        if (dropdown && window.innerWidth <= 768) {
+            const link = dropdown.querySelector('.nav-link');
+            if (link && e.target.closest('.nav-link') === link) {
+                e.preventDefault();
+                dropdown.classList.toggle('active');
             }
-        });
-    });
-    
-    // Mobile dropdown toggles
-    dropdowns.forEach(dropdown => {
-        const link = dropdown.querySelector('.nav-link');
-        if (link) {
-            link.addEventListener('click', (e) => {
-                if (window.innerWidth <= 768) {
-                    e.preventDefault();
-                    dropdown.classList.toggle('active');
-                }
-            });
         }
     });
 };
@@ -222,27 +203,22 @@ const initCounters = () => {
 
 /**
  * Initialize scroll to top button
- * Shows/hides button and handles smooth scroll to top
+ * Shows/hides button handled by unified scroll handler
+ * Click handler uses event delegation
  */
 const initScrollToTop = () => {
     const scrollBtn = $('#scrollTop');
     if (!scrollBtn) return;
     
-    const handleScroll = throttle(() => {
-        if (window.scrollY > 500) {
-            scrollBtn.classList.add('visible');
-        } else {
-            scrollBtn.classList.remove('visible');
+    // Visibility is handled by unified scroll handler
+    // Click handler uses event delegation
+    document.body.addEventListener('click', (e) => {
+        if (e.target.closest('#scrollTop')) {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         }
-    }, appConfig.performance.throttleLimit);
-    
-    window.addEventListener('scroll', handleScroll);
-    
-    scrollBtn.addEventListener('click', () => {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
     });
 };
 
@@ -280,36 +256,8 @@ const initAOS = () => {
 // ============================================
 // ACTIVE NAV LINK
 // ============================================
-
-/**
- * Initialize active navigation link highlighting
- * Updates active nav link based on current scroll position
- */
-const initActiveNavLink = () => {
-    const sections = $$('section[id]');
-    const navLinks = $$('.nav-link');
-    
-    const handleScroll = throttle(() => {
-        const scrollPos = window.scrollY + appConfig.animation.scrollOffset;
-        
-        sections.forEach(section => {
-            const top = section.offsetTop;
-            const height = section.offsetHeight;
-            const id = section.getAttribute('id');
-            
-            if (scrollPos >= top && scrollPos < top + height) {
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${id}`) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-        });
-    }, appConfig.performance.throttleLimit);
-    
-    window.addEventListener('scroll', handleScroll);
-};
+// Now handled by unified scroll handler in utils/scroll-handler.js
+// initActiveNavLink() is replaced by initScrollHandlers()
 
 // ============================================
 // FORM VALIDATION
@@ -377,30 +325,54 @@ const initPageLoad = () => {
 // ============================================
 
 /**
- * Initialize 3D tilt effect on cards
+ * Initialize 3D tilt effect on cards using optimized event delegation
  * Adds interactive 3D tilt animation on hover for service/portfolio cards
  */
 const init3DTilt = () => {
     const cards = $$('.service-card, .why-card, .portfolio-card');
+    if (cards.length === 0) return;
     
-    cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateX = (y - centerY) / 20;
-            const rotateY = (centerX - x) / 20;
-            
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
-        });
+    // Use a single event handler with event delegation for mousemove
+    let activeCard = null;
+    
+    document.body.addEventListener('mousemove', (e) => {
+        const card = e.target.closest('.service-card, .why-card, .portfolio-card');
         
-        card.addEventListener('mouseleave', () => {
+        // Reset previous card if mouse moved to different card
+        if (activeCard && activeCard !== card) {
+            activeCard.style.transform = '';
+            activeCard = null;
+        }
+        
+        if (!card) {
+            if (activeCard) {
+                activeCard.style.transform = '';
+                activeCard = null;
+            }
+            return;
+        }
+        
+        activeCard = card;
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = (y - centerY) / 20;
+        const rotateY = (centerX - x) / 20;
+        
+        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
+    }, { passive: true });
+    
+    // Reset transform when mouse leaves card
+    document.body.addEventListener('mouseout', (e) => {
+        const card = e.target.closest('.service-card, .why-card, .portfolio-card');
+        if (card && !card.contains(e.relatedTarget) && activeCard === card) {
             card.style.transform = '';
-        });
+            activeCard = null;
+        }
     });
 };
 
@@ -424,109 +396,48 @@ const preloadImages = () => {
 };
 
 // ============================================
-// FILTER FUNCTIONALITY (for portfolio/services)
+// LAZY LOAD NON-CRITICAL FUNCTIONALITY
 // ============================================
 
 /**
- * Initialize filter functionality
- * Filters items based on category when filter buttons are clicked
+ * Lazy load FAQ functionality when needed
+ * Loads only when FAQ elements are present in the DOM
  */
-const initFilters = () => {
-    const filterBtns = $$('[data-filter]');
-    const filterItems = $$('[data-category]');
+const lazyLoadFAQ = () => {
+    if ($$('.faq-item').length === 0) return;
     
-    if (filterBtns.length === 0) return;
-    
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const filter = btn.getAttribute('data-filter');
-            
-            // Update active button
-            filterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            
-            // Filter items
-            filterItems.forEach(item => {
-                const category = item.getAttribute('data-category');
-                
-                if (filter === 'all' || category === filter) {
-                    item.style.display = '';
-                    item.classList.add('aos-animate');
-                } else {
-                    item.style.display = 'none';
-                    item.classList.remove('aos-animate');
-                }
-            });
-        });
+    import('./lazy/faq.js').then(({ initFAQ }) => {
+        initFAQ();
+    }).catch(err => {
+        console.warn('Failed to lazy load FAQ:', err);
     });
 };
 
-// ============================================
-// SEARCH FUNCTIONALITY
-// ============================================
-
 /**
- * Initialize search functionality
- * Filters searchable items based on search query
+ * Lazy load filter functionality when needed
+ * Loads only when filter elements are present in the DOM
  */
-const initSearch = () => {
-    const searchInput = $('#searchInput');
-    const searchItems = $$('[data-searchable]');
+const lazyLoadFilters = () => {
+    if ($$('[data-filter]').length === 0) return;
     
-    if (!searchInput) return;
-    
-    const handleSearch = debounce((query) => {
-        const lowerQuery = query.toLowerCase();
-        
-        searchItems.forEach(item => {
-            const text = item.textContent.toLowerCase();
-            
-            if (text.includes(lowerQuery) || !query) {
-                item.style.display = '';
-            } else {
-                item.style.display = 'none';
-            }
-        });
-    }, appConfig.performance.debounceDelay);
-    
-    searchInput.addEventListener('input', (e) => {
-        handleSearch(e.target.value);
+    import('./lazy/filters.js').then(({ initFilters }) => {
+        initFilters();
+    }).catch(err => {
+        console.warn('Failed to lazy load filters:', err);
     });
 };
 
-// ============================================
-// FAQ ACCORDION
-// ============================================
-
 /**
- * Initialize FAQ accordion functionality
- * Handles expand/collapse behavior for FAQ items
+ * Lazy load search functionality when needed
+ * Loads only when search input is present in the DOM
  */
-const initFAQ = () => {
-    const faqItems = $$('.faq-item');
+const lazyLoadSearch = () => {
+    if (!$('#searchInput')) return;
     
-    faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        const answer = item.querySelector('.faq-answer');
-        
-        if (!question || !answer) return;
-        
-        question.addEventListener('click', () => {
-            const isActive = item.classList.contains('active');
-            
-            // Close all other items
-            faqItems.forEach(i => {
-                i.classList.remove('active');
-                const a = i.querySelector('.faq-answer');
-                if (a) a.style.maxHeight = null;
-            });
-            
-            // Toggle current item
-            if (!isActive) {
-                item.classList.add('active');
-                answer.style.maxHeight = answer.scrollHeight + 'px';
-            }
-        });
+    import('./lazy/search.js').then(({ initSearch }) => {
+        initSearch();
+    }).catch(err => {
+        console.warn('Failed to lazy load search:', err);
     });
 };
 
@@ -709,64 +620,7 @@ const initLinkPrefetch = () => {
     });
 };
 
-// ============================================
-// CURSOR EFFECT (Optional Enhancement)
-// ============================================
-
-/**
- * Initialize custom cursor effect
- * Creates a custom animated cursor (desktop only)
- */
-const initCursorEffect = () => {
-    if (window.innerWidth < 1024 || !appConfig.features.customCursor) return;
-    
-    const cursor = document.createElement('div');
-    cursor.className = 'custom-cursor';
-    cursor.style.cssText = `
-        width: 20px;
-        height: 20px;
-        border: 2px solid var(--color-accent);
-        border-radius: 50%;
-        position: fixed;
-        pointer-events: none;
-        z-index: 9999;
-        transition: transform 0.15s ease;
-        display: none;
-    `;
-    document.body.appendChild(cursor);
-    
-    let mouseX = 0, mouseY = 0;
-    let cursorX = 0, cursorY = 0;
-    
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        cursor.style.display = 'block';
-    });
-    
-    const animate = () => {
-        cursorX += (mouseX - cursorX) * 0.1;
-        cursorY += (mouseY - cursorY) * 0.1;
-        
-        cursor.style.left = cursorX + 'px';
-        cursor.style.top = cursorY + 'px';
-        
-        requestAnimationFrame(animate);
-    };
-    
-    animate();
-    
-    // Scale cursor on interactive elements
-    const interactiveElements = $$('a, button, input, textarea, select');
-    interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursor.style.transform = 'scale(1.5)';
-        });
-        el.addEventListener('mouseleave', () => {
-            cursor.style.transform = 'scale(1)';
-        });
-    });
-};
+// Cursor effect removed - unused code (customCursor feature flag is false)
 
 // ============================================
 // INITIALIZE ALL
@@ -779,18 +633,19 @@ const initCursorEffect = () => {
 const init = () => {
     initPageLoad();
     initSmoothScroll();
-    initNavbarScroll();
+    // Unified scroll handler replaces initNavbarScroll, initScrollToTop, initActiveNavLink
+    initScrollHandlers();
     // initMobileMenu() is now called after navbar loads in components.js
     // initDarkMode() is now called after navbar loads in components.js
     initCounters();
-    initScrollToTop();
+    initScrollToTop(); // Only sets up click handler, visibility handled by scroll handler
     initAOS();
-    initActiveNavLink();
     initFormValidation();
     init3DTilt();
-    initFilters();
-    initSearch();
-    initFAQ();
+    // Lazy load non-critical functionality
+    lazyLoadFilters();
+    lazyLoadSearch();
+    lazyLoadFAQ();
     initLazyLoading();
     initLinkPrefetch();
     preloadImages();
@@ -798,11 +653,6 @@ const init = () => {
     // Performance logging (if enabled)
     if (appConfig.features.performanceLogging) {
         logPerformance({ enabled: true });
-    }
-    
-    // Optional: Uncomment for custom cursor
-    if (appConfig.features.customCursor) {
-        initCursorEffect();
     }
 };
 

@@ -106,6 +106,7 @@ Use utility functions from `utils/`:
 - **DOM**: `$()`, `$$()`, `waitForElement()`, `isInViewport()`
 - **Performance**: `debounce()`, `throttle()`, `logPerformance()`
 - **Validation**: `validateEmail()`, `validatePhone()`, `showError()`, `showSuccessMessage()`
+- **Scroll Handler**: `initScrollHandlers()` from `utils/scroll-handler.js` (unified scroll handler)
 
 ### Code Style
 - Use `const` by default, `let` when reassignment needed, avoid `var`
@@ -117,8 +118,10 @@ Use utility functions from `utils/`:
 
 ### Performance Patterns
 - Use `debounce()` for search inputs, resize handlers
-- Use `throttle()` for scroll handlers
-- Use `IntersectionObserver` for lazy loading
+- Use unified scroll handler for all scroll events (single throttled handler)
+- Use event delegation instead of individual listeners
+- Use lazy loading for non-critical functionality (`js/lazy/`)
+- Use `IntersectionObserver` for lazy loading images
 - Use `requestAnimationFrame` for animations
 - Avoid blocking the main thread
 
@@ -156,7 +159,30 @@ element.dataset.initialized = 'true';
 ### Meta Tags
 - Include proper `<meta>` tags (charset, viewport, description, keywords)
 - Add Open Graph tags for social sharing (when implemented)
-- Include favicon link
+- Include comprehensive favicon links (SVG, PNG sizes, Windows tiles)
+
+### Favicon Implementation
+All HTML files must include complete favicon setup:
+```html
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+<link rel="manifest" href="/site.webmanifest">
+<!-- Windows Tiles -->
+<meta name="msapplication-TileColor" content="#ffffff">
+<meta name="msapplication-TileImage" content="/mstile-150x150.png">
+<meta name="msapplication-square150x150logo" content="/mstile-150x150.png">
+<meta name="msapplication-wide310x150logo" content="/mstile-310x310.png">
+<meta name="msapplication-square310x310logo" content="/mstile-310x310.png">
+```
+
+### SEO Files
+- `sitemap.xml` - XML sitemap for search engines (all pages included)
+- `site.webmanifest` - Web app manifest for PWA support
+- `robots.txt` - Robots exclusion file (if needed)
 
 ### Resource Hints
 - Use `preconnect` for external domains (fonts, CDNs)
@@ -231,7 +257,11 @@ element.dataset.initialized = 'true';
 
 ### Build Plugins
 - `copyComponents()`: Copies components to dist
-- `imageOptimization()`: Generates responsive images and WebP versions
+- `copyFonts()`: Copies fonts to dist
+- `copyStaticAssets()`: Copies favicons, sitemap, robots.txt, web manifest to dist
+- `imageOptimization()`: Generates responsive images (WebP, AVIF, responsive sizes)
+- Compression plugins: Gzip and Brotli compression
+- Bundle analyzer: Generates `dist/stats.html` for bundle visualization
 
 ### Development
 - Run `npm run dev` for development server (port 3000)
@@ -261,16 +291,18 @@ element.dataset.initialized = 'true';
 - Preconnect to external domains
 
 ### Code Optimization
-- Use code splitting for large bundles
-- Lazy load non-critical features
-- Remove unused code
-- Consolidate event listeners where possible
+- Code splitting enabled (vendor, utils, components chunks)
+- Lazy load non-critical features (FAQ, filters, search in `js/lazy/`)
+- Use unified scroll handler for all scroll events
+- Use event delegation instead of individual listeners
+- Remove unused code (tree-shaking enabled)
 
 ### Image Optimization
-- Use responsive images with srcset
-- Use WebP format with fallback
-- Optimize image quality (85% for WebP/JPEG)
+- Use responsive images with srcset (6 sizes: 320w-1920w)
+- Use AVIF → WebP → JPEG format priority
+- Optimize image quality (85% for WebP/JPEG, 80% for AVIF)
 - Lazy load below-fold images
+- Blur placeholders generated during build
 
 See `docs/PERFORMANCE_OPTIMIZATION.md` for detailed optimization strategies.
 
@@ -374,11 +406,17 @@ See `docs/PERFORMANCE_OPTIMIZATION.md` for detailed optimization strategies.
 
 ### Event Handler Pattern
 ```javascript
-const handleEvent = throttle(() => {
-  // Handler logic
-}, appConfig.performance.throttleLimit);
+// Prefer event delegation
+document.body.addEventListener('click', (e) => {
+  const target = e.target.closest('.selector');
+  if (target) {
+    // Handler logic
+  }
+});
 
-element.addEventListener('event', handleEvent);
+// For scroll events, use unified scroll handler
+import { initScrollHandlers } from '../utils/scroll-handler.js';
+initScrollHandlers();
 ```
 
 ### Initialization Pattern
@@ -503,10 +541,14 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 
 ### Documentation
 - Architecture: `docs/ARCHITECTURE.md`
-- CSS Conventions: `docs/CSS_CONVENTIONS.md`
 - Style Guide: `docs/STYLE_GUIDE.md`
 - Performance: `docs/PERFORMANCE_OPTIMIZATION.md`
+- Performance Checklist: `docs/PERFORMANCE_CHECKLIST.md`
 - Image Guide: `docs/IMAGE_GUIDE.md`
+- Fonts: `docs/FONTS.md`
+- Network: `docs/NETWORK_OPTIMIZATION.md`
+- Setup: `docs/SETUP_GUIDE.md`
+- Responsive: `docs/RESPONSIVE_DESIGN.md`
 
 ---
 

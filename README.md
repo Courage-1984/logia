@@ -49,9 +49,13 @@ logia/
 ├── docs/               # Documentation
 │   ├── ARCHITECTURE.md # Architecture documentation
 │   ├── SETUP_GUIDE.md  # Setup instructions
-│   ├── IMAGE_GUIDE.md  # Image placement guide
-│   ├── IMAGE_OPTIMIZATION.md  # Image optimization guide
-│   └── *.md            # Other documentation files
+│   ├── STYLE_GUIDE.md  # Design system and CSS conventions
+│   ├── PERFORMANCE_OPTIMIZATION.md  # Performance strategies
+│   ├── PERFORMANCE_CHECKLIST.md  # Performance quick reference
+│   ├── IMAGE_GUIDE.md  # Image implementation guide
+│   ├── FONTS.md  # Font self-hosting guide
+│   ├── NETWORK_OPTIMIZATION.md  # Server-side optimization
+│   └── RESPONSIVE_DESIGN.md  # Responsive design patterns
 ├── public/             # Public assets (for Vite)
 ├── dist/               # Build output (generated)
 ├── vite.config.js      # Vite configuration
@@ -99,6 +103,19 @@ Preview the production build locally:
 npm run preview
 ```
 
+### Bundle Analysis
+
+After building, analyze your bundle composition:
+```bash
+npm run build
+```
+
+The bundle analyzer generates an interactive visualization at `dist/stats.html`. Open this file in your browser to:
+- Visualize bundle composition (treemap view)
+- See chunk sizes (original, gzipped, and brotli)
+- Identify large dependencies
+- Optimize code splitting
+
 ## Browser Support
 
 - Chrome (latest)
@@ -114,8 +131,8 @@ npm run preview
 - Vite (Build tool and dev server)
 - Alpine.js (Reactive components)
 - Sharp (Image optimization)
-- Font Awesome Icons
-- Google Fonts (Inter)
+- Font Awesome Icons (self-hosted)
+- Inter Font (self-hosted)
 
 ## Image Optimization
 
@@ -133,14 +150,19 @@ See [docs/IMAGE_GUIDE.md](./docs/IMAGE_GUIDE.md) for detailed documentation.
 
 Comprehensive performance optimizations implemented:
 
-- ✅ **Font optimization**: Reduced weights (400, 600, 700 only), async loading
-- ✅ **Resource hints**: DNS prefetch and preconnect for external domains
-- ✅ **Async loading**: Google Fonts and Font Awesome loaded asynchronously
-- ✅ **Link prefetching**: Pages prefetched on hover for instant navigation
-- ✅ **Image optimization**: WebP format, responsive sizes, lazy loading
-- ✅ **Module preloading**: Critical JavaScript modules preloaded
+- ✅ **Font self-hosting**: All fonts served locally (zero external requests)
+- ✅ **Lazy loading**: Non-critical JavaScript (FAQ, filters, search) loads on demand
+- ✅ **Unified scroll handler**: Single throttled handler for all scroll events
+- ✅ **Event delegation**: Replaced individual listeners throughout
+- ✅ **Code splitting**: Vendor, utils, components, and lazy modules separated
+- ✅ **Compression**: Gzip/Brotli build-time compression
+- ✅ **Bundle analyzer**: Visual bundle composition analysis
+- ✅ **Image optimization**: WebP/AVIF format, responsive sizes, lazy loading
+- ✅ **Tree-shaking**: Automatic dead code elimination enabled
+- ✅ **SEO**: XML sitemap and web app manifest for PWA support
+- ✅ **Favicons**: Complete favicon implementation (SVG, PNG, Windows tiles)
 
-See [docs/PERFORMANCE_OPTIMIZATION.md](./docs/PERFORMANCE_OPTIMIZATION.md) for detailed strategies and [docs/PERFORMANCE_CHECKLIST.md](./docs/PERFORMANCE_CHECKLIST.md) for a quick reference checklist.
+See [docs/PERFORMANCE_OPTIMIZATION.md](./docs/PERFORMANCE_OPTIMIZATION.md) for detailed strategies, [docs/PERFORMANCE_CHECKLIST.md](./docs/PERFORMANCE_CHECKLIST.md) for a quick reference checklist, and [docs/NETWORK_OPTIMIZATION.md](./docs/NETWORK_OPTIMIZATION.md) for server-side optimization guidance.
 
 ## Architecture
 

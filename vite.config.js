@@ -3,6 +3,8 @@ import { resolve } from 'path';
 import { copyFileSync, mkdirSync, readdirSync, existsSync } from 'fs';
 import { join } from 'path';
 import { imageOptimization } from './config/image-optimization.js';
+import viteCompression from 'vite-plugin-compression';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 /**
  * Recursive copy function for directories
@@ -74,6 +76,40 @@ function copyFonts() {
 }
 
 /**
+ * Vite plugin to copy font CSS files to dist
+ */
+function copyFontCSS() {
+  return {
+    name: 'copy-font-css',
+    writeBundle() {
+      const cssFiles = [
+        { src: 'css/inter-fonts.css', dest: 'dist/css/inter-fonts.css' },
+        { src: 'css/fontawesome-local.css', dest: 'dist/css/fontawesome-local.css' },
+      ];
+      
+      let copiedCount = 0;
+      cssFiles.forEach(({ src, dest }) => {
+        const srcPath = resolve(__dirname, src);
+        const destPath = resolve(__dirname, dest);
+        
+        if (existsSync(srcPath)) {
+          const destDir = resolve(destPath, '..');
+          if (!existsSync(destDir)) {
+            mkdirSync(destDir, { recursive: true });
+          }
+          copyFileSync(srcPath, destPath);
+          copiedCount++;
+        }
+      });
+      
+      if (copiedCount > 0) {
+        console.log(`✓ Copied ${copiedCount} font CSS file(s) to dist`);
+      }
+    },
+  };
+}
+
+/**
  * Vite plugin to copy any other static assets
  */
 function copyStaticAssets() {
@@ -81,8 +117,17 @@ function copyStaticAssets() {
     name: 'copy-static-assets',
     writeBundle() {
       const staticFiles = [
-        { src: 'favicon.png', dest: 'dist/favicon.png' },
         { src: 'favicon.ico', dest: 'dist/favicon.ico' },
+        { src: 'favicon.svg', dest: 'dist/favicon.svg' },
+        { src: 'favicon-16x16.png', dest: 'dist/favicon-16x16.png' },
+        { src: 'favicon-32x32.png', dest: 'dist/favicon-32x32.png' },
+        { src: 'favicon-96x96.png', dest: 'dist/favicon-96x96.png' },
+        { src: 'apple-touch-icon.png', dest: 'dist/apple-touch-icon.png' },
+        { src: 'android-chrome-192x192.png', dest: 'dist/android-chrome-192x192.png' },
+        { src: 'android-chrome-512x512.png', dest: 'dist/android-chrome-512x512.png' },
+        { src: 'mstile-150x150.png', dest: 'dist/mstile-150x150.png' },
+        { src: 'mstile-310x310.png', dest: 'dist/mstile-310x310.png' },
+        { src: 'site.webmanifest', dest: 'dist/site.webmanifest' },
         { src: 'robots.txt', dest: 'dist/robots.txt' },
         { src: 'sitemap.xml', dest: 'dist/sitemap.xml' },
       ];
@@ -121,10 +166,14 @@ function buildSummary() {
       console.log('  ✓ CSS minified and code-split');
       console.log('  ✓ JavaScript minified and bundled');
       console.log('  ✓ Images optimized (WebP + responsive sizes)');
+      console.log('  ✓ Compression enabled (gzip + brotli)');
+      console.log('  ✓ Bundle analyzer: dist/stats.html');
+      console.log('  ✓ Code splitting optimized (vendor, utils, components)');
       console.log('  ✓ Components copied');
       console.log('  ✓ Fonts copied (if any)');
       console.log('  ✓ Static assets copied (if any)');
       console.log('\n✨ Build complete! All optimizations applied.\n');
+      console.log('💡 Tip: Open dist/stats.html in browser to analyze bundle composition\n');
     },
   };
 }
@@ -148,6 +197,8 @@ export default defineConfig({
     target: 'es2015',
     reportCompressedSize: true, // Report compressed sizes
     chunkSizeWarningLimit: 1000, // Warn if chunk exceeds 1000kb
+    // Tree-shaking is enabled by default in Vite for ES modules
+    // Dead code elimination happens automatically during build
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
@@ -159,8 +210,25 @@ export default defineConfig({
         contact: resolve(__dirname, 'contact.html'),
       },
       output: {
-        manualChunks: {
-          'vendor': ['alpinejs'],
+        manualChunks: (id) => {
+          // Vendor chunk for third-party libraries
+          if (id.includes('node_modules')) {
+            if (id.includes('alpinejs')) {
+              return 'vendor-alpine';
+            }
+            // Other vendor dependencies can go here
+            return 'vendor';
+          }
+          
+          // Utils chunk - shared utility functions
+          if (id.includes('utils/')) {
+            return 'utils';
+          }
+          
+          // Components chunk
+          if (id.includes('js/components.js')) {
+            return 'components';
+          }
         },
         assetFileNames: (assetInfo) => {
           const info = assetInfo.name.split('.');
@@ -203,8 +271,30 @@ export default defineConfig({
   plugins: [
     copyComponents(),
     copyFonts(),
+    copyFontCSS(),
     copyStaticAssets(),
     imageOptimization(),
+    // Compression plugins (gzip and brotli)
+    viteCompression({
+      algorithm: 'gzip',
+      ext: '.gz',
+      threshold: 1024, // Only compress files larger than 1KB
+      deleteOriginFile: false,
+    }),
+    viteCompression({
+      algorithm: 'brotliCompress',
+      ext: '.br',
+      threshold: 1024,
+      deleteOriginFile: false,
+    }),
+    // Bundle analyzer - generates stats.html in dist directory
+    visualizer({
+      filename: 'dist/stats.html',
+      open: false, // Don't auto-open browser
+      gzipSize: true,
+      brotliSize: true,
+      template: 'treemap', // Options: 'sunburst', 'treemap', 'network'
+    }),
     buildSummary(),
   ],
 });
