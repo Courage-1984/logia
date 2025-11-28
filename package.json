@@ -5,8 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build --mode production",
+    "build:gh-pages": "vite build --mode gh-pages",
+    "build:all": "npm run build && npm run build:gh-pages",
     "preview": "vite preview",
+    "preview:gh-pages": "vite preview --outDir dist-gh-pages",
     "serve": "vite preview",
     "setup-fonts": "node scripts/setup-local-fonts.js"
   },

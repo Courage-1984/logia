@@ -1,4 +1,5 @@
 # Workflow for building and deploying Vite project to GitHub Pages
+# Uses the GitHub Pages build target (dist-gh-pages) with correct basePath and URLs
 name: Deploy Vite build to Pages
 
 on:
@@ -38,8 +39,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build with Vite
-        run: npm run build
+      - name: Build with Vite (GitHub Pages)
+        run: npm run build:gh-pages
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -47,8 +48,8 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload the dist folder (Vite build output)
-          path: "./dist"
+          # Upload the dist-gh-pages folder (GitHub Pages build output)
+          path: "./dist-gh-pages"
 
   # Deploy job
   deploy:
