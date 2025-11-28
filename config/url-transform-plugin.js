@@ -135,6 +135,89 @@ function transformUrls(html, config, filePath) {
     }
   );
   
+  // Transform relative asset paths in HTML (images, etc.)
+  // Only transform if basePath is set (GitHub Pages case)
+  if (basePath && basePath !== '/') {
+    // Ensure basePath ends with a slash for proper path joining
+    // basePath already has trailing slash removed, so we add it back
+    const basePathWithSlash = `${basePath}/`;
+    
+    // Transform src attributes with relative asset paths
+    // Match: src="assets/..." or src="/assets/..." (but not absolute URLs or paths that already have basePath)
+    html = html.replace(
+      /(<img[^>]*\ssrc=["'])(?!https?:\/\/)(?!\/logia\/)(\/?)(assets\/[^"']+)(["'])/gi,
+      (match, prefix, leadingSlash, assetPath, suffix) => {
+        // Remove leading slash if present, then add basePath with slash
+        const cleanPath = assetPath.replace(/^\//, '');
+        const transformedPath = `${basePathWithSlash}${cleanPath}`;
+        return `${prefix}${transformedPath}${suffix}`;
+      }
+    );
+    
+    // Transform srcset attributes with relative asset paths
+    // This is more complex as srcset can contain multiple URLs with descriptors
+    // Pattern: "path1 320w, path2 640w, ..." or "path1, path2 2x, ..."
+    html = html.replace(
+      /(<source[^>]*\ssrcset=["'])([^"']+)(["'])/gi,
+      (match, prefix, srcsetValue, suffix) => {
+        // Split srcset by comma, transform each URL
+        const transformedSrcset = srcsetValue.split(',').map(entry => {
+          const trimmed = entry.trim();
+          // Match: "path descriptor" or just "path"
+          const parts = trimmed.match(/^(\S+)(\s+.+)?$/);
+          if (parts) {
+            const url = parts[1];
+            const descriptor = parts[2] || '';
+            
+            // Only transform if it's a relative asset path (starts with assets/ or /assets/)
+            // But not if it already has basePath or is an absolute URL
+            if ((url.startsWith('assets/') || url.startsWith('/assets/')) && 
+                !url.startsWith(basePath) && 
+                !url.startsWith('http://') && 
+                !url.startsWith('https://')) {
+              const cleanUrl = url.replace(/^\//, '');
+              const transformedUrl = `${basePathWithSlash}${cleanUrl}`;
+              return `${transformedUrl}${descriptor}`;
+            }
+            // If it's already an absolute URL or has basePath, leave it
+            return trimmed;
+          }
+          return trimmed;
+        }).join(', ');
+        
+        return `${prefix}${transformedSrcset}${suffix}`;
+      }
+    );
+    
+    // Also transform img srcset attributes
+    html = html.replace(
+      /(<img[^>]*\ssrcset=["'])([^"']+)(["'])/gi,
+      (match, prefix, srcsetValue, suffix) => {
+        const transformedSrcset = srcsetValue.split(',').map(entry => {
+          const trimmed = entry.trim();
+          const parts = trimmed.match(/^(\S+)(\s+.+)?$/);
+          if (parts) {
+            const url = parts[1];
+            const descriptor = parts[2] || '';
+            
+            if ((url.startsWith('assets/') || url.startsWith('/assets/')) && 
+                !url.startsWith(basePath) && 
+                !url.startsWith('http://') && 
+                !url.startsWith('https://')) {
+              const cleanUrl = url.replace(/^\//, '');
+              const transformedUrl = `${basePathWithSlash}${cleanUrl}`;
+              return `${transformedUrl}${descriptor}`;
+            }
+            return trimmed;
+          }
+          return trimmed;
+        }).join(', ');
+        
+        return `${prefix}${transformedSrcset}${suffix}`;
+      }
+    );
+  }
+  
   return html;
 }
 
@@ -169,8 +252,9 @@ export function urlTransformPlugin(mode = 'production') {
       // We'll handle this in the closeBundle hook instead
     },
     closeBundle() {
-      // Transform HTML files in the output directory
+      // Transform HTML and CSS files in the output directory
       const outDir = resolve(process.cwd(), config.outDir);
+      const basePath = (config.basePath || '/').replace(/\/$/, ''); // Remove trailing slash, keep leading
       
       function processDirectory(dir) {
         try {
@@ -186,6 +270,26 @@ export function urlTransformPlugin(mode = 'production') {
               const html = readFileSync(filePath, 'utf-8');
               const transformedHtml = transformUrls(html, config, file);
               writeFileSync(filePath, transformedHtml, 'utf-8');
+            } else if (file.endsWith('.css') && basePath && basePath !== '/') {
+              // Transform CSS files for GitHub Pages (fix font paths)
+              const css = readFileSync(filePath, 'utf-8');
+              // Transform relative font paths: url(../assets/fonts/...) -> url(../assets/fonts/...)
+              // Actually, relative paths should work, but let's ensure absolute paths work too
+              // Transform: url(../assets/fonts/...) when CSS is in /logia/css/ and fonts are in /logia/assets/fonts/
+              // The relative path ../assets/ from /logia/css/ should resolve to /logia/assets/
+              // But if the CSS is processed and moved, we might need to adjust
+              // For now, let's transform any url() that references assets/ to use basePath
+              const transformedCss = css.replace(
+                /url\((["']?)(\.\.\/)*assets\/([^"')]+)(["']?)\)/gi,
+                (match, quote1, dots, assetPath, quote2) => {
+                  // If basePath is set, we need to ensure the path is correct
+                  // If CSS is at /logia/css/file.css and font is at /logia/assets/fonts/font.woff2
+                  // Relative path ../assets/ should work, but let's make it absolute with basePath
+                  const cleanPath = assetPath.replace(/^\//, '');
+                  return `url(${quote1}${basePath}assets/${cleanPath}${quote2})`;
+                }
+              );
+              writeFileSync(filePath, transformedCss, 'utf-8');
             }
           });
         } catch (error) {
