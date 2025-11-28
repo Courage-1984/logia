@@ -6,13 +6,30 @@
     <meta name="description" content="Test your internet speed with Logia Genesis Speed Test tool. Check download, upload speeds and network performance.">
     <title>Speed Test | Logia Genesis</title>
     
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- DNS Prefetch for external domains -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+    
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+
+    <!-- Google Fonts - Inter (Preloaded and async) -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"></noscript>
+
+    <!-- Font Awesome (Async) -->
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css"></noscript>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/services.css">
     <link rel="stylesheet" href="css/speedtest.css">
+    
+    <!-- Preload critical JavaScript modules -->
+    <link rel="modulepreload" href="js/components.js">
+    <link rel="modulepreload" href="js/main.js">
 </head>
 <body>
     
@@ -101,6 +118,44 @@
             <div class="section-header" data-aos="fade-up">
                 <span class="section-label">Optimization Tips</span>
                 <h2 class="section-title">Improve Your Network Performance</h2>
+            </div>
+            
+            <div class="network-image-container" data-aos="fade-up" data-aos-delay="100">
+                <picture>
+                    <source 
+                        srcset="assets/images/speedtest/network-infrastructure-320w.webp 320w,
+                                assets/images/speedtest/network-infrastructure-640w.webp 640w,
+                                assets/images/speedtest/network-infrastructure-768w.webp 768w,
+                                assets/images/speedtest/network-infrastructure-1024w.webp 1024w,
+                                assets/images/speedtest/network-infrastructure-1280w.webp 1280w,
+                                assets/images/speedtest/network-infrastructure-1920w.webp 1920w,
+                                assets/images/speedtest/network-infrastructure.webp"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px"
+                        type="image/webp">
+                    <source 
+                        srcset="assets/images/speedtest/network-infrastructure-320w.jpg 320w,
+                                assets/images/speedtest/network-infrastructure-640w.jpg 640w,
+                                assets/images/speedtest/network-infrastructure-768w.jpg 768w,
+                                assets/images/speedtest/network-infrastructure-1024w.jpg 1024w,
+                                assets/images/speedtest/network-infrastructure-1280w.jpg 1280w,
+                                assets/images/speedtest/network-infrastructure-1920w.jpg 1920w,
+                                assets/images/speedtest/network-infrastructure.jpg"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px"
+                        type="image/jpeg">
+                    <img 
+                        src="assets/images/speedtest/network-infrastructure.jpg" 
+                        srcset="assets/images/speedtest/network-infrastructure-320w.jpg 320w,
+                                assets/images/speedtest/network-infrastructure-640w.jpg 640w,
+                                assets/images/speedtest/network-infrastructure-768w.jpg 768w,
+                                assets/images/speedtest/network-infrastructure-1024w.jpg 1024w,
+                                assets/images/speedtest/network-infrastructure-1280w.jpg 1280w,
+                                assets/images/speedtest/network-infrastructure-1920w.jpg 1920w"
+                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px"
+                        alt="Optimized network infrastructure" 
+                        class="network-infrastructure-image"
+                        loading="lazy"
+                        decoding="async">
+                </picture>
             </div>
             
             <div class="tips-grid">

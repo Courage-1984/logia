@@ -110,10 +110,25 @@ body.dark-mode .speedtest-container {
     margin-bottom: var(--space-4);
 }
 
+.network-image-container {
+    margin: var(--space-8) 0;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+}
+
+.network-infrastructure-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
 .tips-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: var(--space-6);
+    margin-top: var(--space-8);
 }
 
 .tip-card {

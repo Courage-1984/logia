@@ -15,6 +15,7 @@ A modern, responsive website built with vanilla HTML, CSS, and JavaScript. The p
 - 📱 Mobile-first approach
 - ♿ Accessibility compliant
 - ⚡ Fast loading times with Vite optimization
+- 🖼️ Automatic image optimization (WebP, responsive sizes)
 - 🔧 Modular component architecture
 - ⚛️ Reactive components with Alpine.js
 - 📦 ES6 modules and modern JavaScript
@@ -28,7 +29,6 @@ logia/
 │   └── footer.html     # Footer component
 ├── css/                # Stylesheets
 │   ├── style.css       # Main stylesheet
-│   ├── CSS_CONVENTIONS.md  # CSS naming conventions
 │   └── *.css           # Page-specific styles
 ├── js/                 # JavaScript modules
 │   ├── components.js   # Component loader
@@ -38,12 +38,20 @@ logia/
 │   ├── dom.js          # DOM manipulation helpers
 │   ├── performance.js  # Performance utilities
 │   ├── validation.js   # Form validation
+│   ├── responsive-image.js  # Responsive image utilities
 │   └── index.js        # Utility exports
 ├── config/             # Configuration files
-│   └── app.config.js   # Application configuration
+│   ├── app.config.js   # Application configuration
+│   └── image-optimization.js  # Image optimization plugin
 ├── assets/             # Static assets
 │   ├── images/         # Image files
 │   └── fonts/          # Font files
+├── docs/               # Documentation
+│   ├── ARCHITECTURE.md # Architecture documentation
+│   ├── SETUP_GUIDE.md  # Setup instructions
+│   ├── IMAGE_GUIDE.md  # Image placement guide
+│   ├── IMAGE_OPTIMIZATION.md  # Image optimization guide
+│   └── *.md            # Other documentation files
 ├── public/             # Public assets (for Vite)
 ├── dist/               # Build output (generated)
 ├── vite.config.js      # Vite configuration
@@ -105,12 +113,38 @@ npm run preview
 - Vanilla JavaScript (ES6+)
 - Vite (Build tool and dev server)
 - Alpine.js (Reactive components)
+- Sharp (Image optimization)
 - Font Awesome Icons
 - Google Fonts (Inter)
 
+## Image Optimization
+
+The project includes comprehensive image optimization:
+
+- **Automatic WebP conversion** with JPEG/PNG fallback
+- **Responsive image sizes** (320w, 640w, 768w, 1024w, 1280w, 1920w)
+- **Build-time optimization** using Sharp
+- **Lazy loading** for below-the-fold images
+- **Preloading** for critical images
+
+See [docs/IMAGE_GUIDE.md](./docs/IMAGE_GUIDE.md) for detailed documentation.
+
+## Performance Optimization
+
+Comprehensive performance optimizations implemented:
+
+- ✅ **Font optimization**: Reduced weights (400, 600, 700 only), async loading
+- ✅ **Resource hints**: DNS prefetch and preconnect for external domains
+- ✅ **Async loading**: Google Fonts and Font Awesome loaded asynchronously
+- ✅ **Link prefetching**: Pages prefetched on hover for instant navigation
+- ✅ **Image optimization**: WebP format, responsive sizes, lazy loading
+- ✅ **Module preloading**: Critical JavaScript modules preloaded
+
+See [docs/PERFORMANCE_OPTIMIZATION.md](./docs/PERFORMANCE_OPTIMIZATION.md) for detailed strategies and [docs/PERFORMANCE_CHECKLIST.md](./docs/PERFORMANCE_CHECKLIST.md) for a quick reference checklist.
+
 ## Architecture
 
-See [ARCHITECTURE.md](./ARCHITECTURE.md) for detailed information about the project structure and design decisions.
+See [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md) for detailed information about the project structure and design decisions.
 
 ## License
 

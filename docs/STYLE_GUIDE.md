@@ -1,6 +1,6 @@
 # Logia Genesis - Style Guide
 
-**Comprehensive design system documentation for Logia Genesis website**
+**Comprehensive design system and CSS conventions for Logia Genesis website**
 
 ---
 
@@ -9,11 +9,11 @@
 1. [Color Palette](#color-palette)
 2. [Typography](#typography)
 3. [Spacing System](#spacing-system)
-4. [Components](#components)
-5. [Design Conventions](#design-conventions)
-6. [Accessibility](#accessibility)
-7. [Dark Mode](#dark-mode)
-8. [Light Mode](#light-mode)
+4. [CSS Naming Conventions](#css-naming-conventions)
+5. [Components](#components)
+6. [Design Conventions](#design-conventions)
+7. [Accessibility](#accessibility)
+8. [Dark Mode](#dark-mode)
 
 ---
 
@@ -176,6 +176,94 @@ All spacing follows an 8px base grid for visual consistency.
 - Maintain 8px grid alignment
 - Section padding: `var(--space-20)` (80px)
 - Container padding: `var(--space-6)` (24px)
+
+---
+
+## CSS Naming Conventions
+
+We use a **BEM-inspired** naming convention for clarity and maintainability.
+
+### Pattern Structure
+```
+[block]__[element]--[modifier]
+```
+
+### Blocks
+Standalone components or sections. Use kebab-case:
+- `.hero`
+- `.navbar`
+- `.service-card`
+- `.testimonial-card`
+
+### Elements
+Parts of a block with no standalone meaning. Use double underscore `__`:
+- `.hero__title`
+- `.navbar__link`
+- `.service-card__icon`
+- `.testimonial-card__author`
+
+### Modifiers
+Variations or states. Use double hyphen `--`:
+- `.btn--primary`
+- `.btn--outline`
+- `.card--active`
+
+### States
+Dynamic states applied via JavaScript. Use single hyphen:
+- `.active`
+- `.visible`
+- `.scrolled`
+- `.dark-mode`
+
+### Common Patterns
+
+**Buttons:**
+```css
+.btn              /* Base button */
+.btn--primary     /* Primary variant */
+.btn--outline     /* Outline variant */
+.btn--lg          /* Large size */
+```
+
+**Cards:**
+```css
+.service-card     /* Service card block */
+.service-card__icon
+.service-card__title
+.service-card__description
+```
+
+**Navigation:**
+```css
+.navbar           /* Navigation bar */
+.navbar--scrolled /* Scrolled state */
+.nav-link         /* Navigation link */
+.nav-link.active  /* Active navigation link */
+```
+
+### Best Practices
+1. Use semantic class names (describe purpose, not appearance)
+2. Keep classes scoped to their component
+3. Use CSS variables for design tokens
+4. Avoid inline styles (except dynamic JS-generated styles)
+5. Follow the naming pattern consistently
+
+### Examples
+
+**Good ✅**
+```css
+.service-card { }
+.service-card__icon { }
+.service-card--featured { }
+.nav-link.active { }
+```
+
+**Bad ❌**
+```css
+.red-box { }              /* Too specific, not semantic */
+.cardIcon { }            /* Inconsistent naming */
+.card.active-state { }   /* Should use .card.active */
+```
 
 ---
 

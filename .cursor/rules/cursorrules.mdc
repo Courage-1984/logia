@@ -1,0 +1,514 @@
+---
+alwaysApply: true
+---
+
+# Logia Genesis - Cursor Rules
+
+This file contains project-specific rules and conventions for the Logia Genesis website. These rules should be followed when writing, modifying, or refactoring code.
+
+## ⚠️ IMPORTANT: Keep This File Updated
+
+**When making changes that affect project structure, conventions, or patterns, update this file accordingly.**
+
+Examples of changes that require updates:
+- Adding new file structure patterns
+- Changing naming conventions
+- Adding new build processes
+- Introducing new frameworks or libraries
+- Modifying component patterns
+- Changing performance optimization strategies
+- Updating documentation standards
+
+---
+
+## Project Overview
+
+**Logia Genesis** - Business technology solutions provider website
+- **Tech Stack**: Vanilla HTML, CSS, JavaScript (ES6+), Vite, Alpine.js
+- **Architecture**: Component-based, modular, performance-focused
+- **Build Tool**: Vite 5.x
+- **Style**: Modern, responsive, dark/light mode support
+
+---
+
+## File Structure & Organization
+
+### Directory Structure
+```
+logia/
+├── components/          # Reusable HTML components (navbar, footer)
+├── css/                # Stylesheets (main + page-specific)
+├── js/                 # JavaScript modules (ES6)
+├── utils/              # Utility functions (dom, performance, validation)
+├── config/             # Configuration files (app config, build plugins)
+├── assets/             # Static assets (images, fonts)
+│   ├── images/         # Image files (with responsive optimization)
+│   └── fonts/          # Font files
+├── docs/               # Documentation (all .md files)
+├── dist/               # Build output (generated, gitignored)
+└── *.html              # Page templates
+```
+
+### File Naming Conventions
+- **HTML**: kebab-case (e.g., `about.html`, `contact.html`)
+- **CSS**: kebab-case (e.g., `style.css`, `about.css`)
+- **JavaScript**: kebab-case (e.g., `main.js`, `components.js`)
+- **Components**: kebab-case (e.g., `navbar.html`, `footer.html`)
+- **Images**: kebab-case with descriptive names (e.g., `hero-background.jpg`)
+- **Documentation**: UPPER_SNAKE_CASE (e.g., `ARCHITECTURE.md`, `STYLE_GUIDE.md`)
+
+---
+
+## CSS Conventions
+
+### Naming Pattern: BEM-Inspired
+- **Blocks**: `.hero`, `.navbar`, `.service-card`
+- **Elements**: `.hero__title`, `.navbar__link`, `.service-card__icon`
+- **Modifiers**: `.btn--primary`, `.btn--outline`, `.card--active`
+- **States**: `.active`, `.visible`, `.scrolled`, `.dark-mode`
+
+### CSS Variables (Design Tokens)
+Always use CSS custom properties defined in `css/style.css`:
+- Colors: `var(--color-primary)`, `var(--color-accent)`, `var(--color-text)`
+- Spacing: `var(--space-1)` through `var(--space-24)` (8px grid system)
+- Typography: `var(--font-primary)`
+- Shadows: `var(--shadow-sm)` through `var(--shadow-xl)`
+- Border Radius: `var(--radius-sm)` through `var(--radius-full)`
+- Transitions: `var(--transition-fast)`, `var(--transition-base)`, `var(--transition-slow)`
+
+### CSS Organization
+- **Main stylesheet** (`css/style.css`): Base styles, variables, global components
+- **Page-specific** (`css/about.css`, etc.): Page-unique styles only
+- **Mobile-first**: Write mobile styles first, then use `@media` for larger screens
+- **Dark mode**: Use `body.dark-mode` selector for dark mode overrides
+
+### CSS Best Practices
+- ✅ Use CSS variables for all design tokens
+- ✅ Follow the 8px spacing grid system
+- ✅ Use semantic class names (describe purpose, not appearance)
+- ✅ Keep page-specific CSS in separate files
+- ✅ Use `clamp()` for responsive typography
+- ❌ Never hardcode colors, spacing, or other design tokens
+- ❌ Avoid inline styles (except for dynamic JS-generated styles)
+- ❌ Don't use `!important` unless absolutely necessary
+
+---
+
+## JavaScript Conventions
+
+### Module Pattern (ES6)
+- Use ES6 `import/export` syntax
+- Keep modules focused and single-purpose
+- Export named exports, not default exports (except for main entry points)
+
+### Utility Functions
+Use utility functions from `utils/`:
+- **DOM**: `$()`, `$$()`, `waitForElement()`, `isInViewport()`
+- **Performance**: `debounce()`, `throttle()`, `logPerformance()`
+- **Validation**: `validateEmail()`, `validatePhone()`, `showError()`, `showSuccessMessage()`
+
+### Code Style
+- Use `const` by default, `let` when reassignment needed, avoid `var`
+- Use arrow functions for callbacks
+- Use template literals for string interpolation
+- Use destructuring for object/array access
+- Use async/await for asynchronous code
+- Add JSDoc comments for all functions
+
+### Performance Patterns
+- Use `debounce()` for search inputs, resize handlers
+- Use `throttle()` for scroll handlers
+- Use `IntersectionObserver` for lazy loading
+- Use `requestAnimationFrame` for animations
+- Avoid blocking the main thread
+
+### Initialization Pattern
+```javascript
+// Check if already initialized
+if (element.dataset.initialized === 'true') return;
+element.dataset.initialized = 'true';
+
+// Initialize functionality
+```
+
+---
+
+## HTML Conventions
+
+### Semantic HTML
+- Use semantic HTML5 elements (`<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<footer>`)
+- Use proper heading hierarchy (h1 → h2 → h3)
+- Add ARIA labels for icon-only buttons and complex components
+- Include alt text for all images
+
+### Component Loading
+```html
+<!-- Component placeholders -->
+<div id="navbar-placeholder"></div>
+<div id="footer-placeholder"></div>
+
+<!-- Scripts (in order) -->
+<script type="module" src="js/components.js"></script>
+<script type="module" src="js/alpine-setup.js"></script>
+<script type="module" src="js/main.js"></script>
+```
+
+### Meta Tags
+- Include proper `<meta>` tags (charset, viewport, description, keywords)
+- Add Open Graph tags for social sharing (when implemented)
+- Include favicon link
+
+### Resource Hints
+- Use `preconnect` for external domains (fonts, CDNs)
+- Use `preload` for critical resources (hero images, critical CSS)
+- Use `prefetch` for likely next pages
+- Use `dns-prefetch` for external domains
+
+---
+
+## Image Optimization
+
+### Image Implementation
+- Always use `<picture>` element with WebP and fallback
+- Include responsive `srcset` with multiple sizes (320w, 640w, 768w, 1024w, 1280w, 1920w)
+- Use appropriate `sizes` attribute
+- Add `loading="lazy"` for below-fold images
+- Add `loading="eager"` and `fetchpriority="high"` for hero/above-fold images
+- Always include descriptive `alt` text
+
+### Image File Organization
+- Place images in `assets/images/` (or subdirectories)
+- Use descriptive kebab-case filenames
+- Build process automatically generates responsive sizes and WebP versions
+
+### Image Patterns
+```html
+<picture>
+  <source srcset="..." sizes="..." type="image/webp">
+  <source srcset="..." sizes="..." type="image/jpeg">
+  <img src="..." srcset="..." sizes="..." alt="..." loading="..." decoding="async">
+</picture>
+```
+
+---
+
+## Component System
+
+### Component Loading
+- Components loaded via `js/components.js`
+- Components are HTML files in `components/` directory
+- Loaded asynchronously and inserted into placeholders
+- Initialization callbacks run after component load
+
+### Component Pattern
+```html
+<!-- In component file (e.g., components/navbar.html) -->
+<nav class="navbar" id="navbar">
+  <!-- Component content -->
+</nav>
+```
+
+```html
+<!-- In page file -->
+<div id="navbar-placeholder"></div>
+```
+
+### Alpine.js Components
+- Use Alpine.js for reactive components
+- Define data in `js/alpine-setup.js` or inline with `x-data`
+- Use Alpine directives: `x-data`, `x-show`, `x-if`, `x-for`, `x-on`, etc.
+
+---
+
+## Build System (Vite)
+
+### Build Configuration
+- **Entry points**: All HTML files in root
+- **Output**: `dist/` directory
+- **Assets**: Hashed filenames for cache busting
+- **Code splitting**: Enabled for CSS and JS
+- **Minification**: Enabled for production
+
+### Build Plugins
+- `copyComponents()`: Copies components to dist
+- `imageOptimization()`: Generates responsive images and WebP versions
+
+### Development
+- Run `npm run dev` for development server (port 3000)
+- Hot Module Replacement (HMR) enabled
+- Source maps enabled in development
+
+### Production
+- Run `npm run build` to build for production
+- All assets optimized and minified
+- Images processed and optimized
+- Output in `dist/` directory
+
+---
+
+## Performance Guidelines
+
+### Critical Path
+- Inline critical CSS in `<head>` (when implemented)
+- Preload critical resources (hero images, critical CSS/JS)
+- Defer non-critical JavaScript
+- Lazy load below-fold content
+
+### Resource Loading
+- Load Font Awesome asynchronously (or self-host)
+- Use `font-display: swap` for fonts
+- Reduce font weights to only needed ones (400, 600, 700)
+- Preconnect to external domains
+
+### Code Optimization
+- Use code splitting for large bundles
+- Lazy load non-critical features
+- Remove unused code
+- Consolidate event listeners where possible
+
+### Image Optimization
+- Use responsive images with srcset
+- Use WebP format with fallback
+- Optimize image quality (85% for WebP/JPEG)
+- Lazy load below-fold images
+
+See `docs/PERFORMANCE_OPTIMIZATION.md` for detailed optimization strategies.
+
+---
+
+## Accessibility
+
+### Requirements
+- WCAG AA compliance minimum
+- Semantic HTML structure
+- Proper heading hierarchy
+- ARIA labels for icon-only buttons
+- Keyboard navigation support
+- Focus management
+- Color contrast compliance
+
+### Color Contrast
+- Text on background: 4.5:1 minimum (WCAG AA)
+- Large text: 3:1 minimum
+- Interactive elements: Clear focus states
+
+### Keyboard Navigation
+- All interactive elements keyboard accessible
+- Focus indicators visible
+- Logical tab order
+- Skip links for main content
+
+---
+
+## Dark Mode
+
+### Implementation
+- Toggle via `document.body.classList.toggle('dark-mode')`
+- Persisted in localStorage
+- Smooth transitions between modes
+- CSS variables handle color switching
+
+### Color Mapping
+- Use CSS variables that adapt to dark mode
+- Test all components in both modes
+- Ensure contrast ratios maintained
+
+---
+
+## Documentation Standards
+
+### Code Documentation
+- Add JSDoc comments to all JavaScript functions
+- Include parameter types and return types
+- Document complex logic with inline comments
+- Keep comments up-to-date with code
+
+### File Documentation
+- Each major file should have a header comment describing its purpose
+- Document complex algorithms or patterns
+- Include usage examples for utility functions
+
+### Project Documentation
+- All documentation in `docs/` folder
+- Use Markdown format
+- Keep documentation synchronized with code
+- Update documentation when making architectural changes
+
+---
+
+## Testing & Quality
+
+### Before Committing
+- Test in both light and dark mode
+- Test responsive design (mobile, tablet, desktop)
+- Verify accessibility (keyboard navigation, screen readers)
+- Check browser compatibility
+- Run build to ensure no errors
+- Verify images load correctly
+- Test component loading
+
+### Performance Checks
+- Run Lighthouse audit
+- Check Core Web Vitals (LCP, FID, CLS)
+- Verify bundle sizes are reasonable
+- Test on slow connections
+
+---
+
+## Git & Version Control
+
+### File Organization
+- Never commit `dist/` directory (should be gitignored)
+- Never commit `node_modules/` (should be gitignored)
+- Commit source files, not generated files
+- Keep `.gitignore` up-to-date
+
+### Commit Messages
+- Use descriptive commit messages
+- Reference issue numbers if applicable
+- Group related changes in single commits
+
+---
+
+## Common Patterns
+
+### Event Handler Pattern
+```javascript
+const handleEvent = throttle(() => {
+  // Handler logic
+}, appConfig.performance.throttleLimit);
+
+element.addEventListener('event', handleEvent);
+```
+
+### Initialization Pattern
+```javascript
+const initFeature = () => {
+  const element = $('#element');
+  if (!element) {
+    setTimeout(initFeature, 100);
+    return;
+  }
+  
+  if (element.dataset.initialized === 'true') return;
+  element.dataset.initialized = 'true';
+  
+  // Initialize feature
+};
+```
+
+### Component Loading Pattern
+```javascript
+await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
+  // Callback after component loads
+  initDependentFeature();
+});
+```
+
+---
+
+## Configuration
+
+### App Configuration
+- Centralized config in `config/app.config.js`
+- Use `appConfig` object for all configuration
+- Don't hardcode configuration values
+
+### Build Configuration
+- Vite config in `vite.config.js`
+- Custom plugins in `config/` directory
+- Don't modify build config without understanding impact
+
+---
+
+## Error Handling
+
+### JavaScript Errors
+- Use try-catch for async operations
+- Provide fallbacks for missing elements
+- Log errors to console with context
+- Don't fail silently
+
+### Component Loading
+- Handle missing components gracefully
+- Provide fallback UI if component fails to load
+- Log errors for debugging
+
+---
+
+## Browser Support
+
+### Target Browsers
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+### Features Used
+- ES6+ JavaScript (async/await, arrow functions, const/let)
+- CSS Grid and Flexbox
+- CSS Custom Properties
+- Intersection Observer API
+- Fetch API
+
+### Polyfills
+- No polyfills currently needed
+- Add polyfills if supporting older browsers
+
+---
+
+## Security
+
+### Best Practices
+- Sanitize user input in forms
+- Validate all form data
+- Use HTTPS for production
+- Don't expose sensitive data in client-side code
+- Keep dependencies up-to-date
+
+---
+
+## When Adding New Features
+
+1. **Follow existing patterns** - Match the style and structure of existing code
+2. **Use utility functions** - Don't reinvent the wheel, use existing utils
+3. **Add to appropriate file** - Page-specific code in page files, shared code in shared files
+4. **Update documentation** - Add JSDoc comments and update relevant docs
+5. **Test thoroughly** - Test in both modes, all screen sizes, and browsers
+6. **Consider performance** - Lazy load if appropriate, optimize assets
+7. **Maintain accessibility** - Ensure keyboard navigation and screen reader support
+8. **Update this file** - If adding new patterns or conventions, update cursorrules.mdc
+
+---
+
+## Quick Reference
+
+### CSS Variables
+- Colors: `var(--color-*)`
+- Spacing: `var(--space-*)`
+- Typography: `var(--font-primary)`
+- Shadows: `var(--shadow-*)`
+- Radius: `var(--radius-*)`
+- Transitions: `var(--transition-*)`
+
+### JavaScript Utilities
+- DOM: `$()`, `$$()`, `waitForElement()`
+- Performance: `debounce()`, `throttle()`
+- Validation: `validateEmail()`, `validatePhone()`
+
+### Build Commands
+- `npm run dev` - Development server
+- `npm run build` - Production build
+- `npm run preview` - Preview production build
+
+### Documentation
+- Architecture: `docs/ARCHITECTURE.md`
+- CSS Conventions: `docs/CSS_CONVENTIONS.md`
+- Style Guide: `docs/STYLE_GUIDE.md`
+- Performance: `docs/PERFORMANCE_OPTIMIZATION.md`
+- Image Guide: `docs/IMAGE_GUIDE.md`
+
+---
+
+**Last Updated**: 2024
+**Version**: 1.0

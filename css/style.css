@@ -531,6 +531,43 @@ body.dark-mode .theme-toggle {
     z-index: 0;
 }
 
+.hero-bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.3;
+    z-index: 0;
+    /* Image optimization */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    will-change: opacity;
+}
+
+body.dark-mode .hero-bg-image {
+    opacity: 0.2;
+}
+
+/* Global image optimizations */
+img {
+    max-width: 100%;
+    height: auto;
+    /* Prevent layout shift */
+    aspect-ratio: attr(width) / attr(height);
+}
+
+picture {
+    display: block;
+}
+
+picture img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
 .gradient-mesh {
     position: absolute;
     inset: 0;

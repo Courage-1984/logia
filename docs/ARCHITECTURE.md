@@ -9,9 +9,12 @@ logia/
 │   └── footer.html     # Footer component
 ├── css/                # Stylesheets
 │   ├── style.css       # Main stylesheet (base styles, variables)
-│   ├── CSS_CONVENTIONS.md  # CSS naming conventions documentation
 │   ├── about.css       # About page specific styles
 │   ├── contact.css     # Contact page specific styles
+├── docs/               # Documentation
+│   ├── CSS_CONVENTIONS.md  # CSS naming conventions documentation
+│   ├── ARCHITECTURE.md # Architecture documentation (this file)
+│   └── *.md            # Other documentation files
 │   ├── portfolio.css   # Portfolio page specific styles
 │   ├── resources.css   # Resources/FAQ page specific styles
 │   ├── services.css    # Services page specific styles
@@ -129,7 +132,7 @@ Each page has its own CSS file for:
 - ✅ Dark mode support
 - ✅ Consistent spacing system
 - ✅ Semantic class names
-- ✅ Documented naming conventions (see `css/CSS_CONVENTIONS.md`)
+- ✅ Documented naming conventions (see `docs/CSS_CONVENTIONS.md`)
 
 ## JavaScript Architecture
 
@@ -187,16 +190,26 @@ Alpine.js provides reactive components for:
 - CSS Grid and Flexbox
 - CSS Custom Properties
 
-## Performance Considerations
+## Performance Optimizations
 
-- Components loaded asynchronously
-- Lazy loading for images (Intersection Observer API)
-- CSS and JS minification via Vite (production builds)
-- Code splitting and tree-shaking
-- Asset optimization (images, fonts)
-- Font preloading for Google Fonts
-- Debounced/throttled event handlers
-- Performance monitoring utilities
+### Implemented ✅
+- **Font optimization**: Reduced weights (400, 600, 700), async loading
+- **Resource hints**: DNS prefetch and preconnect for external domains
+- **Async loading**: Google Fonts and Font Awesome loaded asynchronously
+- **Link prefetching**: Pages prefetched on hover for instant navigation
+- **Module preloading**: Critical JS modules (components.js, main.js) preloaded
+- **Image optimization**: WebP format, responsive sizes, lazy loading
+- **Components loaded asynchronously**
+- **CSS and JS minification** via Vite (production builds)
+- **Code splitting and tree-shaking**
+- **Debounced/throttled event handlers**
+- **Performance monitoring utilities**
+
+### Future Enhancements
+- Critical CSS extraction
+- Service worker implementation
+- Font Awesome tree-shaking
+- Improved code splitting
 
 ## Accessibility
 

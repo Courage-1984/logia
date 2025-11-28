@@ -132,7 +132,7 @@ Vite automatically reloads the page when you make changes to:
 
 ## CSS Conventions
 
-See `css/CSS_CONVENTIONS.md` for detailed naming conventions.
+See `CSS_CONVENTIONS.md` (in this folder) for detailed naming conventions.
 
 Quick reference:
 - Blocks: `.hero`, `.navbar`, `.service-card`
@@ -142,10 +142,15 @@ Quick reference:
 
 ## Documentation
 
-- **README.md** - Project overview and quick start
+All documentation is in the `docs/` folder:
+
+- **README.md** (root) - Project overview and quick start
 - **ARCHITECTURE.md** - Detailed architecture documentation
-- **css/CSS_CONVENTIONS.md** - CSS naming conventions
+- **CSS_CONVENTIONS.md** - CSS naming conventions
 - **SETUP_GUIDE.md** - This file
+- **IMAGE_GUIDE.md** - Complete image guide (optimization, implementation, best practices)
+- **STYLE_GUIDE.md** - Style guide
+- **RESPONSIVE_DESIGN.md** - Responsive design documentation
 
 ## Troubleshooting
 
