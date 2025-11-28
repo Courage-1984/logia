@@ -1,0 +1,49 @@
+/* Portfolio page specific styles */
+.filter-buttons {
+    display: flex;
+    gap: var(--space-3);
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: var(--space-12);
+}
+
+.filter-btn {
+    padding: var(--space-3) var(--space-6);
+    background: var(--color-white);
+    color: var(--color-text);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    transition: all var(--transition-fast);
+    cursor: pointer;
+}
+
+body.dark-mode .filter-btn {
+    background: var(--color-dark-surface);
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: var(--color-primary);
+    color: var(--color-white);
+    border-color: var(--color-primary);
+    transform: translateY(-2px);
+}
+
+.project-stats {
+    display: flex;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+    font-size: 0.875rem;
+}
+
+.project-stats span {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.project-stats i {
+    color: var(--color-accent);
+}
+
