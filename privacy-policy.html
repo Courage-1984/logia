@@ -3,6 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Theme initialization script - prevents FOUC (Flash of Unstyled Content) -->
+    <!-- MUST be before any CSS or other content -->
+    <script>
+        (function() {
+            try {
+                const storageKey = 'theme';
+                const defaultMode = 'light';
+                const stored = localStorage.getItem(storageKey);
+                const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const theme = stored === 'dark' || stored === 'light' ? stored : (systemPrefersDark ? 'dark' : defaultMode);
+                
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark-mode');
+                    document.body.classList.add('dark-mode');
+                }
+            } catch (e) {
+                // Silently fail if localStorage or matchMedia not available
+            }
+        })();
+    </script>
+    
     <meta name="description" content="Privacy Policy - Logia Genesis. Learn how we collect, use, and protect your personal information.">
     <title>Privacy Policy | Logia Genesis</title>
     
@@ -10,7 +32,8 @@
     <link rel="stylesheet" href="css/inter-fonts.css">
     <link rel="stylesheet" href="css/fontawesome-local.css">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="css/page-common.css">
+    <link rel="stylesheet" href="css/legal.css">
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -50,9 +73,15 @@
 </head>
 <body>
     
+    <!-- Skip Navigation Links (Accessibility) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#footer" class="skip-link">Skip to footer</a>
+    
     <!-- Navigation - Loaded via components.js -->
     <div id="navbar-placeholder"></div>
     
+    <!-- Main Content -->
+    <main id="main-content">
     <!-- Page Header -->
     <section class="page-header">
         <div class="hero-background">
@@ -70,13 +99,15 @@
     <!-- Privacy Policy Content -->
     <section class="section">
         <div class="container">
-            <div class="two-column-layout" style="max-width: 900px; margin: 0 auto;">
-                <div class="column" style="width: 100%;">
-                    <div style="line-height: 1.8;">
-                        <h2>1. Introduction</h2>
-                        <p>Logia Genesis ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website logia.co.za or use our services.</p>
+            <div class="legal-content-card">
+                <div class="legal-content">
+                        <div class="legal-section">
+                            <h2>1. Introduction</h2>
+                            <p>Logia Genesis ("we," "our," or "us") is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website logia.co.za or use our services.</p>
+                        </div>
                         
-                        <h2>2. Information We Collect</h2>
+                        <div class="legal-section">
+                            <h2>2. Information We Collect</h2>
                         <h3>2.1 Information You Provide</h3>
                         <p>We collect information that you voluntarily provide to us when you:</p>
                         <ul>
@@ -97,7 +128,10 @@
                             <li>Date and time of your visit</li>
                         </ul>
                         
-                        <h2>3. How We Use Your Information</h2>
+                        </div>
+                        
+                        <div class="legal-section">
+                            <h2>3. How We Use Your Information</h2>
                         <p>We use the information we collect to:</p>
                         <ul>
                             <li>Respond to your inquiries and provide customer service</li>
@@ -107,7 +141,10 @@
                             <li>Protect against fraudulent or illegal activity</li>
                         </ul>
                         
-                        <h2>4. Information Sharing and Disclosure</h2>
+                        </div>
+                        
+                        <div class="legal-section">
+                            <h2>4. Information Sharing and Disclosure</h2>
                         <p>We do not sell, trade, or rent your personal information to third parties. We may share your information only in the following circumstances:</p>
                         <ul>
                             <li>With service providers who assist us in operating our website and conducting our business</li>
@@ -115,10 +152,16 @@
                             <li>In connection with a business transfer or merger</li>
                         </ul>
                         
-                        <h2>5. Data Security</h2>
+                        </div>
+                        
+                        <div class="legal-section">
+                            <h2>5. Data Security</h2>
                         <p>We implement appropriate technical and organizational security measures to protect your personal information. However, no method of transmission over the Internet or electronic storage is 100% secure.</p>
                         
-                        <h2>6. Your Rights</h2>
+                        </div>
+                        
+                        <div class="legal-section">
+                            <h2>6. Your Rights</h2>
                         <p>Under applicable data protection laws, you have the right to:</p>
                         <ul>
                             <li>Access your personal information</li>
@@ -129,34 +172,59 @@
                         </ul>
                         <p>To exercise these rights, please contact us at <a href="mailto:info@logia.co.za">info@logia.co.za</a>.</p>
                         
-                        <h2>7. Cookies and Tracking Technologies</h2>
+                        </div>
+                        
+                        <div class="legal-section">
+                            <h2>7. Cookies and Tracking Technologies</h2>
                         <p>Our website may use cookies and similar tracking technologies to enhance your experience. You can control cookie preferences through your browser settings.</p>
                         
-                        <h2>8. Third-Party Links</h2>
+                        </div>
+                        
+                        <div class="legal-section">
+                            <h2>8. Third-Party Links</h2>
                         <p>Our website may contain links to third-party websites. We are not responsible for the privacy practices of these external sites.</p>
                         
-                        <h2>9. Children's Privacy</h2>
+                        </div>
+                        
+                        <div class="legal-section">
+                            <h2>9. Children's Privacy</h2>
                         <p>Our services are not directed to individuals under the age of 18. We do not knowingly collect personal information from children.</p>
                         
-                        <h2>10. Changes to This Privacy Policy</h2>
-                        <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date.</p>
+                        </div>
                         
-                        <h2>11. Contact Us</h2>
-                        <p>If you have questions about this Privacy Policy, please contact us:</p>
-                        <ul>
-                            <li>Email: <a href="mailto:info@logia.co.za">info@logia.co.za</a></li>
-                            <li>Phone: <a href="tel:+27795523726">+27 79 552 3726</a></li>
-                            <li>Address: <a href="https://maps.app.goo.gl/LxbQUQxCa3b6b7Jm6" target="_blank" rel="noopener noreferrer">533 Andries Strydom st, Constantia Park, Pretoria, Gauteng, South Africa</a></li>
-                        </ul>
+                        <div class="legal-section">
+                            <h2>10. Changes to This Privacy Policy</h2>
+                            <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Last Updated" date.</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     
-    <!-- Footer - Loaded via components.js -->
-    <div id="footer-placeholder"></div>
+    <!-- Contact Section -->
+    <section class="section">
+        <div class="container">
+            <div class="legal-contact">
+                <h2>Get in Touch</h2>
+                <ul>
+                    <li><strong>Email:</strong> <a href="mailto:info@logia.co.za">info@logia.co.za</a></li>
+                    <li><strong>Phone:</strong> <a href="tel:+27795523726">+27 79 552 3726</a></li>
+                    <li><strong>Address:</strong> <a href="https://maps.app.goo.gl/LxbQUQxCa3b6b7Jm6" target="_blank" rel="noopener noreferrer">533 Andries Strydom st, Constantia Park, Pretoria, Gauteng, South Africa</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
     
+    </main>
+    
+    <!-- Footer - Loaded via components.js -->
+    <footer id="footer">
+        <div id="footer-placeholder"></div>
+    </footer>
+    
+    <!-- Theme Manager - Load early to prevent FOUC -->
+    <script type="module" src="js/utils/theme.js"></script>
     <script type="module" src="js/components.js"></script>
     <script type="module" src="js/alpine-setup.js"></script>
     <script type="module" src="js/main.js"></script>

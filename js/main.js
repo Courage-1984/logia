@@ -10,6 +10,8 @@ import { appConfig } from '../config/app.config.js';
 import { initScrollHandlers, createScrollToTopHandler, scrollHandler } from '../utils/scroll-handler.js';
 import { initTestimonials } from './testimonials.js';
 import { initInstagramFeed } from './instagram-feed.js';
+import { initMonitoring } from './monitoring.js';
+// Theme manager initializes automatically - no need to import here
 
 // ============================================
 // SMOOTH SCROLL (Event Delegation)
@@ -115,39 +117,21 @@ window.initMobileMenu = initMobileMenu;
 // ============================================
 // DARK MODE TOGGLE
 // ============================================
+// Theme management is now handled by utils/theme.js
+// The theme manager initializes automatically to prevent FOUC
+// This function is kept for backwards compatibility with components.js
 
 /**
  * Initialize dark mode toggle functionality
- * Handles theme switching and persistence in localStorage
+ * @deprecated Use themeManager from utils/theme.js instead
+ * This is kept for backwards compatibility
  */
 const initDarkMode = () => {
-    const toggle = $('#themeToggle');
-    if (!toggle) {
-        // If toggle doesn't exist yet, try again after a short delay
-        setTimeout(initDarkMode, 100);
-        return;
+    // Theme manager handles initialization automatically
+    // This is just for backwards compatibility
+    if (window.themeManager) {
+        window.themeManager.initToggleButton();
     }
-
-    // Check if already initialized
-    if (toggle.dataset.initialized === 'true') return;
-    toggle.dataset.initialized = 'true';
-
-    // Check for saved theme preference or use default
-    const currentTheme = localStorage.getItem(appConfig.theme.storageKey) || appConfig.theme.defaultMode;
-
-    if (currentTheme === 'dark') {
-        document.body.classList.add('dark-mode');
-        toggle.innerHTML = '<i class="fas fa-sun"></i>';
-    }
-
-    toggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark-mode');
-
-        const isDark = document.body.classList.contains('dark-mode');
-        toggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-
-        localStorage.setItem(appConfig.theme.storageKey, isDark ? 'dark' : 'light');
-    });
 };
 
 // Make initDarkMode available globally for components.js
@@ -491,6 +475,20 @@ const lazyLoadSearch = () => {
     });
 };
 
+/**
+ * Lazy load particles net background when needed
+ * Loads only when CTA sections are present in the DOM
+ */
+const lazyLoadParticles = () => {
+    if ($$('.cta-section .cta-background').length === 0) return;
+
+    import('./particles-net.js').then(async ({ initCTANetBackgrounds }) => {
+        await initCTANetBackgrounds();
+    }).catch(err => {
+        console.warn('Failed to lazy load particles:', err);
+    });
+};
+
 // ============================================
 // LAZY LOADING IMAGES
 // ============================================
@@ -707,11 +705,15 @@ const init = () => {
     lazyLoadFilters();
     lazyLoadSearch();
     lazyLoadFAQ();
+    lazyLoadParticles(); // Load particles net background for CTA sections
     initLazyLoading();
     initLinkPrefetch();
     preloadImages();
     initTestimonials(); // Load Google Reviews testimonials
     initInstagramFeed(); // Load Instagram feed carousel
+    
+    // Initialize monitoring (error tracking & performance monitoring)
+    initMonitoring();
 
     // Performance logging (if enabled)
     if (appConfig.features.performanceLogging) {

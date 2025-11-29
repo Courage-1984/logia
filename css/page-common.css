@@ -6,9 +6,20 @@
 /* Page Header - Used on About, Services, Contact, etc. */
 .page-header {
     position: relative;
-    padding: 150px 0 100px;
+    padding: 180px 0 100px;
     text-align: center;
     overflow: hidden;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px; /* Account for fixed navbar */
+}
+
+.page-header .container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
 }
 
 .page-header-content {
@@ -63,5 +74,37 @@
 body.dark-mode .stats-card {
     background: var(--color-dark-surface);
     border-color: var(--color-dark-border);
+}
+
+/* Hero Background for Page Headers */
+.page-header .hero-background {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.page-header .gradient-mesh {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg,
+            var(--color-primary) 0%,
+            var(--color-primary-light) 50%,
+            var(--color-accent) 100%);
+    opacity: 0.95;
+    z-index: 0;
+}
+
+body.dark-mode .page-header .gradient-mesh {
+    opacity: 1;
+}
+
+.page-header .grid-overlay {
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 50px 50px;
+    z-index: 0;
 }
 

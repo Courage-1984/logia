@@ -192,5 +192,5 @@ npm run build
 
 ---
 
-**Last Updated**: 2025  
-**Version**: 3.1
+**Last Updated**: January 2025  
+**Version**: 3.2

@@ -24,6 +24,7 @@ A modern, responsive website built with vanilla HTML, CSS, and JavaScript. The p
 - 📝 Form backend integration (Formspree)
 - 📄 Legal pages (Privacy Policy, Terms of Service, 404)
 - ⭐ Google Reviews carousel (dynamic testimonials with interactive controls)
+- ✨ Particles background (animated network in CTA sections with mouse interaction)
 - 💬 WhatsApp floating button (always accessible)
 - ⬆️ Scroll to top button (appears on scroll)
 
@@ -225,17 +226,18 @@ See [docs/PERFORMANCE_OPTIMIZATION.md](./docs/PERFORMANCE_OPTIMIZATION.md) for d
 
 ## Documentation
 
-- **[Google Reviews Setup](./docs/GOOGLE_REVIEWS_SETUP.md)** - Testimonials carousel setup and configuration
-- **[Dual Build Guide](./docs/DUAL_BUILD_GUIDE.md)** - Deployment guide for production and GitHub Pages
-- **[Architecture](./docs/ARCHITECTURE.md)** - Project structure and design decisions
+See [docs/README.md](./docs/README.md) for complete documentation index.
+
+**Quick Links**:
+- **[Setup Guide](./docs/SETUP_GUIDE.md)** - Developer setup and workflow
+- **[Google Reviews Setup](./docs/GOOGLE_REVIEWS_SETUP.md)** - Testimonials carousel setup
+- **[Instagram Feed Setup](./docs/INSTAGRAM_FEED_SETUP.md)** - Instagram feed setup with local image fallback
+- **[GitHub Actions Setup](./docs/GITHUB_ACTIONS_SETUP.md)** - Secrets configuration
+- **[Dual Build Guide](./docs/DUAL_BUILD_GUIDE.md)** - Deployment guide
+- **[Architecture](./docs/ARCHITECTURE.md)** - Project structure
 - **[Performance Optimization](./docs/PERFORMANCE_OPTIMIZATION.md)** - Performance strategies
-- **[SEO Recommendations](./docs/SEO_RECOMMENDATIONS.md)** - SEO strategy and implementation
-- **[Style Guide](./docs/STYLE_GUIDE.md)** - CSS conventions and design system
-- **[Image Guide](./docs/IMAGE_GUIDE.md)** - Image optimization and implementation
-- **[Performance Checklist](./docs/PERFORMANCE_CHECKLIST.md)** - Quick reference checklist
-- **[Network Optimization](./docs/NETWORK_OPTIMIZATION.md)** - Server-side optimization
-- **[Responsive Design](./docs/RESPONSIVE_DESIGN.md)** - Responsive patterns
-- **[Fonts](./docs/FONTS.md)** - Font self-hosting guide
+- **[SEO Recommendations](./docs/SEO_RECOMMENDATIONS.md)** - SEO strategy
+- **[Style Guide](./docs/STYLE_GUIDE.md)** - CSS conventions
 
 ## License
 

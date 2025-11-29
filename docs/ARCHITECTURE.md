@@ -8,7 +8,9 @@ logia/
 │   ├── navbar.html     # Navigation component
 │   └── footer.html     # Footer component
 ├── css/                # Stylesheets
-│   ├── style.css       # Main stylesheet (base styles, variables)
+│   ├── style.css       # Main stylesheet (base styles, variables, global components)
+│   ├── page-common.css # Shared page styles (page-header, two-column-layout, stats-card)
+│   ├── legal.css       # Legal pages styles (Privacy Policy, Terms of Service)
 │   ├── about.css       # About page specific styles
 │   ├── contact.css     # Contact page specific styles
 │   ├── portfolio.css   # Portfolio page specific styles
@@ -32,18 +34,29 @@ logia/
 │   ├── main.js         # Main application logic
 │   ├── alpine-setup.js # Alpine.js configuration and setup
 │   ├── testimonials.js # Google Reviews carousel module
+│   ├── instagram-feed.js # Instagram feed carousel module
+│   ├── particles-net.js # Particles background system (CTA sections)
+│   ├── particlesjs-config.json # Particles configuration (particles.js format)
+│   ├── utils/          # JavaScript utilities
+│   │   └── theme.js    # Theme manager (loaded early to prevent FOUC)
 │   └── lazy/           # Lazy-loaded modules
 │       ├── faq.js      # FAQ functionality (lazy)
 │       ├── filters.js  # Filter functionality (lazy)
 │       └── search.js   # Search functionality (lazy)
 ├── utils/              # Utility functions
+│   ├── theme.js        # Theme management (dark/light mode, system preference)
+│   ├── path.js         # Path utilities (GitHub Pages base path detection)
 │   ├── dom.js          # DOM manipulation helpers ($, $$, etc.)
 │   ├── performance.js  # Performance utilities (debounce, throttle, etc.)
 │   ├── validation.js   # Form validation functions
 │   ├── scroll-handler.js # Unified scroll handler (navbar, scroll-to-top, active nav)
+│   ├── blur-placeholder.js # Blur-up placeholder utilities
 │   └── index.js        # Utility exports
+├── js/utils/           # JavaScript utilities (duplicate theme.js for early load)
+│   └── theme.js        # Theme manager (loaded early to prevent FOUC)
 ├── data/               # Data files
 │   ├── google-reviews.json # Fetched Google Reviews (generated)
+│   ├── instagram-posts.json # Fetched Instagram posts (generated)
 │   └── manual-reviews.json  # Manual reviews fallback
 ├── config/             # Configuration files
 │   ├── app.config.js   # Application configuration (theme, animation, etc.)

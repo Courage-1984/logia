@@ -18,21 +18,22 @@ Quick reference guide to all project documentation.
 
 ## Performance & Optimization
 
-- **[PERFORMANCE_OPTIMIZATION.md](./PERFORMANCE_OPTIMIZATION.md)** - Performance strategies and optimizations
+- **[PERFORMANCE_OPTIMIZATION.md](./PERFORMANCE_OPTIMIZATION.md)** - Performance strategies, optimizations, and browser compatibility
 - **[PERFORMANCE_CHECKLIST.md](./PERFORMANCE_CHECKLIST.md)** - Quick performance reference checklist
 - **[NETWORK_OPTIMIZATION.md](./NETWORK_OPTIMIZATION.md)** - Server-side and infrastructure optimization
-- **[BROWSER_OPTIMIZATION.md](./BROWSER_OPTIMIZATION.md)** - Browser compatibility and optimization
 
 ## SEO & Standards
 
 - **[SEO_RECOMMENDATIONS.md](./SEO_RECOMMENDATIONS.md)** - Complete SEO strategy and implementation guide
-- **[INDUSTRY_STANDARDS_AUDIT.md](./INDUSTRY_STANDARDS_AUDIT.md)** - Historical audit (many items now implemented)
 
 ## Implementation Guides
 
 - **[GOOGLE_REVIEWS_SETUP.md](./GOOGLE_REVIEWS_SETUP.md)** - Google Reviews carousel setup and configuration
+- **[INSTAGRAM_FEED_SETUP.md](./INSTAGRAM_FEED_SETUP.md)** - Instagram feed setup with local image fallback
+- **[GITHUB_ACTIONS_SETUP.md](./GITHUB_ACTIONS_SETUP.md)** - GitHub Actions secrets configuration
+- **[MONITORING_SETUP.md](./MONITORING_SETUP.md)** - Sentry error tracking and performance monitoring
 - **[IMAGE_GUIDE.md](./IMAGE_GUIDE.md)** - Image optimization and responsive image implementation
-- **[FONTS.md](./FONTS.md)** - Font self-hosting guide
+- **[FONTS.md](./FONTS.md)** - Font self-hosting guide and Font Awesome optimization
 - **[RESPONSIVE_DESIGN.md](./RESPONSIVE_DESIGN.md)** - Responsive design patterns and breakpoints
 
 ## Quick Reference
@@ -48,18 +49,33 @@ Quick reference guide to all project documentation.
 ### Key Features
 - ✅ Dual build system (Production + GitHub Pages)
 - ✅ Complete SEO implementation (Open Graph, Twitter Cards, Structured Data)
+- ✅ Theme system (dark/light mode with FOUC prevention)
+- ✅ Particles background (animated network in CTA sections with mouse interaction)
 - ✅ Google Reviews carousel (dynamic testimonials with interactive controls)
+- ✅ Instagram feed (with local image fallback)
 - ✅ Floating action buttons (WhatsApp, scroll-to-top)
 - ✅ Form backend integration (Formspree)
 - ✅ Legal pages (Privacy Policy, Terms of Service, 404)
 - ✅ Automatic URL transformation based on build target
-- ✅ GitHub Actions automated deployment
+- ✅ GitHub Actions automated deployment with secrets support
+- ✅ CSS modularization (page-common.css, legal.css)
+- ✅ Path utilities for GitHub Pages compatibility
 
 ### Configuration Files
 - `config/build-config.js` - Build target URLs and paths
 - `config/app.config.js` - Application settings
 - `vite.config.js` - Build system configuration
 - `.github/workflows/static.yml` - GitHub Pages deployment
+
+### Recent Updates (January 2025)
+- Particles background system (particles.js-compatible implementation in CTA sections)
+- Font Awesome cross-browser fixes (Firefox compatibility - quoted URLs, semicolons, root normalization)
+- Theme system optimization (FOUC prevention, system preference detection)
+- Path utilities for GitHub Pages compatibility
+- CSS modularization (shared page styles, legal pages)
+- Instagram feed local image fallback
+- GitHub Actions secrets support
+- Legal pages UI improvements
 
 ---
 

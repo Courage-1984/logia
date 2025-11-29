@@ -73,5 +73,27 @@ export const appConfig = {
     performanceLogging: true,
     analytics: false,
   },
+  
+  // Monitoring & Error Tracking
+  monitoring: {
+    // Sentry error tracking
+    sentry: {
+      enabled: import.meta.env.VITE_SENTRY_ENABLED === 'true' || false, // Set via environment variable VITE_SENTRY_ENABLED
+      dsn: import.meta.env.VITE_SENTRY_DSN || '', // Set via environment variable VITE_SENTRY_DSN
+      environment: import.meta.env.VITE_SENTRY_ENVIRONMENT || import.meta.env.MODE || 'production', // 'production' | 'development' | 'staging'
+      tracesSampleRate: parseFloat(import.meta.env.VITE_SENTRY_TRACES_SAMPLE_RATE) || 0.1, // 10% of transactions
+      replaysSessionSampleRate: parseFloat(import.meta.env.VITE_SENTRY_REPLAYS_SESSION_SAMPLE_RATE) || 0.1, // 10% of sessions
+      replaysOnErrorSampleRate: parseFloat(import.meta.env.VITE_SENTRY_REPLAYS_ON_ERROR_SAMPLE_RATE) || 1.0, // 100% of sessions with errors
+      user: null, // Optional: { id: 'user-id', email: 'user@example.com' }
+    },
+    
+    // Performance monitoring (Core Web Vitals)
+    performance: {
+      enabled: import.meta.env.VITE_PERFORMANCE_MONITORING_ENABLED !== 'false', // Default: true, set to 'false' to disable
+      logToConsole: import.meta.env.VITE_PERFORMANCE_LOG_TO_CONSOLE !== 'false', // Default: true
+      sendToSentry: import.meta.env.VITE_PERFORMANCE_SEND_TO_SENTRY === 'true' || false, // Default: false
+      sendToAnalytics: import.meta.env.VITE_PERFORMANCE_SEND_TO_ANALYTICS === 'true' || false, // Default: false
+    },
+  },
 };
 

@@ -96,8 +96,11 @@ export const initComponents = async () => {
     // Load navbar
     await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
         setActiveNavLink();
-        // Initialize dark mode after navbar is loaded
-        if (typeof window.initDarkMode === 'function') {
+        // Initialize dark mode toggle after navbar loads
+        // Theme manager initializes automatically, but we ensure toggle button is set up
+        if (window.themeManager) {
+            window.themeManager.initToggleButton();
+        } else if (typeof window.initDarkMode === 'function') {
             window.initDarkMode();
         }
         // Initialize mobile menu after navbar is loaded

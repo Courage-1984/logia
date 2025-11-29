@@ -15,13 +15,21 @@ window.Alpine = Alpine;
 
 // Example: Global app state
 Alpine.data('appState', () => ({
-  // Theme state
-  isDark: localStorage.getItem('theme') === 'dark',
+  // Theme state - syncs with themeManager
+  get isDark() {
+    return document.body.classList.contains('dark-mode');
+  },
   
   toggleTheme() {
-    this.isDark = !this.isDark;
-    document.body.classList.toggle('dark-mode', this.isDark);
-    localStorage.setItem('theme', this.isDark ? 'dark' : 'light');
+    // Use themeManager for consistent theme handling
+    if (window.themeManager) {
+      window.themeManager.toggle();
+    } else {
+      // Fallback if themeManager not available
+      const isDark = document.body.classList.contains('dark-mode');
+      document.body.classList.toggle('dark-mode');
+      localStorage.setItem('theme', !isDark ? 'dark' : 'light');
+    }
   },
   
   // Mobile menu state

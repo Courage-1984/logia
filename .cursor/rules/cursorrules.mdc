@@ -37,9 +37,24 @@ Examples of changes that require updates:
 ```
 logia/
 ├── components/          # Reusable HTML components (navbar, footer)
-├── css/                # Stylesheets (main + page-specific)
+├── css/                # Stylesheets
+│   ├── style.css       # Main stylesheet (base, variables, global)
+│   ├── page-common.css # Shared page styles (page-header, layouts)
+│   ├── legal.css       # Legal pages styles (Privacy Policy, Terms)
+│   └── *.css           # Page-specific styles
 ├── js/                 # JavaScript modules (ES6)
-├── utils/              # Utility functions (dom, performance, validation)
+│   ├── particles-net.js # Particles background system (CTA sections)
+│   ├── particlesjs-config.json # Particles configuration
+│   └── *.js            # Other JS modules
+├── utils/              # Utility functions
+│   ├── theme.js        # Theme management (dark/light mode)
+│   ├── path.js         # Path utilities (GitHub Pages base path)
+│   ├── dom.js          # DOM manipulation
+│   ├── performance.js  # Performance utilities
+│   ├── validation.js   # Form validation
+│   ├── scroll-handler.js # Unified scroll handler
+│   └── index.js        # Utility exports
+├── js/utils/           # JavaScript utilities (duplicate theme.js for early load)
 ├── config/             # Configuration files (app config, build plugins)
 ├── assets/             # Static assets (images, fonts)
 │   ├── images/         # Image files (with responsive optimization)
@@ -85,7 +100,9 @@ Always use CSS custom properties defined in `css/style.css`:
 
 ### CSS Organization
 - **Main stylesheet** (`css/style.css`): Base styles, variables, global components
+- **Common page styles** (`css/page-common.css`): Shared page header, two-column layout, stats card styles
 - **Page-specific** (`css/about.css`, etc.): Page-unique styles only
+- **Legal pages** (`css/legal.css`): Privacy Policy and Terms of Service specific styles
 - **Mobile-first**: Write mobile styles first, then use `@media` for larger screens
 - **Dark mode**: Use `body.dark-mode` selector for dark mode overrides
 
@@ -95,6 +112,7 @@ Always use CSS custom properties defined in `css/style.css`:
 - ✅ Use semantic class names (describe purpose, not appearance)
 - ✅ Keep page-specific CSS in separate files
 - ✅ Use `clamp()` for responsive typography
+- ✅ **Cross-browser compatibility**: Quote @font-face URLs, include semicolons, use `text-size-adjust: 100%` on root
 - ❌ Never hardcode colors, spacing, or other design tokens
 - ❌ Avoid inline styles (except for dynamic JS-generated styles)
 - ❌ Don't use `!important` unless absolutely necessary
@@ -114,6 +132,9 @@ Use utility functions from `utils/`:
 - **Performance**: `debounce()`, `throttle()`, `logPerformance()`
 - **Validation**: `validateEmail()`, `validatePhone()`, `showError()`, `showSuccessMessage()`
 - **Scroll Handler**: `initScrollHandlers()` from `utils/scroll-handler.js` (unified scroll handler)
+- **Theme**: `themeManager` from `utils/theme.js` or `js/utils/theme.js` (dark/light mode with system preference)
+- **Path**: `getBasePath()`, `getResourcePath()` from `utils/path.js` (GitHub Pages path handling)
+- **Particles**: `initCTANetBackgrounds()` from `js/particles-net.js` (lazy-loaded, auto-initializes on CTA sections)
 
 ### Code Style
 - Use `const` by default, `let` when reassignment needed, avoid `var`
@@ -127,8 +148,8 @@ Use utility functions from `utils/`:
 - Use `debounce()` for search inputs, resize handlers
 - Use unified scroll handler for all scroll events (single throttled handler)
 - Use event delegation instead of individual listeners
-- Use lazy loading for non-critical functionality (`js/lazy/`)
-- Use `IntersectionObserver` for lazy loading images
+- Use lazy loading for non-critical functionality (`js/lazy/`, `particles-net.js`)
+- Use `IntersectionObserver` for lazy loading images and pausing animations when not visible
 - Use `requestAnimationFrame` for animations
 - Avoid blocking the main thread
 
@@ -158,9 +179,39 @@ element.dataset.initialized = 'true';
 <div id="footer-placeholder"></div>
 
 <!-- Scripts (in order) -->
+<!-- Theme Manager - Load early to prevent FOUC -->
+<script type="module" src="js/utils/theme.js"></script>
 <script type="module" src="js/components.js"></script>
 <script type="module" src="js/alpine-setup.js"></script>
 <script type="module" src="js/main.js"></script>
+```
+
+### FOUC Prevention (Required on All Pages)
+All HTML pages must include theme initialization script in `<head>` immediately after viewport meta:
+```html
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Theme initialization script - prevents FOUC (Flash of Unstyled Content) -->
+<!-- MUST be before any CSS or other content -->
+<script>
+    (function() {
+        try {
+            const storageKey = 'theme';
+            const defaultMode = 'light';
+            const stored = localStorage.getItem(storageKey);
+            const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const theme = stored === 'dark' || stored === 'light' ? stored : (systemPrefersDark ? 'dark' : defaultMode);
+            
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+                document.body.classList.add('dark-mode');
+            }
+        } catch (e) {
+            // Silently fail if localStorage or matchMedia not available
+        }
+    })();
+</script>
 ```
 
 ### Meta Tags
@@ -317,10 +368,11 @@ The project supports two build targets:
 - Lazy load below-fold content
 
 ### Resource Loading
-- Load Font Awesome asynchronously (or self-host)
+- Self-host Font Awesome (zero external requests)
 - Use `font-display: swap` for fonts
 - Reduce font weights to only needed ones (400, 600, 700)
-- Preconnect to external domains
+- Preconnect to external domains (if any)
+- **Cross-browser font fixes**: Quoted URLs in @font-face, semicolons, text-size-adjust normalization
 
 ### Code Optimization
 - Code splitting enabled (vendor, utils, components chunks)
@@ -367,10 +419,21 @@ See `docs/PERFORMANCE_OPTIMIZATION.md` for detailed optimization strategies.
 ## Dark Mode
 
 ### Implementation
-- Toggle via `document.body.classList.toggle('dark-mode')`
-- Persisted in localStorage
-- Smooth transitions between modes
-- CSS variables handle color switching
+- **Theme Manager**: Centralized theme management via `utils/theme.js` and `js/utils/theme.js`
+- **System Preference**: Automatically detects `prefers-color-scheme` if no user preference set
+- **FOUC Prevention**: Inline script in `<head>` applies theme before CSS loads
+- **Persistence**: Theme preference saved to localStorage
+- **Smooth Transitions**: 300ms transitions via `--transition-theme` CSS variable
+- **Event System**: Dispatches `themechange` event for component synchronization
+
+### Usage
+```javascript
+// Theme manager initializes automatically
+// Access via window.themeManager
+window.themeManager.toggle(); // Toggle theme
+window.themeManager.setTheme('dark'); // Set specific theme
+window.themeManager.getTheme(); // Get current theme
+```
 
 ### Color Mapping
 - Use CSS variables that adapt to dark mode
@@ -563,9 +626,11 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 - Transitions: `var(--transition-*)`
 
 ### JavaScript Utilities
-- DOM: `$()`, `$$()`, `waitForElement()`
-- Performance: `debounce()`, `throttle()`
-- Validation: `validateEmail()`, `validatePhone()`
+- **DOM**: `$()`, `$$()`, `waitForElement()`, `isInViewport()`
+- **Performance**: `debounce()`, `throttle()`, `logPerformance()`
+- **Validation**: `validateEmail()`, `validatePhone()`, `showError()`, `showSuccessMessage()`
+- **Theme**: `themeManager` (auto-initialized), `getTheme()`, `setTheme()`, `toggleTheme()`
+- **Path**: `getBasePath()`, `getResourcePath()` (for GitHub Pages compatibility)
 
 ### Build Commands
 - `npm run dev` - Development server
@@ -582,29 +647,48 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 - Loading states and error handling included
 
 ### Interactive Features
+- **Particles Background**: Animated particle network in CTA sections (`js/particles-net.js`)
+  - Compatible with particles.js configuration format
+  - Mouse interaction (hover repulse, click to push)
+  - Lazy-loaded for performance
+  - Configured via `js/particlesjs-config.json`
 - **Testimonials Carousel**: Centered active card, infinite loop, drag & shift+scroll navigation
+- **Instagram Feed**: Carousel with local image fallback (uses `assets/images/instagram/` if API unavailable)
 - **WhatsApp Button**: Floating action button (bottom-left) with tooltip
 - **Scroll to Top**: Floating button (bottom-right) appears after 500px scroll
 - **Address Links**: All addresses link to Google Maps (`https://maps.app.goo.gl/LxbQUQxCa3b6b7Jm6`)
+- **Services Dropdown**: Links to services page + individual service sections
+- **Theme Toggle**: Works on all pages with FOUC prevention
 
 ### Documentation
+**Core Documentation:**
 - **Setup & Getting Started**: `README.md` (quick start)
-- **Google Reviews**: `docs/GOOGLE_REVIEWS_SETUP.md` (testimonials carousel setup)
-- **Dual Build System**: `docs/DUAL_BUILD_GUIDE.md` (deployment guide)
+- **Setup Guide**: `docs/SETUP_GUIDE.md` (developer workflow)
 - **Architecture**: `docs/ARCHITECTURE.md` (project structure)
 - **Style Guide**: `docs/STYLE_GUIDE.md` (CSS conventions)
-- **Performance**: `docs/PERFORMANCE_OPTIMIZATION.md` (optimization strategies)
+
+**Feature Setup:**
+- **Google Reviews**: `docs/GOOGLE_REVIEWS_SETUP.md` (testimonials carousel)
+- **Instagram Feed**: `docs/INSTAGRAM_FEED_SETUP.md` (Instagram feed with local fallback)
+- **GitHub Actions**: `docs/GITHUB_ACTIONS_SETUP.md` (secrets configuration)
+- **Monitoring**: `docs/MONITORING_SETUP.md` (Sentry & performance monitoring)
+
+**Optimization & Best Practices:**
+- **Performance**: `docs/PERFORMANCE_OPTIMIZATION.md` (optimization strategies, browser compatibility)
 - **Performance Checklist**: `docs/PERFORMANCE_CHECKLIST.md` (quick reference)
-- **SEO**: `docs/SEO_RECOMMENDATIONS.md` (SEO strategy)
 - **Image Guide**: `docs/IMAGE_GUIDE.md` (image implementation)
-- **Fonts**: `docs/FONTS.md` (font self-hosting)
+- **Fonts**: `docs/FONTS.md` (font self-hosting, Font Awesome optimization)
 - **Network**: `docs/NETWORK_OPTIMIZATION.md` (server-side optimization)
 - **Responsive**: `docs/RESPONSIVE_DESIGN.md` (responsive patterns)
+- **SEO**: `docs/SEO_RECOMMENDATIONS.md` (SEO strategy)
+
+**Deployment:**
+- **Dual Build System**: `docs/DUAL_BUILD_GUIDE.md` (production + GitHub Pages)
 
 ---
 
 **Last Updated**: January 2025
-**Version**: 2.1
+**Version**: 2.4
 
 ## Recent Major Updates (January 2025)
 
@@ -652,3 +736,54 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 - privacy-policy.html
 - terms-of-service.html
 - 404.html error page
+- Enhanced UI with `css/legal.css` (card layout, section dividers, styled contact section)
+- Reduced hero section height for better content visibility
+
+### Theme System Optimization ✅
+- Unified theme manager (`utils/theme.js`, `js/utils/theme.js`)
+- System preference detection (`prefers-color-scheme`)
+- FOUC prevention on all pages (inline script in `<head>`)
+- Smooth transitions (300ms via `--transition-theme`)
+- Event system for component synchronization
+- Works consistently across all pages
+
+### Path Utilities ✅
+- `utils/path.js` for GitHub Pages compatibility
+- `getBasePath()` - Detects deployment environment
+- `getResourcePath()` - Builds correct resource paths
+- Used by testimonials, Instagram feed, and blur placeholders
+
+### CSS Modularization ✅
+- `css/page-common.css` - Shared page styles (page-header, two-column-layout, stats-card)
+- `css/legal.css` - Legal pages specific styles
+- Removed duplicate styles from page-specific CSS files
+- Better maintainability and consistency
+
+### GitHub Actions Enhancement ✅
+- Secrets support for API keys (GOOGLE_PLACES_API_KEY, GOOGLE_PLACE_ID, INSTAGRAM_ACCESS_TOKEN)
+- Separate fetch steps before build
+- Graceful fallback if secrets not set
+- See `docs/GITHUB_ACTIONS_SETUP.md` for setup
+
+### Instagram Feed Improvement ✅
+- Uses local images from `assets/images/instagram/` when API unavailable
+- Automatic image detection by post ID
+- No API calls needed if images already exist
+- Faster execution and works in GitHub Actions without token
+
+### Font Awesome Cross-Browser Fixes ✅
+- Fixed Firefox compatibility issues with Font Awesome icons
+- Quoted URLs in all @font-face declarations (Firefox requirement)
+- Added semicolons to all @font-face src properties
+- Root font-size normalization with `text-size-adjust: 100%` to prevent browser font preferences from affecting rem/em calculations
+- Explicit icon sizing and rendering properties for consistent cross-browser display
+- Icons now render consistently across Chrome, Firefox, Safari, and Edge
+
+### Particles Background System ✅
+- **Implementation**: `js/particles-net.js` - Clean particles.js-compatible implementation (ES6 class-based)
+- **Configuration**: `js/particlesjs-config.json` - Standard particles.js format
+- **Features**: Mouse interaction (repulse on hover, push on click), line linking, retina support, out_mode handling
+- **Performance**: Lazy-loaded via `main.js`, IntersectionObserver for visibility pausing
+- **Integration**: Automatically initializes on all `.cta-section .cta-background` elements
+- **Event Handling**: Listens on `.cta-section` parent to capture events even when hovering over content
+- **Canvas**: Uses `pointer-events: none` to avoid blocking content interactions

@@ -3,6 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Theme initialization script - prevents FOUC (Flash of Unstyled Content) -->
+    <!-- MUST be before any CSS or other content -->
+    <script>
+        (function() {
+            try {
+                const storageKey = 'theme';
+                const defaultMode = 'light';
+                const stored = localStorage.getItem(storageKey);
+                const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                const theme = stored === 'dark' || stored === 'light' ? stored : (systemPrefersDark ? 'dark' : defaultMode);
+                
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark-mode');
+                    document.body.classList.add('dark-mode');
+                }
+            } catch (e) {
+                // Silently fail if localStorage or matchMedia not available
+            }
+        })();
+    </script>
+    
     <meta name="description" content="Logia Genesis Resources - Technology guides, FAQs, and industry insights for businesses in Gauteng. Learn about wireless networking, surveillance, and IT solutions.">
     <title>Resources & Insights | Technology Guides Gauteng | Logia Genesis</title>
     
@@ -31,6 +53,7 @@
     <!-- Font Awesome (self-hosted) -->
     <link rel="stylesheet" href="css/fontawesome-local.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/page-common.css">
     <link rel="stylesheet" href="css/services.css">
     <link rel="stylesheet" href="css/resources.css">
     
@@ -85,9 +108,15 @@
 </head>
 <body>
     
+    <!-- Skip Navigation Links (Accessibility) -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#footer" class="skip-link">Skip to footer</a>
+    
     <!-- Navigation - Loaded via components.js -->
     <div id="navbar-placeholder"></div>
     
+    <!-- Main Content -->
+    <main id="main-content">
     <section class="page-header">
         <div class="hero-background">
             <div class="gradient-mesh"></div>
@@ -221,10 +250,16 @@
         </div>
     </section>
     
+    </main>
+    
     <!-- Footer - Loaded via components.js -->
+    <footer id="footer">
     <div id="footer-placeholder"></div>
+    </footer>
     
     
+    <!-- Theme Manager - Load early to prevent FOUC -->
+    <script type="module" src="js/utils/theme.js"></script>
     <script type="module" src="js/components.js"></script>
     <script type="module" src="js/alpine-setup.js"></script>
     <script type="module" src="js/main.js"></script>
