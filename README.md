@@ -13,7 +13,7 @@ A modern, responsive website built with vanilla HTML, CSS, and JavaScript. The p
 - 🎨 Modern, responsive design
 - 🌓 Dark/Light mode toggle
 - 📱 Mobile-first approach
-- ♿ Accessibility compliant (WCAG AA)
+- ♿ Accessibility compliant (WCAG AA) with automated testing
 - ⚡ Fast loading times with Vite optimization
 - 🖼️ Automatic image optimization (WebP, AVIF, responsive sizes)
 - 🔧 Modular component architecture
@@ -175,6 +175,27 @@ The bundle analyzer generates an interactive visualization at `dist/stats.html`.
 - See chunk sizes (original, gzipped, and brotli)
 - Identify large dependencies
 - Optimize code splitting
+
+### Accessibility Testing
+
+The project includes comprehensive accessibility testing tools:
+
+```bash
+# Run all accessibility tests
+npm run accessibility:all
+
+# Run individual tests
+npm run accessibility:contrast  # Check text contrast ratios
+npm run accessibility:axe       # Run axe-core audit
+npm run accessibility:pa11y     # Run pa11y audit
+```
+
+**Tools included**:
+- **axe-core**: Automated WCAG compliance testing
+- **pa11y**: Command-line accessibility testing with headless Chrome
+- **HTML Contrast Checker**: Custom tool for checking text contrast ratios
+
+See [docs/ACCESSIBILITY_TESTING.md](./docs/ACCESSIBILITY_TESTING.md) for detailed usage instructions.
 
 ## Browser Support
 

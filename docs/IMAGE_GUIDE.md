@@ -95,13 +95,14 @@ All images use this responsive pattern:
 - **`decoding="async"`**: Always use for better performance
 - **`fetchpriority="high"`**: Only for the most critical image
 
-### Preloading Critical Images
-Add to `<head>` for critical images:
+### Image Loading Priority
+For critical above-the-fold images, use `loading="eager"` and `fetchpriority="high"` on the `<img>` element:
 
 ```html
-<link rel="preload" as="image" href="assets/images/hero-background.webp" type="image/webp" fetchpriority="high">
-<link rel="preload" as="image" href="assets/images/hero-background.jpg" type="image/jpeg" fetchpriority="high">
+<img src="..." alt="..." loading="eager" fetchpriority="high" decoding="async">
 ```
+
+**Note**: Preload links for responsive images are not recommended as they can cause browser warnings when the browser selects a different size than what was preloaded. The `loading="eager"` and `fetchpriority="high"` attributes on the image element are sufficient for priority loading.
 
 ## Image Requirements by Page
 
@@ -180,7 +181,7 @@ assets/images/
 
 ### Performance
 - Lazy load below-the-fold images
-- Preload critical above-the-fold images
+- Use `loading="eager"` and `fetchpriority="high"` for critical above-the-fold images
 - Use appropriate `sizes` attribute
 - Test Core Web Vitals impact
 

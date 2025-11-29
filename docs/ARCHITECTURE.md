@@ -18,7 +18,8 @@ logia/
 │   │   ├── cards.css       # Generic card patterns
 │   │   ├── forms.css       # Form elements
 │   │   ├── carousel.css    # Carousel component
-│   │   └── floating-buttons.css # Scroll-to-top, WhatsApp buttons
+│   │   ├── floating-buttons.css # Scroll-to-top, WhatsApp buttons
+│   │   └── skeleton.css    # Skeleton loaders (animated loading placeholders)
 │   ├── layout/         # Layout components
 │   │   ├── container.css   # Container utilities
 │   │   ├── navbar.css      # Navigation bar
@@ -67,6 +68,9 @@ logia/
 │   ├── instagram-feed.js # Instagram feed carousel module
 │   ├── particles-net.js # Particles background system (CTA sections)
 │   ├── particlesjs-config.json # Particles configuration (particles.js format)
+│   ├── page-transitions.js # Smooth page transitions with skeleton loading
+│   ├── cache-manager.js # In-memory cache manager for pages and data
+│   ├── cache-warming.js # Cache warming for critical pages and data
 │   ├── utils/          # JavaScript utilities
 │   │   └── theme.js    # Theme manager (loaded early to prevent FOUC)
 │   └── lazy/           # Lazy-loaded modules
@@ -97,6 +101,9 @@ logia/
 ├── assets/             # Static assets
 │   ├── images/         # Image files
 │   └── fonts/          # Font files
+├── public/             # Public static files
+│   ├── service-worker.js # Enhanced service worker with multi-layer caching
+│   └── data/           # Runtime data (copied to build output)
 ├── .github/workflows/  # GitHub Actions
 │   └── static.yml      # GitHub Pages deployment workflow
 ├── dist/               # Production build output (generated, gitignored)
@@ -272,7 +279,7 @@ Alpine.js provides reactive components for:
 - **Compression**: Gzip and brotli build-time compression
 - **Bundle analyzer**: Visual bundle composition analysis
 - **Image optimization**: WebP, AVIF, responsive sizes, lazy loading
-- **Resource hints**: Module preload, page prefetch, link prefetch on hover
+- **Resource hints**: Module preload for JS, page prefetch, link prefetch on hover (images use `loading="eager"` and `fetchpriority="high"` instead of preload links)
 - **Tree-shaking**: Automatic dead code elimination
 - **Performance monitoring utilities**
 

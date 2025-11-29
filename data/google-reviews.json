@@ -1,0 +1,51 @@
+{
+  "lastUpdated": "2025-11-29T12:36:30.762Z",
+  "source": "google-places-api",
+  "reviews": [
+    {
+      "id": "reviews",
+      "author": "Jason Gell",
+      "rating": 5,
+      "text": "Best service ever from Dennis and his team. Sorted all our cabling issues out for us. Would definitely recommend them",
+      "time": "2023-10-06T11:16:43.000Z",
+      "authorPhoto": "https://lh3.googleusercontent.com/a/ACg8ocI5CY-Soq2ik4oCrDNvm-P52kw0iF3fDRQbHw6xjbALWmbpIg=s128-c0x00000000-cc-rp-mo",
+      "relativeTime": "2 years ago"
+    },
+    {
+      "id": "reviews",
+      "author": "Barry Engelbrecht",
+      "rating": 5,
+      "text": "When starting up, many questions and costs will discourage a entrepreneur. Enter \"Logia Genesis \" Mr D. Webster solved them, created more than expected and offers virtually all startups requirements. I've not felt as confident as I do now thanks to this powerful establishment. Thank you Mr. D. Webster, you're a company saver",
+      "time": "2022-10-18T09:17:46.000Z",
+      "authorPhoto": "https://lh3.googleusercontent.com/a-/ALV-UjUalRb4vGOs5MNLQcK-qES12JEqAzdJ9u8FOVyKtuUvOG0H3vdO=s128-c0x00000000-cc-rp-mo-ba4",
+      "relativeTime": "3 years ago"
+    },
+    {
+      "id": "reviews",
+      "author": "Rory Renaud",
+      "rating": 5,
+      "text": "Great turnkey service. Very informed & current advice. Seamless & efficient. Would recommend their service's.",
+      "time": "2023-10-06T17:16:52.000Z",
+      "authorPhoto": "https://lh3.googleusercontent.com/a/ACg8ocL95uTtx32AcNwmXYnhwaOqs3Sqdzu7lWJpeI8CeMUv-DvKBQ=s128-c0x00000000-cc-rp-mo",
+      "relativeTime": "2 years ago"
+    },
+    {
+      "id": "reviews",
+      "author": "Etienne Odendaal",
+      "rating": 5,
+      "text": "Always willing to assist, quick turnaround time and great workmanship.",
+      "time": "2023-10-09T06:27:05.000Z",
+      "authorPhoto": "https://lh3.googleusercontent.com/a-/ALV-UjV2LZwyf-R5zIn9DGC0jTt5Pj_PnAhXMSABa0CBqz6o7977Q3fK=s128-c0x00000000-cc-rp-mo",
+      "relativeTime": "2 years ago"
+    },
+    {
+      "id": "reviews",
+      "author": "Pierre Meyer",
+      "rating": 5,
+      "text": "Highly recommended and up to date on the latest tech.",
+      "time": "2023-10-06T11:34:29.000Z",
+      "authorPhoto": "https://lh3.googleusercontent.com/a/ACg8ocI9N2rN7msMBCRc4RccmmpWXluc840o7gSsfWobKnaW7WwtIQ=s128-c0x00000000-cc-rp-mo",
+      "relativeTime": "2 years ago"
+    }
+  ]
+}

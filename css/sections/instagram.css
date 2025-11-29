@@ -182,9 +182,15 @@ body.dark-mode .instagram-caption {
 
 .instagram-loading i {
     font-size: 3rem;
-    color: var(--color-accent);
+    color: var(--color-accent-text);
+    /* Use darker accent for better contrast on light backgrounds */
     margin-bottom: var(--space-4);
     animation: pulse 2s ease-in-out infinite;
+}
+
+body.dark-mode .instagram-loading i {
+    color: var(--color-accent);
+    /* Use bright accent on dark backgrounds */
 }
 
 .instagram-loading p {

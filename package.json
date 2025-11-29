@@ -20,7 +20,11 @@
     "lighthouse": "lhci autorun",
     "lighthouse:ci": "lhci autorun --collect.numberOfRuns=1",
     "check-bundles": "node scripts/check-bundle-sizes.js",
-    "check-bundles:gh-pages": "node scripts/check-bundle-sizes.js dist-gh-pages"
+    "check-bundles:gh-pages": "node scripts/check-bundle-sizes.js dist-gh-pages",
+    "accessibility:axe": "node scripts/axe-audit.js",
+    "accessibility:pa11y": "node scripts/pa11y-audit.js http://localhost:3000 --all",
+    "accessibility:contrast": "node scripts/html-contrast-checker.js",
+    "accessibility:all": "echo 'Running all accessibility tests on all pages...' && npm run build && echo '' && echo '=== Running Contrast Check (All Pages) ===' && node scripts/html-contrast-checker.js dist --all && echo '' && echo '=== Running Axe Audit (All Pages) ===' && node scripts/axe-audit.js dist --all && echo '' && echo '=== Running Pa11y Audit (All Pages) ===' && echo 'Note: pa11y requires a running server. Make sure dev server is running (npm run dev)' && npm run accessibility:pa11y"
   },
   "keywords": [
     "business-technology",
@@ -33,7 +37,11 @@
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^7.1.0",
     "@lhci/cli": "^0.12.0",
+    "axe-core": "^4.11.0",
     "dotenv-cli": "^11.0.0",
+    "jsdom": "^27.2.0",
+    "pa11y": "^9.0.1",
+    "puppeteer": "^24.31.0",
     "rollup-plugin-visualizer": "^6.0.5",
     "sharp": "^0.34.5",
     "vite": "^5.0.0",

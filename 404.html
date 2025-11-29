@@ -37,6 +37,12 @@
     <link rel="canonical" href="https://logia.co.za/404.html">
     
     <style>
+        /* Set body background first for contrast checker */
+        body {
+            background-color: #0A2463;
+            margin: 0;
+            padding: 0;
+        }
         .error-page {
             min-height: 100vh;
             display: flex;
@@ -44,9 +50,21 @@
             justify-content: center;
             text-align: center;
             padding: var(--space-6);
-            background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+            background-color: #0A2463; /* Solid fallback - must come before gradient */
+            background-image: linear-gradient(135deg, #0A2463, #1E3A8A, #00D9FF);
+            position: relative;
+            color: white; /* Ensure all text in error-page is white for contrast checker */
+        }
+        .error-page::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 0;
         }
         .error-content {
+            position: relative;
+            z-index: 1;
             max-width: 600px;
             color: white;
         }
@@ -55,19 +73,29 @@
             font-weight: 700;
             line-height: 1;
             margin-bottom: var(--space-4);
+            color: white; /* Fallback for contrast checker */
             background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,255,255,0.6));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5)) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+        }
+        /* Ensure gradient text shows white in browsers that don't support background-clip */
+        @supports not (-webkit-background-clip: text) {
+            .error-code {
+                -webkit-text-fill-color: white;
+            }
         }
         .error-title {
             font-size: 2rem;
             margin-bottom: var(--space-4);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(0, 0, 0, 0.3);
         }
         .error-description {
             font-size: 1.125rem;
             margin-bottom: var(--space-8);
             opacity: 0.9;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
         }
         .error-actions {
             display: flex;
@@ -75,13 +103,21 @@
             justify-content: center;
             flex-wrap: wrap;
         }
+        .error-actions .btn {
+            color: white !important; /* Ensure white text for contrast checker */
+        }
+        .error-actions .btn span {
+            color: white !important;
+        }
         .error-links {
             margin-top: var(--space-8);
             padding-top: var(--space-8);
             border-top: 1px solid rgba(255,255,255,0.2);
         }
-        .error-links h3 {
+        .error-links h2 {
             margin-bottom: var(--space-4);
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
+            font-size: 1.25rem;
         }
         .error-links ul {
             list-style: none;
@@ -95,14 +131,19 @@
             text-decoration: none;
             opacity: 0.9;
             transition: opacity 0.3s;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
         }
         .error-links a:hover {
             opacity: 1;
             text-decoration: underline;
         }
+        .error-actions .btn span {
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
     </style>
 </head>
 <body>
+    <main>
     <div class="error-page">
         <div class="error-content">
             <div class="error-code">404</div>
@@ -121,7 +162,7 @@
                 </a>
             </div>
             <div class="error-links">
-                <h3>Popular Pages</h3>
+                <h2>Popular Pages</h2>
                 <ul>
                     <li><a href="/">Home</a></li>
                     <li><a href="about.html">About Us</a></li>
@@ -132,6 +173,7 @@
             </div>
         </div>
     </div>
+    </main>
     
     <script type="module" src="js/components.js"></script>
     <script type="module" src="js/main.js"></script>

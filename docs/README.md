@@ -14,12 +14,13 @@ Quick reference guide to all project documentation.
 ## Architecture & Development
 
 - **[ARCHITECTURE.md](./ARCHITECTURE.md)** - Project structure, design decisions, modularity
+- **[CSS_STRUCTURE.md](./CSS_STRUCTURE.md)** - Modular CSS architecture reference guide
 - **[STYLE_GUIDE.md](./STYLE_GUIDE.md)** - CSS conventions, design system, BEM naming
 
 ## Performance & Optimization
 
 - **[PERFORMANCE_CHECKLIST.md](./PERFORMANCE_CHECKLIST.md)** - Primary quick-reference checklist (what's done / what's left)
-- **[PERFORMANCE_OPTIMIZATION.md](./PERFORMANCE_OPTIMIZATION.md)** - Implementation summary and rationale
+- **[PERFORMANCE_OPTIMIZATION.md](./PERFORMANCE_OPTIMIZATION.md)** - Implementation summary, caching strategy, and rationale
 - **[NETWORK_OPTIMIZATION.md](./NETWORK_OPTIMIZATION.md)** - Server-side playbook (HTTP/2, CDN, compression, cache headers)
 
 ## SEO & Standards
@@ -50,6 +51,9 @@ Quick reference guide to all project documentation.
 - ✅ Dual build system (Production + GitHub Pages)
 - ✅ Complete SEO implementation (Open Graph, Twitter Cards, Structured Data)
 - ✅ Theme system (dark/light mode with FOUC prevention)
+- ✅ Page transitions (smooth navigation with skeleton loading)
+- ✅ Skeleton loaders (animated loading placeholders)
+- ✅ Enhanced caching (service worker + in-memory cache + cache warming)
 - ✅ Particles background (animated network in CTA sections with mouse interaction)
 - ✅ Google Reviews carousel (dynamic testimonials with interactive controls)
 - ✅ Instagram feed (with local image fallback)
@@ -58,7 +62,7 @@ Quick reference guide to all project documentation.
 - ✅ Legal pages (Privacy Policy, Terms of Service, 404)
 - ✅ Automatic URL transformation based on build target
 - ✅ GitHub Actions automated deployment with secrets support
-- ✅ CSS modularization (page-common.css, legal.css)
+- ✅ CSS modularization (complete modular structure)
 - ✅ Path utilities for GitHub Pages compatibility
 
 ### Configuration Files
@@ -68,17 +72,20 @@ Quick reference guide to all project documentation.
 - `.github/workflows/static.yml` - GitHub Pages deployment
 
 ### Recent Updates (January 2025)
-- **Performance**: Service worker (runtime caching), mobile-aware animations, will-change hints
-- **Monitoring & Error Tracking**: Sentry integration, Core Web Vitals tracking, Lighthouse CI, bundle size monitoring
+- **Page Transitions & Loading**: Skeleton loaders with shimmer animation, smooth page transitions with instant navigation
+- **Enhanced Caching**: Multi-layer caching (service worker + in-memory cache + cache warming) with automatic cleanup
+- **Performance**: Connection-aware optimizations, cache warming for critical pages/data
+- **Build & Development**: Preload optimization, dynamic import fixes, preview server improvements
+- **UI Improvements**: Footer logo links, Featured Projects styling updates
+- **Monitoring & Error Tracking**: Sentry integration, Core Web Vitals, Lighthouse CI, bundle monitoring
 - **Accessibility**: Skip navigation links on all pages
 - Particles background system (particles.js-compatible, disabled on mobile/reduced motion)
 - Font Awesome cross-browser fixes (Firefox compatibility)
 - Theme system optimization (FOUC prevention, system preference detection)
 - Path utilities for GitHub Pages compatibility
-- CSS modularization (shared page styles, legal pages)
+- CSS modularization (complete modular structure)
 - Instagram feed local image fallback
 - GitHub Actions secrets support
-- Legal pages UI improvements
 
 ---
 

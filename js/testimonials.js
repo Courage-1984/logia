@@ -5,6 +5,7 @@
 
 import { $, $$ } from '../utils/dom.js';
 import { getResourcePath } from '../utils/path.js';
+import cacheManager from './cache-manager.js';
 
 /**
  * Generate star rating HTML
@@ -75,7 +76,7 @@ function createTestimonialCard(review, index) {
           ${avatarHTML}
         </div>
         <div class="author-info">
-          <h4>${authorName}</h4>
+          <strong class="author-name">${authorName}</strong>
           ${relativeTime ? `<p>${relativeTime}</p>` : ''}
         </div>
       </div>
@@ -459,14 +460,48 @@ export async function loadTestimonials(containerSelector = '.testimonials-grid',
     return;
   }
 
-  try {
-    const response = await fetch(getResourcePath('/data/google-reviews.json'));
-    
-    if (!response.ok) {
-      throw new Error(`Failed to load reviews: ${response.status}`);
-    }
+  // Show skeleton loaders
+  const skeletonHTML = `
+    <div class="testimonials-carousel">
+      <div class="testimonials-track">
+        ${Array(3).fill(0).map(() => `
+          <div class="skeleton-testimonial">
+            <div class="skeleton-testimonial-header">
+              <div class="skeleton skeleton-avatar"></div>
+              <div style="flex: 1;">
+                <div class="skeleton skeleton-text skeleton-text--short"></div>
+                <div class="skeleton skeleton-text skeleton-text--medium"></div>
+              </div>
+            </div>
+            <div class="skeleton-testimonial-content">
+              <div class="skeleton skeleton-text skeleton-text--long"></div>
+              <div class="skeleton skeleton-text skeleton-text--long"></div>
+              <div class="skeleton skeleton-text skeleton-text--medium"></div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+  container.innerHTML = skeletonHTML;
 
-    const data = await response.json();
+  try {
+    // Check cache first
+    const cacheKey = 'google-reviews';
+    let data = cacheManager.getData(cacheKey);
+    
+    if (!data) {
+      const response = await fetch(getResourcePath('/data/google-reviews.json'));
+      
+      if (!response.ok) {
+        throw new Error(`Failed to load reviews: ${response.status}`);
+      }
+
+      data = await response.json();
+      
+      // Cache the data
+      cacheManager.setData(cacheKey, data);
+    }
     let reviews = data.reviews || [];
     
     if (maxReviews > 0) {
@@ -474,6 +509,14 @@ export async function loadTestimonials(containerSelector = '.testimonials-grid',
     }
 
     if (reviews.length === 0) {
+      // Remove skeleton and keep fallback testimonials
+      const fallbackTestimonials = container.querySelectorAll('[data-fallback-testimonial]');
+      if (fallbackTestimonials.length > 0) {
+        container.innerHTML = '';
+        fallbackTestimonials.forEach(testimonial => container.appendChild(testimonial));
+      } else {
+        container.innerHTML = '';
+      }
       return;
     }
 
@@ -501,7 +544,14 @@ export async function loadTestimonials(containerSelector = '.testimonials-grid',
     }, 100);
     
   } catch (error) {
-    // Silently fail and keep fallback testimonials
+    // Remove skeleton and keep fallback testimonials
+    const fallbackTestimonials = container.querySelectorAll('[data-fallback-testimonial]');
+    if (fallbackTestimonials.length > 0) {
+      container.innerHTML = '';
+      fallbackTestimonials.forEach(testimonial => container.appendChild(testimonial));
+    } else {
+      container.innerHTML = '';
+    }
   }
 }
 
@@ -521,3 +571,7 @@ export function initTestimonials() {
     init();
   }
 }
+
+// Make loadTestimonials available globally for page transitions
+window.loadTestimonials = loadTestimonials;
+window.initTestimonials = initTestimonials;

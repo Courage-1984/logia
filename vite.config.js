@@ -319,7 +319,7 @@ export default defineConfig(({ mode = 'production' }) => {
       outDir: outDir,
       assetsDir: 'assets',
       emptyOutDir: true, // Clean output folder before build
-      sourcemap: false,
+      sourcemap: false, // Disable source maps to prevent preview server from trying to serve source files
       minify: 'esbuild', // esbuild is faster and comes built-in with Vite
       cssMinify: true,
       target: 'es2015',
@@ -327,6 +327,10 @@ export default defineConfig(({ mode = 'production' }) => {
       chunkSizeWarningLimit: 1000, // Warn if chunk exceeds 1000kb
       // Tree-shaking is enabled by default in Vite for ES modules
       // Dead code elimination happens automatically during build
+      // Ensure all imports are properly resolved and bundled
+      commonjsOptions: {
+        include: [/node_modules/],
+      },
       rollupOptions: {
         input: {
           main: resolve(__dirname, 'index.html'),
@@ -393,6 +397,17 @@ export default defineConfig(({ mode = 'production' }) => {
     preview: {
       port: 4173,
       open: true,
+      cors: true,
+      // Ensure preview server only serves built files, not source files
+      fs: {
+        // Only allow serving files from the output directory
+        allow: [resolve(__dirname, outDir)],
+        strict: true, // Strict mode - only serve files from allowed directories
+      },
+      // Ensure preview server handles all file types correctly
+      headers: {
+        'Cache-Control': 'public, max-age=31536000',
+      },
     },
     
     css: {

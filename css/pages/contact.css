@@ -63,7 +63,7 @@ body.dark-mode .contact-card {
     transform: scale(1.1) rotate(5deg);
 }
 
-.contact-card h3 {
+.contact-card h2 {
     font-size: 1.25rem;
     margin-bottom: var(--space-3);
 }

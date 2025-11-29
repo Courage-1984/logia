@@ -48,5 +48,5 @@ yarn-error.log*
 
 .env
 
-data/
+# data/
 

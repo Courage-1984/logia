@@ -215,15 +215,6 @@ style.css
 
 ---
 
-## Migration Notes
-
-- **Old files removed**: All legacy CSS files have been removed
-- **HTML updated**: All HTML files now use new font and page CSS paths
-- **Backward compatibility**: Migration completed with zero breaking changes
-- **Documentation updated**: Project rules and architecture docs reflect new structure
-
----
-
 ## Best Practices
 
 1. **Always use CSS variables** - Never hardcode colors, spacing, or other design tokens
@@ -233,8 +224,14 @@ style.css
 5. **Mobile-first** - Write mobile styles first, then use media queries for larger screens
 6. **Dark mode support** - Always include dark mode variants using `body.dark-mode` selector
 
+## Font Paths
+
+**Important**: Font CSS files are in `css/fonts/`, so `@font-face` URLs must use `../../assets/fonts/...` to correctly resolve to the font files:
+- From `css/fonts/inter-fonts.css` → `../../assets/fonts/inter/...`
+- From `css/fonts/fontawesome-local.css` → `../../assets/fonts/fontawesome/...`
+
 ---
 
-**For detailed migration information, see**: `docs/CSS_MODULARIZATION_PLAN.md`  
-**For visual structure guide, see**: `docs/CSS_STRUCTURE_VISUAL.md`
+**Last Updated**: January 2025  
+**Status**: ✅ Fully Modularized
 

@@ -23,8 +23,10 @@ Located in `assets/fonts/fontawesome/`:
 
 ## CSS Files
 
-- **Inter Fonts CSS**: `css/inter-fonts.css` - Contains @font-face declarations
-- **Font Awesome CSS**: `css/fontawesome-local.css` - Contains all Font Awesome styles with cross-browser fixes
+- **Inter Fonts CSS**: `css/fonts/inter-fonts.css` - Contains @font-face declarations
+- **Font Awesome CSS**: `css/fonts/fontawesome-local.css` - Contains all Font Awesome styles with cross-browser fixes
+
+**Note**: Font paths in CSS files use `../../assets/fonts/...` (go up two levels from `css/fonts/` to project root, then into `assets/fonts/`).
 
 ## Cross-Browser Compatibility
 
@@ -37,10 +39,11 @@ To ensure consistent rendering across Chrome and Firefox:
 4. **Icon normalization**: Base `.fa` classes have explicit `font-size: 1em`, `line-height: 1`, and `text-rendering: auto` for consistent rendering
 
 ### Implementation Details
-- **Root normalization**: `css/style.css` includes `text-size-adjust: 100%` on `html` element
-- **Icon base styles**: `css/fontawesome-local.css` includes explicit sizing and rendering properties
-- **Quoted URLs**: All `@font-face` `src` URLs use quotes: `url("../assets/fonts/...")`
+- **Root normalization**: `css/core/reset.css` includes `text-size-adjust: 100%` on `html` element
+- **Icon base styles**: `css/fonts/fontawesome-local.css` includes explicit sizing and rendering properties
+- **Quoted URLs**: All `@font-face` `src` URLs use quotes: `url("../../assets/fonts/...")`
 - **Semicolons**: All `@font-face` declarations properly terminated
+- **Path resolution**: Font CSS files are in `css/fonts/`, so paths go up two levels (`../../`) to reach `assets/fonts/`
 
 ## Build Process
 
@@ -55,8 +58,8 @@ The build process automatically:
 All HTML files include:
 ```html
 <!-- Self-hosted Fonts -->
-<link rel="stylesheet" href="css/inter-fonts.css">
-<link rel="stylesheet" href="css/fontawesome-local.css">
+<link rel="stylesheet" href="css/fonts/inter-fonts.css">
+<link rel="stylesheet" href="css/fonts/fontawesome-local.css">
 ```
 
 ## Setup Script

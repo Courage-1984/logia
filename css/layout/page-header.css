@@ -32,12 +32,14 @@
     font-size: clamp(2.5rem, 5vw, 4rem);
     margin-bottom: var(--space-4);
     color: var(--color-white);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .page-header p {
     font-size: 1.25rem;
     opacity: 0.9;
     color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 /* Hero Background for Page Headers */
@@ -58,8 +60,21 @@
     z-index: 0;
 }
 
+/* Dark overlay for better text contrast (matching hero section) */
+.page-header .gradient-mesh::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
 body.dark-mode .page-header .gradient-mesh {
     opacity: 1;
+}
+
+body.dark-mode .page-header .gradient-mesh::after {
+    background: rgba(0, 0, 0, 0.4);
 }
 
 .page-header .grid-overlay {

@@ -42,15 +42,26 @@ The primary color palette establishes the brand identity and is used for key UI 
 #### Accent Colors
 
 - **Accent Cyan**: `#00D9FF` (Bright Cyan)
-  - Usage: CTAs, highlights, interactive elements, links
+  - Usage: CTAs, highlights, interactive elements, links on **dark backgrounds only**
   - RGB: `rgb(0, 217, 255)`
   - HSL: `hsl(189, 100%, 50%)`
-  - Contrast: Excellent on dark backgrounds
+  - Contrast: Excellent on dark backgrounds (10.52:1 on dark surface)
+  - ⚠️ **Never use as text on white/light backgrounds**
   
-- **Accent Hover**: `#00B8DB` (Darker Cyan)
-  - Usage: Hover states for accent elements
+- **Accent Text**: `#006B82` (Dark Cyan)
+  - Usage: Accent text on light backgrounds, links, highlights
+  - RGB: `rgb(0, 107, 130)`
+  - WCAG AA compliant: 6.13:1 on white background
+  - Automatically switches to bright cyan in dark mode
+  
+- **Accent Hover**: `#00B8DB` (Medium Cyan)
+  - Usage: Hover states for accent elements on dark backgrounds
   - RGB: `rgb(0, 184, 219)`
   - HSL: `hsl(189, 100%, 43%)`
+  
+- **Accent Text Hover**: `#00566B` (Very Dark Cyan)
+  - Usage: Hover states for accent text on light backgrounds
+  - WCAG AA compliant: Higher contrast for better visibility
   
 - **Accent Glow**: `rgba(0, 217, 255, 0.4)` (Semi-transparent Cyan)
   - Usage: Glow effects, shadows, highlights
@@ -77,6 +88,32 @@ A comprehensive gray scale for text, backgrounds, and UI elements.
 - **Dark Background**: `#000000` - Pure black background
 - **Dark Surface**: `#0F172A` - Card/surface backgrounds
 - **Dark Border**: `rgba(255, 255, 255, 0.1)` - Subtle borders
+
+### Status & UI Colors
+
+#### Warning/Star Colors
+- **Warning Gold**: `#FFD700` (Bright Gold)
+  - Usage: Star ratings on dark backgrounds
+  - Contrast: 12.73:1 on dark surface (AAA)
+  - ⚠️ **Never use on white/light backgrounds**
+  
+- **Warning Dark Gold**: `#936C08` (Dark Gold)
+  - Usage: Star ratings on light backgrounds
+  - WCAG AA compliant: 4.78:1 on white background
+  - Automatically switches to bright gold in dark mode
+
+#### Error Colors
+- **Error Red**: `#DC2626` (Dark Red)
+  - Usage: Error messages, validation errors
+  - WCAG AA compliant: 4.83:1 on white background
+
+#### WhatsApp Colors
+- **WhatsApp Green**: `#0E7A6D` (Dark WhatsApp Green)
+  - Usage: WhatsApp floating button
+  - WCAG AA compliant: 5.22:1 with white text
+  
+- **WhatsApp Hover**: `#0D6B5F` (Darker Green)
+  - Usage: Hover state for WhatsApp button
 
 ### Color Usage Guidelines
 
@@ -353,17 +390,19 @@ Dynamic states applied via JavaScript. Use single hyphen:
 ### Contrast Ratios (WCAG AA Compliance)
 
 #### Light Mode
-- **Primary Text (Gray-900) on White**: 15.8:1 ✅ (AAA)
-- **Muted Text (Gray-600) on White**: 7.0:1 ✅ (AAA)
-- **Primary Button on Gradient**: 4.5:1+ ✅ (AA)
-- **Accent (Cyan) on White**: 2.8:1 ⚠️ (Needs improvement)
-- **Primary on White**: 8.6:1 ✅ (AAA)
+- **Primary Text (Gray-900) on White**: 17.85:1 ✅ (AAA)
+- **Muted Text (Gray-600) on White**: 7.58:1 ✅ (AAA)
+- **Primary Button on Gradient**: 14.53:1 ✅ (AAA)
+- **Accent Text (#006B82) on White**: 6.13:1 ✅ (AA)
+- **Warning Dark Gold on White**: 4.78:1 ✅ (AA)
+- **Error Red on White**: 4.83:1 ✅ (AA)
 
 #### Dark Mode
-- **Primary Text (Gray-100) on Black**: 15.8:1 ✅ (AAA)
-- **Muted Text (Gray-400) on Dark Surface**: 7.5:1 ✅ (AAA)
-- **Accent (Cyan) on Dark Surface**: 3.2:1 ⚠️ (Needs improvement)
-- **White on Primary**: 4.5:1+ ✅ (AA)
+- **Primary Text (Gray-100) on Black**: 19.17:1 ✅ (AAA)
+- **Muted Text (Gray-400) on Dark Surface**: 6.96:1 ✅ (AA)
+- **Accent Cyan on Dark Surface**: 10.52:1 ✅ (AAA)
+- **White on Primary**: 14.53:1 ✅ (AAA)
+- **Warning Gold on Dark Surface**: 12.73:1 ✅ (AAA)
 
 ### Accessibility Guidelines
 

@@ -1,0 +1,51 @@
+{
+  "lastUpdated": "2025-11-29T12:36:31.667Z",
+  "source": "instagram-graph-api",
+  "posts": [
+    {
+      "id": "manual-0",
+      "postUrl": "https://www.instagram.com/p/DCRi-2SoxNX/",
+      "caption": "",
+      "imageUrl": "assets/images/instagram/instagram-DCRi-2SoxNX.jpg",
+      "thumbnailUrl": "assets/images/instagram/instagram-DCRi-2SoxNX.jpg",
+      "mediaType": "IMAGE",
+      "timestamp": "2025-11-29T12:36:31.665Z"
+    },
+    {
+      "id": "manual-1",
+      "postUrl": "https://www.instagram.com/reel/C32hCk5SoVd/",
+      "caption": "",
+      "imageUrl": "assets/images/instagram/instagram-C32hCk5SoVd.jpg",
+      "thumbnailUrl": "assets/images/instagram/instagram-C32hCk5SoVd.jpg",
+      "mediaType": "IMAGE",
+      "timestamp": "2025-11-29T12:36:31.666Z"
+    },
+    {
+      "id": "manual-2",
+      "postUrl": "https://www.instagram.com/p/Cy03e8sIdT2/",
+      "caption": "",
+      "imageUrl": "assets/images/instagram/instagram-Cy03e8sIdT2.jpg",
+      "thumbnailUrl": "assets/images/instagram/instagram-Cy03e8sIdT2.jpg",
+      "mediaType": "IMAGE",
+      "timestamp": "2025-11-29T12:36:31.666Z"
+    },
+    {
+      "id": "manual-3",
+      "postUrl": "https://www.instagram.com/reel/C2DsIuMSlyc/",
+      "caption": "",
+      "imageUrl": "assets/images/instagram/instagram-C2DsIuMSlyc.jpg",
+      "thumbnailUrl": "assets/images/instagram/instagram-C2DsIuMSlyc.jpg",
+      "mediaType": "IMAGE",
+      "timestamp": "2025-11-29T12:36:31.666Z"
+    },
+    {
+      "id": "manual-4",
+      "postUrl": "https://www.instagram.com/reel/CzCAQ-MySJl/",
+      "caption": "",
+      "imageUrl": "assets/images/instagram/instagram-CzCAQ-MySJl.jpg",
+      "thumbnailUrl": "assets/images/instagram/instagram-CzCAQ-MySJl.jpg",
+      "mediaType": "IMAGE",
+      "timestamp": "2025-11-29T12:36:31.666Z"
+    }
+  ]
+}

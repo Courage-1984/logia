@@ -4,6 +4,8 @@
 // Compatible with particles.js configuration format
 // ============================================
 
+import { getResourcePath } from '../utils/path.js';
+
 /**
  * Default configuration (fallback if JSON fails to load)
  * Based on particles.js format
@@ -77,7 +79,6 @@ const DEFAULT_CONFIG = {
  */
 const loadConfig = async () => {
 	try {
-		const { getResourcePath } = await import('../utils/path.js');
 		const configPath = getResourcePath('/js/particlesjs-config.json');
 
 		const response = await fetch(configPath);

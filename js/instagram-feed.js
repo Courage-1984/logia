@@ -6,6 +6,7 @@
 import { $, $$ } from '../utils/dom.js';
 import { getResourcePath } from '../utils/path.js';
 import { appConfig } from '../config/app.config.js';
+import cacheManager from './cache-manager.js';
 
 /**
  * Fetch Instagram post data using oEmbed API
@@ -424,45 +425,68 @@ export async function loadInstagramFeed(containerSelector = '.instagram-feed-gri
   }
 
   try {
-    // Show loading state
-    container.innerHTML = '<div class="instagram-loading"><i class="fab fa-instagram"></i><p>Loading Instagram feed...</p></div>';
+    // Show skeleton loaders
+    const skeletonHTML = `
+      <div class="instagram-carousel">
+        <div class="instagram-track">
+          ${Array(6).fill(0).map(() => `
+            <div class="instagram-card">
+              <div class="skeleton skeleton-instagram-post"></div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+    container.innerHTML = skeletonHTML;
     
     let posts = [];
     
     // First, try to load from JSON file (build-time fetched posts)
     try {
-      const response = await fetch(getResourcePath('/data/instagram-posts.json'));
+      // Check cache first
+      const cacheKey = 'instagram-posts';
+      let data = cacheManager.getData(cacheKey);
       
-      if (response.ok) {
-        const data = await response.json();
-        if (data.posts && Array.isArray(data.posts) && data.posts.length > 0) {
-          // Transform posts from JSON file
-          posts = data.posts.map(post => ({
-            html: '',
-            thumbnailUrl: post.thumbnailUrl || post.imageUrl || '',
-            title: post.caption || '',
-            authorName: '',
-            authorUrl: '',
-            postUrl: post.postUrl || '',
-            width: 640,
-            height: 640,
-            needsFetch: !(post.thumbnailUrl || post.imageUrl), // Mark if needs oEmbed fetch
-          }));
+      if (!data) {
+        const response = await fetch(getResourcePath('/data/instagram-posts.json'));
+        
+        if (response.ok) {
+          data = await response.json();
           
-          console.log(`✅ Loaded ${posts.length} posts from instagram-posts.json`);
-          
-          // Check for posts missing images
-          const postsNeedingImages = posts.filter(p => !p.thumbnailUrl && !p.imageUrl);
-          if (postsNeedingImages.length > 0) {
-            console.warn(`⚠️  ${postsNeedingImages.length} posts are missing images. Run "npm run fetch-instagram" to fetch images.`);
-            // Filter out posts without images to avoid showing placeholders
-            posts = posts.filter(p => p.thumbnailUrl || p.imageUrl);
-          }
+          // Cache the data
+          cacheManager.setData(cacheKey, data);
         } else {
-          console.log('📝 JSON file exists but has no posts');
+          console.log('📝 JSON file not found, trying config...');
         }
       } else {
-        console.log('📝 JSON file not found, trying config...');
+        console.log('📝 Using cached Instagram posts');
+      }
+      
+      if (data && data.posts && Array.isArray(data.posts) && data.posts.length > 0) {
+        // Transform posts from JSON file
+        posts = data.posts.map(post => ({
+          html: '',
+          thumbnailUrl: post.thumbnailUrl || post.imageUrl || '',
+          title: post.caption || '',
+          authorName: '',
+          authorUrl: '',
+          postUrl: post.postUrl || '',
+          width: 640,
+          height: 640,
+          needsFetch: !(post.thumbnailUrl || post.imageUrl), // Mark if needs oEmbed fetch
+        }));
+        
+        console.log(`✅ Loaded ${posts.length} posts from instagram-posts.json`);
+        
+        // Check for posts missing images
+        const postsNeedingImages = posts.filter(p => !p.thumbnailUrl && !p.imageUrl);
+        if (postsNeedingImages.length > 0) {
+          console.warn(`⚠️  ${postsNeedingImages.length} posts are missing images. Run "npm run fetch-instagram" to fetch images.`);
+          // Filter out posts without images to avoid showing placeholders
+          posts = posts.filter(p => p.thumbnailUrl || p.imageUrl);
+        }
+      } else if (data) {
+        console.log('📝 JSON file exists but has no posts');
       }
     } catch (error) {
       console.log('📝 JSON file not accessible, trying config...', error.message);
@@ -532,4 +556,8 @@ export function initInstagramFeed() {
     init();
   }
 }
+
+// Make loadInstagramFeed available globally for page transitions
+window.loadInstagramFeed = loadInstagramFeed;
+window.initInstagramFeed = initInstagramFeed;
 

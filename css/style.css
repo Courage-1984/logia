@@ -27,6 +27,7 @@
 @import "./components/forms.css";
 @import "./components/carousel.css";
 @import "./components/floating-buttons.css";
+@import "./components/skeleton.css";
 
 /* Homepage Sections */
 @import "./sections/_section-header.css";

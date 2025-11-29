@@ -37,6 +37,9 @@ Examples of changes that require updates:
 ```
 logia/
 ├── components/          # Reusable HTML components (navbar, footer)
+├── public/              # Public static files (service worker, data)
+│   ├── service-worker.js # Enhanced service worker with multi-layer caching
+│   └── data/            # Runtime data (copied to build output)
 ├── css/                # Stylesheets (modular structure)
 │   ├── core/           # Core foundation styles
 │   │   ├── variables.css    # Design tokens (colors, spacing, etc.)
@@ -48,7 +51,8 @@ logia/
 │   │   ├── cards.css       # Generic card patterns
 │   │   ├── forms.css       # Form elements
 │   │   ├── carousel.css    # Carousel component
-│   │   └── floating-buttons.css # Scroll-to-top, WhatsApp buttons
+│   │   ├── floating-buttons.css # Scroll-to-top, WhatsApp buttons
+│   │   └── skeleton.css    # Skeleton loaders (animated loading placeholders)
 │   ├── layout/         # Layout components
 │   │   ├── container.css   # Container utilities
 │   │   ├── navbar.css      # Navigation bar
@@ -82,6 +86,9 @@ logia/
 ├── js/                 # JavaScript modules (ES6)
 │   ├── particles-net.js # Particles background system (CTA sections)
 │   ├── particlesjs-config.json # Particles configuration
+│   ├── page-transitions.js # Smooth page transitions with skeleton loading
+│   ├── cache-manager.js # In-memory cache manager for pages and data
+│   ├── cache-warming.js # Cache warming for critical pages and data
 │   └── *.js            # Other JS modules
 ├── utils/              # Utility functions
 │   ├── theme.js        # Theme management (dark/light mode)
@@ -138,7 +145,7 @@ Always use CSS custom properties defined in `css/core/variables.css`:
 ### CSS Organization (Modular Structure)
 - **Main stylesheet** (`css/style.css`): Aggregates all modular CSS files via @import
 - **Core** (`css/core/`): Foundation styles (variables, reset, typography, utilities)
-- **Components** (`css/components/`): Reusable UI components (buttons, cards, forms, carousel, floating buttons)
+- **Components** (`css/components/`): Reusable UI components (buttons, cards, forms, carousel, floating buttons, skeleton loaders)
 - **Layout** (`css/layout/`): Structural components (navbar, hero, footer, page-header, container)
 - **Sections** (`css/sections/`): Homepage sections (services, why-choose, portfolio-preview, testimonials, instagram, cta)
 - **Pages** (`css/pages/`): Page-specific styles (about, contact, services, portfolio, legal, speedtest, resources)
@@ -175,7 +182,9 @@ Use utility functions from `utils/`:
 - **Scroll Handler**: `initScrollHandlers()` from `utils/scroll-handler.js` (unified scroll handler)
 - **Theme**: `themeManager` from `utils/theme.js` or `js/utils/theme.js` (dark/light mode with system preference)
 - **Path**: `getBasePath()`, `getResourcePath()` from `utils/path.js` (GitHub Pages path handling)
-- **Particles**: `initCTANetBackgrounds()` from `js/particles-net.js` (lazy-loaded, auto-initializes on CTA sections)
+- **Particles**: `initCTANetBackgrounds()` from `js/particles-net.js` (lazy-loaded, auto-initializes on CTA sections, uses static imports for proper bundling)
+- **Cache**: `cacheManager` from `js/cache-manager.js` (in-memory caching for pages and data)
+- **Page Transitions**: `initPageTransitions()` from `js/page-transitions.js` (smooth navigation with skeleton loading)
 
 ### Code Style
 - Use `const` by default, `let` when reassignment needed, avoid `var`
@@ -235,8 +244,9 @@ All HTML pages must include the theme initialization **script tag** in `<head>` 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Content Security Policy -->
+<!-- Note: speedtest.html includes https://speed.cloudflare.com in frame-src -->
 <meta http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://*.sentry.io; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://formspree.io https://*.sentry.io https://api.instagram.com; frame-src 'self' https://www.google.com; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests;">
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://*.sentry.io; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://formspree.io https://*.sentry.io https://api.instagram.com; frame-src 'self' https://www.google.com https://speed.cloudflare.com; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests;">
 
 <!-- Theme initialization script - prevents FOUC (Flash of Unstyled Content) -->
 <!-- MUST be before any CSS or other content -->
@@ -279,9 +289,10 @@ All HTML files must include complete favicon setup:
 
 ### Resource Hints
 - Use `preconnect` for external domains (fonts, CDNs)
-- Use `preload` for critical resources (hero images, critical CSS)
+- Use `preload` for critical CSS/JS modules (not recommended for responsive images - causes browser warnings)
 - Use `prefetch` for likely next pages
 - Use `dns-prefetch` for external domains
+- **Note**: For critical images, use `loading="eager"` and `fetchpriority="high"` on the `<img>` element instead of preload links
 
 ---
 
@@ -364,7 +375,7 @@ The project supports two build targets:
 ### Build Plugins
 - `copyComponents()`: Copies components to output directory
 - `copyFonts()`: Copies fonts to output directory
-- `copyFontCSS()`: Copies font CSS files (inter-fonts.css, fontawesome-local.css)
+- `copyFontCSS()`: Copies font CSS files from `css/fonts/` (inter-fonts.css, fontawesome-local.css)
 - `copyDataDirectory()`: Copies data directory (Google Reviews, Instagram posts JSON)
 - `copyJSAssets()`: Copies runtime JSON configs (e.g., `particlesjs-config.json`)
 - `copyStaticAssets()`: Copies favicons, sitemap, robots.txt, web manifest, 404.html, legal pages
@@ -384,8 +395,8 @@ The project supports two build targets:
 - `npm run build` - Production build (normal server/FTP)
 - `npm run build:gh-pages` - GitHub Pages build
 - `npm run build:all` - Build both targets
-- `npm run preview` - Preview production build
-- `npm run preview:gh-pages` - Preview GitHub Pages build
+- `npm run preview` - Preview production build (serves only built files from dist/)
+- `npm run preview:gh-pages` - Preview GitHub Pages build (serves only built files from dist-gh-pages/)
 
 ### Configuration Files
 - `config/build-config.js` - Build target configuration (URLs, basePath, output directories)
@@ -397,7 +408,8 @@ The project supports two build targets:
 
 ### Critical Path
 - Inline critical CSS in `<head>` (when implemented)
-- Preload critical resources (hero images, critical CSS/JS)
+- Use `loading="eager"` and `fetchpriority="high"` for critical images (not preload links)
+- Preload critical JavaScript modules (modulepreload)
 - Defer non-critical JavaScript
 - Lazy load below-fold content
 
@@ -416,7 +428,7 @@ The project supports two build targets:
 - Remove unused code (tree-shaking enabled)
 
 ### Animations & Motion
-- Respect `prefers-reduced-motion` globally in CSS (see `css/base.css`).
+- Respect `prefers-reduced-motion` globally in CSS (see `css/core/reset.css`).
 - Disable heavier effects (3D tilt, particles) when `prefers-reduced-motion` is set or on coarse pointers (touch/mobile).
 - Use `will-change` only on elements with continuous animations (hero background, grid, scroll indicator, CTA particles).
 
@@ -523,6 +535,15 @@ window.themeManager.getTheme(); // Get current theme
 - Verify bundle sizes (`npm run check-bundles`)
 - Test on slow connections
 - Review bundle analyzer (`stats.html` in build output)
+
+### Accessibility Checks
+- Run accessibility tests (`npm run accessibility:all`)
+- Check contrast ratios (`npm run accessibility:contrast`)
+- Run axe-core audit (`npm run accessibility:axe`)
+- Run pa11y audit (`npm run accessibility:pa11y`)
+- Test keyboard navigation
+- Verify screen reader compatibility
+- See `docs/ACCESSIBILITY_TESTING.md` for detailed testing guide
 
 ---
 
@@ -675,6 +696,7 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 - **Validation**: `validateEmail()`, `validatePhone()`, `showError()`, `showSuccessMessage()`
 - **Theme**: `themeManager` (auto-initialized), `getTheme()`, `setTheme()`, `toggleTheme()`
 - **Path**: `getBasePath()`, `getResourcePath()` (for GitHub Pages compatibility)
+- **Cache**: `cacheManager` from `js/cache-manager.js` (in-memory caching, `getStats()`, `clear()`)
 - **Monitoring**: `initMonitoring()` from `js/monitoring.js` (error tracking & performance monitoring)
 
 ### Build Commands
@@ -688,6 +710,12 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 - `npm run lighthouse:ci` - Run Lighthouse CI (quick test, 1 run)
 - `npm run check-bundles` - Check production build bundle sizes
 - `npm run check-bundles:gh-pages` - Check GitHub Pages build bundle sizes
+
+### Accessibility Testing Commands
+- `npm run accessibility:all` - Run all accessibility tests
+- `npm run accessibility:contrast` - Check text contrast ratios
+- `npm run accessibility:axe` - Run axe-core audit
+- `npm run accessibility:pa11y` - Run pa11y audit
 
 ### Form Handling
 - Forms use **Formspree** for backend submission
@@ -706,18 +734,30 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 - **WhatsApp Button**: Floating action button (bottom-left) with tooltip
 - **Scroll to Top**: Floating button (bottom-right) appears after 500px scroll
 - **Address Links**: All addresses link to Google Maps (`https://maps.app.goo.gl/LxbQUQxCa3b6b7Jm6`)
+- **Footer Logo**: Links to homepage (`index.html`) with proper accessibility attributes
 - **Services Dropdown**: Links to services page + individual service sections
 - **Theme Toggle**: Works on all pages with FOUC prevention
-- **Service Worker & Caching**: Runtime caching via `public/service-worker.js`
-  - Cache-first for static assets (JS, CSS, images, fonts)
-  - Network-first with cache fallback for HTML/navigations
-  - Registered in `js/main.js` (works for both production and GitHub Pages builds)
+- **Page Transitions**: Smooth navigation with skeleton loading (`js/page-transitions.js`)
+  - Intercepts internal link clicks for instant navigation
+  - Shows skeleton overlay during transition
+  - In-memory cache for instant page loads
+  - Connection-aware (disabled on slow connections)
+- **Skeleton Loaders**: Animated loading placeholders (`css/components/skeleton.css`)
+  - Shimmer animation with dark mode support
+  - Used for components, testimonials, Instagram feed, page transitions
+  - Respects `prefers-reduced-motion`
+- **Enhanced Caching**: Multi-layer caching strategy
+  - Service worker: Long-term cache for static assets, short-term for HTML
+  - In-memory cache: Fast access for pages and data
+  - Cache warming: Pre-loads critical pages/data in background
+  - Works in dev, preview, production, and GitHub Pages
 
 ### Documentation
 **Core Documentation:**
 - **Setup & Getting Started**: `README.md` (quick start)
 - **Setup Guide**: `docs/SETUP_GUIDE.md` (developer workflow)
 - **Architecture**: `docs/ARCHITECTURE.md` (project structure)
+- **CSS Structure**: `docs/CSS_STRUCTURE.md` (modular CSS architecture reference)
 - **Style Guide**: `docs/STYLE_GUIDE.md` (CSS conventions)
 
 **Feature Setup:**
@@ -727,10 +767,10 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 - **Monitoring**: `docs/MONITORING_SETUP.md` (Sentry error tracking, Core Web Vitals, Lighthouse CI, bundle monitoring)
 
 **Optimization & Best Practices:**
-- **Performance**: `docs/PERFORMANCE_OPTIMIZATION.md` (optimization strategies, browser compatibility)
+- **Performance**: `docs/PERFORMANCE_OPTIMIZATION.md` (optimization strategies, caching, browser compatibility)
 - **Performance Checklist**: `docs/PERFORMANCE_CHECKLIST.md` (primary quick reference)
 - **Image Guide**: `docs/IMAGE_GUIDE.md` (image implementation, source format guidelines)
-- **Fonts**: `docs/FONTS.md` (font self-hosting, Font Awesome optimization)
+- **Fonts**: `docs/FONTS.md` (font self-hosting, Font Awesome optimization, path resolution)
 - **Network**: `docs/NETWORK_OPTIMIZATION.md` (server-side optimization)
 - **Responsive**: `docs/RESPONSIVE_DESIGN.md` (responsive patterns)
 - **SEO**: `docs/SEO_RECOMMENDATIONS.md` (SEO strategy)
@@ -741,7 +781,7 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 ---
 
 **Last Updated**: January 2025
-**Version**: 2.5
+**Version**: 3.2
 
 ## Recent Major Updates (January 2025)
 
@@ -806,11 +846,13 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 - `getResourcePath()` - Builds correct resource paths
 - Used by testimonials, Instagram feed, and blur placeholders
 
-### CSS Modularization ✅
-- `css/page-common.css` - Shared page styles (page-header, two-column-layout, stats-card)
-- `css/legal.css` - Legal pages specific styles
-- Removed duplicate styles from page-specific CSS files
-- Better maintainability and consistency
+### CSS Modularization ✅ (January 2025)
+- **Modular Structure**: CSS reorganized into `core/`, `components/`, `layout/`, `sections/`, `pages/`, `responsive/`, `fonts/`
+- **Split large files**: `sections.css` (1,441 lines) split into 7 focused section files
+- **Component extraction**: Cards, forms, carousel, floating buttons extracted to reusable components
+- **Font organization**: Fonts moved to `css/fonts/` with corrected paths (`../../assets/fonts/...`)
+- **All legacy files removed**: Migration completed with zero breaking changes
+- **See**: `docs/CSS_STRUCTURE.md` for complete reference guide
 
 ### GitHub Actions Enhancement ✅
 - Secrets support for API keys (GOOGLE_PLACES_API_KEY, GOOGLE_PLACE_ID, INSTAGRAM_ACCESS_TOKEN)
@@ -830,6 +872,7 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 - Added semicolons to all @font-face src properties
 - Root font-size normalization with `text-size-adjust: 100%` to prevent browser font preferences from affecting rem/em calculations
 - Explicit icon sizing and rendering properties for consistent cross-browser display
+- **Font paths fixed**: Updated to `../../assets/fonts/fontawesome/...` after CSS modularization (CSS files now in `css/fonts/`)
 - Icons now render consistently across Chrome, Firefox, Safari, and Edge
 
 ### Particles Background System ✅
@@ -865,3 +908,38 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
   - Styled in `css/style.css` (hidden by default, visible on focus)
 - **Configuration**: `config/app.config.js` - Monitoring settings with environment variable support
 - See `docs/MONITORING_SETUP.md` for setup instructions
+
+### Build & Development Improvements ✅ (January 2025)
+- **Preload Optimization**: Removed preload links for responsive images (causes browser warnings) - use `loading="eager"` and `fetchpriority="high"` on `<img>` instead
+- **Dynamic Import Fix**: Changed `particles-net.js` to use static import for `getResourcePath` (fixes preview server issues)
+- **Preview Server Configuration**: Enhanced preview server with strict file serving (only serves built files from dist)
+- **CSP Updates**: Added `https://speed.cloudflare.com` to `frame-src` for speedtest page
+- **Footer Logo**: Footer logo now links to homepage with proper accessibility attributes
+- **Portfolio Preview Cards**: Homepage "Featured Projects" section now matches portfolio page styling (responsive images, project stats, proper structure)
+
+### Page Transitions & Skeleton Loaders ✅ (January 2025)
+- **Skeleton Loaders**: Animated loading placeholders with shimmer effect (`css/components/skeleton.css`)
+  - Variants for navbar, footer, testimonials, Instagram, cards, buttons
+  - Dark mode support, respects `prefers-reduced-motion`
+- **Page Transitions**: Smooth navigation system (`js/page-transitions.js`)
+  - Intercepts internal link clicks for instant navigation
+  - Shows skeleton overlay during transition
+  - Fetches and caches pages for instant subsequent loads
+  - Connection-aware (disabled on slow connections)
+  - Works with GitHub Pages base path
+
+### Enhanced Caching Strategy ✅ (January 2025)
+- **Service Worker Enhancements**: Multi-layer caching with size limits and automatic cleanup
+  - Static assets: 50MB cache-first with stale-while-revalidate
+  - HTML: 10MB network-first with cache fallback
+  - Data: 5MB cache-first with 1-hour TTL
+  - Cache versioning and automatic cleanup
+- **In-Memory Cache**: Fast JavaScript caching (`js/cache-manager.js`)
+  - Page cache: 10 pages, 30-minute TTL (instant page transitions)
+  - Data cache: 50 entries, 5-minute TTL (testimonials, Instagram)
+  - LRU eviction and automatic expiration
+- **Cache Warming**: Background pre-loading (`js/cache-warming.js`)
+  - Pre-loads critical pages (about, services, contact, portfolio)
+  - Pre-loads critical data (Google Reviews, Instagram posts)
+  - Connection-aware, respects data saver mode
+- **Works in all environments**: Dev, preview, production, GitHub Pages

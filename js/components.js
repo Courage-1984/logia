@@ -6,25 +6,50 @@
 import { $, $$ } from '../utils/dom.js';
 
 /**
+ * Creates a skeleton loader for a component
+ * @param {string} skeletonClass - CSS class for the skeleton
+ * @returns {HTMLElement} Skeleton element
+ */
+const createSkeleton = (skeletonClass) => {
+    const skeleton = document.createElement('div');
+    skeleton.className = `skeleton ${skeletonClass}`;
+    return skeleton;
+};
+
+/**
  * Loads a component from a file and inserts it into the DOM
  * @param {string} componentPath - Path to the component HTML file
  * @param {string} targetSelector - CSS selector for the insertion point
  * @param {Function} callback - Optional callback after component is loaded
+ * @param {string} skeletonClass - Optional skeleton class to show while loading
  * @returns {Promise<string|undefined>} The loaded HTML content or undefined on error
  */
-export const loadComponent = async (componentPath, targetSelector, callback) => {
+export const loadComponent = async (componentPath, targetSelector, callback, skeletonClass = null) => {
     try {
+        const target = $(targetSelector);
+        
+        if (!target) {
+            console.warn(`Target selector "${targetSelector}" not found`);
+            return;
+        }
+        
+        // Show skeleton while loading
+        let skeletonElement = null;
+        if (skeletonClass) {
+            skeletonElement = createSkeleton(skeletonClass);
+            target.parentNode.insertBefore(skeletonElement, target);
+        }
+        
         const response = await fetch(componentPath);
         if (!response.ok) {
             throw new Error(`Failed to load component: ${componentPath}`);
         }
         
         const html = await response.text();
-        const target = $(targetSelector);
         
-        if (!target) {
-            console.warn(`Target selector "${targetSelector}" not found`);
-            return;
+        // Remove skeleton if it exists
+        if (skeletonElement) {
+            skeletonElement.remove();
         }
         
         // Create a temporary container to parse the HTML
@@ -46,6 +71,14 @@ export const loadComponent = async (componentPath, targetSelector, callback) => 
         return html;
     } catch (error) {
         console.error(`Error loading component ${componentPath}:`, error);
+        // Remove skeleton on error
+        const target = $(targetSelector);
+        if (target) {
+            const skeleton = target.previousElementSibling;
+            if (skeleton && skeleton.classList.contains('skeleton')) {
+                skeleton.remove();
+            }
+        }
     }
 };
 
@@ -93,7 +126,7 @@ export const setActiveNavLink = () => {
  * @returns {Promise<void>}
  */
 export const initComponents = async () => {
-    // Load navbar
+    // Load navbar with skeleton
     await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
         setActiveNavLink();
         // Initialize dark mode toggle after navbar loads
@@ -107,16 +140,20 @@ export const initComponents = async () => {
         if (typeof window.initMobileMenu === 'function') {
             window.initMobileMenu();
         }
-    });
+    }, 'skeleton-navbar');
     
-    // Load footer
+    // Load footer with skeleton
     await loadComponent('components/footer.html', '#footer-placeholder', () => {
         // Re-initialize scroll handlers after footer loads (for scroll-to-top button)
         if (typeof window.reinitScrollHandlers === 'function') {
             window.reinitScrollHandlers();
         }
-    });
+    }, 'skeleton-footer');
 };
+
+// Make setActiveNavLink and loadComponent available globally for page transitions
+window.setActiveNavLink = setActiveNavLink;
+window.loadComponent = loadComponent;
 
 // Auto-initialize when DOM is ready
 if (document.readyState === 'loading') {

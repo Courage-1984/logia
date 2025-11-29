@@ -54,8 +54,21 @@ body.dark-mode .hero-bg-image {
     will-change: transform, opacity, filter;
 }
 
+/* Dark overlay for better text contrast */
+.gradient-mesh::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+}
+
 body.dark-mode .gradient-mesh {
     opacity: 1;
+}
+
+body.dark-mode .gradient-mesh::after {
+    background: rgba(0, 0, 0, 0.4);
 }
 
 @keyframes gradientShift {
@@ -118,7 +131,7 @@ body.dark-mode .gradient-mesh {
     margin-top: var(--space-8);
     line-height: 1.1;
     color: var(--color-white);
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5), 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
 .title-line {
@@ -131,7 +144,7 @@ body.dark-mode .gradient-mesh {
     margin-bottom: var(--space-4);
     opacity: 0.95;
     color: var(--color-white);
-    text-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .hero-description {
@@ -143,7 +156,7 @@ body.dark-mode .gradient-mesh {
     margin-left: auto;
     margin-right: auto;
     color: rgba(255, 255, 255, 0.95);
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .hero-cta {
@@ -152,6 +165,20 @@ body.dark-mode .gradient-mesh {
     justify-content: center;
     flex-wrap: wrap;
     margin-bottom: var(--space-8);
+    list-style: none;
+    padding: 0;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.hero-cta li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Text shadows for hero CTA buttons for better contrast on background */
+.hero-cta .btn span {
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .hero-stats {
@@ -260,6 +287,12 @@ body.dark-mode .gradient-mesh {
     font-size: 0.8125rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6), 0 1px 3px rgba(0, 0, 0, 0.5);
+    /* Strong text shadow for contrast on any background */
+    background: rgba(0, 0, 0, 0.3);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-sm);
+    backdrop-filter: blur(4px);
 }
 
 

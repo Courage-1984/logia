@@ -11,6 +11,8 @@ import { initScrollHandlers, createScrollToTopHandler, scrollHandler } from '../
 import { initTestimonials } from './testimonials.js';
 import { initInstagramFeed } from './instagram-feed.js';
 import { initMonitoring } from './monitoring.js';
+import { initPageTransitions } from './page-transitions.js';
+import { warmCache, warmDataCache } from './cache-warming.js';
 // Theme manager initializes automatically - no need to import here
 
 // ============================================
@@ -255,6 +257,9 @@ const initAOS = () => {
         observer.observe(element);
     });
 };
+
+// Make initAOS available globally for page transitions
+window.initAOS = initAOS;
 
 // ============================================
 // ACTIVE NAV LINK
@@ -771,16 +776,38 @@ const init = () => {
     initTestimonials(); // Load Google Reviews testimonials
     initInstagramFeed(); // Load Instagram feed carousel
     
+    // Initialize page transitions (smooth navigation with skeleton loading)
+    initPageTransitions();
+    
+    // Warm up cache for critical pages and data (background loading)
+    warmCache();
+    warmDataCache();
+    
     // Initialize monitoring (error tracking & performance monitoring)
     initMonitoring();
 
     // Register service worker for offline caching and faster repeat visits
     if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            // Use relative path so it works for both production and GitHub Pages base paths
-            navigator.serviceWorker.register('service-worker.js').catch((err) => {
-                console.warn('Service worker registration failed:', err);
-            });
+        window.addEventListener('load', async () => {
+            // Get base path for GitHub Pages compatibility
+            const { getBasePath } = await import('../utils/path.js');
+            const basePath = getBasePath();
+            const swPath = basePath ? `${basePath}/service-worker.js` : '/service-worker.js';
+            
+            // Service workers work in all environments:
+            // - Dev mode: Works on localhost (Vite dev server)
+            // - Preview mode: Works (serves built files)
+            // - Production/GitHub Pages: Works (with base path handling)
+            // Note: Service workers require HTTPS (or localhost) - Vite dev server provides this
+            try {
+                const registration = await navigator.serviceWorker.register(swPath);
+                console.log('✅ Service Worker registered:', registration.scope);
+            } catch (err) {
+                // Only warn in production - dev mode might not have service worker if not on HTTPS
+                if (import.meta.env.PROD) {
+                    console.warn('Service worker registration failed:', err);
+                }
+            }
         });
     }
 

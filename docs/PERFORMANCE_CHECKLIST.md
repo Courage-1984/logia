@@ -30,7 +30,7 @@ Quick reference checklist for performance optimizations.
 
 ### 🎯 Critical Path Optimization
 - [ ] **Extract critical CSS** - Inline above-fold CSS in `<head>`
-- [ ] **Preload critical CSS** - Preload main stylesheet
+- [x] **Image loading priority** - Use `loading="eager"` and `fetchpriority="high"` for critical images (not preload links)
 
 ### 📊 Code Optimization
 - [x] **Improve code splitting** - ✅ Split utils, components separately
@@ -48,10 +48,15 @@ Quick reference checklist for performance optimizations.
 - [x] **Disable 3D tilt on mobile** - Reduce mobile animation complexity
 
 ### 💾 Caching
-- [ ] **Configure cache headers** - Set proper cache headers on server
-- [x] **Implement service worker** - Add offline support and caching
-- [x] **Cache static assets** - Long-term caching for images, fonts, CSS, JS (via service worker)
-- [x] **Cache HTML** - Short-term caching with revalidation (via service worker)
+- [ ] **Configure cache headers** - Set proper cache headers on server (see NETWORK_OPTIMIZATION.md)
+- [x] **Implement service worker** - Enhanced multi-layer caching with size limits and cleanup
+- [x] **Cache static assets** - Long-term caching (50MB) with stale-while-revalidate
+- [x] **Cache HTML** - Short-term caching (10MB) with network-first strategy
+- [x] **Cache data** - Medium-term caching (5MB) with 1-hour TTL
+- [x] **In-memory cache** - Fast JavaScript caching for pages (30min TTL) and data (5min TTL)
+- [x] **Cache warming** - Background pre-loading of critical pages and data
+- [x] **Skeleton loaders** - Animated loading placeholders for better perceived performance
+- [x] **Page transitions** - Smooth navigation with instant loads from cache
 
 ### 📱 Mobile Optimization
 - [x] **Optimize mobile bundle** - Reduce work for mobile (gate heavy effects and prefetch on constrained devices)

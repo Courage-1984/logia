@@ -93,9 +93,15 @@ body.dark-mode .testimonial-card {
     display: flex;
     gap: var(--space-1);
     margin-bottom: var(--space-4);
-    color: var(--color-warning);
+    color: var(--color-warning-dark);
+    /* Use darker gold for better contrast on light backgrounds (WCAG AA) */
     font-size: 1.125rem;
     flex-shrink: 0;
+}
+
+body.dark-mode .testimonial-stars {
+    color: var(--color-warning);
+    /* Use bright gold on dark backgrounds for better visibility */
 }
 
 .testimonial-text {
@@ -148,8 +154,10 @@ body.dark-mode .testimonial-card {
     transform: translate(-50%, -50%);
 }
 
-.author-info h4 {
+.author-info .author-name {
+    display: block;
     font-size: 1rem;
+    font-weight: 600;
     margin-bottom: var(--space-1);
     color: var(--color-text);
 }

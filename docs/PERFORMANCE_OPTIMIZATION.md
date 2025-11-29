@@ -37,7 +37,8 @@ Implementation status and rationale for performance optimizations.
 ### Images ✅
 - WebP/AVIF with JPEG fallback
 - Responsive sizes (320w-1920w)
-- Lazy loading + preloading
+- Lazy loading for below-fold images
+- Priority loading (`loading="eager"` + `fetchpriority="high"`) for critical above-fold images
 - Blur placeholders
 - See `docs/IMAGE_GUIDE.md`
 
@@ -47,11 +48,22 @@ Implementation status and rationale for performance optimizations.
 - Link prefetch on hover (with connection checks)
 
 ### Runtime Caching ✅
-- **Service worker**: `public/service-worker.js`
-  - Static assets: cache-first
-  - HTML: network-first with cache fallback
+- **Service Worker**: `public/service-worker.js` - Enhanced multi-layer caching
+  - Static assets: Cache-first with stale-while-revalidate (50MB limit, automatic cleanup)
+  - HTML: Network-first with cache fallback (10MB limit, automatic cleanup)
+  - Data: Cache-first with 1-hour TTL (5MB limit, automatic cleanup)
+  - Cache versioning (`v2`) with automatic old cache cleanup
+  - Pre-caches critical pages and assets on install
+- **In-Memory Cache**: `js/cache-manager.js` - Fast JavaScript caching
+  - Page cache: 10 pages, 30-minute TTL (used by page transitions)
+  - Data cache: 50 entries, 5-minute TTL (used by testimonials, Instagram)
+  - LRU eviction, automatic expiration every 5 minutes
+- **Cache Warming**: `js/cache-warming.js` - Background pre-loading
+  - Pre-loads critical pages (2s after page load)
+  - Pre-loads critical data (3s after page load)
+  - Connection-aware (disabled on slow connections/data saver)
 - Registered from `js/main.js`
-- Works for both production and GitHub Pages builds
+- Works in dev, preview, production, and GitHub Pages (with base path handling)
 
 ### Animations & Motion ✅
 - `will-change` hints on continuous animations (hero, grid, scroll indicator, particles)
@@ -67,6 +79,18 @@ See `docs/NETWORK_OPTIMIZATION.md` for:
 - HTTP/2, CDN, server compression, cache headers
 
 ---
+
+## Page Transitions & Loading States ✅
+
+- **Skeleton Loaders**: `css/components/skeleton.css` - Animated loading placeholders
+  - Shimmer animation with dark mode support
+  - Used for components (navbar, footer), testimonials, Instagram feed, page transitions
+  - Respects `prefers-reduced-motion`
+- **Page Transitions**: `js/page-transitions.js` - Smooth navigation
+  - Intercepts internal link clicks for instant navigation
+  - Shows skeleton overlay during transition
+  - Uses in-memory cache for instant subsequent loads
+  - Connection-aware (disabled on slow connections)
 
 ## Remaining Opportunities
 
@@ -98,6 +122,30 @@ See `docs/NETWORK_OPTIMIZATION.md` for:
 
 - XML Sitemap, Web App Manifest, complete favicon set
 - All automatically copied to build output
+
+---
+
+## Caching Strategy
+
+### Service Worker Cache
+- **Location**: `public/service-worker.js`
+- **Works in**: Dev (localhost), preview, production, GitHub Pages
+- **Strategies**:
+  - Static assets: Cache-first with stale-while-revalidate (50MB limit)
+  - HTML: Network-first with cache fallback (10MB limit)
+  - Data: Cache-first with 1-hour TTL (5MB limit)
+- **Features**: Automatic cleanup, cache versioning, pre-caching
+
+### In-Memory Cache
+- **Location**: `js/cache-manager.js`
+- **Page Cache**: 10 pages, 30-minute TTL (instant page transitions)
+- **Data Cache**: 50 entries, 5-minute TTL (testimonials, Instagram)
+- **Features**: LRU eviction, automatic expiration
+
+### Cache Warming
+- **Location**: `js/cache-warming.js`
+- **Pre-loads**: Critical pages (2s delay) and data (3s delay)
+- **Connection-aware**: Disabled on slow connections/data saver
 
 ---
 

@@ -74,9 +74,8 @@
     -->
     <!-- Note: Currently all assets are self-hosted, so DNS prefetch not needed -->
 
-    <!-- Preload critical images -->
-    <link rel="preload" as="image" href="assets/images/hero-background.webp" type="image/webp" fetchpriority="high">
-    <link rel="preload" as="image" href="assets/images/hero-background.jpg" type="image/jpeg" fetchpriority="high">
+    <!-- Note: Hero image preload removed - using loading="eager" and fetchpriority="high" on img element instead -->
+    <!-- Preloading responsive images is complex and can cause warnings when browser selects different size -->
 
     <!-- Preload critical JavaScript modules -->
     <link rel="modulepreload" href="js/components.js">
@@ -221,15 +220,19 @@
                         From enterprise wireless networks to AI-enhanced surveillance, we transform
                         your infrastructure into a competitive advantage.
                     </p>
-                    <div class="hero-cta">
-                        <a href="contact.html#quote" class="btn btn-primary btn-lg">
-                            <span>Get Started</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="about.html" class="btn btn-outline btn-lg">
-                            <span>Learn More</span>
-                        </a>
-                    </div>
+                    <ul class="hero-cta" role="list">
+                        <li>
+                            <a href="contact.html#quote" class="btn btn-primary btn-lg">
+                                <span>Get Started</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="about.html" class="btn btn-outline btn-lg">
+                                <span>Learn More</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
 
@@ -456,10 +459,43 @@
                 <div class="portfolio-grid">
                     <div class="portfolio-card" data-aos="zoom-in" data-aos-delay="100">
                         <div class="portfolio-image">
+                            <picture>
+                                <source srcset="
+                                        assets/images/portfolio/corporate-campus-wifi-320w.webp 320w,
+                                        assets/images/portfolio/corporate-campus-wifi-640w.webp 640w,
+                                        assets/images/portfolio/corporate-campus-wifi-768w.webp 768w,
+                                        assets/images/portfolio/corporate-campus-wifi-1024w.webp 1024w,
+                                        assets/images/portfolio/corporate-campus-wifi-1280w.webp 1280w,
+                                        assets/images/portfolio/corporate-campus-wifi-1920w.webp 1920w
+                                    " sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    type="image/webp">
+                                <source srcset="
+                                        assets/images/portfolio/corporate-campus-wifi-320w.jpg 320w,
+                                        assets/images/portfolio/corporate-campus-wifi-640w.jpg 640w,
+                                        assets/images/portfolio/corporate-campus-wifi-768w.jpg 768w,
+                                        assets/images/portfolio/corporate-campus-wifi-1024w.jpg 1024w,
+                                        assets/images/portfolio/corporate-campus-wifi-1280w.jpg 1280w,
+                                        assets/images/portfolio/corporate-campus-wifi-1920w.jpg 1920w
+                                    " sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    type="image/jpeg">
+                                <img src="assets/images/portfolio/corporate-campus-wifi.jpg" srcset="
+                                        assets/images/portfolio/corporate-campus-wifi-320w.jpg 320w,
+                                        assets/images/portfolio/corporate-campus-wifi-640w.jpg 640w,
+                                        assets/images/portfolio/corporate-campus-wifi-768w.jpg 768w,
+                                        assets/images/portfolio/corporate-campus-wifi-1024w.jpg 1024w,
+                                        assets/images/portfolio/corporate-campus-wifi-1280w.jpg 1280w,
+                                        assets/images/portfolio/corporate-campus-wifi-1920w.jpg 1920w
+                                    " sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    alt="Overhead view of a corporate campus with enterprise WiFi access points across multiple buildings"
+                                    loading="lazy" decoding="async">
+                            </picture>
                             <div class="portfolio-overlay">
-                                <h3>Enterprise WiFi Deployment</h3>
-                                <p>Large-scale wireless network for corporate campus</p>
-                                <a href="portfolio.html" class="portfolio-btn">View Project</a>
+                                <h3>Corporate Campus WiFi</h3>
+                                <p>Large-scale wireless network deployment for 5000+ users</p>
+                                <div class="project-stats">
+                                    <span><i class="fas fa-wifi"></i> 150 Access Points</span>
+                                    <span><i class="fas fa-users"></i> 5000+ Users</span>
+                                </div>
                             </div>
                         </div>
                         <div class="portfolio-tags">
@@ -470,10 +506,43 @@
 
                     <div class="portfolio-card" data-aos="zoom-in" data-aos-delay="200">
                         <div class="portfolio-image">
+                            <picture>
+                                <source srcset="
+                                        assets/images/portfolio/ai-security-system-320w.webp 320w,
+                                        assets/images/portfolio/ai-security-system-640w.webp 640w,
+                                        assets/images/portfolio/ai-security-system-768w.webp 768w,
+                                        assets/images/portfolio/ai-security-system-1024w.webp 1024w,
+                                        assets/images/portfolio/ai-security-system-1280w.webp 1280w,
+                                        assets/images/portfolio/ai-security-system-1920w.webp 1920w
+                                    " sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    type="image/webp">
+                                <source srcset="
+                                        assets/images/portfolio/ai-security-system-320w.jpg 320w,
+                                        assets/images/portfolio/ai-security-system-640w.jpg 640w,
+                                        assets/images/portfolio/ai-security-system-768w.jpg 768w,
+                                        assets/images/portfolio/ai-security-system-1024w.jpg 1024w,
+                                        assets/images/portfolio/ai-security-system-1280w.jpg 1280w,
+                                        assets/images/portfolio/ai-security-system-1920w.jpg 1920w
+                                    " sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    type="image/jpeg">
+                                <img src="assets/images/portfolio/ai-security-system.jpg" srcset="
+                                        assets/images/portfolio/ai-security-system-320w.jpg 320w,
+                                        assets/images/portfolio/ai-security-system-640w.jpg 640w,
+                                        assets/images/portfolio/ai-security-system-768w.jpg 768w,
+                                        assets/images/portfolio/ai-security-system-1024w.jpg 1024w,
+                                        assets/images/portfolio/ai-security-system-1280w.jpg 1280w,
+                                        assets/images/portfolio/ai-security-system-1920w.jpg 1920w
+                                    " sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    alt="Security operations center with multiple AI-powered surveillance camera feeds on wall displays"
+                                    loading="lazy" decoding="async">
+                            </picture>
                             <div class="portfolio-overlay">
-                                <h3>AI Surveillance System</h3>
-                                <p>Smart security installation with facial recognition</p>
-                                <a href="portfolio.html" class="portfolio-btn">View Project</a>
+                                <h3>AI Security System</h3>
+                                <p>Smart surveillance with facial recognition for commercial complex</p>
+                                <div class="project-stats">
+                                    <span><i class="fas fa-video"></i> 85 Cameras</span>
+                                    <span><i class="fas fa-brain"></i> AI Analytics</span>
+                                </div>
                             </div>
                         </div>
                         <div class="portfolio-tags">
@@ -484,10 +553,43 @@
 
                     <div class="portfolio-card" data-aos="zoom-in" data-aos-delay="300">
                         <div class="portfolio-image">
+                            <picture>
+                                <source srcset="
+                                        assets/images/portfolio/e-commerce-platform-320w.webp 320w,
+                                        assets/images/portfolio/e-commerce-platform-640w.webp 640w,
+                                        assets/images/portfolio/e-commerce-platform-768w.webp 768w,
+                                        assets/images/portfolio/e-commerce-platform-1024w.webp 1024w,
+                                        assets/images/portfolio/e-commerce-platform-1280w.webp 1280w,
+                                        assets/images/portfolio/e-commerce-platform-1920w.webp 1920w
+                                    " sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    type="image/webp">
+                                <source srcset="
+                                        assets/images/portfolio/e-commerce-platform-320w.jpg 320w,
+                                        assets/images/portfolio/e-commerce-platform-640w.jpg 640w,
+                                        assets/images/portfolio/e-commerce-platform-768w.jpg 768w,
+                                        assets/images/portfolio/e-commerce-platform-1024w.jpg 1024w,
+                                        assets/images/portfolio/e-commerce-platform-1280w.jpg 1280w,
+                                        assets/images/portfolio/e-commerce-platform-1920w.jpg 1920w
+                                    " sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    type="image/jpeg">
+                                <img src="assets/images/portfolio/e-commerce-platform.jpg" srcset="
+                                        assets/images/portfolio/e-commerce-platform-320w.jpg 320w,
+                                        assets/images/portfolio/e-commerce-platform-640w.jpg 640w,
+                                        assets/images/portfolio/e-commerce-platform-768w.jpg 768w,
+                                        assets/images/portfolio/e-commerce-platform-1024w.jpg 1024w,
+                                        assets/images/portfolio/e-commerce-platform-1280w.jpg 1280w,
+                                        assets/images/portfolio/e-commerce-platform-1920w.jpg 1920w
+                                    " sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    alt="Developer workstation showing a responsive e-commerce website across desktop and mobile screens"
+                                    loading="lazy" decoding="async">
+                            </picture>
                             <div class="portfolio-overlay">
                                 <h3>E-commerce Platform</h3>
-                                <p>Custom web solution with integrated payment gateway</p>
-                                <a href="portfolio.html" class="portfolio-btn">View Project</a>
+                                <p>Custom online store with integrated payment gateway</p>
+                                <div class="project-stats">
+                                    <span><i class="fas fa-shopping-cart"></i> E-commerce</span>
+                                    <span><i class="fas fa-mobile-alt"></i> Mobile-First</span>
+                                </div>
                             </div>
                         </div>
                         <div class="portfolio-tags">
@@ -536,7 +638,7 @@
                                 <i class="fas fa-user"></i>
                             </div>
                             <div class="author-info">
-                                <h4>John Mthembu</h4>
+                                <strong class="author-name">John Mthembu</strong>
                                 <p>CEO, TechCorp Solutions</p>
                             </div>
                         </div>
@@ -559,7 +661,7 @@
                                 <i class="fas fa-user"></i>
                             </div>
                             <div class="author-info">
-                                <h4>Sarah van der Merwe</h4>
+                                <strong class="author-name">Sarah van der Merwe</strong>
                                 <p>Operations Manager, SecureSpace</p>
                             </div>
                         </div>
@@ -582,7 +684,7 @@
                                 <i class="fas fa-user"></i>
                             </div>
                             <div class="author-info">
-                                <h4>Michael Botha</h4>
+                                <strong class="author-name">Michael Botha</strong>
                                 <p>Marketing Director, GrowthHub</p>
                             </div>
                         </div>
@@ -627,16 +729,20 @@
                         Let's discuss how our technology solutions can drive your business forward.
                         Get a free consultation and quote today.
                     </p>
-                    <div class="cta-buttons">
-                        <a href="contact.html#quote" class="btn btn-primary btn-lg">
-                            <span>Get A Quote</span>
-                            <i class="fas fa-arrow-right"></i>
-                        </a>
-                        <a href="tel:+27795523726" class="btn btn-outline-light btn-lg">
-                            <i class="fas fa-phone"></i>
-                            <span>Call Us Now</span>
-                        </a>
-                    </div>
+                    <ul class="cta-buttons" role="list">
+                        <li>
+                            <a href="contact.html#quote" class="btn btn-primary btn-lg">
+                                <span>Get A Quote</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="tel:+27795523726" class="btn btn-outline-light btn-lg">
+                                <i class="fas fa-phone"></i>
+                                <span>Call Us Now</span>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </section>

@@ -50,6 +50,36 @@
     transform: translateY(-2px);
 }
 
+/* Dark mode: Use white text on dark backgrounds for better contrast */
+body.dark-mode .btn-outline {
+    color: var(--color-white);
+    border-color: var(--color-white);
+}
+
+body.dark-mode .btn-outline:hover {
+    background: var(--color-white);
+    color: var(--color-primary);
+}
+
+/* Outline buttons on dark surface backgrounds (regardless of theme) */
+.portfolio-preview-section .btn-outline,
+.instagram-section .btn-outline {
+    /* These sections have dark backgrounds in dark mode */
+    /* In light mode, they have light backgrounds, so primary color is fine */
+}
+
+body.dark-mode .portfolio-preview-section .btn-outline,
+body.dark-mode .instagram-section .btn-outline {
+    color: var(--color-white);
+    border-color: var(--color-white);
+}
+
+body.dark-mode .portfolio-preview-section .btn-outline:hover,
+body.dark-mode .instagram-section .btn-outline:hover {
+    background: var(--color-white);
+    color: var(--color-primary);
+}
+
 .btn-outline-light {
     background: transparent;
     color: var(--color-white);
