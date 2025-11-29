@@ -4,6 +4,7 @@
  */
 
 import { $, $$ } from '../utils/dom.js';
+import { getResourcePath } from '../utils/path.js';
 
 /**
  * Generate star rating HTML
@@ -459,8 +460,7 @@ export async function loadTestimonials(containerSelector = '.testimonials-grid',
   }
 
   try {
-    const basePath = window.location.pathname.includes('/logia/') ? '/logia' : '';
-    const response = await fetch(`${basePath}/data/google-reviews.json`);
+    const response = await fetch(getResourcePath('/data/google-reviews.json'));
     
     if (!response.ok) {
       throw new Error(`Failed to load reviews: ${response.status}`);

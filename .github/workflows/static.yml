@@ -39,8 +39,25 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Fetch Google Reviews
+        env:
+          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+          GOOGLE_PLACE_ID: ${{ secrets.GOOGLE_PLACE_ID }}
+        run: |
+          node scripts/fetch-google-reviews.js
+          node scripts/sync-reviews-to-public.js
+        continue-on-error: true
+
+      - name: Fetch Instagram Posts
+        env:
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+        run: |
+          node scripts/fetch-instagram-posts.js
+          node scripts/sync-instagram-to-public.js
+        continue-on-error: true
+
       - name: Build with Vite (GitHub Pages)
-        run: npm run build:gh-pages
+        run: vite build --mode gh-pages
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

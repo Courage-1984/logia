@@ -237,7 +237,7 @@ export default defineConfig(({ mode = 'production' }) => {
       emptyOutDir: true, // Clean output folder before build
       sourcemap: false,
       minify: 'esbuild', // esbuild is faster and comes built-in with Vite
-      cssMinify: false,
+      cssMinify: true,
       target: 'es2015',
       reportCompressedSize: true, // Report compressed sizes
       chunkSizeWarningLimit: 1000, // Warn if chunk exceeds 1000kb
@@ -292,7 +292,7 @@ export default defineConfig(({ mode = 'production' }) => {
           entryFileNames: 'assets/js/[name]-[hash].js',
         },
       },
-      cssCodeSplit: false,
+      cssCodeSplit: true,
     },
     
     server: {

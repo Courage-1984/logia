@@ -4,6 +4,7 @@
  */
 
 import { $, $$ } from '../utils/dom.js';
+import { getResourcePath } from '../utils/path.js';
 import { appConfig } from '../config/app.config.js';
 
 /**
@@ -430,8 +431,7 @@ export async function loadInstagramFeed(containerSelector = '.instagram-feed-gri
     
     // First, try to load from JSON file (build-time fetched posts)
     try {
-      const basePath = window.location.pathname.includes('/logia/') ? '/logia' : '';
-      const response = await fetch(`${basePath}/data/instagram-posts.json`);
+      const response = await fetch(getResourcePath('/data/instagram-posts.json'));
       
       if (response.ok) {
         const data = await response.json();

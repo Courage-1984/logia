@@ -3,6 +3,8 @@
  * Placeholders are generated during build and stored in placeholders.json
  */
 
+import { getResourcePath } from './path.js';
+
 /**
  * Get blur placeholder for an image
  * @param {string} imageName - Image name without extension (e.g., 'hero-background')
@@ -10,7 +12,7 @@
  */
 export async function getBlurPlaceholder(imageName) {
   try {
-    const response = await fetch('/assets/images/placeholders/placeholders.json');
+    const response = await fetch(getResourcePath('/assets/images/placeholders/placeholders.json'));
     if (!response.ok) return null;
     
     const placeholders = await response.json();

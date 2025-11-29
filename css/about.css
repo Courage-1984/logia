@@ -1,56 +1,6 @@
 /* Additional styles for About page */
-.page-header {
-    position: relative;
-    padding: 150px 0 100px;
-    text-align: center;
-    overflow: hidden;
-}
-
-.page-header-content {
-    position: relative;
-    z-index: 1;
-    color: var(--color-white);
-}
-
-.page-header h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    margin-bottom: var(--space-4);
-    color: var(--color-white);
-}
-
-.page-header p {
-    font-size: 1.25rem;
-    opacity: 0.9;
-    color: rgba(255, 255, 255, 0.9);
-}
-
-.two-column-layout {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-8);
-    align-items: center;
-}
-
-@media (min-width: 769px) {
-    .two-column-layout {
-        grid-template-columns: repeat(2, 1fr);
-        gap: var(--space-12);
-    }
-}
-
-.stats-card {
-    background: var(--color-white);
-    border-radius: var(--radius-xl);
-    padding: var(--space-6);
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--color-border);
-}
-
-@media (min-width: 769px) {
-    .stats-card {
-        padding: var(--space-8);
-    }
-}
+/* Note: Common page styles (page-header, two-column-layout, stats-card) 
+   are now in css/page-common.css to avoid duplication */
 
 body.dark-mode .stats-card {
     background: var(--color-dark-surface);

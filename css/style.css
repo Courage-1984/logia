@@ -5,9 +5,10 @@
 
 /* ============================================
    FONTS - Self-hosted
-   ============================================ */
-@import './inter-fonts.css';
-@import './fontawesome-local.css';
+   ============================================
+   Note: Fonts are loaded via <link> tags in HTML files.
+   This ensures proper loading order and allows Vite to process them correctly.
+   */
 
 /* ============================================
    CSS VARIABLES & DESIGN SYSTEM

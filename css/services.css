@@ -1,29 +1,6 @@
 /* Services Page Specific Styles */
-
-.page-header {
-    position: relative;
-    padding: 150px 0 100px;
-    text-align: center;
-    overflow: hidden;
-}
-
-.page-header-content {
-    position: relative;
-    z-index: 1;
-    color: var(--color-white);
-}
-
-.page-header h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    margin-bottom: var(--space-4);
-    color: var(--color-white);
-}
-
-.page-header p {
-    font-size: 1.25rem;
-    opacity: 0.9;
-    color: rgba(255, 255, 255, 0.9);
-}
+/* Note: Common page styles (page-header, page-header-content) 
+   are now in css/page-common.css to avoid duplication */
 
 /* Service Detail Sections */
 .service-detail {
