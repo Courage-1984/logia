@@ -51,9 +51,19 @@ jobs:
       - name: Build with Vite
         run: npm run build
 
+      - name: Create directories for artifacts
+        run: |
+          mkdir -p .lighthouseci
+          mkdir -p .bundle-history
+          # Create placeholder files so directories aren't empty (artifact uploads work better)
+          touch .lighthouseci/.gitkeep || true
+          touch .bundle-history/.gitkeep || true
+
       - name: Run Lighthouse CI
         env:
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Only set token for PRs to avoid 422 errors on push to main
+          LHCI_GITHUB_APP_TOKEN: ${{ github.event_name == 'pull_request' && secrets.GITHUB_TOKEN || '' }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run lighthouse:ci
         continue-on-error: true # Continue even if budgets fail (warnings still reported)
 
