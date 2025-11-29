@@ -1,0 +1,69 @@
+/* ============================================
+   LOGIA GENESIS - BUTTONS
+   ============================================ */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: 0.875rem 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    transition: all var(--transition-fast);
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+    min-height: 44px;
+    /* Touch-friendly minimum */
+    min-width: 44px;
+}
+
+@media (min-width: 769px) {
+    .btn {
+        padding: 0.875rem 2rem;
+        font-size: 1rem;
+    }
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+    color: var(--color-white);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: var(--shadow-xl), var(--shadow-glow);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+}
+
+.btn-outline:hover {
+    background: var(--color-primary);
+    color: var(--color-white);
+    transform: translateY(-2px);
+}
+
+.btn-outline-light {
+    background: transparent;
+    color: var(--color-white);
+    border: 2px solid var(--color-white);
+}
+
+.btn-outline-light:hover {
+    background: var(--color-white);
+    color: var(--color-primary);
+}
+
+.btn-lg {
+    padding: 1.125rem 2.5rem;
+    font-size: 1.0625rem;
+}
+
+
