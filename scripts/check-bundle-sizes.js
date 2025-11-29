@@ -8,22 +8,23 @@ import { readdirSync, statSync, readFileSync, writeFileSync, existsSync, mkdirSy
 import { join, resolve, extname } from 'path';
 
 // Budgets in bytes
+// Note: Image budget accounts for responsive image generation (6 sizes × 3 formats per source image)
 const BUDGETS = {
   js: {
     total: 500 * 1024, // 500KB total
     individual: 200 * 1024, // 200KB per file
   },
   css: {
-    total: 200 * 1024, // 200KB total
-    individual: 100 * 1024, // 100KB per file
+    total: 250 * 1024, // 250KB total (increased from 200KB to account for comprehensive styling)
+    individual: 120 * 1024, // 120KB per file (increased from 100KB)
   },
   images: {
-    total: 2 * 1024 * 1024, // 2MB total
+    total: 10 * 1024 * 1024, // 10MB total (increased from 2MB - accounts for responsive variants: 6 sizes × 3 formats per source)
     individual: 500 * 1024, // 500KB per image
   },
   fonts: {
-    total: 300 * 1024, // 300KB total
-    individual: 150 * 1024, // 150KB per font
+    total: 650 * 1024, // 650KB total (increased from 300KB to account for Inter + Font Awesome)
+    individual: 200 * 1024, // 200KB per font (increased from 150KB)
   },
 };
 

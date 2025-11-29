@@ -106,19 +106,7 @@ Skip links are **already implemented** on all pages. They provide keyboard users
 - Services section (`#services`) - on homepage only
 - Footer (`#footer`)
 
-### Usage
-
-1. Press `Tab` when the page loads
-2. Skip links appear at the top of the page
-3. Press `Enter` to jump to the target section
-
-### Styling
-
-Skip links are styled in `css/style.css`:
-- Hidden by default (positioned off-screen)
-- Visible on focus (keyboard navigation)
-- High contrast colors for accessibility
-- Smooth transitions
+**Usage**: Press `Tab` when the page loads, then `Enter` to jump to target section. Styled in `css/style.css` (hidden by default, visible on focus).
 
 ## GitHub Actions Setup
 
@@ -151,10 +139,9 @@ throw new Error('Test error for Sentry');
 
 ### Test Skip Links
 
-1. Load any page
-2. Press `Tab` key
-3. Skip links should appear and be focusable
-4. Press `Enter` to navigate to target section
+1. Load any page and press `Tab` key
+2. Skip links should appear and be focusable
+3. Press `Enter` to navigate to target section
 
 ## Troubleshooting
 
@@ -191,150 +178,45 @@ throw new Error('Test error for Sentry');
    - Aim for "Good" ratings on all metrics
    - Use metrics to identify performance bottlenecks
 
-3. **Skip Links**:
-   - Test with keyboard navigation
-   - Ensure all pages have proper main content structure
-   - Keep skip link text descriptive
+3. **Skip Links**: Already implemented - test with keyboard navigation (Tab key)
 
 ## Lighthouse CI (Automated Performance Testing)
 
-### Setup
+Already configured and runs automatically on pull requests and pushes to main.
 
-Lighthouse CI is already configured and runs automatically on pull requests and pushes to main.
+**Running Locally**: `npm run lighthouse` (full test) or `npm run lighthouse:ci` (quick test)
 
-### Configuration
+**Configuration**: `lighthouserc.cjs`
 
-The configuration is in `lighthouserc.cjs` and includes:
+**Performance Budgets**:
+- **Scores**: Performance ≥85% (warning), Accessibility ≥95% (error), Best Practices ≥90% (error), SEO ≥90% (error)
+- **Core Web Vitals**: LCP <2.5s, FCP <1.8s, CLS <0.1 (error), TBT <300ms, Speed Index <3.4s
+- **Resource Sizes**: JS <500KB, CSS <200KB, Images <2MB, Fonts <300KB
 
-- **Performance Budgets**: Automatic failure if thresholds are not met
-- **Core Web Vitals**: LCP, FCP, CLS, TBT, Speed Index
-- **Resource Size Limits**: JS, CSS, Images, Fonts, HTML
-- **Score Thresholds**: Performance (85%), Accessibility (95%), Best Practices (90%), SEO (90%)
+**Note**: Performance metrics are warnings (track progress), critical metrics (accessibility, SEO, CLS) are errors.
 
-### Running Locally
-
-```bash
-# Run Lighthouse CI (full test with 3 runs per URL)
-npm run lighthouse
-
-# Run Lighthouse CI (quick test with 1 run per URL)
-npm run lighthouse:ci
-```
-
-### Performance Budgets
-
-The following budgets are configured:
-
-**Performance Scores:**
-- Performance: ≥ 85% (warning - tracks progress without failing CI)
-- Accessibility: ≥ 95% (error - critical)
-- Best Practices: ≥ 90% (error - critical)
-- SEO: ≥ 90% (error - critical)
-
-**Core Web Vitals:**
-- LCP (Largest Contentful Paint): < 2.5s (warning - tracks progress)
-- FCP (First Contentful Paint): < 1.8s (warning - tracks progress)
-- CLS (Cumulative Layout Shift): < 0.1 (error - critical for UX)
-- TBT (Total Blocking Time): < 300ms (warning - tracks progress)
-- Speed Index: < 3.4s (warning - tracks progress)
-
-**Note**: Performance metrics are set as warnings to track progress without failing CI. Critical metrics (accessibility, SEO, CLS) are errors to ensure quality standards.
-
-**Resource Sizes:**
-- JavaScript: < 500KB total, < 200KB per file
-- CSS: < 200KB total, < 100KB per file
-- Images: < 2MB total, < 500KB per image
-- Fonts: < 300KB total, < 150KB per font
-- HTML: < 50KB per file
-- Total Page Size: < 3MB
-- Network Requests: < 50 per page
-
-### GitHub Actions Integration
-
-Lighthouse CI runs automatically:
-- On pull requests to `main`
-- On pushes to `main`
-- Manually via workflow dispatch
-
-Results are uploaded as artifacts and can be viewed in the Actions tab.
-
-### Customizing Budgets
-
-Edit `lighthouserc.cjs` to adjust budgets:
-
-```javascript
-assertions: {
-  'categories:performance': ['error', { minScore: 0.90 }], // Increase to 90%
-  'largest-contentful-paint': ['error', { maxNumericValue: 2000 }], // Stricter LCP
-  // ... more budgets
-}
-```
+**GitHub Actions**: Runs automatically (`.github/workflows/lighthouse.yml`), results uploaded as artifacts.
 
 ## Bundle Size Monitoring
 
-### Overview
+Tracks JavaScript, CSS, image, and font file sizes over time and compares against budgets.
 
-Bundle size monitoring tracks JavaScript, CSS, image, and font file sizes over time and compares against budgets.
+**Running**: `npm run check-bundles` (production) or `npm run check-bundles:gh-pages` (GitHub Pages)
 
-### Running Bundle Analysis
+**Features**:
+- Size tracking (total and individual files)
+- Budget enforcement (fails if exceeded)
+- History tracking (`.bundle-history/bundle-sizes.json`)
+- Change detection from previous builds
+- Lists top 10 largest files
 
-```bash
-# Analyze production build (dist/)
-npm run check-bundles
+**Default Budgets** (configurable in `scripts/check-bundle-sizes.js`):
+- JavaScript: 500KB total, 200KB per file
+- CSS: 200KB total, 100KB per file
+- Images: 2MB total, 500KB per image
+- Fonts: 300KB total, 150KB per font
 
-# Analyze GitHub Pages build (dist-gh-pages/)
-npm run check-bundles:gh-pages
-```
-
-### Features
-
-- **Size Tracking**: Tracks total and individual file sizes
-- **Budget Enforcement**: Fails if budgets are exceeded
-- **History Tracking**: Maintains history of bundle sizes over time
-- **Change Detection**: Shows size changes from previous build
-- **Largest Files**: Lists top 10 largest files
-
-### Budgets
-
-Default budgets (configurable in `scripts/check-bundle-sizes.js`):
-
-- **JavaScript**: 500KB total, 200KB per file
-- **CSS**: 200KB total, 100KB per file
-- **Images**: 2MB total, 500KB per image
-- **Fonts**: 300KB total, 150KB per font
-
-### History
-
-Bundle size history is stored in `.bundle-history/bundle-sizes.json` and tracks:
-- Timestamp of each build
-- Total sizes by type
-- Individual file sizes
-- Budget violations
-
-### Customizing Budgets
-
-Edit `scripts/check-bundle-sizes.js`:
-
-```javascript
-const BUDGETS = {
-  js: {
-    total: 600 * 1024, // Increase to 600KB
-    individual: 250 * 1024, // Increase to 250KB
-  },
-  // ... more budgets
-};
-```
-
-### Integration with CI/CD
-
-Add to your build process:
-
-```bash
-npm run build
-npm run check-bundles
-```
-
-The script exits with code 1 if budgets are violated, causing CI to fail.
+**CI/CD**: Runs automatically in GitHub Actions workflow (`.github/workflows/lighthouse.yml`)
 
 ## Related Documentation
 

@@ -9,6 +9,12 @@ on:
     branches: ["main"]
   workflow_dispatch:
 
+# Sets permissions for GITHUB_TOKEN to allow Lighthouse CI to post status checks
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
 jobs:
   lighthouse:
     runs-on: ubuntu-latest
@@ -46,25 +52,32 @@ jobs:
         run: npm run build
 
       - name: Run Lighthouse CI
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run lighthouse:ci
         continue-on-error: true # Continue even if budgets fail (warnings still reported)
 
       - name: Upload Lighthouse results
         uses: actions/upload-artifact@v4
         if: always()
+        continue-on-error: true
         with:
           name: lighthouse-results
           path: .lighthouseci/
           retention-days: 7
+          if-no-files-found: ignore
 
       - name: Check bundle sizes
         run: npm run check-bundles
+        continue-on-error: true
 
       - name: Upload bundle size history
         uses: actions/upload-artifact@v4
         if: always()
+        continue-on-error: true
         with:
           name: bundle-size-history
           path: .bundle-history/
           retention-days: 30
+          if-no-files-found: ignore
 

@@ -25,12 +25,28 @@ Complete guide for image implementation, optimization, and best practices.
 
 ## Image Optimization System
 
+### Source Format (Important!)
+
+**Use JPG or PNG in source assets folder** - NOT WebP.
+
+- ✅ **Keep**: `.jpg`, `.jpeg`, `.png` files in `assets/images/`
+- ❌ **Remove**: `.webp` files from source (they're generated during build)
+
+The build process automatically generates all optimized versions from source JPG/PNG files.
+
 ### Build Process
 The project uses a custom Vite plugin that automatically:
 - Generates 6 responsive sizes: 320w, 640w, 768w, 1024w, 1280w, 1920w
-- Creates WebP and AVIF versions (85% quality)
+- Creates WebP versions (85% quality)
+- Creates AVIF versions (80% quality)
 - Optimizes original formats (JPEG/PNG)
+- Generates blur-up placeholders
 - Copies optimized images to build output (`dist/assets/images/` or `dist-gh-pages/assets/images/`)
+
+**For each source image** (e.g., `hero-background.jpg`), the build creates:
+- Responsive sizes: `-320w`, `-640w`, `-768w`, `-1024w`, `-1280w`, `-1920w` (in AVIF, WebP, and original format)
+- Full-size optimized: `.avif`, `.webp`, and optimized original
+- Placeholder: Stored in `assets/images/placeholders/placeholders.json`
 
 ### HTML Pattern
 All images use this responsive pattern:
@@ -115,8 +131,7 @@ Add to `<head>` for critical images:
 
 ```
 assets/images/
-├── hero-background.jpg ✅
-├── hero-background.webp ✅
+├── hero-background.jpg ✅ (source - WebP/AVIF generated during build)
 ├── services/
 │   ├── wireless-networking.jpg
 │   ├── surveillance-systems.jpg
@@ -179,7 +194,7 @@ assets/images/
 
 **Images not generating during build:**
 - Check images are in `assets/images/` directory
-- Verify format is JPG, JPEG, or PNG
+- Verify format is JPG, JPEG, or PNG (NOT WebP - remove WebP files from source)
 - Check build console for errors
 
 **WebP not loading:**

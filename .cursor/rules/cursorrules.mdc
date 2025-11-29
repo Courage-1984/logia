@@ -269,7 +269,8 @@ All HTML files must include complete favicon setup:
 ### Image File Organization
 - Place images in `assets/images/` (or subdirectories)
 - Use descriptive kebab-case filenames
-- Build process automatically generates responsive sizes and WebP versions
+- **Source format**: Use JPG or PNG only (NOT WebP - WebP/AVIF are generated during build)
+- Build process automatically generates responsive sizes, WebP, AVIF versions, and blur placeholders
 
 ### Image Patterns
 ```html
@@ -334,12 +335,16 @@ The project supports two build targets:
 ### Build Plugins
 - `copyComponents()`: Copies components to output directory
 - `copyFonts()`: Copies fonts to output directory
+- `copyFontCSS()`: Copies font CSS files (inter-fonts.css, fontawesome-local.css)
+- `copyDataDirectory()`: Copies data directory (Google Reviews, Instagram posts JSON)
+- `copyJSAssets()`: Copies runtime JSON configs (e.g., `particlesjs-config.json`)
 - `copyStaticAssets()`: Copies favicons, sitemap, robots.txt, web manifest, 404.html, legal pages
-- `imageOptimization()`: Generates responsive images (WebP, AVIF, responsive sizes)
+- `imageOptimization()`: Generates responsive images (WebP, AVIF, responsive sizes, blur placeholders)
 - `urlTransformPlugin()`: Transforms URLs based on build target
 - `staticFilesTransformPlugin()`: Transforms sitemap.xml and robots.txt URLs
 - Compression plugins: Gzip and Brotli compression
 - Bundle analyzer: Generates `stats.html` in each output directory
+- **All plugins run for both build targets** (production and GitHub Pages)
 
 ### Development
 - Run `npm run dev` for development server (port 3000)
@@ -382,13 +387,15 @@ The project supports two build targets:
 - Remove unused code (tree-shaking enabled)
 
 ### Image Optimization
+- **Source Format**: Use JPG or PNG in `assets/images/` (NOT WebP - generated during build)
 - Use responsive images with srcset (6 sizes: 320w-1920w)
 - Use AVIF → WebP → JPEG format priority
 - Optimize image quality (85% for WebP/JPEG, 80% for AVIF)
 - Lazy load below-fold images
 - Blur placeholders generated during build
+- Build process generates all formats automatically
 
-See `docs/PERFORMANCE_OPTIMIZATION.md` for detailed optimization strategies.
+See `docs/PERFORMANCE_OPTIMIZATION.md` and `docs/IMAGE_GUIDE.md` for detailed optimization strategies.
 
 ---
 
@@ -412,7 +419,9 @@ See `docs/PERFORMANCE_OPTIMIZATION.md` for detailed optimization strategies.
 - All interactive elements keyboard accessible
 - Focus indicators visible
 - Logical tab order
-- Skip links for main content
+- **Skip Links**: Implemented on all pages (skip to main content, services, footer)
+  - Styled in `css/style.css` (hidden by default, visible on focus)
+  - Target IDs: `#main-content`, `#services` (homepage), `#footer`
 
 ---
 
@@ -475,10 +484,11 @@ window.themeManager.getTheme(); // Get current theme
 - Test component loading
 
 ### Performance Checks
-- Run Lighthouse audit
-- Check Core Web Vitals (LCP, FID, CLS)
-- Verify bundle sizes are reasonable
+- Run Lighthouse audit (or `npm run lighthouse:ci` for automated testing)
+- Check Core Web Vitals (LCP, FID, INP, CLS, FCP, TTFB) - tracked automatically in console
+- Verify bundle sizes (`npm run check-bundles`)
 - Test on slow connections
+- Review bundle analyzer (`stats.html` in build output)
 
 ---
 
@@ -631,6 +641,7 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 - **Validation**: `validateEmail()`, `validatePhone()`, `showError()`, `showSuccessMessage()`
 - **Theme**: `themeManager` (auto-initialized), `getTheme()`, `setTheme()`, `toggleTheme()`
 - **Path**: `getBasePath()`, `getResourcePath()` (for GitHub Pages compatibility)
+- **Monitoring**: `initMonitoring()` from `js/monitoring.js` (error tracking & performance monitoring)
 
 ### Build Commands
 - `npm run dev` - Development server
@@ -639,6 +650,10 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 - `npm run build:all` - Build both targets
 - `npm run preview` - Preview production build
 - `npm run preview:gh-pages` - Preview GitHub Pages build
+- `npm run lighthouse` - Run Lighthouse CI (full test, 3 runs)
+- `npm run lighthouse:ci` - Run Lighthouse CI (quick test, 1 run)
+- `npm run check-bundles` - Check production build bundle sizes
+- `npm run check-bundles:gh-pages` - Check GitHub Pages build bundle sizes
 
 ### Form Handling
 - Forms use **Formspree** for backend submission
@@ -671,12 +686,12 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 - **Google Reviews**: `docs/GOOGLE_REVIEWS_SETUP.md` (testimonials carousel)
 - **Instagram Feed**: `docs/INSTAGRAM_FEED_SETUP.md` (Instagram feed with local fallback)
 - **GitHub Actions**: `docs/GITHUB_ACTIONS_SETUP.md` (secrets configuration)
-- **Monitoring**: `docs/MONITORING_SETUP.md` (Sentry & performance monitoring)
+- **Monitoring**: `docs/MONITORING_SETUP.md` (Sentry error tracking, Core Web Vitals, Lighthouse CI, bundle monitoring)
 
 **Optimization & Best Practices:**
 - **Performance**: `docs/PERFORMANCE_OPTIMIZATION.md` (optimization strategies, browser compatibility)
 - **Performance Checklist**: `docs/PERFORMANCE_CHECKLIST.md` (quick reference)
-- **Image Guide**: `docs/IMAGE_GUIDE.md` (image implementation)
+- **Image Guide**: `docs/IMAGE_GUIDE.md` (image implementation, source format guidelines)
 - **Fonts**: `docs/FONTS.md` (font self-hosting, Font Awesome optimization)
 - **Network**: `docs/NETWORK_OPTIMIZATION.md` (server-side optimization)
 - **Responsive**: `docs/RESPONSIVE_DESIGN.md` (responsive patterns)
@@ -688,7 +703,7 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 ---
 
 **Last Updated**: January 2025
-**Version**: 2.4
+**Version**: 2.5
 
 ## Recent Major Updates (January 2025)
 
@@ -781,9 +796,34 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 
 ### Particles Background System ✅
 - **Implementation**: `js/particles-net.js` - Clean particles.js-compatible implementation (ES6 class-based)
-- **Configuration**: `js/particlesjs-config.json` - Standard particles.js format
+- **Configuration**: `js/particlesjs-config.json` - Standard particles.js format (copied to build output)
 - **Features**: Mouse interaction (repulse on hover, push on click), line linking, retina support, out_mode handling
 - **Performance**: Lazy-loaded via `main.js`, IntersectionObserver for visibility pausing
 - **Integration**: Automatically initializes on all `.cta-section .cta-background` elements
 - **Event Handling**: Listens on `.cta-section` parent to capture events even when hovering over content
 - **Canvas**: Uses `pointer-events: none` to avoid blocking content interactions
+
+### Monitoring & Error Tracking ✅
+- **Error Tracking**: Sentry integration (`js/monitoring.js`) - JavaScript error monitoring in production
+  - Session replay (10% of sessions, 100% of error sessions)
+  - Browser extension error filtering
+  - Configured via environment variables (`VITE_SENTRY_DSN`, `VITE_SENTRY_ENABLED`)
+- **Performance Monitoring**: Core Web Vitals tracking (LCP, FID, INP, CLS, FCP, TTFB) - enabled by default
+  - Logs to console by default
+  - Optional Sentry integration
+  - Custom analytics events support
+- **Lighthouse CI**: Automated performance testing with budgets (`lighthouserc.cjs`)
+  - Runs on pull requests and pushes to main
+  - Performance budgets (warnings for tracking, errors for critical metrics)
+  - GitHub Actions workflow (`.github/workflows/lighthouse.yml`)
+- **Bundle Size Monitoring**: Tracks JavaScript, CSS, images, fonts over time (`scripts/check-bundle-sizes.js`)
+  - Budget enforcement
+  - History tracking (`.bundle-history/bundle-sizes.json`)
+  - Change detection from previous builds
+- **Skip Links**: Accessibility navigation links on all pages
+  - Skip to main content (`#main-content`)
+  - Skip to services (`#services`) - homepage only
+  - Skip to footer (`#footer`)
+  - Styled in `css/style.css` (hidden by default, visible on focus)
+- **Configuration**: `config/app.config.js` - Monitoring settings with environment variable support
+- See `docs/MONITORING_SETUP.md` for setup instructions

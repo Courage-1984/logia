@@ -121,7 +121,6 @@ See `docs/NETWORK_OPTIMIZATION.md` for:
 ### Medium Priority
 - [ ] Extract critical CSS (inline above-fold CSS)
 - [ ] Service worker implementation
-- [ ] Performance monitoring (Core Web Vitals tracking)
 
 ### Low Priority
 - [ ] Further animation optimizations
@@ -146,9 +145,12 @@ See `docs/NETWORK_OPTIMIZATION.md` for:
 ## Testing Tools
 
 1. **Lighthouse** - Chrome DevTools
-2. **WebPageTest** - https://www.webpagetest.org/
-3. **PageSpeed Insights** - https://pagespeed.web.dev/
-4. **Bundle Analyzer** - `stats.html` in each build output directory
+2. **Lighthouse CI** - Automated testing (`npm run lighthouse:ci`)
+3. **WebPageTest** - https://www.webpagetest.org/
+4. **PageSpeed Insights** - https://pagespeed.web.dev/
+5. **Bundle Analyzer** - `stats.html` in each build output directory
+6. **Bundle Size Monitoring** - `npm run check-bundles` (tracks sizes over time)
+7. **Core Web Vitals** - Real-time tracking in browser console (see `docs/MONITORING_SETUP.md`)
 
 ---
 

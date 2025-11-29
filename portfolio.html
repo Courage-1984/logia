@@ -4,26 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
+    <!-- Content Security Policy -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://*.sentry.io; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://formspree.io https://*.sentry.io https://api.instagram.com; frame-src 'self' https://www.google.com; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests;">
+    
     <!-- Theme initialization script - prevents FOUC (Flash of Unstyled Content) -->
     <!-- MUST be before any CSS or other content -->
-    <script>
-        (function() {
-            try {
-                const storageKey = 'theme';
-                const defaultMode = 'light';
-                const stored = localStorage.getItem(storageKey);
-                const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-                const theme = stored === 'dark' || stored === 'light' ? stored : (systemPrefersDark ? 'dark' : defaultMode);
-                
-                if (theme === 'dark') {
-                    document.documentElement.classList.add('dark-mode');
-                    document.body.classList.add('dark-mode');
-                }
-            } catch (e) {
-                // Silently fail if localStorage or matchMedia not available
-            }
-        })();
-    </script>
+    <script src="js/utils/theme-init.js"></script>
     
     <meta name="description" content="View Logia Genesis portfolio of successful technology projects in Gauteng. Enterprise WiFi deployments, AI surveillance systems, web development projects, and more.">
     <title>Portfolio | Technology Projects Gauteng | Logia Genesis</title>

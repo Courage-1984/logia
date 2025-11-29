@@ -31,8 +31,8 @@ Quick reference guide to all project documentation.
 - **[GOOGLE_REVIEWS_SETUP.md](./GOOGLE_REVIEWS_SETUP.md)** - Google Reviews carousel setup and configuration
 - **[INSTAGRAM_FEED_SETUP.md](./INSTAGRAM_FEED_SETUP.md)** - Instagram feed setup with local image fallback
 - **[GITHUB_ACTIONS_SETUP.md](./GITHUB_ACTIONS_SETUP.md)** - GitHub Actions secrets configuration
-- **[MONITORING_SETUP.md](./MONITORING_SETUP.md)** - Sentry error tracking and performance monitoring
-- **[IMAGE_GUIDE.md](./IMAGE_GUIDE.md)** - Image optimization and responsive image implementation
+- **[MONITORING_SETUP.md](./MONITORING_SETUP.md)** - Error tracking (Sentry), performance monitoring (Core Web Vitals), Lighthouse CI, bundle size monitoring
+- **[IMAGE_GUIDE.md](./IMAGE_GUIDE.md)** - Image optimization, responsive images, source format guidelines
 - **[FONTS.md](./FONTS.md)** - Font self-hosting guide and Font Awesome optimization
 - **[RESPONSIVE_DESIGN.md](./RESPONSIVE_DESIGN.md)** - Responsive design patterns and breakpoints
 
@@ -68,8 +68,10 @@ Quick reference guide to all project documentation.
 - `.github/workflows/static.yml` - GitHub Pages deployment
 
 ### Recent Updates (January 2025)
+- **Monitoring & Error Tracking**: Sentry integration, Core Web Vitals tracking, Lighthouse CI, bundle size monitoring
+- **Accessibility**: Skip navigation links on all pages
 - Particles background system (particles.js-compatible implementation in CTA sections)
-- Font Awesome cross-browser fixes (Firefox compatibility - quoted URLs, semicolons, root normalization)
+- Font Awesome cross-browser fixes (Firefox compatibility)
 - Theme system optimization (FOUC prevention, system preference detection)
 - Path utilities for GitHub Pages compatibility
 - CSS modularization (shared page styles, legal pages)

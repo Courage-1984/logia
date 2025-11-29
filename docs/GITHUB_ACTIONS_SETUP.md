@@ -14,6 +14,8 @@ You need to set up the following secrets in your GitHub repository:
 2. **GOOGLE_PLACE_ID** - Your Google Business Place ID
 3. **INSTAGRAM_ACCESS_TOKEN** (optional) - Instagram Graph API access token
 
+**Note:** The `GITHUB_TOKEN` is automatically provided by GitHub Actions and doesn't need to be set manually. It's used by Lighthouse CI to post status checks and comments on pull requests.
+
 ## Setting Up GitHub Secrets
 
 1. Go to your GitHub repository
