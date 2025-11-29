@@ -33,7 +33,7 @@
     /* Image optimization */
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
-    will-change: opacity;
+    contain: layout style paint;
 }
 
 body.dark-mode .hero-bg-image {
@@ -50,8 +50,8 @@ body.dark-mode .hero-bg-image {
     opacity: 0.95;
     animation: gradientShift 15s ease infinite;
     z-index: 0;
-    /* Hint upcoming changes to help the browser optimize */
-    will-change: transform, opacity, filter;
+    contain: layout style paint;
+    will-change: filter;
 }
 
 /* Dark overlay for better text contrast */
@@ -91,6 +91,7 @@ body.dark-mode .gradient-mesh::after {
         linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
     background-size: 50px 50px;
     animation: gridMove 20s linear infinite;
+    contain: layout style paint;
     will-change: transform;
 }
 
@@ -234,7 +235,8 @@ body.dark-mode .gradient-mesh::after {
     animation: bounce 2s infinite;
     z-index: 2;
     pointer-events: none;
-    will-change: transform, opacity;
+    contain: layout style paint;
+    will-change: transform;
 }
 
 @keyframes bounce {

@@ -31,13 +31,18 @@
     display: flex;
     gap: var(--space-6);
     transition: transform 0.3s ease;
-    will-change: transform;
+    contain: layout style paint;
     align-items: stretch;
     cursor: grab;
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+}
+
+.instagram-track.is-dragging {
+    will-change: transform;
+    transition: none;
 }
 
 .instagram-track:active {

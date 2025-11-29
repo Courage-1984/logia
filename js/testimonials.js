@@ -296,7 +296,7 @@ function initCarousel(carouselContainer, track, reviews) {
     isPaused = true; // Pause auto-scroll while dragging
     dragStartX = e.clientX || e.touches?.[0]?.clientX || 0;
     dragStartIndex = currentIndex;
-    track.style.transition = 'none';
+    track.classList.add('is-dragging');
     carouselContainer.style.cursor = 'grabbing';
   };
   
@@ -331,7 +331,7 @@ function initCarousel(carouselContainer, track, reviews) {
     isDragging = false;
     isPaused = false;
     carouselContainer.style.cursor = '';
-    track.style.transition = 'transform 0.3s ease';
+    track.classList.remove('is-dragging');
     
     // Calculate if we should move to next/prev card
     const dragDistance = dragCurrentX - dragStartX;

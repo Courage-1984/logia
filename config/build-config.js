@@ -6,10 +6,10 @@
 export const buildConfigs = {
   // Production build (normal server/FTP)
   production: {
-    baseUrl: 'https://www.logia.co.za',
+    baseUrl: 'https://logia.co.za',
     basePath: '/',
     outDir: 'dist',
-    sitemapUrl: 'https://www.logia.co.za/sitemap.xml',
+    sitemapUrl: 'https://logia.co.za/sitemap.xml',
   },
   
   // GitHub Pages build

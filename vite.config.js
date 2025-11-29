@@ -9,6 +9,7 @@ import { getBuildConfig } from './config/build-config.js';
 import { urlTransformPlugin } from './config/url-transform-plugin.js';
 import { staticFilesTransformPlugin } from './config/static-files-transform-plugin.js';
 import { purgeFontAwesomePlugin } from './config/purge-fontawesome-plugin.js';
+import { gscVerificationPlugin } from './config/gsc-verification-plugin.js';
 
 /**
  * Recursive copy function for directories
@@ -247,6 +248,8 @@ function copyStaticAssets(outDir) {
         { src: '404.html', dest: `${outDir}/404.html` },
         { src: 'privacy-policy.html', dest: `${outDir}/privacy-policy.html` },
         { src: 'terms-of-service.html', dest: `${outDir}/terms-of-service.html` },
+        // Copy .htaccess file (Apache server configuration for cache headers)
+        { src: '.htaccess', dest: `${outDir}/.htaccess` },
         // Copy theme-init.js as static file (not bundled - runs synchronously before CSS)
         { src: 'js/utils/theme-init.js', dest: `${outDir}/js/utils/theme-init.js` },
       ];
@@ -454,6 +457,8 @@ export default defineConfig(({ mode = 'production' }) => {
       urlTransformPlugin(mode),
       // Static files transform plugin - transforms sitemap.xml and robots.txt
       staticFilesTransformPlugin(mode),
+      // Google Search Console verification plugin
+      gscVerificationPlugin(),
       // Compression plugins (gzip and brotli)
       viteCompression({
         algorithm: 'gzip',

@@ -71,7 +71,20 @@ export const appConfig = {
   features: {
     customCursor: false,
     performanceLogging: true,
-    analytics: false,
+    analytics: true, // Enable analytics (Google Analytics)
+  },
+  
+  // Google Analytics configuration
+  googleAnalytics: {
+    enabled: import.meta.env.VITE_GA_MEASUREMENT_ID ? true : false, // Enable if Measurement ID is set
+    measurementId: import.meta.env.VITE_GA_MEASUREMENT_ID || '', // Set via environment variable VITE_GA_MEASUREMENT_ID
+    // Example: VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+  },
+  
+  // Google Search Console verification
+  googleSearchConsole: {
+    verification: import.meta.env.VITE_GSC_VERIFICATION || '', // Set via environment variable VITE_GSC_VERIFICATION
+    // Example: VITE_GSC_VERIFICATION=XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
   },
   
   // Monitoring & Error Tracking

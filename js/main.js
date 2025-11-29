@@ -13,6 +13,7 @@ import { initInstagramFeed } from './instagram-feed.js';
 import { initMonitoring } from './monitoring.js';
 import { initPageTransitions } from './page-transitions.js';
 import { warmCache, warmDataCache } from './cache-warming.js';
+import { initGoogleAnalytics } from './analytics.js';
 // Theme manager initializes automatically - no need to import here
 
 // ============================================
@@ -226,18 +227,20 @@ const initAOS = () => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('aos-animate');
                 
-                // For portfolio cards, ensure hover transition is properly set after AOS animation
+                // For portfolio cards, remove any inline styles that might interfere
+                // CSS handles all transitions - no need for inline style manipulation
                 if (entry.target.classList.contains('portfolio-card')) {
-                    // Wait for AOS animation to complete, then ensure transition is set
+                    // Wait for AOS animation to complete, then clean up any inline styles
                     const aosDelay = parseInt(entry.target.getAttribute('data-aos-delay') || 0);
                     const animationDuration = 500; // AOS animation duration
                     setTimeout(() => {
-                        // Force transition to be applied for hover states
-                        // Don't set transform here - let CSS handle it
-                        entry.target.style.transition = 'transform 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                        // Remove any inline transform that might interfere
-                        if (entry.target.style.transform && entry.target.style.transform.includes('scale(1)')) {
+                        // Remove any inline transform that might interfere with CSS
+                        if (entry.target.style.transform) {
                             entry.target.style.transform = '';
+                        }
+                        // Remove any inline transition - let CSS handle it
+                        if (entry.target.style.transition) {
+                            entry.target.style.transition = '';
                         }
                     }, aosDelay + animationDuration + 50);
                 }
@@ -253,7 +256,10 @@ const initAOS = () => {
 
     elements.forEach((element, index) => {
         const delay = element.getAttribute('data-aos-delay') || 0;
-        element.style.transitionDelay = `${delay}ms`;
+        // Use CSS custom property for delay instead of inline style for better Chrome performance
+        if (delay > 0) {
+            element.style.setProperty('--aos-delay', `${delay}ms`);
+        }
         observer.observe(element);
     });
 };
@@ -388,13 +394,11 @@ const init3DTilt = () => {
     const cards = $$('.service-card, .why-card');
     if (cards.length === 0) return;
 
-    // Respect user and device capabilities:
-    // - Disable on reduced motion preference
+    // Respect device capabilities:
     // - Disable on coarse pointers (most touch/mobile devices)
-    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const hasFinePointer = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
 
-    if (prefersReducedMotion || !hasFinePointer) {
+    if (!hasFinePointer) {
         return;
     }
 
@@ -528,11 +532,10 @@ const lazyLoadSearch = () => {
 const lazyLoadParticles = () => {
     if ($('.cta-section .cta-background').length === 0) return;
 
-    // Respect reduced motion and avoid on touch/mobile devices
-    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Avoid on touch/mobile devices
     const hasFinePointer = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
 
-    if (prefersReducedMotion || !hasFinePointer) {
+    if (!hasFinePointer) {
         return;
     }
 
@@ -785,6 +788,9 @@ const init = () => {
     
     // Initialize monitoring (error tracking & performance monitoring)
     initMonitoring();
+    
+    // Initialize Google Analytics (if enabled)
+    initGoogleAnalytics();
 
     // Register service worker for offline caching and faster repeat visits
     if ('serviceWorker' in navigator) {

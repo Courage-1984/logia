@@ -395,6 +395,11 @@ class PageTransitionManager {
                 // Reinitialize page features
                 await this.reinitializePage();
                 
+                // Track page view in Google Analytics (if enabled)
+                if (window.trackPageView) {
+                    window.trackPageView();
+                }
+                
                 // Hide overlay after content is visible
                 setTimeout(() => {
                     overlay.classList.remove('active');
@@ -519,11 +524,6 @@ export const initPageTransitions = () => {
         return;
     }
     
-    // Respect reduced motion preference
-    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) {
-        return;
-    }
     
     // Initialize transition manager
     if (!pageTransitionManager) {

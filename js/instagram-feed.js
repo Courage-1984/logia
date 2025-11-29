@@ -268,7 +268,7 @@ function initCarousel(carouselContainer, track, posts) {
     isPaused = true;
     dragStartX = e.clientX || e.touches?.[0]?.clientX || 0;
     dragStartIndex = currentIndex;
-    track.style.transition = 'none';
+    track.classList.add('is-dragging');
     carouselContainer.style.cursor = 'grabbing';
   };
   
@@ -301,7 +301,7 @@ function initCarousel(carouselContainer, track, posts) {
     isDragging = false;
     isPaused = false;
     carouselContainer.style.cursor = '';
-    track.style.transition = 'transform 0.3s ease';
+    track.classList.remove('is-dragging');
     
     const dragDistance = dragCurrentX - dragStartX;
     const activeCard = allCards[currentIndex];

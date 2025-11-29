@@ -6,7 +6,7 @@
     <!-- Homepage -->
     <url>
         <loc>https://logia.co.za/</loc>
-        <lastmod>2025-01-15</lastmod>
+        <lastmod>2025-01-29</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
     </url>
@@ -14,7 +14,7 @@
     <!-- About Page -->
     <url>
         <loc>https://logia.co.za/about.html</loc>
-        <lastmod>2025-01-15</lastmod>
+        <lastmod>2025-01-29</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -22,7 +22,7 @@
     <!-- Services Page -->
     <url>
         <loc>https://logia.co.za/services.html</loc>
-        <lastmod>2025-01-15</lastmod>
+        <lastmod>2025-01-29</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
@@ -30,7 +30,7 @@
     <!-- Portfolio Page -->
     <url>
         <loc>https://logia.co.za/portfolio.html</loc>
-        <lastmod>2025-01-15</lastmod>
+        <lastmod>2025-01-29</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -38,7 +38,7 @@
     <!-- Resources Page -->
     <url>
         <loc>https://logia.co.za/resources.html</loc>
-        <lastmod>2025-01-15</lastmod>
+        <lastmod>2025-01-29</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.7</priority>
     </url>
@@ -46,7 +46,7 @@
     <!-- Speed Test Page -->
     <url>
         <loc>https://logia.co.za/speedtest.html</loc>
-        <lastmod>2025-01-15</lastmod>
+        <lastmod>2025-01-29</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
@@ -54,7 +54,7 @@
     <!-- Contact Page -->
     <url>
         <loc>https://logia.co.za/contact.html</loc>
-        <lastmod>2025-01-15</lastmod>
+        <lastmod>2025-01-29</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
@@ -62,7 +62,7 @@
     <!-- Privacy Policy Page -->
     <url>
         <loc>https://logia.co.za/privacy-policy.html</loc>
-        <lastmod>2025-01-15</lastmod>
+        <lastmod>2025-01-29</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.5</priority>
     </url>
@@ -70,7 +70,7 @@
     <!-- Terms of Service Page -->
     <url>
         <loc>https://logia.co.za/terms-of-service.html</loc>
-        <lastmod>2025-01-15</lastmod>
+        <lastmod>2025-01-29</lastmod>
         <changefreq>yearly</changefreq>
         <priority>0.5</priority>
     </url>

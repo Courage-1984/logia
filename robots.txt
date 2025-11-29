@@ -1,13 +1,10 @@
 User-agent: *
 Allow: /
-Disallow: /dist/
-Disallow: /node_modules/
-Disallow: /*.json$
 
-# Allow important files
-Allow: /css/style.css
-Allow: /js/main.js
-Allow: /js/components.js
+# Disallow data files and build artifacts
+Disallow: /data/
+Disallow: /stats.html
+Disallow: /service-worker.js
 
 # Sitemap
 Sitemap: https://logia.co.za/sitemap.xml

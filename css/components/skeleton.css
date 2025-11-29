@@ -244,15 +244,4 @@
     gap: var(--space-6);
 }
 
-/* Respect reduced motion */
-@media (prefers-reduced-motion: reduce) {
-    .skeleton {
-        animation: none;
-        background: var(--color-gray-200);
-    }
-    
-    .dark-mode .skeleton {
-        background: var(--color-gray-800);
-    }
-}
 

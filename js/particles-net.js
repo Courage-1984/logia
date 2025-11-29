@@ -287,9 +287,7 @@ class ParticlesSystem {
 		count = Math.max(18, Math.min(200, count));
 
 		// Reduce on low-power devices
-		const isReduced = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 		const isMobile = /Mobi|Android/i.test(navigator.userAgent);
-		if (isReduced) return Math.floor(count * 0.4);
 		if (isMobile) return Math.floor(count * 0.6);
 
 		return count;

@@ -62,7 +62,7 @@ Quick reference checklist for performance optimizations.
 - [x] **Optimize mobile bundle** - Reduce work for mobile (gate heavy effects and prefetch on constrained devices)
 - [x] **Touch optimization** - Ensure touch targets are adequate
 - [x] **Mobile-first loading** - Load mobile assets first
-- [x] **Reduce mobile animations** - Simplify on mobile devices and respect reduced motion
+- [x] **Optimize Chrome animations** - Fixed jitter with will-change, CSS containment, transform optimizations
 
 ### 🔍 Monitoring
 - [x] **Add performance monitoring** - ✅ Core Web Vitals tracking (LCP, FID, INP, CLS, FCP, TTFB)
@@ -128,4 +128,5 @@ Quick reference checklist for performance optimizations.
 
 See [PERFORMANCE_OPTIMIZATION.md](./PERFORMANCE_OPTIMIZATION.md) for detailed implementation instructions.
 
-**Last Updated:** 2025
+**Last Updated:** January 2025  
+**Chrome Animation Optimization**: January 2025 - Fixed jittery animations, optimized will-change usage

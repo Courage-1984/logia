@@ -247,21 +247,6 @@
     animation-timing-function: var(--fa-animation-timing, steps(8))
 }
 
-@media (prefers-reduced-motion:reduce) {
-
-    .fa-beat,
-    .fa-beat-fade,
-    .fa-bounce,
-    .fa-fade,
-    .fa-flip,
-    .fa-pulse,
-    .fa-shake,
-    .fa-spin,
-    .fa-spin-pulse {
-        animation: none !important;
-        transition: none !important
-    }
-}
 
 @keyframes fa-beat {
 

@@ -82,7 +82,7 @@ Quick reference guide to all project documentation.
 - **UI Improvements**: Footer logo links, Featured Projects styling updates, timeline component alignment fixes
 - **Monitoring & Error Tracking**: Sentry integration, Core Web Vitals, Lighthouse CI, bundle monitoring
 - **Accessibility**: Skip navigation links on all pages
-- Particles background system (particles.js-compatible, disabled on mobile/reduced motion)
+- Particles background system (particles.js-compatible, disabled on mobile/coarse pointers)
 - Font Awesome cross-browser fixes (Firefox compatibility)
 - Theme system optimization (FOUC prevention, system preference detection)
 - Path utilities for GitHub Pages compatibility

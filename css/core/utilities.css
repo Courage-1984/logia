@@ -28,6 +28,7 @@ picture img {
 
 /* AOS Animation Placeholders */
 [data-aos] {
+    transition-delay: var(--aos-delay, 0ms);
     opacity: 0;
     transition: opacity var(--transition-slow), transform var(--transition-slow);
 }

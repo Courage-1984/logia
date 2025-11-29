@@ -209,6 +209,7 @@ Each page has its own CSS file for:
 - ✅ Dark mode support
 - ✅ Consistent spacing system
 - ✅ Semantic class names
+- ✅ Chrome-optimized animations (will-change, CSS containment, transform optimizations)
 - ✅ Documented naming conventions (see `docs/STYLE_GUIDE.md`)
 
 ## JavaScript Architecture

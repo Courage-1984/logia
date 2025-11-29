@@ -11,7 +11,7 @@ Implementation status and rationale for performance optimizations.
 **Key Implementations:**
 - ✅ Font self-hosting, lazy loading, code splitting
 - ✅ Service worker (runtime caching)
-- ✅ Mobile-aware animations (reduced motion, pointer checks)
+- ✅ Chrome-optimized animations (will-change, CSS containment, transform optimizations)
 - ✅ Build-time compression, image optimization, resource hints
 
 ---
@@ -66,10 +66,14 @@ Implementation status and rationale for performance optimizations.
 - Works in dev, preview, production, and GitHub Pages (with base path handling)
 
 ### Animations & Motion ✅
-- `will-change` hints on continuous animations (hero, grid, scroll indicator, particles)
-- Respects `prefers-reduced-motion` (global CSS + JS checks)
-- 3D tilt and particles disabled on mobile/coarse pointers
-- See `css/base.css` and `js/main.js`
+- **Chrome Optimization**: Optimized for smooth animations in Chrome
+  - `will-change` only set during active animations (hover states)
+  - CSS containment (`contain: layout style paint`) for better rendering isolation
+  - Avoid unnecessary `translate3d(0,0,0)` - use only needed transforms (`scale()`, `translateY()`, etc.)
+  - Separate transition properties for better Chrome performance
+- **Hardware Acceleration**: `backface-visibility: hidden` on animated elements
+- **Mobile Optimization**: 3D tilt and particles disabled on mobile/coarse pointers
+- See `css/sections/portfolio-preview.css`, `css/layout/hero.css`, `js/main.js`
 
 ---
 
@@ -85,7 +89,6 @@ See `docs/NETWORK_OPTIMIZATION.md` for:
 - **Skeleton Loaders**: `css/components/skeleton.css` - Animated loading placeholders
   - Shimmer animation with dark mode support
   - Used for components (navbar, footer), testimonials, Instagram feed, page transitions
-  - Respects `prefers-reduced-motion`
 - **Page Transitions**: `js/page-transitions.js` - Smooth navigation
   - Intercepts internal link clicks for instant navigation
   - Shows skeleton overlay during transition
@@ -149,4 +152,5 @@ See `docs/NETWORK_OPTIMIZATION.md` for:
 
 ---
 
-**Last Updated**: January 2025
+**Last Updated**: January 2025  
+**Chrome Animation Optimization**: January 2025 - Fixed jittery animations, removed reduced motion rules

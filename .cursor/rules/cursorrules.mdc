@@ -163,9 +163,16 @@ Always use CSS custom properties defined in `css/core/variables.css`:
 - ✅ Keep page-specific CSS in separate files
 - ✅ Use `clamp()` for responsive typography
 - ✅ **Cross-browser compatibility**: Quote @font-face URLs, include semicolons, use `text-size-adjust: 100%` on root
+- ✅ **Chrome Animation Optimization**:
+  - Use `contain: layout style paint` on animated elements
+  - Set `will-change` only during active animations (hover states), remove with `will-change: auto` when idle
+  - Avoid unnecessary `translate3d(0,0,0)` - use only needed transforms (`scale()`, `translateY()`, etc.)
+  - Use separate transition properties instead of shorthand for better Chrome performance
+  - Add `backface-visibility: hidden` for hardware acceleration
 - ❌ Never hardcode colors, spacing, or other design tokens
 - ❌ Avoid inline styles (except for dynamic JS-generated styles)
 - ❌ Don't use `!important` unless absolutely necessary
+- ❌ Don't use `translate3d(0,0,0)` when you only need `scale()` or `translateY()`
 
 ---
 
@@ -430,9 +437,14 @@ The project supports two build targets:
 - Remove unused code (tree-shaking enabled)
 
 ### Animations & Motion
-- Respect `prefers-reduced-motion` globally in CSS (see `css/core/reset.css`).
-- Disable heavier effects (3D tilt, particles) when `prefers-reduced-motion` is set or on coarse pointers (touch/mobile).
-- Use `will-change` only on elements with continuous animations (hero background, grid, scroll indicator, CTA particles).
+- **Chrome Optimization**: Optimized for smooth animations in Chrome
+  - `will-change` only set during active animations (hover states), removed when idle (`will-change: auto`)
+  - CSS containment (`contain: layout style paint`) for better rendering isolation
+  - Avoid unnecessary `translate3d(0,0,0)` - use only needed transforms (`scale()`, `translateY()`, etc.)
+  - Use separate transition properties (`transition-property`, `transition-duration`, `transition-timing-function`) for better Chrome performance
+  - `backface-visibility: hidden` on animated elements for hardware acceleration
+- Disable heavier effects (3D tilt, particles) on coarse pointers (touch/mobile devices).
+- Use `will-change` only during active animations, not statically on all elements.
 
 ### Image Optimization
 - **Source Format**: Use JPG or PNG in `assets/images/` (NOT WebP - generated during build)
@@ -729,7 +741,7 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 - **Particles Background**: Animated particle network in CTA sections (`js/particles-net.js`)
   - Compatible with particles.js configuration format
   - Mouse interaction (hover repulse, click to push)
-  - Lazy-loaded for performance and disabled on touch/mobile devices and for users who prefer reduced motion
+  - Lazy-loaded for performance and disabled on touch/mobile devices (coarse pointers)
   - Configured via `js/particlesjs-config.json`
 - **Testimonials Carousel**: Centered active card, infinite loop, drag & shift+scroll navigation
 - **Instagram Feed**: Carousel with local image fallback (uses `assets/images/instagram/` if API unavailable)
@@ -790,7 +802,7 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 ---
 
 **Last Updated**: January 2025
-**Version**: 3.3
+**Version**: 3.4
 
 ## Recent Major Updates (January 2025)
 
@@ -929,7 +941,7 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 ### Page Transitions & Skeleton Loaders ✅ (January 2025)
 - **Skeleton Loaders**: Animated loading placeholders with shimmer effect (`css/components/skeleton.css`)
   - Variants for navbar, footer, testimonials, Instagram, cards, buttons
-  - Dark mode support, respects `prefers-reduced-motion`
+  - Dark mode support
 - **Page Transitions**: Smooth navigation system (`js/page-transitions.js`)
   - Intercepts internal link clicks for instant navigation
   - Shows skeleton overlay during transition
@@ -969,3 +981,15 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
   - Gap neutralized: Flex gap set to 0 for precise positioning
   - Transform fix: Uses `translateX()` for exact alignment (handles row-reverse flex behavior)
 - **See**: Used in `services.html` for "Our Process" timeline section
+
+### Chrome Animation Optimization ✅ (January 2025)
+- **Fixed jittery animations in Chrome** - Comprehensive optimization for smooth animations
+- **Key Changes**:
+  - Removed all `prefers-reduced-motion` rules (animations always enabled)
+  - Optimized `will-change` usage (only set during active animations, removed when idle)
+  - Added CSS containment (`contain: layout style paint`) for better rendering isolation
+  - Removed unnecessary `translate3d(0,0,0)` - use only needed transforms (`scale()`, `translateY()`, etc.)
+  - Use separate transition properties instead of shorthand for better Chrome performance
+  - Carousel JavaScript updated to use CSS classes (`is-dragging`) instead of inline styles
+- **Files Updated**: `css/sections/portfolio-preview.css`, `css/layout/hero.css`, `css/sections/testimonials.css`, `css/sections/instagram.css`, `css/core/reset.css`, `js/main.js`, `js/testimonials.js`, `js/instagram-feed.js`
+- **Result**: Smooth animations in Chrome matching Firefox performance
