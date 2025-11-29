@@ -1,0 +1,222 @@
+/* ============================================
+   LOGIA GENESIS - INSTAGRAM FEED SECTION
+   Instagram feed section styles (uses carousel component)
+   ============================================ */
+
+.instagram-section {
+    background: var(--color-surface);
+}
+
+.instagram-feed-grid {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Instagram Carousel Container */
+.instagram-carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 0 var(--space-16);
+}
+
+@media (max-width: 768px) {
+    .instagram-carousel {
+        padding: 0 var(--space-12);
+    }
+}
+
+/* Instagram Carousel Track */
+.instagram-track {
+    display: flex;
+    gap: var(--space-6);
+    transition: transform 0.3s ease;
+    will-change: transform;
+    align-items: stretch;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.instagram-track:active {
+    cursor: grabbing;
+}
+
+@media (min-width: 769px) {
+    .instagram-track {
+        gap: var(--space-8);
+    }
+}
+
+/* Instagram Card */
+.instagram-card {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    transition: all var(--transition-base);
+    flex: 0 0 calc(100% - var(--space-6));
+    min-width: 0;
+    scroll-snap-align: center;
+    box-shadow: var(--shadow-sm);
+}
+
+@media (min-width: 769px) {
+    .instagram-card {
+        flex: 0 0 calc(50% - var(--space-4));
+    }
+}
+
+@media (min-width: 1025px) {
+    .instagram-card {
+        flex: 0 0 calc(33.333% - var(--space-6));
+    }
+}
+
+body.dark-mode .instagram-card {
+    background: var(--color-dark-surface);
+    border-color: var(--color-border);
+}
+
+.instagram-card-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.instagram-image-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    overflow: hidden;
+    background: var(--color-bg);
+}
+
+.instagram-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-base);
+}
+
+.instagram-card:hover .instagram-image {
+    transform: scale(1.05);
+}
+
+.instagram-placeholder {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    color: var(--color-white);
+    font-size: 3rem;
+}
+
+.instagram-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+    color: var(--color-white);
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.instagram-card:hover .instagram-overlay {
+    opacity: 1;
+}
+
+.instagram-overlay i {
+    font-size: 2rem;
+}
+
+.instagram-caption {
+    padding: var(--space-4) var(--space-6);
+    border-top: 1px solid var(--color-border);
+}
+
+.instagram-caption p {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+body.dark-mode .instagram-caption {
+    border-top-color: var(--color-border);
+}
+
+/* Instagram Loading State */
+.instagram-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-16);
+    text-align: center;
+    color: var(--color-text-muted);
+}
+
+.instagram-loading i {
+    font-size: 3rem;
+    color: var(--color-accent);
+    margin-bottom: var(--space-4);
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.instagram-loading p {
+    margin: 0;
+    font-size: 1.125rem;
+}
+
+@keyframes pulse {
+    0%,
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.7;
+        transform: scale(1.1);
+    }
+}
+
+/* Instagram Error State */
+.instagram-error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-16);
+    text-align: center;
+    color: var(--color-text-muted);
+}
+
+.instagram-error p {
+    margin: 0;
+    font-size: 1.125rem;
+}
+

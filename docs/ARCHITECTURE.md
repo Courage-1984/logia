@@ -7,18 +7,48 @@ logia/
 ├── components/          # Reusable HTML components
 │   ├── navbar.html     # Navigation component
 │   └── footer.html     # Footer component
-├── css/                # Stylesheets
-│   ├── style.css       # Main stylesheet (base styles, variables, global components)
-│   ├── page-common.css # Shared page styles (page-header, two-column-layout, stats-card)
-│   ├── legal.css       # Legal pages styles (Privacy Policy, Terms of Service)
-│   ├── about.css       # About page specific styles
-│   ├── contact.css     # Contact page specific styles
-│   ├── portfolio.css   # Portfolio page specific styles
-│   ├── resources.css   # Resources/FAQ page specific styles
-│   ├── services.css    # Services page specific styles
-│   ├── speedtest.css   # Speed test page specific styles
-│   ├── inter-fonts.css # Inter font @font-face declarations
-│   └── fontawesome-local.css # Font Awesome styles
+├── css/                # Stylesheets (modular structure)
+│   ├── core/           # Core foundation styles
+│   │   ├── variables.css    # Design tokens (colors, spacing, etc.)
+│   │   ├── reset.css       # CSS reset & base styles
+│   │   ├── typography.css  # Typography styles
+│   │   └── utilities.css   # Utility classes
+│   ├── components/     # Reusable UI components
+│   │   ├── buttons.css     # Button styles
+│   │   ├── cards.css       # Generic card patterns
+│   │   ├── forms.css       # Form elements
+│   │   ├── carousel.css    # Carousel component
+│   │   └── floating-buttons.css # Scroll-to-top, WhatsApp buttons
+│   ├── layout/         # Layout components
+│   │   ├── container.css   # Container utilities
+│   │   ├── navbar.css      # Navigation bar
+│   │   ├── hero.css        # Hero section
+│   │   ├── page-header.css # Page headers (shared)
+│   │   └── footer.css      # Footer component
+│   ├── sections/       # Homepage sections
+│   │   ├── _section-header.css # Shared section headers
+│   │   ├── services.css        # Services section
+│   │   ├── why-choose.css      # Why Choose section
+│   │   ├── portfolio-preview.css # Portfolio preview
+│   │   ├── testimonials.css     # Testimonials section
+│   │   ├── instagram.css        # Instagram feed
+│   │   └── cta.css              # CTA section
+│   ├── pages/          # Page-specific styles
+│   │   ├── about.css
+│   │   ├── contact.css
+│   │   ├── services.css
+│   │   ├── portfolio.css
+│   │   ├── legal.css
+│   │   ├── speedtest.css
+│   │   └── resources.css
+│   ├── responsive/     # Responsive adjustments
+│   │   ├── mobile.css      # Mobile breakpoints
+│   │   ├── tablet.css      # Tablet breakpoints
+│   │   └── desktop.css     # Desktop optimizations
+│   ├── fonts/          # Font definitions
+│   │   ├── inter-fonts.css
+│   │   └── fontawesome-local.css
+│   └── style.css       # Main entry point (imports all modules)
 ├── docs/               # Documentation
 │   ├── ARCHITECTURE.md # Architecture documentation (this file)
 │   ├── SETUP_GUIDE.md  # Setup instructions

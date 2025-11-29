@@ -1,0 +1,233 @@
+/* ============================================
+   LOGIA GENESIS - MOBILE RESPONSIVE
+   Mobile and small mobile breakpoints
+   ============================================ */
+
+@media (max-width: 768px) {
+    /* Navigation */
+    .logo-text {
+        display: none;
+        /* Hide logo text on mobile to save space */
+    }
+
+    .footer-logo .logo-text {
+        display: none;
+        /* Hide footer logo text on mobile to save space */
+    }
+
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
+    .nav-menu {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: var(--color-white);
+        flex-direction: column;
+        padding: var(--space-6);
+        box-shadow: var(--shadow-xl);
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all var(--transition-base);
+        max-height: calc(100vh - 60px);
+        overflow-y: auto;
+        z-index: var(--z-dropdown);
+    }
+
+    body.dark-mode .nav-menu {
+        background: var(--color-dark-surface);
+    }
+
+    .nav-menu.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+    }
+
+    .nav-list {
+        flex-direction: column;
+        width: 100%;
+        gap: 0;
+    }
+
+    .nav-link {
+        width: 100%;
+        padding: var(--space-4);
+        justify-content: space-between;
+    }
+
+    .dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        margin-top: var(--space-2);
+        box-shadow: none;
+        display: none;
+    }
+
+    .dropdown.active .dropdown-menu {
+        display: block;
+    }
+
+    .nav-actions {
+        width: 100%;
+        justify-content: space-between;
+        margin-top: var(--space-6);
+        padding-top: var(--space-6);
+        border-top: 1px solid var(--color-border);
+    }
+
+    /* Hero */
+    .hero {
+        height: 100vh;
+        max-height: 100vh;
+        padding: 0;
+    }
+
+    .hero-content {
+        padding: var(--space-6) var(--space-4);
+    }
+
+    .hero-text {
+        padding: var(--space-4) 0;
+    }
+
+    .hero-title {
+        margin-bottom: var(--space-3);
+        margin-top: var(--space-6);
+    }
+
+    .hero-subtitle {
+        margin-bottom: var(--space-3);
+    }
+
+    .hero-description {
+        margin-bottom: var(--space-6);
+        font-size: 1rem;
+    }
+
+    .hero-cta {
+        flex-direction: column;
+        margin-bottom: var(--space-6);
+    }
+
+    .hero-cta .btn {
+        width: 100%;
+    }
+
+    .hero-stats {
+        gap: var(--space-6);
+        padding-top: var(--space-4);
+        margin-top: var(--space-3);
+    }
+
+    .scroll-indicator {
+        bottom: var(--space-4);
+        font-size: 0.75rem;
+    }
+
+    /* Section Header */
+    .section-header {
+        margin-bottom: var(--space-12);
+    }
+
+    .section-description {
+        font-size: 1rem;
+    }
+
+    /* Cards */
+    .service-card,
+    .why-card,
+    .testimonial-card,
+    .portfolio-card {
+        padding: var(--space-6);
+    }
+
+    /* Footer */
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-8);
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+        gap: var(--space-4);
+        padding-left: var(--space-4);
+        padding-right: var(--space-4);
+    }
+
+    /* Scroll to top */
+    .scroll-top {
+        bottom: var(--space-4);
+        right: var(--space-4);
+        width: 44px;
+        height: 44px;
+    }
+
+    /* WhatsApp float */
+    .whatsapp-float {
+        bottom: var(--space-4);
+        left: var(--space-4);
+        width: 52px;
+        height: 52px;
+        font-size: 24px;
+    }
+
+    .whatsapp-tooltip {
+        display: none;
+        /* Hide tooltip on mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 var(--space-4);
+    }
+
+    .section {
+        padding: var(--space-12) 0;
+    }
+
+    .btn-lg {
+        padding: 1rem 2rem;
+        font-size: 1rem;
+    }
+
+    .hero-stats {
+        flex-direction: column;
+        gap: var(--space-6);
+    }
+
+    /* Typography adjustments */
+    .section-title {
+        font-size: clamp(1.5rem, 5vw, 2.5rem);
+    }
+
+    .section-description {
+        font-size: 0.9375rem;
+    }
+
+    /* Button adjustments */
+    .btn {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.875rem;
+    }
+
+    .btn-lg {
+        padding: 0.875rem 1.5rem;
+        font-size: 0.9375rem;
+    }
+
+    /* Card padding */
+    .service-card,
+    .why-card,
+    .testimonial-card {
+        padding: var(--space-5);
+    }
+}
+

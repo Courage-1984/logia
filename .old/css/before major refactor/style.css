@@ -8,36 +8,42 @@
    This ensures proper loading order and allows Vite to process them correctly.
 */
 
-/* Core Foundation */
+/* Core Foundation (NEW - Modular Structure) */
 @import "./core/variables.css";
 @import "./core/reset.css";
 @import "./core/typography.css";
 @import "./core/utilities.css";
 
-/* Layout */
+/* Layout (NEW - Modular Structure) */
 @import "./layout/container.css";
 @import "./layout/navbar.css";
 @import "./layout/hero.css";
 @import "./layout/page-header.css";
 @import "./layout/footer.css";
 
-/* Components */
+/* Components (NEW - Modular Structure) */
 @import "./components/buttons.css";
 @import "./components/cards.css";
 @import "./components/forms.css";
 @import "./components/carousel.css";
 @import "./components/floating-buttons.css";
 
-/* Homepage Sections */
-@import "./sections/_section-header.css";
-@import "./sections/services.css";
-@import "./sections/why-choose.css";
-@import "./sections/portfolio-preview.css";
-@import "./sections/testimonials.css";
-@import "./sections/instagram.css";
-@import "./sections/cta.css";
+/* Legacy imports (for backward compatibility - will be removed after migration) */
+/* Base styles: variables, reset, typography, layout, utilities, print */
+@import "./base.css";
 
-/* Responsive */
-@import "./responsive/mobile.css";
-@import "./responsive/tablet.css";
-@import "./responsive/desktop.css";
+/* Navigation, logo, theme toggle, mobile menu */
+@import "./navbar.css";
+
+/* Buttons */
+@import "./buttons.css";
+
+/* Hero section */
+@import "./hero.css";
+
+/* Section blocks: services, why choose us, portfolio, testimonials,
+   Instagram, CTA, footer, floating buttons */
+@import "./sections.css";
+
+/* Responsive adjustments */
+@import "./responsive.css";

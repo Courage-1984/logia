@@ -37,11 +37,48 @@ Examples of changes that require updates:
 ```
 logia/
 ├── components/          # Reusable HTML components (navbar, footer)
-├── css/                # Stylesheets
-│   ├── style.css       # Main stylesheet (base, variables, global)
-│   ├── page-common.css # Shared page styles (page-header, layouts)
-│   ├── legal.css       # Legal pages styles (Privacy Policy, Terms)
-│   └── *.css           # Page-specific styles
+├── css/                # Stylesheets (modular structure)
+│   ├── core/           # Core foundation styles
+│   │   ├── variables.css    # Design tokens (colors, spacing, etc.)
+│   │   ├── reset.css       # CSS reset & base styles
+│   │   ├── typography.css  # Typography styles
+│   │   └── utilities.css   # Utility classes
+│   ├── components/     # Reusable UI components
+│   │   ├── buttons.css     # Button styles
+│   │   ├── cards.css       # Generic card patterns
+│   │   ├── forms.css       # Form elements
+│   │   ├── carousel.css    # Carousel component
+│   │   └── floating-buttons.css # Scroll-to-top, WhatsApp buttons
+│   ├── layout/         # Layout components
+│   │   ├── container.css   # Container utilities
+│   │   ├── navbar.css      # Navigation bar
+│   │   ├── hero.css        # Hero section
+│   │   ├── page-header.css # Page headers (shared)
+│   │   └── footer.css      # Footer component
+│   ├── sections/       # Homepage sections
+│   │   ├── _section-header.css # Shared section headers
+│   │   ├── services.css        # Services section
+│   │   ├── why-choose.css      # Why Choose section
+│   │   ├── portfolio-preview.css # Portfolio preview
+│   │   ├── testimonials.css     # Testimonials section
+│   │   ├── instagram.css        # Instagram feed
+│   │   └── cta.css              # CTA section
+│   ├── pages/          # Page-specific styles
+│   │   ├── about.css
+│   │   ├── contact.css
+│   │   ├── services.css
+│   │   ├── portfolio.css
+│   │   ├── legal.css
+│   │   ├── speedtest.css
+│   │   └── resources.css
+│   ├── responsive/     # Responsive adjustments
+│   │   ├── mobile.css      # Mobile breakpoints
+│   │   ├── tablet.css      # Tablet breakpoints
+│   │   └── desktop.css     # Desktop optimizations
+│   ├── fonts/          # Font definitions
+│   │   ├── inter-fonts.css
+│   │   └── fontawesome-local.css
+│   └── style.css       # Main entry point (imports all modules)
 ├── js/                 # JavaScript modules (ES6)
 │   ├── particles-net.js # Particles background system (CTA sections)
 │   ├── particlesjs-config.json # Particles configuration
@@ -90,7 +127,7 @@ logia/
 - **States**: `.active`, `.visible`, `.scrolled`, `.dark-mode`
 
 ### CSS Variables (Design Tokens)
-Always use CSS custom properties defined in `css/style.css`:
+Always use CSS custom properties defined in `css/core/variables.css`:
 - Colors: `var(--color-primary)`, `var(--color-accent)`, `var(--color-text)`
 - Spacing: `var(--space-1)` through `var(--space-24)` (8px grid system)
 - Typography: `var(--font-primary)`
@@ -98,11 +135,15 @@ Always use CSS custom properties defined in `css/style.css`:
 - Border Radius: `var(--radius-sm)` through `var(--radius-full)`
 - Transitions: `var(--transition-fast)`, `var(--transition-base)`, `var(--transition-slow)`
 
-### CSS Organization
-- **Main stylesheet** (`css/style.css`): Base styles, variables, global components
-- **Common page styles** (`css/page-common.css`): Shared page header, two-column layout, stats card styles
-- **Page-specific** (`css/about.css`, etc.): Page-unique styles only
-- **Legal pages** (`css/legal.css`): Privacy Policy and Terms of Service specific styles
+### CSS Organization (Modular Structure)
+- **Main stylesheet** (`css/style.css`): Aggregates all modular CSS files via @import
+- **Core** (`css/core/`): Foundation styles (variables, reset, typography, utilities)
+- **Components** (`css/components/`): Reusable UI components (buttons, cards, forms, carousel, floating buttons)
+- **Layout** (`css/layout/`): Structural components (navbar, hero, footer, page-header, container)
+- **Sections** (`css/sections/`): Homepage sections (services, why-choose, portfolio-preview, testimonials, instagram, cta)
+- **Pages** (`css/pages/`): Page-specific styles (about, contact, services, portfolio, legal, speedtest, resources)
+- **Responsive** (`css/responsive/`): Responsive adjustments (mobile, tablet, desktop)
+- **Fonts** (`css/fonts/`): Font definitions (inter-fonts, fontawesome-local)
 - **Mobile-first**: Write mobile styles first, then use `@media` for larger screens
 - **Dark mode**: Use `body.dark-mode` selector for dark mode overrides
 

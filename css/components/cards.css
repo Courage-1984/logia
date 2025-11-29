@@ -1,0 +1,83 @@
+/* ============================================
+   LOGIA GENESIS - CARD COMPONENTS
+   Generic card patterns and shared card utilities
+   ============================================ */
+
+/* Base Card Pattern */
+.card {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    border: 1px solid var(--color-border);
+    transition: all var(--transition-base);
+}
+
+@media (min-width: 769px) {
+    .card {
+        padding: var(--space-8);
+    }
+}
+
+body.dark-mode .card {
+    background: var(--color-dark-surface);
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+}
+
+/* Card with Icon */
+.card-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    color: var(--color-white);
+    margin-bottom: var(--space-6);
+    transition: all var(--transition-base);
+}
+
+.card:hover .card-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* Card with Large Icon */
+.card-icon-large {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, rgba(10, 36, 99, 0.1), rgba(0, 217, 255, 0.1));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: var(--color-accent-text);
+    margin: 0 auto var(--space-6);
+    transition: all var(--transition-base);
+}
+
+.card:hover .card-icon-large {
+    transform: scale(1.1);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    color: var(--color-white);
+}
+
+/* Card Title */
+.card-title {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-2);
+    color: var(--color-text);
+}
+
+/* Card Description */
+.card-description {
+    margin-bottom: var(--space-6);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+}
+

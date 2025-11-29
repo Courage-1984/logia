@@ -1,0 +1,31 @@
+/* Inter Font - Self-hosted */
+/* 
+ * Download Inter fonts from: https://gwfh.mranftl.com/fonts/inter
+ * Select weights: 400 (Regular), 600 (SemiBold), 700 (Bold)
+ * Download woff2 format and place in assets/fonts/inter/
+ * Rename files to match the paths below
+ */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../../assets/fonts/inter/inter-regular-latin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../../assets/fonts/inter/inter-semibold-latin.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../../assets/fonts/inter/inter-bold-latin.woff2') format('woff2');
+}

@@ -1,0 +1,17 @@
+/* ============================================
+   LOGIA GENESIS - CONTAINER & LAYOUT UTILITIES
+   Container, section utilities
+   ============================================ */
+
+/* LAYOUT */
+.container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 var(--space-6);
+}
+
+.section {
+    padding: var(--space-20) 0;
+}
+

@@ -1,0 +1,65 @@
+/* ============================================
+   LOGIA GENESIS - UTILITY CLASSES
+   Layout utilities, text utilities, AOS animations, print styles
+   ============================================ */
+
+/* GLOBAL IMAGE OPTIMIZATIONS */
+img {
+    max-width: 100%;
+    height: auto;
+    /* Prevent layout shift */
+    aspect-ratio: attr(width) / attr(height);
+}
+
+picture {
+    display: block;
+}
+
+picture img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* UTILITY CLASSES */
+.text-center {
+    text-align: center;
+}
+
+/* AOS Animation Placeholders */
+[data-aos] {
+    opacity: 0;
+    transition: opacity var(--transition-slow), transform var(--transition-slow);
+}
+
+[data-aos].aos-animate {
+    opacity: 1;
+}
+
+[data-aos="fade-up"] {
+    transform: translateY(30px);
+}
+
+[data-aos="fade-up"].aos-animate {
+    transform: translateY(0);
+}
+
+[data-aos="zoom-in"] {
+    transform: scale(0.9);
+}
+
+[data-aos="zoom-in"].aos-animate {
+    transform: scale(1);
+}
+
+/* PRINT STYLES */
+@media print {
+    .navbar,
+    .scroll-top,
+    .whatsapp-float,
+    .cta-section,
+    .footer-social {
+        display: none;
+    }
+}
+

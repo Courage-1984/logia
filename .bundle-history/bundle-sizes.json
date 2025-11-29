@@ -7810,5 +7810,1135 @@
     },
     "violations": 0,
     "warnings": 0
+  },
+  {
+    "timestamp": "2025-11-29T08:29:42.373Z",
+    "outDir": "dist",
+    "totals": {
+      "js": 137138,
+      "css": 144926,
+      "images": 20176852,
+      "fonts": 578056
+    },
+    "files": {
+      "js": [
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\components-tVncH6AS.js",
+          "size": 4434
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\js\\alpine-setup-BPRN5DZA.js",
+          "size": 1087
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\js\\components-DbLrQpUL.js",
+          "size": 1808
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\js\\faq-DxSA3x1Z.js",
+          "size": 612
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\js\\filters-BVzofOdB.js",
+          "size": 667
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\js\\main-CspNMdw-.js",
+          "size": 25216
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\js\\particles-net-CEcotl0U.js",
+          "size": 11463
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\js\\search-BLHT-t7P.js",
+          "size": 399
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\js\\utils-C6YPhEaE.js",
+          "size": 8151
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\js\\vendor-alpine-DisGrV-V.js",
+          "size": 45048
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\js\\vendor-MinRaGD6.js",
+          "size": 7155
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\main-ByfDWpcK.js",
+          "size": 27472
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\js\\utils\\theme-init.js",
+          "size": 851
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\service-worker.js",
+          "size": 2775
+        }
+      ],
+      "css": [
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\about-CHsp-jlI.css",
+          "size": 4173
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\contact-BAgzNqqs.css",
+          "size": 3115
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\legal-DNvTDMu6.css",
+          "size": 4094
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\main-tybPlmtf.css",
+          "size": 123826
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\portfolio-kwjYqbBM.css",
+          "size": 1951
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\resources-4GL9QhFp.css",
+          "size": 1116
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\services-naRcU4SQ.css",
+          "size": 3149
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\speedtest-BS7KRXof.css",
+          "size": 3502
+        }
+      ],
+      "images": [
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\android-chrome-192x192.png",
+          "size": 12814
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\android-chrome-512x512.png",
+          "size": 20172
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\apple-touch-icon.png",
+          "size": 11440
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\ai-security-system-CNBMZLNJ.jpg",
+          "size": 271984
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\apple-touch-icon-CMKQ6IJq.png",
+          "size": 11440
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\cloud-migration-050NLwWb.jpg",
+          "size": 214313
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\corporate-campus-wifi-L-XfDGfH.jpg",
+          "size": 301958
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\data-center-cabling-CqiF22za.jpg",
+          "size": 238719
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\e-commerce-platform-xtGQICgv.jpg",
+          "size": 132811
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\favicon-16x16-H9aEPmIT.png",
+          "size": 518
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\favicon-32x32-BpD5wQD6.png",
+          "size": 1342
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\favicon-96x96-LvHTARFK.png",
+          "size": 1936
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\favicon-pdaXqNwv.svg",
+          "size": 17297
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\hero-background-1024w.avif",
+          "size": 67687
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\hero-background-1024w.jpg",
+          "size": 80994
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\hero-background-1024w.webp",
+          "size": 58504
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\hero-background-1280w.avif",
+          "size": 91938
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\hero-background-1280w.jpg",
+          "size": 115178
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\hero-background-1280w.webp",
+          "size": 81316
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\hero-background-1920w.avif",
+          "size": 156759
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\hero-background-1920w.jpg",
+          "size": 213711
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\hero-background-1920w.webp",
+          "size": 138742
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\hero-background-320w.avif",
+          "size": 12220
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\hero-background-320w.jpg",
+          "size": 11918
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\hero-background-320w.webp",
+          "size": 9732
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\hero-background-640w.avif",
+          "size": 34112
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\hero-background-640w.jpg",
+          "size": 36835
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\hero-background-640w.webp",
+          "size": 28454
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\hero-background-768w.avif",
+          "size": 44472
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\hero-background-768w.jpg",
+          "size": 50918
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\hero-background-768w.webp",
+          "size": 38690
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\hero-background-Xlpp2Xld.jpg",
+          "size": 219133
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\hero-background.avif",
+          "size": 156759
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\hero-background.jpg",
+          "size": 213711
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\hero-background.webp",
+          "size": 138742
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C2DsIuMSlyc-1024w.avif",
+          "size": 29391
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C2DsIuMSlyc-1024w.jpg",
+          "size": 39334
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C2DsIuMSlyc-1024w.webp",
+          "size": 23084
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C2DsIuMSlyc-1280w.avif",
+          "size": 30783
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C2DsIuMSlyc-1280w.jpg",
+          "size": 36848
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C2DsIuMSlyc-1280w.webp",
+          "size": 29354
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C2DsIuMSlyc-320w.avif",
+          "size": 8998
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C2DsIuMSlyc-320w.jpg",
+          "size": 9239
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C2DsIuMSlyc-320w.webp",
+          "size": 7034
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C2DsIuMSlyc-640w.avif",
+          "size": 18132
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C2DsIuMSlyc-640w.jpg",
+          "size": 21975
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C2DsIuMSlyc-640w.webp",
+          "size": 14376
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C2DsIuMSlyc-768w.avif",
+          "size": 21593
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C2DsIuMSlyc-768w.jpg",
+          "size": 27445
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C2DsIuMSlyc-768w.webp",
+          "size": 16788
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C2DsIuMSlyc.avif",
+          "size": 30783
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C2DsIuMSlyc.jpg",
+          "size": 36848
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C2DsIuMSlyc.webp",
+          "size": 29354
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C32hCk5SoVd-1024w.avif",
+          "size": 12264
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C32hCk5SoVd-1024w.jpg",
+          "size": 19372
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C32hCk5SoVd-1024w.webp",
+          "size": 10802
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C32hCk5SoVd-1280w.avif",
+          "size": 13369
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C32hCk5SoVd-1280w.jpg",
+          "size": 19093
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C32hCk5SoVd-1280w.webp",
+          "size": 13116
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C32hCk5SoVd-320w.avif",
+          "size": 3439
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C32hCk5SoVd-320w.jpg",
+          "size": 4965
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C32hCk5SoVd-320w.webp",
+          "size": 2932
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C32hCk5SoVd-640w.avif",
+          "size": 6261
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C32hCk5SoVd-640w.jpg",
+          "size": 11111
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C32hCk5SoVd-640w.webp",
+          "size": 5856
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C32hCk5SoVd-768w.avif",
+          "size": 8377
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C32hCk5SoVd-768w.jpg",
+          "size": 13829
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C32hCk5SoVd-768w.webp",
+          "size": 6962
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C32hCk5SoVd.avif",
+          "size": 13369
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C32hCk5SoVd.jpg",
+          "size": 19093
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-C32hCk5SoVd.webp",
+          "size": 13116
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-Cy03e8sIdT2-1024w.avif",
+          "size": 68316
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-Cy03e8sIdT2-1024w.jpg",
+          "size": 79106
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-Cy03e8sIdT2-1024w.webp",
+          "size": 53814
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-Cy03e8sIdT2-320w.avif",
+          "size": 13651
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-Cy03e8sIdT2-320w.jpg",
+          "size": 13642
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-Cy03e8sIdT2-320w.webp",
+          "size": 10122
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-Cy03e8sIdT2-640w.avif",
+          "size": 36107
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-Cy03e8sIdT2-640w.jpg",
+          "size": 39187
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-Cy03e8sIdT2-640w.webp",
+          "size": 27366
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-Cy03e8sIdT2-768w.avif",
+          "size": 47798
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-Cy03e8sIdT2-768w.jpg",
+          "size": 51832
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-Cy03e8sIdT2-768w.webp",
+          "size": 36234
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-Cy03e8sIdT2.avif",
+          "size": 49277
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-Cy03e8sIdT2.jpg",
+          "size": 52301
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-Cy03e8sIdT2.webp",
+          "size": 55148
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-CzCAQ-MySJl-1024w.avif",
+          "size": 39734
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-CzCAQ-MySJl-1024w.jpg",
+          "size": 47992
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-CzCAQ-MySJl-1024w.webp",
+          "size": 32726
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-CzCAQ-MySJl-1280w.avif",
+          "size": 41076
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-CzCAQ-MySJl-1280w.jpg",
+          "size": 45656
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-CzCAQ-MySJl-1280w.webp",
+          "size": 41632
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-CzCAQ-MySJl-320w.avif",
+          "size": 8366
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-CzCAQ-MySJl-320w.jpg",
+          "size": 8092
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-CzCAQ-MySJl-320w.webp",
+          "size": 6692
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-CzCAQ-MySJl-640w.avif",
+          "size": 21179
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-CzCAQ-MySJl-640w.jpg",
+          "size": 23086
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-CzCAQ-MySJl-640w.webp",
+          "size": 18672
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-CzCAQ-MySJl-768w.avif",
+          "size": 26892
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-CzCAQ-MySJl-768w.jpg",
+          "size": 30417
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-CzCAQ-MySJl-768w.webp",
+          "size": 22652
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-CzCAQ-MySJl.avif",
+          "size": 41076
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-CzCAQ-MySJl.jpg",
+          "size": 45656
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-CzCAQ-MySJl.webp",
+          "size": 41632
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-DCRi-2SoxNX-1024w.avif",
+          "size": 32152
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-DCRi-2SoxNX-1024w.jpg",
+          "size": 45920
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-DCRi-2SoxNX-1024w.webp",
+          "size": 26960
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-DCRi-2SoxNX-320w.avif",
+          "size": 7211
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-DCRi-2SoxNX-320w.jpg",
+          "size": 9050
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-DCRi-2SoxNX-320w.webp",
+          "size": 5792
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-DCRi-2SoxNX-640w.avif",
+          "size": 17659
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-DCRi-2SoxNX-640w.jpg",
+          "size": 23887
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-DCRi-2SoxNX-640w.webp",
+          "size": 14718
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-DCRi-2SoxNX-768w.avif",
+          "size": 22373
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-DCRi-2SoxNX-768w.jpg",
+          "size": 30891
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-DCRi-2SoxNX-768w.webp",
+          "size": 18288
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-DCRi-2SoxNX.avif",
+          "size": 26032
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-DCRi-2SoxNX.jpg",
+          "size": 34009
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\instagram\\instagram-DCRi-2SoxNX.webp",
+          "size": 27756
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\logo\\logo.webp",
+          "size": 32134
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\logo\\logo_dark_mode.webp",
+          "size": 24002
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\multi-site-access-control-DcvclZi5.jpg",
+          "size": 226573
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\network-infrastructure-C-7YUMeu.jpg",
+          "size": 358505
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\ai-security-system-1024w.avif",
+          "size": 242548
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\ai-security-system-1024w.jpg",
+          "size": 198962
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\ai-security-system-1024w.webp",
+          "size": 188382
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\ai-security-system-320w.avif",
+          "size": 39452
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\ai-security-system-320w.jpg",
+          "size": 25025
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\ai-security-system-320w.webp",
+          "size": 24884
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\ai-security-system-640w.avif",
+          "size": 117010
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\ai-security-system-640w.jpg",
+          "size": 86701
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\ai-security-system-640w.webp",
+          "size": 84434
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\ai-security-system-768w.avif",
+          "size": 155548
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\ai-security-system-768w.jpg",
+          "size": 120078
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\ai-security-system-768w.webp",
+          "size": 115998
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\ai-security-system.avif",
+          "size": 266797
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\ai-security-system.jpg",
+          "size": 263134
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\ai-security-system.webp",
+          "size": 247632
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\cloud-migration-1024w.avif",
+          "size": 170498
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\cloud-migration-1024w.jpg",
+          "size": 154451
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\cloud-migration-1024w.webp",
+          "size": 138666
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\cloud-migration-320w.avif",
+          "size": 29243
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\cloud-migration-320w.jpg",
+          "size": 21800
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\cloud-migration-320w.webp",
+          "size": 21382
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\cloud-migration-640w.avif",
+          "size": 80511
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\cloud-migration-640w.jpg",
+          "size": 69878
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\cloud-migration-640w.webp",
+          "size": 64396
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\cloud-migration-768w.avif",
+          "size": 106321
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\cloud-migration-768w.jpg",
+          "size": 94688
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\cloud-migration-768w.webp",
+          "size": 85818
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\cloud-migration.avif",
+          "size": 197635
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\cloud-migration.jpg",
+          "size": 207768
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\cloud-migration.webp",
+          "size": 187988
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\corporate-campus-wifi-1024w.avif",
+          "size": 269477
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\corporate-campus-wifi-1024w.jpg",
+          "size": 211614
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\corporate-campus-wifi-1024w.webp",
+          "size": 221322
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\corporate-campus-wifi-320w.avif",
+          "size": 36188
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\corporate-campus-wifi-320w.jpg",
+          "size": 22902
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\corporate-campus-wifi-320w.webp",
+          "size": 24728
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\corporate-campus-wifi-640w.avif",
+          "size": 116664
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\corporate-campus-wifi-640w.jpg",
+          "size": 86607
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\corporate-campus-wifi-640w.webp",
+          "size": 90004
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\corporate-campus-wifi-768w.avif",
+          "size": 163085
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\corporate-campus-wifi-768w.jpg",
+          "size": 123098
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\corporate-campus-wifi-768w.webp",
+          "size": 127580
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\corporate-campus-wifi.avif",
+          "size": 302704
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\corporate-campus-wifi.jpg",
+          "size": 288265
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\corporate-campus-wifi.webp",
+          "size": 297708
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\data-center-cabling-1024w.avif",
+          "size": 207407
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\data-center-cabling-1024w.jpg",
+          "size": 175946
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\data-center-cabling-1024w.webp",
+          "size": 167976
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\data-center-cabling-320w.avif",
+          "size": 33567
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\data-center-cabling-320w.jpg",
+          "size": 21220
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\data-center-cabling-320w.webp",
+          "size": 21834
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\data-center-cabling-640w.avif",
+          "size": 101296
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\data-center-cabling-640w.jpg",
+          "size": 76596
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\data-center-cabling-640w.webp",
+          "size": 76452
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\data-center-cabling-768w.avif",
+          "size": 134585
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\data-center-cabling-768w.jpg",
+          "size": 106466
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\data-center-cabling-768w.webp",
+          "size": 105768
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\data-center-cabling.avif",
+          "size": 230658
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\data-center-cabling.jpg",
+          "size": 231187
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\data-center-cabling.webp",
+          "size": 220716
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\e-commerce-platform-1024w.avif",
+          "size": 85117
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\e-commerce-platform-1024w.jpg",
+          "size": 96627
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\e-commerce-platform-1024w.webp",
+          "size": 76208
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\e-commerce-platform-320w.avif",
+          "size": 15971
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\e-commerce-platform-320w.jpg",
+          "size": 15054
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\e-commerce-platform-320w.webp",
+          "size": 12714
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\e-commerce-platform-640w.avif",
+          "size": 40516
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\e-commerce-platform-640w.jpg",
+          "size": 44992
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\e-commerce-platform-640w.webp",
+          "size": 35588
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\e-commerce-platform-768w.avif",
+          "size": 52930
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\e-commerce-platform-768w.jpg",
+          "size": 60349
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\e-commerce-platform-768w.webp",
+          "size": 47704
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\e-commerce-platform.avif",
+          "size": 106662
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\e-commerce-platform.jpg",
+          "size": 128183
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\e-commerce-platform.webp",
+          "size": 100714
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\multi-site-access-control-1024w.avif",
+          "size": 184123
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\multi-site-access-control-1024w.jpg",
+          "size": 164356
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\multi-site-access-control-1024w.webp",
+          "size": 146192
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\multi-site-access-control-320w.avif",
+          "size": 31083
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\multi-site-access-control-320w.jpg",
+          "size": 21056
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\multi-site-access-control-320w.webp",
+          "size": 20896
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\multi-site-access-control-640w.avif",
+          "size": 88880
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\multi-site-access-control-640w.jpg",
+          "size": 71654
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\multi-site-access-control-640w.webp",
+          "size": 65950
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\multi-site-access-control-768w.avif",
+          "size": 117127
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\multi-site-access-control-768w.jpg",
+          "size": 98895
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\multi-site-access-control-768w.webp",
+          "size": 90750
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\multi-site-access-control.avif",
+          "size": 210300
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\multi-site-access-control.jpg",
+          "size": 220139
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\portfolio\\multi-site-access-control.webp",
+          "size": 195724
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\speedtest\\network-infrastructure-1024w.avif",
+          "size": 144382
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\speedtest\\network-infrastructure-1024w.jpg",
+          "size": 132775
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\speedtest\\network-infrastructure-1024w.webp",
+          "size": 117812
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\speedtest\\network-infrastructure-1280w.avif",
+          "size": 195239
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\speedtest\\network-infrastructure-1280w.jpg",
+          "size": 189846
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\speedtest\\network-infrastructure-1280w.webp",
+          "size": 165724
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\speedtest\\network-infrastructure-1920w.avif",
+          "size": 307666
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\speedtest\\network-infrastructure-1920w.jpg",
+          "size": 348391
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\speedtest\\network-infrastructure-1920w.webp",
+          "size": 283424
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\speedtest\\network-infrastructure-320w.avif",
+          "size": 22627
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\speedtest\\network-infrastructure-320w.jpg",
+          "size": 17151
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\speedtest\\network-infrastructure-320w.webp",
+          "size": 16342
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\speedtest\\network-infrastructure-640w.avif",
+          "size": 70460
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\speedtest\\network-infrastructure-640w.jpg",
+          "size": 58483
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\speedtest\\network-infrastructure-640w.webp",
+          "size": 55062
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\speedtest\\network-infrastructure-768w.avif",
+          "size": 93867
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\speedtest\\network-infrastructure-768w.jpg",
+          "size": 81293
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\speedtest\\network-infrastructure-768w.webp",
+          "size": 76446
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\speedtest\\network-infrastructure.avif",
+          "size": 307666
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\speedtest\\network-infrastructure.jpg",
+          "size": 348391
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\images\\speedtest\\network-infrastructure.webp",
+          "size": 283424
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\favicon-16x16.png",
+          "size": 518
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\favicon-32x32.png",
+          "size": 1342
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\favicon-96x96.png",
+          "size": 1936
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\favicon.png",
+          "size": 18202
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\favicon.svg",
+          "size": 17297
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\favicon.webp",
+          "size": 38400
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\mstile-150x150.png",
+          "size": 2780
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\mstile-310x310.png",
+          "size": 5209
+        }
+      ],
+      "fonts": [
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\fonts\\fa-brands-400-BfBXV7Mm.woff2",
+          "size": 101224
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\fonts\\fa-regular-400-BVHPE7da.woff2",
+          "size": 18988
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\fonts\\fa-solid-900-8GirhLYJ.woff2",
+          "size": 113152
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\fonts\\fontawesome\\fa-brands-400.woff2",
+          "size": 101224
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\fonts\\fontawesome\\fa-regular-400.woff2",
+          "size": 18988
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\fonts\\fontawesome\\fa-solid-900.woff2",
+          "size": 113152
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\fonts\\fontawesome\\fa-v4compatibility.woff2",
+          "size": 4040
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\fonts\\inter\\inter-bold-latin.woff2",
+          "size": 18080
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\fonts\\inter\\inter-regular-latin.woff2",
+          "size": 17516
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\fonts\\inter\\inter-semibold-latin.woff2",
+          "size": 18048
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\fonts\\inter-bold-latin-Czb7FRZZ.woff2",
+          "size": 18080
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\fonts\\inter-regular-latin-BBLNOrqQ.woff2",
+          "size": 17516
+        },
+        {
+          "path": "C:\\Users\\anon\\github\\logia\\dist\\assets\\fonts\\inter-semibold-latin-C3aZAFu7.woff2",
+          "size": 18048
+        }
+      ]
+    },
+    "violations": 1,
+    "warnings": 1
   }
 ]
