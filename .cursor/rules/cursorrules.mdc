@@ -52,7 +52,9 @@ logia/
 │   │   ├── forms.css       # Form elements
 │   │   ├── carousel.css    # Carousel component
 │   │   ├── floating-buttons.css # Scroll-to-top, WhatsApp buttons
-│   │   └── skeleton.css    # Skeleton loaders (animated loading placeholders)
+│   │   ├── skeleton.css    # Skeleton loaders (animated loading placeholders)
+│   │   ├── timeline.css    # Timeline component (vertical process/journey flow)
+│   │   └── bento-grid.css  # Bento grid layout component
 │   ├── layout/         # Layout components
 │   │   ├── container.css   # Container utilities
 │   │   ├── navbar.css      # Navigation bar
@@ -145,7 +147,7 @@ Always use CSS custom properties defined in `css/core/variables.css`:
 ### CSS Organization (Modular Structure)
 - **Main stylesheet** (`css/style.css`): Aggregates all modular CSS files via @import
 - **Core** (`css/core/`): Foundation styles (variables, reset, typography, utilities)
-- **Components** (`css/components/`): Reusable UI components (buttons, cards, forms, carousel, floating buttons, skeleton loaders)
+- **Components** (`css/components/`): Reusable UI components (buttons, cards, forms, carousel, floating buttons, skeleton loaders, timeline, bento-grid)
 - **Layout** (`css/layout/`): Structural components (navbar, hero, footer, page-header, container)
 - **Sections** (`css/sections/`): Homepage sections (services, why-choose, portfolio-preview, testimonials, instagram, cta)
 - **Pages** (`css/pages/`): Page-specific styles (about, contact, services, portfolio, legal, speedtest, resources)
@@ -742,6 +744,13 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
   - Shows skeleton overlay during transition
   - In-memory cache for instant page loads
   - Connection-aware (disabled on slow connections)
+- **Timeline Component**: Vertical timeline flow for process/journey sections (`css/components/timeline.css`)
+  - Alternating left/right card layout on desktop
+  - Curved connector shapes with clip-path animations
+  - Connection dots at timeline center line
+  - Responsive mobile layout (single column)
+  - Uses transform for precise card alignment with connector apex
+  - AOS scroll animations for reveal effects
 - **Skeleton Loaders**: Animated loading placeholders (`css/components/skeleton.css`)
   - Shimmer animation with dark mode support
   - Used for components, testimonials, Instagram feed, page transitions
@@ -781,7 +790,7 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 ---
 
 **Last Updated**: January 2025
-**Version**: 3.2
+**Version**: 3.3
 
 ## Recent Major Updates (January 2025)
 
@@ -943,3 +952,20 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
   - Pre-loads critical data (Google Reviews, Instagram posts)
   - Connection-aware, respects data saver mode
 - **Works in all environments**: Dev, preview, production, GitHub Pages
+
+### Timeline Component ✅ (January 2025)
+- **Implementation**: Vertical timeline flow component (`css/components/timeline.css`)
+- **Usage**: "Our Process" section on services page showing step-by-step workflow
+- **Features**: 
+  - Alternating left/right card layout on desktop (centered vertical line)
+  - Curved connector shapes using CSS clip-path with gradient backgrounds
+  - Connection dots at timeline center line with pulse animation
+  - Scroll-triggered animations (AOS library)
+  - Responsive mobile layout (single column, left-aligned)
+  - Precise card-to-connector alignment using CSS transforms
+- **Layout Details**:
+  - Desktop: 50% width cards, zigzag pattern from center line
+  - Connector: 80px wide, absolutely positioned, curved clip-path shapes
+  - Gap neutralized: Flex gap set to 0 for precise positioning
+  - Transform fix: Uses `translateX()` for exact alignment (handles row-reverse flex behavior)
+- **See**: Used in `services.html` for "Our Process" timeline section

@@ -1,4 +1,18 @@
 /* Portfolio page specific styles */
+
+/* Reduced hero section height - vertically centered */
+.page-header {
+    padding: 90px 0;
+    min-height: 350px;
+}
+
+@media (max-width: 768px) {
+    .page-header {
+        padding: 80px 0;
+        min-height: 300px;
+    }
+}
+
 .filter-buttons {
     display: flex;
     gap: var(--space-2);

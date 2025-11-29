@@ -173,6 +173,131 @@ class PageTransitionManager {
     }
 
     /**
+     * Load CSS stylesheet if not already loaded
+     * @param {string} href - CSS file path
+     * @returns {Promise<void>}
+     */
+    async loadCSS(href) {
+        if (!href) return;
+        
+        // Normalize path for comparison
+        const normalizedPath = this.normalizeCSSPath(href);
+        
+        // Check if stylesheet is already loaded (by exact href or normalized path)
+        let existingLink = document.querySelector(`link[href="${href}"]`);
+        
+        // Also check by normalized path to catch different href formats
+        if (!existingLink && normalizedPath) {
+            document.querySelectorAll('head link[rel="stylesheet"]').forEach(link => {
+                const linkHref = link.getAttribute('href');
+                if (linkHref && this.normalizeCSSPath(linkHref) === normalizedPath) {
+                    existingLink = link;
+                }
+            });
+        }
+        
+        if (existingLink) {
+            // Already loaded, wait for it to be ready
+            return new Promise((resolve) => {
+                if (existingLink.sheet) {
+                    // Stylesheet is already loaded and parsed
+                    resolve();
+                } else {
+                    // Wait for stylesheet to load
+                    existingLink.addEventListener('load', () => resolve(), { once: true });
+                    existingLink.addEventListener('error', () => resolve(), { once: true });
+                    // Timeout after 2 seconds to prevent hanging
+                    setTimeout(() => resolve(), 2000);
+                }
+            });
+        }
+        
+        // Load new stylesheet
+        return new Promise((resolve) => {
+            const link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = href;
+            link.addEventListener('load', () => resolve(), { once: true });
+            link.addEventListener('error', () => {
+                // Don't reject - continue even if CSS fails to load
+                console.warn(`Failed to load CSS: ${href}`);
+                resolve();
+            }, { once: true });
+            document.head.appendChild(link);
+            
+            // Timeout after 3 seconds to prevent hanging
+            setTimeout(() => {
+                console.warn(`CSS load timeout: ${href}`);
+                resolve();
+            }, 3000);
+        });
+    }
+
+    /**
+     * Normalize CSS href to absolute path for comparison
+     * @param {string} href - CSS file path (relative or absolute)
+     * @returns {string} Normalized pathname
+     */
+    normalizeCSSPath(href) {
+        if (!href) return '';
+        try {
+            // Handle absolute URLs
+            if (href.startsWith('http://') || href.startsWith('https://')) {
+                return new URL(href).pathname;
+            }
+            // Handle relative URLs - resolve against current location
+            return new URL(href, window.location.href).pathname;
+        } catch (e) {
+            // Fallback to href if URL parsing fails
+            return href;
+        }
+    }
+
+    /**
+     * Extract and load page-specific CSS from the new page
+     * @param {Document} doc - Parsed HTML document
+     * @returns {Promise<void>}
+     */
+    async loadPageCSS(doc) {
+        // Get all stylesheet links from the new page
+        const stylesheets = doc.querySelectorAll('head link[rel="stylesheet"]');
+        const cssPromises = [];
+        
+        // Get currently loaded stylesheets (normalized paths)
+        const currentStylesheets = new Set();
+        document.querySelectorAll('head link[rel="stylesheet"]').forEach(link => {
+            const href = link.getAttribute('href');
+            if (href) {
+                const normalizedPath = this.normalizeCSSPath(href);
+                if (normalizedPath) {
+                    currentStylesheets.add(normalizedPath);
+                }
+            }
+        });
+        
+        // Load missing stylesheets
+        stylesheets.forEach(link => {
+            const href = link.getAttribute('href');
+            if (!href) return;
+            
+            // Normalize href to compare with current stylesheets
+            const normalizedPath = this.normalizeCSSPath(href);
+            
+            // Only load if not already present
+            if (normalizedPath && !currentStylesheets.has(normalizedPath)) {
+                cssPromises.push(this.loadCSS(href));
+            }
+        });
+        
+        // Wait for all CSS to load
+        if (cssPromises.length > 0) {
+            await Promise.all(cssPromises);
+            // Small delay to ensure styles are applied
+            await new Promise(resolve => setTimeout(resolve, 50));
+        }
+    }
+
+    /**
      * Transition to a new page
      * @param {string} url - URL to navigate to
      */
@@ -235,6 +360,9 @@ class PageTransitionManager {
             const currentMain = document.querySelector('main');
             
             if (currentMain && newMain) {
+                // Load page-specific CSS before replacing content
+                await this.loadPageCSS(doc);
+                
                 // Update page title
                 if (newTitle) {
                     document.title = newTitle.textContent;
@@ -257,6 +385,9 @@ class PageTransitionManager {
                     top: 0,
                     behavior: 'instant'
                 });
+                
+                // Force a reflow to ensure styles are applied
+                void currentMain.offsetHeight;
                 
                 // Fade in new content
                 currentMain.style.opacity = '1';

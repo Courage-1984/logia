@@ -188,9 +188,16 @@ body.dark-mode .benefit-item:hover {
     flex-wrap: wrap;
 }
 
+/* Reduced hero section height - vertically centered */
+.page-header {
+    padding: 90px 0;
+    min-height: 350px;
+}
+
 @media (max-width: 768px) {
     .page-header {
-        padding: 120px 0 80px;
+        padding: 80px 0;
+        min-height: 300px;
     }
     
     .service-detail {

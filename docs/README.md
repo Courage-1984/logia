@@ -58,6 +58,8 @@ Quick reference guide to all project documentation.
 - ✅ Google Reviews carousel (dynamic testimonials with interactive controls)
 - ✅ Instagram feed (with local image fallback)
 - ✅ Floating action buttons (WhatsApp, scroll-to-top)
+- ✅ Timeline component (vertical process/journey flow with curved connectors)
+- ✅ Bento grid layout component
 - ✅ Form backend integration (Formspree)
 - ✅ Legal pages (Privacy Policy, Terms of Service, 404)
 - ✅ Automatic URL transformation based on build target
@@ -74,9 +76,10 @@ Quick reference guide to all project documentation.
 ### Recent Updates (January 2025)
 - **Page Transitions & Loading**: Skeleton loaders with shimmer animation, smooth page transitions with instant navigation
 - **Enhanced Caching**: Multi-layer caching (service worker + in-memory cache + cache warming) with automatic cleanup
+- **UI Components**: Timeline component (vertical process flow with curved connectors), bento grid layout
 - **Performance**: Connection-aware optimizations, cache warming for critical pages/data
 - **Build & Development**: Preload optimization, dynamic import fixes, preview server improvements
-- **UI Improvements**: Footer logo links, Featured Projects styling updates
+- **UI Improvements**: Footer logo links, Featured Projects styling updates, timeline component alignment fixes
 - **Monitoring & Error Tracking**: Sentry integration, Core Web Vitals, Lighthouse CI, bundle monitoring
 - **Accessibility**: Skip navigation links on all pages
 - Particles background system (particles.js-compatible, disabled on mobile/reduced motion)

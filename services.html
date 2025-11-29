@@ -1,46 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://*.sentry.io; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://formspree.io https://*.sentry.io https://api.instagram.com; frame-src 'self' https://www.google.com; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests;">
-    
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self' 'unsafe-inline' https://*.sentry.io; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://formspree.io https://*.sentry.io https://api.instagram.com; frame-src 'self' https://www.google.com; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests;">
+
     <!-- Theme initialization script - prevents FOUC (Flash of Unstyled Content) -->
     <!-- MUST be before any CSS or other content -->
     <script src="js/utils/theme-init.js"></script>
-    
-    <meta name="description" content="Comprehensive IT services in Gauteng: Enterprise WiFi, AI surveillance, access control, structured cabling, web development & cloud solutions. Trusted by businesses across South Africa.">
+
+    <meta name="description"
+        content="Comprehensive IT services in Gauteng: Enterprise WiFi, AI surveillance, access control, structured cabling, web development & cloud solutions. Trusted by businesses across South Africa.">
     <title>IT Services Gauteng | Wireless, Surveillance, Access Control | Logia Genesis</title>
-    
+
     <!-- Open Graph Tags -->
     <meta property="og:title" content="IT Services Gauteng | Wireless, Surveillance, Access Control | Logia Genesis">
-    <meta property="og:description" content="Comprehensive IT services in Gauteng: Enterprise WiFi, AI surveillance, access control, structured cabling, web development & cloud solutions.">
+    <meta property="og:description"
+        content="Comprehensive IT services in Gauteng: Enterprise WiFi, AI surveillance, access control, structured cabling, web development & cloud solutions.">
     <meta property="og:image" content="https://logia.co.za/assets/images/og-image.jpg">
     <meta property="og:url" content="https://logia.co.za/services.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Logia Genesis">
     <meta property="og:locale" content="en_ZA">
-    
+
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="IT Services Gauteng | Logia Genesis">
-    <meta name="twitter:description" content="Comprehensive IT services in Gauteng: Enterprise WiFi, AI surveillance, access control, structured cabling, web development & cloud solutions.">
+    <meta name="twitter:description"
+        content="Comprehensive IT services in Gauteng: Enterprise WiFi, AI surveillance, access control, structured cabling, web development & cloud solutions.">
     <meta name="twitter:image" content="https://logia.co.za/assets/images/twitter-card.jpg">
-    
+
     <!-- Canonical URL -->
     <link rel="canonical" href="https://logia.co.za/services.html">
-    
+
     <!-- Self-hosted Fonts -->
     <!-- Inter Font (self-hosted) -->
     <link rel="stylesheet" href="css/fonts/inter-fonts.css">
-    
+
     <!-- Font Awesome (self-hosted) -->
     <link rel="stylesheet" href="css/fonts/fontawesome-local.css">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/pages/services.css">
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -54,11 +59,11 @@
     <meta name="msapplication-square150x150logo" content="/mstile-150x150.png">
     <meta name="msapplication-wide310x150logo" content="/mstile-310x310.png">
     <meta name="msapplication-square310x310logo" content="/mstile-310x310.png">
-    
+
     <!-- Preload critical JavaScript modules -->
     <link rel="modulepreload" href="js/components.js">
     <link rel="modulepreload" href="js/main.js">
-    
+
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
     {
@@ -97,438 +102,598 @@
     }
     </script>
 </head>
+
 <body>
-    
+
     <!-- Skip Navigation Links (Accessibility) -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
     <a href="#footer" class="skip-link">Skip to footer</a>
-    
+
     <!-- Navigation - Loaded via components.js -->
     <div id="navbar-placeholder"></div>
-    
+
     <!-- Main Content -->
     <main id="main-content">
-    <!-- Page Header -->
-    <section class="page-header">
-        <div class="hero-background">
-            <div class="gradient-mesh"></div>
-            <div class="grid-overlay"></div>
-        </div>
-        <div class="container">
-            <div class="page-header-content" data-aos="fade-up">
-                <h1>Our Services</h1>
-                <p>Comprehensive technology solutions tailored to your business needs</p>
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="hero-background">
+                <div class="gradient-mesh"></div>
+                <div class="grid-overlay"></div>
             </div>
-        </div>
-    </section>
-    
-    <!-- Service: Wireless Networking -->
-    <section class="section service-detail" id="wireless">
-        <div class="container">
-            <div class="service-detail-grid">
-                <div class="service-detail-content" data-aos="fade-right">
-                    <div class="service-badge">
-                        <i class="fas fa-wifi"></i>
+            <div class="container">
+                <div class="page-header-content" data-aos="fade-up">
+                    <h1>Our Services</h1>
+                    <p>Comprehensive technology solutions tailored to your business needs</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service: Wireless Networking -->
+        <section class="section service-detail" id="wireless">
+            <div class="container">
+                <div class="service-detail-grid">
+                    <div class="service-detail-content" data-aos="fade-right">
+                        <div class="service-badge">
+                            <i class="fas fa-wifi"></i>
+                        </div>
+                        <h2>Wireless Networking</h2>
+                        <p class="service-tagline">WiFi Perfected</p>
+                        <p class="lead">Enterprise-grade wireless infrastructure with massive scale WiFi deployment and
+                            management. Experience seamless connectivity across your entire facility with cutting-edge
+                            wireless technology.</p>
+
+                        <h3>Key Features</h3>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle"></i> High-density WiFi solutions for large venues</li>
+                            <li><i class="fas fa-check-circle"></i> Enterprise mesh network architecture</li>
+                            <li><i class="fas fa-check-circle"></i> Real-time monitoring and management</li>
+                            <li><i class="fas fa-check-circle"></i> Seamless roaming capabilities</li>
+                            <li><i class="fas fa-check-circle"></i> Guest access portals with branding</li>
+                            <li><i class="fas fa-check-circle"></i> Advanced security protocols (WPA3, 802.1X)</li>
+                        </ul>
+
+                        <h3>Benefits</h3>
+                        <div class="benefits-grid">
+                            <div class="benefit-item">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <div>
+                                    <strong>High Performance</strong>
+                                    <p>Ultra-fast speeds with latest WiFi 6/6E technology</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-expand-arrows-alt"></i>
+                                <div>
+                                    <strong>Scalable</strong>
+                                    <p>Easily expand as your business grows</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <div>
+                                    <strong>Secure</strong>
+                                    <p>Enterprise-grade encryption and access control</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cta-buttons">
+                            <a href="contact.html#quote" class="btn btn-primary">Request Quote</a>
+                            <a href="portfolio.html" class="btn btn-outline">View Projects</a>
+                        </div>
                     </div>
-                    <h2>Wireless Networking</h2>
-                    <p class="service-tagline">WiFi Perfected</p>
-                    <p class="lead">Enterprise-grade wireless infrastructure with massive scale WiFi deployment and management. Experience seamless connectivity across your entire facility with cutting-edge wireless technology.</p>
-                    
-                    <h3>Key Features</h3>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-check-circle"></i> High-density WiFi solutions for large venues</li>
-                        <li><i class="fas fa-check-circle"></i> Enterprise mesh network architecture</li>
-                        <li><i class="fas fa-check-circle"></i> Real-time monitoring and management</li>
-                        <li><i class="fas fa-check-circle"></i> Seamless roaming capabilities</li>
-                        <li><i class="fas fa-check-circle"></i> Guest access portals with branding</li>
-                        <li><i class="fas fa-check-circle"></i> Advanced security protocols (WPA3, 802.1X)</li>
-                    </ul>
-                    
-                    <h3>Benefits</h3>
-                    <div class="benefits-grid">
-                        <div class="benefit-item">
-                            <i class="fas fa-tachometer-alt"></i>
-                            <div>
-                                <strong>High Performance</strong>
-                                <p>Ultra-fast speeds with latest WiFi 6/6E technology</p>
+                    <div class="service-detail-image" data-aos="fade-left">
+                        <div class="image-placeholder">
+                            <i class="fas fa-wifi"></i>
+                            <p>WiFi Infrastructure</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service: Surveillance Systems -->
+        <section class="section service-detail alt" id="surveillance">
+            <div class="container">
+                <div class="service-detail-grid reverse">
+                    <div class="service-detail-image" data-aos="fade-right">
+                        <div class="image-placeholder">
+                            <i class="fas fa-video"></i>
+                            <p>AI Surveillance</p>
+                        </div>
+                    </div>
+                    <div class="service-detail-content" data-aos="fade-left">
+                        <div class="service-badge">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h2>Surveillance Systems</h2>
+                        <p class="service-tagline">A Smart, AI-Enhanced Interface</p>
+                        <p class="lead">Smart security solutions with artificial intelligence at their core. Our
+                            constantly evolving surveillance systems provide cutting-edge protection for your assets
+                            with advanced analytics and real-time alerts.</p>
+
+                        <h3>Key Features</h3>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle"></i> 4K Ultra-HD cameras with night vision</li>
+                            <li><i class="fas fa-check-circle"></i> AI-powered analytics (facial recognition, motion
+                                detection)</li>
+                            <li><i class="fas fa-check-circle"></i> Cloud and local storage options</li>
+                            <li><i class="fas fa-check-circle"></i> Mobile app for remote viewing</li>
+                            <li><i class="fas fa-check-circle"></i> Smart alerts and notifications</li>
+                            <li><i class="fas fa-check-circle"></i> Integration with access control systems</li>
+                        </ul>
+
+                        <h3>Benefits</h3>
+                        <div class="benefits-grid">
+                            <div class="benefit-item">
+                                <i class="fas fa-brain"></i>
+                                <div>
+                                    <strong>AI Intelligence</strong>
+                                    <p>Smart detection reduces false alarms</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-mobile-alt"></i>
+                                <div>
+                                    <strong>Remote Access</strong>
+                                    <p>Monitor from anywhere, anytime</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-clock"></i>
+                                <div>
+                                    <strong>24/7 Protection</strong>
+                                    <p>Continuous recording and monitoring</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="benefit-item">
-                            <i class="fas fa-expand-arrows-alt"></i>
-                            <div>
-                                <strong>Scalable</strong>
-                                <p>Easily expand as your business grows</p>
+
+                        <div class="cta-buttons">
+                            <a href="contact.html#quote" class="btn btn-primary">Request Quote</a>
+                            <a href="portfolio.html" class="btn btn-outline">View Projects</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service: Access Control -->
+        <section class="section service-detail" id="access-control">
+            <div class="container">
+                <div class="service-detail-grid">
+                    <div class="service-detail-content" data-aos="fade-right">
+                        <div class="service-badge">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <h2>Access Control</h2>
+                        <p class="service-tagline">Access, Reimagined</p>
+                        <p class="lead">Modern access management systems delivering incredible user experiences. Control
+                            who enters where, when, and how with intuitive, secure access control solutions.</p>
+
+                        <h3>Key Features</h3>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle"></i> Biometric authentication (fingerprint, facial
+                                recognition)</li>
+                            <li><i class="fas fa-check-circle"></i> Mobile access credentials via smartphone</li>
+                            <li><i class="fas fa-check-circle"></i> Integration with surveillance and alarm systems</li>
+                            <li><i class="fas fa-check-circle"></i> Time-based access scheduling</li>
+                            <li><i class="fas fa-check-circle"></i> Real-time activity logs and reporting</li>
+                            <li><i class="fas fa-check-circle"></i> Multi-site management capability</li>
+                        </ul>
+
+                        <h3>Benefits</h3>
+                        <div class="benefits-grid">
+                            <div class="benefit-item">
+                                <i class="fas fa-user-shield"></i>
+                                <div>
+                                    <strong>Enhanced Security</strong>
+                                    <p>Multi-factor authentication options</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-chart-line"></i>
+                                <div>
+                                    <strong>Detailed Analytics</strong>
+                                    <p>Track access patterns and audit trails</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-cog"></i>
+                                <div>
+                                    <strong>Easy Management</strong>
+                                    <p>Centralized control interface</p>
+                                </div>
                             </div>
                         </div>
-                        <div class="benefit-item">
-                            <i class="fas fa-shield-alt"></i>
-                            <div>
-                                <strong>Secure</strong>
-                                <p>Enterprise-grade encryption and access control</p>
+
+                        <div class="cta-buttons">
+                            <a href="contact.html#quote" class="btn btn-primary">Request Quote</a>
+                            <a href="portfolio.html" class="btn btn-outline">View Projects</a>
+                        </div>
+                    </div>
+                    <div class="service-detail-image" data-aos="fade-left">
+                        <div class="image-placeholder">
+                            <i class="fas fa-fingerprint"></i>
+                            <p>Access Control</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service: Structured Cabling -->
+        <section class="section service-detail alt" id="cabling">
+            <div class="container">
+                <div class="service-detail-grid reverse">
+                    <div class="service-detail-image" data-aos="fade-right">
+                        <div class="image-placeholder">
+                            <i class="fas fa-network-wired"></i>
+                            <p>Network Infrastructure</p>
+                        </div>
+                    </div>
+                    <div class="service-detail-content" data-aos="fade-left">
+                        <div class="service-badge">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h2>Structured Cabling</h2>
+                        <p class="service-tagline">Infrastructure Excellence</p>
+                        <p class="lead">Professional network infrastructure installation supporting increasing traffic
+                            demands. The foundation of your digital operations built to industry standards.</p>
+
+                        <h3>Key Features</h3>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle"></i> Cat6/Cat6a copper cabling installations</li>
+                            <li><i class="fas fa-check-circle"></i> Fiber optic solutions for high-speed backbones</li>
+                            <li><i class="fas fa-check-circle"></i> Professional cable management systems</li>
+                            <li><i class="fas fa-check-circle"></i> Data center cabling and rack installations</li>
+                            <li><i class="fas fa-check-circle"></i> Testing and certification of all installations</li>
+                            <li><i class="fas fa-check-circle"></i> Comprehensive documentation and labeling</li>
+                        </ul>
+
+                        <h3>Benefits</h3>
+                        <div class="benefits-grid">
+                            <div class="benefit-item">
+                                <i class="fas fa-bolt"></i>
+                                <div>
+                                    <strong>High Speed</strong>
+                                    <p>10Gbps capable infrastructure</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-wrench"></i>
+                                <div>
+                                    <strong>Maintainable</strong>
+                                    <p>Organized for easy troubleshooting</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-hourglass-half"></i>
+                                <div>
+                                    <strong>Future-Proof</strong>
+                                    <p>Built to support evolving technology</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cta-buttons">
+                            <a href="contact.html#quote" class="btn btn-primary">Request Quote</a>
+                            <a href="portfolio.html" class="btn btn-outline">View Projects</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service: Web Design & Development -->
+        <section class="section service-detail" id="web-design">
+            <div class="container">
+                <div class="service-detail-grid">
+                    <div class="service-detail-content" data-aos="fade-right">
+                        <div class="service-badge">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h2>Web Design & Development</h2>
+                        <p class="service-tagline">Digital Transformation</p>
+                        <p class="lead">Custom websites and software solutions from concept to thriving business.
+                            High-performing, SEO-optimized platforms that drive results and transform your digital
+                            presence.</p>
+
+                        <h3>Key Features</h3>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle"></i> Responsive web design (mobile-first approach)</li>
+                            <li><i class="fas fa-check-circle"></i> Custom software development tailored to your needs
+                            </li>
+                            <li><i class="fas fa-check-circle"></i> E-commerce platforms with payment integration</li>
+                            <li><i class="fas fa-check-circle"></i> Content Management Systems (CMS)</li>
+                            <li><i class="fas fa-check-circle"></i> SEO optimization and digital marketing</li>
+                            <li><i class="fas fa-check-circle"></i> Ongoing maintenance and support</li>
+                        </ul>
+
+                        <h3>Benefits</h3>
+                        <div class="benefits-grid">
+                            <div class="benefit-item">
+                                <i class="fas fa-rocket"></i>
+                                <div>
+                                    <strong>Fast Performance</strong>
+                                    <p>Lightning-fast load times boost conversions</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-search"></i>
+                                <div>
+                                    <strong>SEO Optimized</strong>
+                                    <p>Rank higher in search results</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-paint-brush"></i>
+                                <div>
+                                    <strong>Custom Design</strong>
+                                    <p>Unique branding that stands out</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cta-buttons">
+                            <a href="contact.html#quote" class="btn btn-primary">Request Quote</a>
+                            <a href="portfolio.html" class="btn btn-outline">View Projects</a>
+                        </div>
+                    </div>
+                    <div class="service-detail-image" data-aos="fade-left">
+                        <div class="image-placeholder">
+                            <i class="fas fa-laptop-code"></i>
+                            <p>Web Solutions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Service: Cloud & IT Solutions -->
+        <section class="section service-detail alt" id="cloud-it">
+            <div class="container">
+                <div class="service-detail-grid reverse">
+                    <div class="service-detail-image" data-aos="fade-right">
+                        <div class="image-placeholder">
+                            <i class="fas fa-cloud"></i>
+                            <p>Cloud Infrastructure</p>
+                        </div>
+                    </div>
+                    <div class="service-detail-content" data-aos="fade-left">
+                        <div class="service-badge">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <h2>Cloud & IT Solutions</h2>
+                        <p class="service-tagline">Future-Ready Technology</p>
+                        <p class="lead">Comprehensive cloud storage, mail migrations, and IT consulting services.
+                            Navigate the complexities of modern business technology with confidence and expert guidance.
+                        </p>
+
+                        <h3>Key Features</h3>
+                        <ul class="feature-list">
+                            <li><i class="fas fa-check-circle"></i> Cloud migration and deployment services</li>
+                            <li><i class="fas fa-check-circle"></i> Email migration (Microsoft 365, Google Workspace)
+                            </li>
+                            <li><i class="fas fa-check-circle"></i> Data backup and disaster recovery</li>
+                            <li><i class="fas fa-check-circle"></i> IT infrastructure consulting</li>
+                            <li><i class="fas fa-check-circle"></i> Managed IT services and support</li>
+                            <li><i class="fas fa-check-circle"></i> Cybersecurity assessments and solutions</li>
+                        </ul>
+
+                        <h3>Benefits</h3>
+                        <div class="benefits-grid">
+                            <div class="benefit-item">
+                                <i class="fas fa-dollar-sign"></i>
+                                <div>
+                                    <strong>Cost Effective</strong>
+                                    <p>Reduce infrastructure costs with cloud</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-sync-alt"></i>
+                                <div>
+                                    <strong>Flexible</strong>
+                                    <p>Scale resources up or down as needed</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item">
+                                <i class="fas fa-life-ring"></i>
+                                <div>
+                                    <strong>Expert Support</strong>
+                                    <p>24/7 IT support when you need it</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cta-buttons">
+                            <a href="contact.html#quote" class="btn btn-primary">Request Quote</a>
+                            <a href="portfolio.html" class="btn btn-outline">View Projects</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Process Timeline -->
+        <section class="section timeline-section" id="our-process">
+            <div class="container">
+                <div class="section-header" data-aos="fade-up">
+                    <span class="section-label">Our Process</span>
+                    <h2 class="section-title">How We Work</h2>
+                    <p class="section-description">
+                        A structured approach ensuring your project's success from start to finish
+                    </p>
+                </div>
+
+                <div class="timeline-container">
+                    <div class="timeline-line"></div>
+                    <div class="timeline-items">
+                        <!-- Step 1 -->
+                        <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+                            <div class="timeline-connection">
+                                <div class="connection-shape"></div>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-header">
+                                    <div class="timeline-icon">
+                                        <i class="fas fa-comments"></i>
+                                    </div>
+                                    <div class="timeline-step-wrapper">
+                                        <span class="timeline-step">Step 1</span>
+                                        <h3 class="timeline-title">Consultation & Assessment</h3>
+                                    </div>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="timeline-description">
+                                        We begin with a comprehensive consultation to understand your business needs,
+                                        challenges, and goals. Our team conducts a thorough assessment of your current
+                                        infrastructure and identifies opportunities for improvement.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+                            <div class="timeline-connection">
+                                <div class="connection-shape"></div>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-header">
+                                    <div class="timeline-icon">
+                                        <i class="fas fa-drafting-compass"></i>
+                                    </div>
+                                    <div class="timeline-step-wrapper">
+                                        <span class="timeline-step">Step 2</span>
+                                        <h3 class="timeline-title">Custom Solution Design</h3>
+                                    </div>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="timeline-description">
+                                        Based on our assessment, we design a tailored solution that aligns with your
+                                        specific requirements, budget, and timeline. You'll receive a detailed proposal
+                                        with clear specifications and transparent pricing.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="timeline-item" data-aos="fade-up" data-aos-delay="300">
+                            <div class="timeline-connection">
+                                <div class="connection-shape"></div>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-header">
+                                    <div class="timeline-icon">
+                                        <i class="fas fa-tools"></i>
+                                    </div>
+                                    <div class="timeline-step-wrapper">
+                                        <span class="timeline-step">Step 3</span>
+                                        <h3 class="timeline-title">Implementation & Deployment</h3>
+                                    </div>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="timeline-description">
+                                        Our certified technicians execute the installation with minimal disruption to
+                                        your operations. We follow industry best practices and maintain clear
+                                        communication throughout the deployment process.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div class="timeline-item" data-aos="fade-up" data-aos-delay="400">
+                            <div class="timeline-connection">
+                                <div class="connection-shape"></div>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-header">
+                                    <div class="timeline-icon">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <div class="timeline-step-wrapper">
+                                        <span class="timeline-step">Step 4</span>
+                                        <h3 class="timeline-title">Testing & Optimization</h3>
+                                    </div>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="timeline-description">
+                                        We conduct rigorous testing to ensure everything performs at peak efficiency.
+                                        Our team fine-tunes the system, optimizes performance, and ensures all
+                                        components work seamlessly together.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 5 -->
+                        <div class="timeline-item" data-aos="fade-up" data-aos-delay="500">
+                            <div class="timeline-connection">
+                                <div class="connection-shape"></div>
+                            </div>
+                            <div class="timeline-content">
+                                <div class="timeline-header">
+                                    <div class="timeline-icon">
+                                        <i class="fas fa-headset"></i>
+                                    </div>
+                                    <div class="timeline-step-wrapper">
+                                        <span class="timeline-step">Step 5</span>
+                                        <h3 class="timeline-title">Ongoing Support & Maintenance</h3>
+                                    </div>
+                                </div>
+                                <div class="timeline-body">
+                                    <p class="timeline-description">
+                                        Your relationship with us continues long after deployment. We provide 24/7
+                                        technical support, proactive monitoring, regular maintenance, and system updates
+                                        to keep your technology running smoothly.
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <div class="cta-background">
+                <div class="gradient-mesh"></div>
+            </div>
+            <div class="container">
+                <div class="cta-content" data-aos="zoom-in">
+                    <h2 class="cta-title">Ready to Get Started?</h2>
+                    <p class="cta-description">
+                        Contact us today for a free consultation and discover how our technology solutions can transform
+                        your business.
+                    </p>
                     <div class="cta-buttons">
-                        <a href="contact.html#quote" class="btn btn-primary">Request Quote</a>
-                        <a href="portfolio.html" class="btn btn-outline">View Projects</a>
-                    </div>
-                </div>
-                <div class="service-detail-image" data-aos="fade-left">
-                    <div class="image-placeholder">
-                        <i class="fas fa-wifi"></i>
-                        <p>WiFi Infrastructure</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Service: Surveillance Systems -->
-    <section class="section service-detail alt" id="surveillance">
-        <div class="container">
-            <div class="service-detail-grid reverse">
-                <div class="service-detail-image" data-aos="fade-right">
-                    <div class="image-placeholder">
-                        <i class="fas fa-video"></i>
-                        <p>AI Surveillance</p>
-                    </div>
-                </div>
-                <div class="service-detail-content" data-aos="fade-left">
-                    <div class="service-badge">
-                        <i class="fas fa-video"></i>
-                    </div>
-                    <h2>Surveillance Systems</h2>
-                    <p class="service-tagline">A Smart, AI-Enhanced Interface</p>
-                    <p class="lead">Smart security solutions with artificial intelligence at their core. Our constantly evolving surveillance systems provide cutting-edge protection for your assets with advanced analytics and real-time alerts.</p>
-                    
-                    <h3>Key Features</h3>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-check-circle"></i> 4K Ultra-HD cameras with night vision</li>
-                        <li><i class="fas fa-check-circle"></i> AI-powered analytics (facial recognition, motion detection)</li>
-                        <li><i class="fas fa-check-circle"></i> Cloud and local storage options</li>
-                        <li><i class="fas fa-check-circle"></i> Mobile app for remote viewing</li>
-                        <li><i class="fas fa-check-circle"></i> Smart alerts and notifications</li>
-                        <li><i class="fas fa-check-circle"></i> Integration with access control systems</li>
-                    </ul>
-                    
-                    <h3>Benefits</h3>
-                    <div class="benefits-grid">
-                        <div class="benefit-item">
-                            <i class="fas fa-brain"></i>
-                            <div>
-                                <strong>AI Intelligence</strong>
-                                <p>Smart detection reduces false alarms</p>
-                            </div>
-                        </div>
-                        <div class="benefit-item">
-                            <i class="fas fa-mobile-alt"></i>
-                            <div>
-                                <strong>Remote Access</strong>
-                                <p>Monitor from anywhere, anytime</p>
-                            </div>
-                        </div>
-                        <div class="benefit-item">
-                            <i class="fas fa-clock"></i>
-                            <div>
-                                <strong>24/7 Protection</strong>
-                                <p>Continuous recording and monitoring</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="cta-buttons">
-                        <a href="contact.html#quote" class="btn btn-primary">Request Quote</a>
-                        <a href="portfolio.html" class="btn btn-outline">View Projects</a>
+                        <a href="contact.html#quote" class="btn btn-primary btn-lg">
+                            <span>Get A Quote</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                        <a href="tel:+27795523726" class="btn btn-outline-light btn-lg">
+                            <i class="fas fa-phone"></i>
+                            <span>Call Us Now</span>
+                        </a>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    
-    <!-- Service: Access Control -->
-    <section class="section service-detail" id="access-control">
-        <div class="container">
-            <div class="service-detail-grid">
-                <div class="service-detail-content" data-aos="fade-right">
-                    <div class="service-badge">
-                        <i class="fas fa-lock"></i>
-                    </div>
-                    <h2>Access Control</h2>
-                    <p class="service-tagline">Access, Reimagined</p>
-                    <p class="lead">Modern access management systems delivering incredible user experiences. Control who enters where, when, and how with intuitive, secure access control solutions.</p>
-                    
-                    <h3>Key Features</h3>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-check-circle"></i> Biometric authentication (fingerprint, facial recognition)</li>
-                        <li><i class="fas fa-check-circle"></i> Mobile access credentials via smartphone</li>
-                        <li><i class="fas fa-check-circle"></i> Integration with surveillance and alarm systems</li>
-                        <li><i class="fas fa-check-circle"></i> Time-based access scheduling</li>
-                        <li><i class="fas fa-check-circle"></i> Real-time activity logs and reporting</li>
-                        <li><i class="fas fa-check-circle"></i> Multi-site management capability</li>
-                    </ul>
-                    
-                    <h3>Benefits</h3>
-                    <div class="benefits-grid">
-                        <div class="benefit-item">
-                            <i class="fas fa-user-shield"></i>
-                            <div>
-                                <strong>Enhanced Security</strong>
-                                <p>Multi-factor authentication options</p>
-                            </div>
-                        </div>
-                        <div class="benefit-item">
-                            <i class="fas fa-chart-line"></i>
-                            <div>
-                                <strong>Detailed Analytics</strong>
-                                <p>Track access patterns and audit trails</p>
-                            </div>
-                        </div>
-                        <div class="benefit-item">
-                            <i class="fas fa-cog"></i>
-                            <div>
-                                <strong>Easy Management</strong>
-                                <p>Centralized control interface</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="cta-buttons">
-                        <a href="contact.html#quote" class="btn btn-primary">Request Quote</a>
-                        <a href="portfolio.html" class="btn btn-outline">View Projects</a>
-                    </div>
-                </div>
-                <div class="service-detail-image" data-aos="fade-left">
-                    <div class="image-placeholder">
-                        <i class="fas fa-fingerprint"></i>
-                        <p>Access Control</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Service: Structured Cabling -->
-    <section class="section service-detail alt" id="cabling">
-        <div class="container">
-            <div class="service-detail-grid reverse">
-                <div class="service-detail-image" data-aos="fade-right">
-                    <div class="image-placeholder">
-                        <i class="fas fa-network-wired"></i>
-                        <p>Network Infrastructure</p>
-                    </div>
-                </div>
-                <div class="service-detail-content" data-aos="fade-left">
-                    <div class="service-badge">
-                        <i class="fas fa-network-wired"></i>
-                    </div>
-                    <h2>Structured Cabling</h2>
-                    <p class="service-tagline">Infrastructure Excellence</p>
-                    <p class="lead">Professional network infrastructure installation supporting increasing traffic demands. The foundation of your digital operations built to industry standards.</p>
-                    
-                    <h3>Key Features</h3>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-check-circle"></i> Cat6/Cat6a copper cabling installations</li>
-                        <li><i class="fas fa-check-circle"></i> Fiber optic solutions for high-speed backbones</li>
-                        <li><i class="fas fa-check-circle"></i> Professional cable management systems</li>
-                        <li><i class="fas fa-check-circle"></i> Data center cabling and rack installations</li>
-                        <li><i class="fas fa-check-circle"></i> Testing and certification of all installations</li>
-                        <li><i class="fas fa-check-circle"></i> Comprehensive documentation and labeling</li>
-                    </ul>
-                    
-                    <h3>Benefits</h3>
-                    <div class="benefits-grid">
-                        <div class="benefit-item">
-                            <i class="fas fa-bolt"></i>
-                            <div>
-                                <strong>High Speed</strong>
-                                <p>10Gbps capable infrastructure</p>
-                            </div>
-                        </div>
-                        <div class="benefit-item">
-                            <i class="fas fa-wrench"></i>
-                            <div>
-                                <strong>Maintainable</strong>
-                                <p>Organized for easy troubleshooting</p>
-                            </div>
-                        </div>
-                        <div class="benefit-item">
-                            <i class="fas fa-hourglass-half"></i>
-                            <div>
-                                <strong>Future-Proof</strong>
-                                <p>Built to support evolving technology</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="cta-buttons">
-                        <a href="contact.html#quote" class="btn btn-primary">Request Quote</a>
-                        <a href="portfolio.html" class="btn btn-outline">View Projects</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Service: Web Design & Development -->
-    <section class="section service-detail" id="web-design">
-        <div class="container">
-            <div class="service-detail-grid">
-                <div class="service-detail-content" data-aos="fade-right">
-                    <div class="service-badge">
-                        <i class="fas fa-code"></i>
-                    </div>
-                    <h2>Web Design & Development</h2>
-                    <p class="service-tagline">Digital Transformation</p>
-                    <p class="lead">Custom websites and software solutions from concept to thriving business. High-performing, SEO-optimized platforms that drive results and transform your digital presence.</p>
-                    
-                    <h3>Key Features</h3>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-check-circle"></i> Responsive web design (mobile-first approach)</li>
-                        <li><i class="fas fa-check-circle"></i> Custom software development tailored to your needs</li>
-                        <li><i class="fas fa-check-circle"></i> E-commerce platforms with payment integration</li>
-                        <li><i class="fas fa-check-circle"></i> Content Management Systems (CMS)</li>
-                        <li><i class="fas fa-check-circle"></i> SEO optimization and digital marketing</li>
-                        <li><i class="fas fa-check-circle"></i> Ongoing maintenance and support</li>
-                    </ul>
-                    
-                    <h3>Benefits</h3>
-                    <div class="benefits-grid">
-                        <div class="benefit-item">
-                            <i class="fas fa-rocket"></i>
-                            <div>
-                                <strong>Fast Performance</strong>
-                                <p>Lightning-fast load times boost conversions</p>
-                            </div>
-                        </div>
-                        <div class="benefit-item">
-                            <i class="fas fa-search"></i>
-                            <div>
-                                <strong>SEO Optimized</strong>
-                                <p>Rank higher in search results</p>
-                            </div>
-                        </div>
-                        <div class="benefit-item">
-                            <i class="fas fa-paint-brush"></i>
-                            <div>
-                                <strong>Custom Design</strong>
-                                <p>Unique branding that stands out</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="cta-buttons">
-                        <a href="contact.html#quote" class="btn btn-primary">Request Quote</a>
-                        <a href="portfolio.html" class="btn btn-outline">View Projects</a>
-                    </div>
-                </div>
-                <div class="service-detail-image" data-aos="fade-left">
-                    <div class="image-placeholder">
-                        <i class="fas fa-laptop-code"></i>
-                        <p>Web Solutions</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Service: Cloud & IT Solutions -->
-    <section class="section service-detail alt" id="cloud-it">
-        <div class="container">
-            <div class="service-detail-grid reverse">
-                <div class="service-detail-image" data-aos="fade-right">
-                    <div class="image-placeholder">
-                        <i class="fas fa-cloud"></i>
-                        <p>Cloud Infrastructure</p>
-                    </div>
-                </div>
-                <div class="service-detail-content" data-aos="fade-left">
-                    <div class="service-badge">
-                        <i class="fas fa-cloud"></i>
-                    </div>
-                    <h2>Cloud & IT Solutions</h2>
-                    <p class="service-tagline">Future-Ready Technology</p>
-                    <p class="lead">Comprehensive cloud storage, mail migrations, and IT consulting services. Navigate the complexities of modern business technology with confidence and expert guidance.</p>
-                    
-                    <h3>Key Features</h3>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-check-circle"></i> Cloud migration and deployment services</li>
-                        <li><i class="fas fa-check-circle"></i> Email migration (Microsoft 365, Google Workspace)</li>
-                        <li><i class="fas fa-check-circle"></i> Data backup and disaster recovery</li>
-                        <li><i class="fas fa-check-circle"></i> IT infrastructure consulting</li>
-                        <li><i class="fas fa-check-circle"></i> Managed IT services and support</li>
-                        <li><i class="fas fa-check-circle"></i> Cybersecurity assessments and solutions</li>
-                    </ul>
-                    
-                    <h3>Benefits</h3>
-                    <div class="benefits-grid">
-                        <div class="benefit-item">
-                            <i class="fas fa-dollar-sign"></i>
-                            <div>
-                                <strong>Cost Effective</strong>
-                                <p>Reduce infrastructure costs with cloud</p>
-                            </div>
-                        </div>
-                        <div class="benefit-item">
-                            <i class="fas fa-sync-alt"></i>
-                            <div>
-                                <strong>Flexible</strong>
-                                <p>Scale resources up or down as needed</p>
-                            </div>
-                        </div>
-                        <div class="benefit-item">
-                            <i class="fas fa-life-ring"></i>
-                            <div>
-                                <strong>Expert Support</strong>
-                                <p>24/7 IT support when you need it</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="cta-buttons">
-                        <a href="contact.html#quote" class="btn btn-primary">Request Quote</a>
-                        <a href="portfolio.html" class="btn btn-outline">View Projects</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="cta-background">
-            <div class="gradient-mesh"></div>
-        </div>
-        <div class="container">
-            <div class="cta-content" data-aos="zoom-in">
-                <h2 class="cta-title">Ready to Get Started?</h2>
-                <p class="cta-description">
-                    Contact us today for a free consultation and discover how our technology solutions can transform your business.
-                </p>
-                <div class="cta-buttons">
-                    <a href="contact.html#quote" class="btn btn-primary btn-lg">
-                        <span>Get A Quote</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                    <a href="tel:+27795523726" class="btn btn-outline-light btn-lg">
-                        <i class="fas fa-phone"></i>
-                        <span>Call Us Now</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
     </main>
-    
+
     <!-- Footer - Loaded via components.js -->
     <footer id="footer">
-    <div id="footer-placeholder"></div>
+        <div id="footer-placeholder"></div>
     </footer>
-    
+
     <!-- Theme Manager - Load early to prevent FOUC -->
     <script type="module" src="js/utils/theme.js"></script>
     <script type="module" src="js/components.js"></script>
     <script type="module" src="js/alpine-setup.js"></script>
     <script type="module" src="js/main.js"></script>
 </body>
+
 </html>

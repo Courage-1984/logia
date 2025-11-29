@@ -4,7 +4,7 @@
    ============================================ */
 
 .footer {
-    padding: var(--space-16) 0 var(--space-8);
+    padding: var(--space-16) 0;
 }
 
 /* Light mode footer - use dark gray for branding but lighter than dark mode */

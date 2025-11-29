@@ -28,6 +28,8 @@
 @import "./components/carousel.css";
 @import "./components/floating-buttons.css";
 @import "./components/skeleton.css";
+@import "./components/bento-grid.css";
+@import "./components/timeline.css";
 
 /* Homepage Sections */
 @import "./sections/_section-header.css";

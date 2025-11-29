@@ -1,0 +1,63 @@
+{
+    "mcpServers": {
+        "firecrawl-mcp": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "firecrawl-mcp"
+            ],
+            "env": {
+                "FIRECRAWL_API_KEY": "fc-189a697f090544bd95f6fa2d9662f2fe"
+            },
+            "description": "Provides powerful web scraping, crawling, and content extraction using the Firecrawl API."
+        },
+        "chrome-devtools": {
+            "command": "npx -y chrome-devtools-mcp@latest",
+            "env": {},
+            "args": [],
+            "description": "Allows the AI to control and inspect a live Chrome browser for real-time debugging and performance analysis."
+        },
+        "context7": {
+            "url": "https://mcp.context7.com/mcp",
+            "headers": {
+                "CONTEXT7_API_KEY": "ctx7sk-109bb339-3f31-4ea3-b8e5-ef3b2da95b74"
+            },
+            "description": "Fetches up-to-date, version-specific code documentation and API references directly from an authoritative source."
+        },
+        "filesystem": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-filesystem",
+                "C:/Users/anon/github/"
+            ],
+            "description": "Allows read and write access to files in the specified directory."
+        },
+        "brave-search": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-brave-search"
+            ],
+            "env": {
+                "BRAVE_API_KEY": "BSAbmvVgmzMDlG0EsK8oGIGemBNoAuK"
+            },
+            "description": "Provides web search capabilities using the Brave Search API."
+        },
+        "sequential-thinking": {
+            "command": "npx",
+            "args": [
+                "-y",
+                "@modelcontextprotocol/server-sequential-thinking"
+            ],
+            "description": "Provides a tool for dynamic and reflective problem-solving through a structured thinking process."
+        },
+        "playwright": {
+            "command": "npx",
+            "args": [
+                "@playwright/mcp@latest"
+            ],
+            "description": "Provides browser automation capabilities (navigate, click, type, screenshot) for AI agents using Playwright."
+        }
+    }
+}

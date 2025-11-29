@@ -1,0 +1,467 @@
+/* ============================================
+   LOGIA GENESIS - TIMELINE COMPONENT
+   Vertical timeline flow for process/journey sections
+   ============================================ */
+
+.timeline-section {
+    background: var(--color-bg);
+    padding: var(--space-24) 0;
+}
+
+.timeline-container {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Timeline Line */
+.timeline-line {
+    position: absolute;
+    left: 30px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg,
+            var(--color-primary) 0%,
+            var(--color-accent) 50%,
+            var(--color-primary) 100%);
+    opacity: 0.3;
+}
+
+@media (min-width: 769px) {
+    .timeline-line {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+body.dark-mode .timeline-line {
+    opacity: 0.5;
+}
+
+/* Timeline Items */
+.timeline-items {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+}
+
+@media (min-width: 769px) {
+    .timeline-items {
+        gap: var(--space-16);
+    }
+}
+
+/* Timeline Item */
+.timeline-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    padding-left: var(--space-12);
+}
+
+@media (min-width: 769px) {
+    .timeline-item {
+        width: 50%;
+        padding-left: 0;
+        padding-right: var(--space-12);
+        align-items: center;
+        gap: 0 !important;
+        /* Neutralize flex gap to isolate offset calculation */
+    }
+
+    .timeline-item:nth-child(odd) {
+        align-self: flex-end;
+        padding-right: 0;
+        padding-left: var(--space-12);
+        flex-direction: row-reverse;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content {
+        text-align: right;
+    }
+}
+
+/* Connection Shape Container */
+.timeline-connection {
+    position: absolute;
+    top: 50%;
+    width: 80px;
+    height: 80px;
+    z-index: 1;
+    pointer-events: none;
+    transform: translateY(-50%);
+}
+
+.timeline-item:nth-child(odd) .timeline-connection {
+    left: 0;
+}
+
+.timeline-item:nth-child(even) .timeline-connection {
+    right: 0;
+}
+
+@media (max-width: 768px) {
+    .timeline-connection {
+        display: none;
+        /* Hide connections on mobile */
+    }
+}
+
+/* The Cone Shape */
+.connection-shape {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    opacity: 0.6;
+    transition: all var(--transition-base);
+    transform: scaleX(0);
+    /* Start hidden */
+}
+
+/* Shape for Odd Items (Card on Right, Pointing Left) */
+/* Apex at (80, 40), Base at x=0 */
+.timeline-item:nth-child(odd) .connection-shape {
+    transform-origin: right center;
+    clip-path: path('M 80 40 C 50 40, 0 10, 0 10 L 0 70 C 0 70, 50 40, 80 40');
+}
+
+/* Shape for Even Items (Card on Left, Pointing Right) */
+/* Apex at (0, 40), Base at x=80 */
+.timeline-item:nth-child(even) .connection-shape {
+    transform-origin: left center;
+    clip-path: path('M 0 40 C 30 40, 80 10, 80 10 L 80 70 C 80 70, 30 40, 0 40');
+}
+
+/* Animate connection on scroll */
+.timeline-item[data-aos].aos-animate .connection-shape {
+    transform: scaleX(1);
+}
+
+.timeline-item:hover .connection-shape {
+    opacity: 0.9;
+    filter: drop-shadow(0 0 8px rgba(0, 217, 255, 0.4));
+}
+
+
+/* Connection dot at center line */
+.timeline-connection::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    border: 2px solid var(--color-bg);
+    box-shadow: 0 0 0 2px rgba(10, 36, 99, 0.2);
+    opacity: 0;
+    transition: all var(--transition-base);
+}
+
+.timeline-item:nth-child(odd) .timeline-connection::after {
+    left: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.timeline-item:nth-child(even) .timeline-connection::after {
+    right: -6px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.timeline-item[data-aos].aos-animate .timeline-connection::after {
+    opacity: 1;
+    animation: pulseDot 0.6s ease-out 0.8s forwards;
+}
+
+@keyframes pulseDot {
+    0% {
+        transform: translate(50%, -50%) scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: translate(50%, -50%) scale(1.2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translate(50%, -50%) scale(1);
+        opacity: 1;
+    }
+}
+
+.timeline-item:nth-child(odd) .timeline-connection::after {
+    animation-name: pulseDot;
+}
+
+.timeline-item:nth-child(even) .timeline-connection::after {
+    animation-name: pulseDot;
+}
+
+@keyframes pulseDot {
+    0% {
+        transform: translateY(-50%) scale(0);
+        opacity: 0;
+    }
+
+    50% {
+        transform: translateY(-50%) scale(1.2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(-50%) scale(1);
+        opacity: 1;
+    }
+}
+
+.timeline-item:nth-child(odd):hover .timeline-connection::after,
+.timeline-item:nth-child(even):hover .timeline-connection::after {
+    transform: translateY(-50%) scale(1.3);
+    box-shadow: 0 0 0 2px rgba(10, 36, 99, 0.2), 0 0 12px rgba(0, 217, 255, 0.5);
+}
+
+@media (max-width: 768px) {
+    .timeline-connection::after {
+        left: -6px !important;
+        right: auto !important;
+        top: -6px;
+        transform: translateY(0) !important;
+    }
+
+    .timeline-item:hover .timeline-connection::after {
+        transform: scale(1.3) !important;
+    }
+}
+
+/* Timeline Content */
+.timeline-content {
+    flex: 1;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    padding: 0;
+    box-shadow: var(--shadow-sm);
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+@media (min-width: 769px) {
+    .timeline-content {
+        max-width: 500px;
+    }
+
+    /* FINAL FIX: Live inspection shows persistent 20px gap between apex (80px) and content (100px) */
+    /* Margin adjustments aren't working due to row-reverse flex layout behavior */
+    /* Solution: Use transform to directly move content 20px left to close the gap */
+    /* For odd items (right-side cards): Transform to close the 20px gap */
+    .timeline-item:nth-child(odd) .timeline-content {
+        transform: translateX(-20px) !important;
+        margin-left: 0 !important;
+    }
+
+    /* For even items (left-side cards): Apply the symmetrical transform */
+    .timeline-item:nth-child(even) .timeline-content {
+        transform: translateX(20px) !important;
+        margin-right: 0 !important;
+    }
+}
+
+body.dark-mode .timeline-content {
+    background: var(--color-dark-surface);
+    border-color: var(--color-dark-border);
+}
+
+.timeline-content::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    opacity: 0;
+    transition: opacity var(--transition-base);
+}
+
+.timeline-item:hover .timeline-content {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--color-accent);
+}
+
+.timeline-item:hover .timeline-content::before {
+    opacity: 1;
+}
+
+/* Timeline Header (Icon + Step) */
+.timeline-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-6);
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+    background: linear-gradient(135deg,
+            rgba(10, 36, 99, 0.02),
+            rgba(0, 217, 255, 0.02));
+}
+
+@media (min-width: 769px) {
+    .timeline-header {
+        padding: var(--space-8);
+        padding-bottom: var(--space-6);
+    }
+}
+
+body.dark-mode .timeline-header {
+    background: linear-gradient(135deg,
+            rgba(10, 36, 99, 0.1),
+            rgba(0, 217, 255, 0.05));
+    border-bottom-color: var(--color-dark-border);
+}
+
+.timeline-item:hover .timeline-header {
+    background: linear-gradient(135deg,
+            rgba(10, 36, 99, 0.05),
+            rgba(0, 217, 255, 0.05));
+    border-bottom-color: var(--color-accent);
+}
+
+body.dark-mode .timeline-item:hover .timeline-header {
+    background: linear-gradient(135deg,
+            rgba(10, 36, 99, 0.15),
+            rgba(0, 217, 255, 0.1));
+}
+
+/* Timeline Icon */
+.timeline-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg,
+            rgba(10, 36, 99, 0.1),
+            rgba(0, 217, 255, 0.1));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.75rem;
+    color: var(--color-accent-text);
+    transition: all var(--transition-base);
+    flex-shrink: 0;
+}
+
+.timeline-item:hover .timeline-icon {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+    color: var(--color-white);
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 217, 255, 0.3);
+}
+
+body.dark-mode .timeline-icon {
+    background: linear-gradient(135deg,
+            rgba(10, 36, 99, 0.2),
+            rgba(0, 217, 255, 0.15));
+    color: var(--color-accent);
+}
+
+/* Timeline Step Number */
+.timeline-step-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.timeline-step {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--color-accent-text);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 0;
+}
+
+.timeline-item:hover .timeline-step {
+    color: var(--color-accent);
+}
+
+body.dark-mode .timeline-step {
+    color: var(--color-accent);
+}
+
+/* Timeline Title */
+.timeline-title {
+    font-size: 1.375rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--color-text);
+    line-height: 1.3;
+}
+
+@media (min-width: 769px) {
+    .timeline-title {
+        font-size: 1.5rem;
+    }
+}
+
+/* Timeline Body (Description) */
+.timeline-body {
+    padding: var(--space-6);
+    flex: 1;
+}
+
+@media (min-width: 769px) {
+    .timeline-body {
+        padding: var(--space-8);
+    }
+}
+
+/* Timeline Description */
+.timeline-description {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .timeline-section {
+        padding: var(--space-16) 0;
+    }
+
+    .timeline-line {
+        left: 30px;
+    }
+
+    .timeline-node {
+        left: 20px;
+    }
+
+    .timeline-item {
+        padding-left: var(--space-12);
+    }
+
+    .timeline-content {
+        padding: var(--space-6);
+    }
+
+    .timeline-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 1.25rem;
+    }
+
+    .timeline-title {
+        font-size: 1.25rem;
+    }
+}

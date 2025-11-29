@@ -17,7 +17,7 @@
 
 @media (min-width: 1025px) {
     .contact-methods {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
     }
 }
 
@@ -188,9 +188,16 @@ body.dark-mode .form-container {
     box-shadow: var(--shadow-lg);
 }
 
+/* Reduced hero section height - vertically centered */
+.page-header {
+    padding: 90px 0;
+    min-height: 350px;
+}
+
 @media (max-width: 768px) {
     .page-header {
-        padding: 120px 0 80px;
+        padding: 80px 0;
+        min-height: 300px;
     }
     
     .form-container {

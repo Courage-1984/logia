@@ -26,7 +26,10 @@ css/
 │   ├── cards.css       # Generic card patterns
 │   ├── forms.css       # Form elements and validation states
 │   ├── carousel.css    # Shared carousel component (testimonials, instagram)
-│   └── floating-buttons.css # Scroll-to-top and WhatsApp floating buttons
+│   ├── floating-buttons.css # Scroll-to-top and WhatsApp floating buttons
+│   ├── skeleton.css    # Skeleton loaders (animated loading placeholders)
+│   ├── timeline.css    # Timeline component (vertical process/journey flow)
+│   └── bento-grid.css  # Bento grid layout component
 │
 ├── layout/            # Structural layout components
 │   ├── container.css  # Container and section utilities
@@ -73,7 +76,7 @@ The `style.css` file imports modules in this specific order:
 
 1. **Core Foundation** - Variables, reset, typography, utilities
 2. **Layout** - Container, navbar, hero, page-header, footer
-3. **Components** - Buttons, cards, forms, carousel, floating buttons
+3. **Components** - Buttons, cards, forms, carousel, floating buttons, skeleton loaders, timeline, bento-grid
 4. **Sections** - Homepage sections
 5. **Responsive** - Mobile, tablet, desktop adjustments
 
@@ -96,6 +99,9 @@ This order ensures proper cascade and dependency resolution.
 | Form styles | `components/forms.css` |
 | Carousel component | `components/carousel.css` |
 | Scroll-to-top, WhatsApp buttons | `components/floating-buttons.css` |
+| Skeleton loaders | `components/skeleton.css` |
+| Timeline component | `components/timeline.css` |
+| Bento grid layout | `components/bento-grid.css` |
 | Navigation bar | `layout/navbar.css` |
 | Footer | `layout/footer.css` |
 | Hero section | `layout/hero.css` |
@@ -148,7 +154,10 @@ style.css
 │   ├── cards.css (depends on core)
 │   ├── forms.css (depends on core)
 │   ├── carousel.css (depends on core, buttons)
-│   └── floating-buttons.css (depends on core, buttons)
+│   ├── floating-buttons.css (depends on core, buttons)
+│   ├── skeleton.css (depends on core)
+│   ├── timeline.css (depends on core)
+│   └── bento-grid.css (depends on core)
 │
 ├── layout/
 │   ├── container.css (depends on core)
