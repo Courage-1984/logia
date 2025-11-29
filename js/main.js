@@ -223,6 +223,23 @@ const initAOS = () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('aos-animate');
+                
+                // For portfolio cards, ensure hover transition is properly set after AOS animation
+                if (entry.target.classList.contains('portfolio-card')) {
+                    // Wait for AOS animation to complete, then ensure transition is set
+                    const aosDelay = parseInt(entry.target.getAttribute('data-aos-delay') || 0);
+                    const animationDuration = 500; // AOS animation duration
+                    setTimeout(() => {
+                        // Force transition to be applied for hover states
+                        // Don't set transform here - let CSS handle it
+                        entry.target.style.transition = 'transform 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                        // Remove any inline transform that might interfere
+                        if (entry.target.style.transform && entry.target.style.transform.includes('scale(1)')) {
+                            entry.target.style.transform = '';
+                        }
+                    }, aosDelay + animationDuration + 50);
+                }
+                
                 // Optionally unobserve after animation
                 // observer.unobserve(entry.target);
             }
@@ -363,7 +380,7 @@ const initPageLoad = () => {
  * Adds interactive 3D tilt animation on hover for service/portfolio cards
  */
 const init3DTilt = () => {
-    const cards = $$('.service-card, .why-card, .portfolio-card');
+    const cards = $$('.service-card, .why-card');
     if (cards.length === 0) return;
 
     // Respect user and device capabilities:
@@ -381,7 +398,12 @@ const init3DTilt = () => {
 
     const handleMouseMove = throttle((event) => {
         const e = event;
-        const card = e.target.closest('.service-card, .why-card, .portfolio-card');
+        const card = e.target.closest('.service-card, .why-card');
+        
+        // Skip portfolio cards - they have their own hover animations
+        if (card && card.classList.contains('portfolio-card')) {
+            return;
+        }
 
         // Reset previous card if mouse moved to different card
         if (activeCard && activeCard !== card) {
@@ -415,7 +437,13 @@ const init3DTilt = () => {
 
     // Reset transform when mouse leaves card
     document.body.addEventListener('mouseout', (e) => {
-        const card = e.target.closest('.service-card, .why-card, .portfolio-card');
+        const card = e.target.closest('.service-card, .why-card');
+        
+        // Skip portfolio cards
+        if (card && card.classList.contains('portfolio-card')) {
+            return;
+        }
+        
         if (card && !card.contains(e.relatedTarget) && activeCard === card) {
             card.style.transform = '';
             activeCard = null;

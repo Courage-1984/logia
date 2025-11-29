@@ -210,11 +210,6 @@ body.dark-mode .service-link {
     }
 }
 
-.why-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
-}
-
 .why-icon {
     width: 80px;
     height: 80px;
@@ -274,57 +269,240 @@ body.dark-mode .service-link {
 }
 
 .portfolio-card {
+    position: relative;
     border-radius: var(--radius-xl);
-    overflow: hidden;
+    overflow: hidden; /* Critical: hides overlay when pushed down */
     background: var(--color-white);
-    transition: all var(--transition-base);
+    transform-origin: center center;
+    transform: translate3d(0, 0, 0) scale(1);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-border);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+    /* Force transition to take precedence over AOS and inline styles */
+    transition:
+        transform 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        box-shadow 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
 }
 
 body.dark-mode .portfolio-card {
     background: var(--color-dark-surface);
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
-.portfolio-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-xl);
+/* Override AOS zoom-in animation for portfolio cards */
+.portfolio-card[data-aos="zoom-in"] {
+    transform: translate3d(0, 0, 0) scale(0.9) !important;
+    transition: transform 500ms cubic-bezier(0.4, 0.0, 0.2, 1),
+                opacity 500ms cubic-bezier(0.4, 0.0, 0.2, 1),
+                box-shadow 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+}
+
+.portfolio-card[data-aos="zoom-in"].aos-animate {
+    transform: translate3d(0, 0, 0) scale(1);
+    transition: transform 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 500ms cubic-bezier(0.4, 0.0, 0.2, 1) !important;
+}
+
+/* Override AOS transition for all portfolio cards - ensure our transition takes precedence */
+.portfolio-card[data-aos],
+.portfolio-card[data-aos].aos-animate {
+    transition: transform 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                opacity 500ms cubic-bezier(0.4, 0.0, 0.2, 1) !important;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .portfolio-card:hover {
+        transform: translate3d(0, 0, 0) scale(1.05) !important;
+        box-shadow: var(--shadow-xl);
+    }
+    
+    /* Override AOS animated state on hover - must be more specific */
+    .portfolio-card[data-aos="zoom-in"].aos-animate:hover,
+    .portfolio-card[data-aos].aos-animate:hover,
+    .portfolio-card[data-aos]:hover {
+        transform: translate3d(0, 0, 0) scale(1.05) !important;
+        transition: transform 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                    box-shadow 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    }
+}
+
+/* Touch device improvements */
+@media (hover: none) and (pointer: coarse) {
+    .portfolio-card:active {
+        transform: translate3d(0, 0, 0) scale(0.98);
+        transition: transform 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    
+    /* On touch devices, show full overlay on tap */
+    .portfolio-card:active .portfolio-overlay {
+        transform: translate3d(0, 0, 0);
+        transition: transform 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
 }
 
 .portfolio-image {
     position: relative;
-    height: 300px;
+    height: 350px;
     background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
     overflow: hidden;
+    z-index: 1; /* Bottom layer */
+}
+
+.portfolio-image picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.portfolio-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 400ms cubic-bezier(0.19, 1, 0.22, 1);
+    transform: translate3d(0, 0, 0) scale(1);
+    transform-origin: center center;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .portfolio-card:hover .portfolio-image img {
+        transform: translate3d(0, 0, 0) scale(1.05);
+    }
+}
+
+.portfolio-title-default {
+    position: absolute;
+    bottom: 70px; /* Positioned above tags area */
+    left: var(--space-6);
+    right: var(--space-6);
+    padding: 0;
+    /* Minimal gradient for default state - just enough for text readability */
+    background: linear-gradient(to top,
+            rgba(10, 36, 99, 0.85) 0%,
+            rgba(10, 36, 99, 0.5) 30%,
+            transparent 60%);
+    transition: opacity 300ms cubic-bezier(0.19, 1, 0.22, 1);
+    opacity: 1;
+    z-index: 5; /* Above image, below overlay when it slides up */
+}
+
+.portfolio-title-default h3 {
+    font-size: 1.5rem;
+    color: var(--color-white);
+    margin: 0;
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .portfolio-card:hover .portfolio-title-default {
+        /* Fade out default title when overlay slides up */
+        opacity: 0;
+    }
 }
 
 .portfolio-overlay {
     position: absolute;
-    inset: 0;
+    left: 0;
+    width: 100%;
+    /* Positioning: We anchor it to the bottom */
+    bottom: 0;
+    /* PADDING: Add enough padding-bottom so the text 
+       doesn't get covered by the tags when it slides up */
+    padding: var(--space-6) var(--space-6) calc(var(--space-6) + 80px) var(--space-6);
+    /* Dark gradient overlay - less opaque, more sleek */
     background: linear-gradient(to top,
-            rgba(10, 36, 99, 0.95) 0%,
-            rgba(10, 36, 99, 0.7) 50%,
-            transparent 100%);
+            rgba(10, 36, 99, 0.75) 0%,
+            rgba(10, 36, 99, 0.65) 40%,
+            rgba(10, 36, 99, 0.45) 70%,
+            rgba(10, 36, 99, 0.55) 100%);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: var(--space-6);
     color: var(--color-white);
-    opacity: 0;
-    transition: opacity var(--transition-base);
+    /* Z-INDEX MAGIC: Lower than tags (20), higher than image (1) */
+    z-index: 10;
+    /* Sleek rounded corners */
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    /* ANIMATION SETUP */
+    /* Default: Show top portion (title) - translate up by ~55% to reveal more of title above tags */
+    transform: translate3d(0, 55%, 0);
+    /* Smooth slide transition - use consistent timing for both directions */
+    transition: transform 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+    pointer-events: none;
 }
 
-.portfolio-card:hover .portfolio-overlay {
-    opacity: 1;
+/* Ensure overlay transition is not affected by AOS */
+.portfolio-card[data-aos] .portfolio-overlay,
+.portfolio-card[data-aos].aos-animate .portfolio-overlay {
+    transform: translate3d(0, 55%, 0);
+    transition: transform 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
 }
 
+@media (hover: hover) and (pointer: fine) {
+    .portfolio-card:hover .portfolio-overlay {
+        /* Slide up fully into view on hover - reveal all content */
+        transform: translate3d(0, 0, 0) !important;
+        transition: transform 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    }
+    
+    /* Ensure AOS cards also get smooth overlay transition */
+    .portfolio-card[data-aos]:hover .portfolio-overlay,
+    .portfolio-card[data-aos].aos-animate:hover .portfolio-overlay {
+        transform: translate3d(0, 0, 0) !important;
+        transition: transform 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+    }
+}
+
+/* Overlay content - always visible, just positioned below tags by default */
 .portfolio-overlay h3 {
     font-size: 1.5rem;
     margin-bottom: var(--space-3);
     color: var(--color-white);
+    font-weight: 600;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .portfolio-overlay p {
     margin-bottom: var(--space-4);
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1.6;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.portfolio-overlay .project-stats {
+    /* Stats are always visible, no opacity transitions needed */
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .portfolio-title-default,
+    .portfolio-overlay,
+    .portfolio-image img {
+        transition: none;
+    }
+    
+    .portfolio-card:hover .portfolio-title-default {
+        opacity: 0;
+    }
+    
+    .portfolio-card:hover .portfolio-overlay {
+        transform: translate3d(0, 0, 0);
+    }
+    
+    .portfolio-card:hover .portfolio-image img {
+        transform: none;
+    }
 }
 
 .portfolio-btn {
@@ -357,11 +535,13 @@ body.dark-mode .portfolio-card {
 .tag {
     display: inline-block;
     padding: var(--space-1) var(--space-3);
-    background: var(--color-surface);
-    color: var(--color-text-muted);
+    background: var(--color-primary);
+    color: var(--color-white);
     border-radius: var(--radius-full);
     font-size: 0.8125rem;
     font-weight: 500;
+    transform: translate3d(0, 0, 0) scale(1.05);
+    transition: all 300ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 /* TESTIMONIALS SECTION */
@@ -467,11 +647,6 @@ body.dark-mode .portfolio-card {
 
 body.dark-mode .testimonial-card {
     background: var(--color-dark-surface);
-}
-
-.testimonial-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
 }
 
 .testimonial-stars {
@@ -720,11 +895,6 @@ body.dark-mode .carousel-dot.active {
 body.dark-mode .instagram-card {
     background: var(--color-dark-surface);
     border-color: var(--color-border);
-}
-
-.instagram-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg);
 }
 
 .instagram-card-link {
@@ -1196,7 +1366,6 @@ body.dark-mode .footer-logo .logo-picture-dark {
 
 .scroll-top:hover {
     background: var(--color-accent);
-    transform: translateY(-4px);
 }
 
 /* WHATSAPP FLOATING BUTTON */

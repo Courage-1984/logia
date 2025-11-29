@@ -241,11 +241,6 @@ body.dark-mode .partner-logo {
     background: var(--color-dark-surface);
 }
 
-.partner-logo:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
-}
-
 .logo-placeholder {
     text-align: center;
 }
