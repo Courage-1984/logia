@@ -55,21 +55,27 @@ jobs:
         run: |
           mkdir -p .lighthouseci
           mkdir -p .bundle-history
-          # Create placeholder files so directories aren't empty (artifact uploads work better)
-          touch .lighthouseci/.gitkeep || true
-          touch .bundle-history/.gitkeep || true
 
       - name: Run Lighthouse CI
         env:
-          # Only set token for PRs to avoid 422 errors on push to main
-          LHCI_GITHUB_APP_TOKEN: ${{ github.event_name == 'pull_request' && secrets.GITHUB_TOKEN || '' }}
+          # Always set GITHUB_TOKEN, but only use it for PRs (configured in lighthouserc.cjs)
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Only set LHCI token for PRs to enable status checks
+          LHCI_GITHUB_APP_TOKEN: ${{ github.event_name == 'pull_request' && secrets.GITHUB_TOKEN || '' }}
         run: npm run lighthouse:ci
         continue-on-error: true # Continue even if budgets fail (warnings still reported)
+        
+      - name: Ensure Lighthouse artifact exists
+        if: always()
+        run: |
+          mkdir -p .lighthouseci
+          if [ ! "$(ls -A .lighthouseci 2>/dev/null)" ]; then
+            echo "No Lighthouse results were generated. See workflow logs for details." > .lighthouseci/README.txt
+          fi
 
       - name: Upload Lighthouse results
-        uses: actions/upload-artifact@v4
         if: always()
+        uses: actions/upload-artifact@v4
         continue-on-error: true
         with:
           name: lighthouse-results
@@ -80,10 +86,19 @@ jobs:
       - name: Check bundle sizes
         run: npm run check-bundles
         continue-on-error: true
+        
+      - name: Ensure bundle history artifact exists
+        if: always()
+        run: |
+          mkdir -p .bundle-history
+          if [ ! "$(ls -A .bundle-history 2>/dev/null)" ]; then
+            echo "[]" > .bundle-history/bundle-sizes.json
+            echo "No bundle data generated. See workflow logs for details." > .bundle-history/README.txt
+          fi
 
       - name: Upload bundle size history
-        uses: actions/upload-artifact@v4
         if: always()
+        uses: actions/upload-artifact@v4
         continue-on-error: true
         with:
           name: bundle-size-history

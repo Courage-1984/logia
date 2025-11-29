@@ -65,9 +65,11 @@ module.exports = {
       // Upload results to Lighthouse CI server (optional)
       target: 'temporary-public-storage',
     },
-    // GitHub integration - only configured if token is provided
-    // Token is only set for PRs to avoid 422 errors on push to main
-    ...(process.env.LHCI_GITHUB_APP_TOKEN && {
+    // GitHub integration - only configured if LHCI_GITHUB_APP_TOKEN is set
+    // This token is only set for PRs to avoid 422 errors on push to main
+    // Note: GITHUB_TOKEN is always available but we use LHCI_GITHUB_APP_TOKEN
+    // to control when GitHub integration is enabled
+    ...(process.env.LHCI_GITHUB_APP_TOKEN && process.env.LHCI_GITHUB_APP_TOKEN !== '' && {
       githubAppToken: process.env.LHCI_GITHUB_APP_TOKEN,
       githubStatusContext: 'Lighthouse CI',
     }),

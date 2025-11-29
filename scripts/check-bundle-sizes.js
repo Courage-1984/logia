@@ -265,7 +265,7 @@ function main() {
     });
   }
 
-  // Load and update history
+  // Load and update history (always save, even if there are violations)
   const history = loadHistory();
   const entry = {
     timestamp: new Date().toISOString(),
@@ -283,7 +283,12 @@ function main() {
     history.shift();
   }
 
-  saveHistory(history);
+  // Always save history, even if there are violations
+  try {
+    saveHistory(history);
+  } catch (error) {
+    console.warn('Failed to save bundle history:', error.message);
+  }
 
   // Show comparison with previous build
   if (history.length > 1) {
