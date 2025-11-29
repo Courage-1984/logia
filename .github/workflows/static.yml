@@ -57,7 +57,7 @@ jobs:
         continue-on-error: true
 
       - name: Build with Vite (GitHub Pages)
-        run: vite build --mode gh-pages
+        run: npx vite build --mode gh-pages
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
