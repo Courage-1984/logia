@@ -360,58 +360,94 @@ async function loadManualPosts() {
 
       if (validUrls.length > 0) {
         console.log(`📝 Found ${validUrls.length} manual post URLs in config`);
-        console.log(`📡 Fetching images via oEmbed API...`);
-        console.log(`   Note: Instagram may rate limit requests. Adding delays between requests...`);
-
-        // Fetch images for each post with delays to avoid rate limiting
+        
+        // First, check for existing images in assets/images/instagram
+        console.log(`🔍 Checking for existing images in assets/images/instagram/...`);
+        
         const posts = [];
         for (let i = 0; i < validUrls.length; i++) {
           const url = validUrls[i];
-          console.log(`   Fetching ${i + 1}/${validUrls.length}: ${url}`);
+          console.log(`   Processing ${i + 1}/${validUrls.length}: ${url}`);
 
-          const oembedData = await fetchPostViaOEmbed(url);
-
+          // Extract post ID from URL to check for existing image
+          const postIdMatch = url.match(/\/(p|reel)\/([^\/\?]+)/);
+          const postId = postIdMatch ? postIdMatch[2] : null;
+          
           let localImageUrl = '';
           let localThumbnailUrl = '';
+          let caption = '';
 
-          // Download image if we got a URL
-          if (oembedData?.imageUrl || oembedData?.thumbnailUrl) {
-            const imageUrl = oembedData?.imageUrl || oembedData?.thumbnailUrl;
-            const filename = generateImageFilename(url, imageUrl);
-            console.log(`   📥 Downloading image: ${filename}`);
-
-            try {
-              const localPath = await downloadImage(imageUrl, filename);
-              if (localPath) {
-                localImageUrl = localPath;
-                localThumbnailUrl = localPath;
-                console.log(`   ✅ Downloaded: ${localPath}`);
-              } else {
-                // Fallback to original URL if download fails
-                localImageUrl = imageUrl;
-                localThumbnailUrl = imageUrl;
+          // Check if image already exists locally
+          if (postId) {
+            const possibleExtensions = ['jpg', 'jpeg', 'png', 'webp'];
+            let foundImage = false;
+            
+            for (const ext of possibleExtensions) {
+              const filename = `instagram-${postId}.${ext}`;
+              const filePath = join(IMAGES_DIR, filename);
+              
+              if (existsSync(filePath)) {
+                localImageUrl = `assets/images/instagram/${filename}`;
+                localThumbnailUrl = `assets/images/instagram/${filename}`;
+                console.log(`   ✅ Found existing image: ${filename}`);
+                foundImage = true;
+                break;
               }
-            } catch (error) {
-              console.warn(`   ⚠️  Image download failed, using original URL: ${error.message}`);
-              localImageUrl = imageUrl;
-              localThumbnailUrl = imageUrl;
             }
+            
+            // If no existing image found, try to fetch via oEmbed
+            if (!foundImage) {
+              console.log(`   📡 Image not found locally, attempting to fetch via oEmbed API...`);
+              const oembedData = await fetchPostViaOEmbed(url);
+              
+              if (oembedData?.caption) {
+                caption = oembedData.caption;
+              }
+
+              // Download image if we got a URL
+              if (oembedData?.imageUrl || oembedData?.thumbnailUrl) {
+                const imageUrl = oembedData?.imageUrl || oembedData?.thumbnailUrl;
+                const filename = generateImageFilename(url, imageUrl);
+                console.log(`   📥 Downloading image: ${filename}`);
+
+                try {
+                  const localPath = await downloadImage(imageUrl, filename);
+                  if (localPath) {
+                    localImageUrl = localPath;
+                    localThumbnailUrl = localPath;
+                    console.log(`   ✅ Downloaded: ${localPath}`);
+                  } else {
+                    // Fallback to original URL if download fails
+                    localImageUrl = imageUrl;
+                    localThumbnailUrl = imageUrl;
+                  }
+                } catch (error) {
+                  console.warn(`   ⚠️  Image download failed, using original URL: ${error.message}`);
+                  localImageUrl = imageUrl;
+                  localThumbnailUrl = imageUrl;
+                }
+              } else {
+                console.warn(`   ⚠️  Could not fetch image for ${url}`);
+              }
+              
+              // Add delay between requests to avoid rate limiting (except for last request)
+              if (i < validUrls.length - 1) {
+                await new Promise(resolve => setTimeout(resolve, 2000)); // 2 second delay
+              }
+            }
+          } else {
+            console.warn(`   ⚠️  Could not extract post ID from URL: ${url}`);
           }
 
           posts.push({
             id: `manual-${i}`,
             postUrl: url,
-            caption: oembedData?.caption || '',
+            caption: caption,
             imageUrl: localImageUrl,
             thumbnailUrl: localThumbnailUrl,
             mediaType: 'IMAGE',
             timestamp: new Date().toISOString(),
           });
-
-          // Add delay between requests to avoid rate limiting (except for last request)
-          if (i < validUrls.length - 1) {
-            await new Promise(resolve => setTimeout(resolve, 2000)); // 2 second delay
-          }
         }
 
         const successfulPosts = posts.filter(p => p.thumbnailUrl || p.imageUrl);
