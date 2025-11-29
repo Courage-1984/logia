@@ -366,10 +366,21 @@ const init3DTilt = () => {
     const cards = $$('.service-card, .why-card, .portfolio-card');
     if (cards.length === 0) return;
 
-    // Use a single event handler with event delegation for mousemove
+    // Respect user and device capabilities:
+    // - Disable on reduced motion preference
+    // - Disable on coarse pointers (most touch/mobile devices)
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const hasFinePointer = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
+
+    if (prefersReducedMotion || !hasFinePointer) {
+        return;
+    }
+
+    // Use a single throttled event handler with event delegation for mousemove
     let activeCard = null;
 
-    document.body.addEventListener('mousemove', (e) => {
+    const handleMouseMove = throttle((event) => {
+        const e = event;
         const card = e.target.closest('.service-card, .why-card, .portfolio-card');
 
         // Reset previous card if mouse moved to different card
@@ -398,7 +409,9 @@ const init3DTilt = () => {
         const rotateY = (centerX - x) / 20;
 
         card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
-    }, { passive: true });
+    }, appConfig.performance.throttleLimit || 100);
+
+    document.body.addEventListener('mousemove', handleMouseMove, { passive: true });
 
     // Reset transform when mouse leaves card
     document.body.addEventListener('mouseout', (e) => {
@@ -480,7 +493,15 @@ const lazyLoadSearch = () => {
  * Loads only when CTA sections are present in the DOM
  */
 const lazyLoadParticles = () => {
-    if ($$('.cta-section .cta-background').length === 0) return;
+    if ($('.cta-section .cta-background').length === 0) return;
+
+    // Respect reduced motion and avoid on touch/mobile devices
+    const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const hasFinePointer = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
+
+    if (prefersReducedMotion || !hasFinePointer) {
+        return;
+    }
 
     import('./particles-net.js').then(async ({ initCTANetBackgrounds }) => {
         await initCTANetBackgrounds();
@@ -590,6 +611,16 @@ const initLinkPrefetch = () => {
     const handleLinkHover = (e) => {
         const link = e.currentTarget;
         const href = link.getAttribute('href');
+
+        // Avoid aggressive prefetching on slow connections or when data saver is enabled
+        const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        const saveData = connection && connection.saveData;
+        const effectiveType = connection && connection.effectiveType;
+        const isSlowConnection = effectiveType && /(^2g$|^slow-2g$)/.test(effectiveType);
+
+        if (saveData || isSlowConnection) {
+            return;
+        }
 
         if (shouldPrefetch(href)) {
             // Small delay to avoid prefetching on accidental hovers
@@ -714,6 +745,16 @@ const init = () => {
     
     // Initialize monitoring (error tracking & performance monitoring)
     initMonitoring();
+
+    // Register service worker for offline caching and faster repeat visits
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            // Use relative path so it works for both production and GitHub Pages base paths
+            navigator.serviceWorker.register('service-worker.js').catch((err) => {
+                console.warn('Service worker registration failed:', err);
+            });
+        });
+    }
 
     // Performance logging (if enabled)
     if (appConfig.features.performanceLogging) {

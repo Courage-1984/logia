@@ -50,6 +50,8 @@ body.dark-mode .hero-bg-image {
     opacity: 0.95;
     animation: gradientShift 15s ease infinite;
     z-index: 0;
+    /* Hint upcoming changes to help the browser optimize */
+    will-change: transform, opacity, filter;
 }
 
 body.dark-mode .gradient-mesh {
@@ -76,6 +78,7 @@ body.dark-mode .gradient-mesh {
         linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
     background-size: 50px 50px;
     animation: gridMove 20s linear infinite;
+    will-change: transform;
 }
 
 @keyframes gridMove {
@@ -204,6 +207,7 @@ body.dark-mode .gradient-mesh {
     animation: bounce 2s infinite;
     z-index: 2;
     pointer-events: none;
+    will-change: transform, opacity;
 }
 
 @keyframes bounce {

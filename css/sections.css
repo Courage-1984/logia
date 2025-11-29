@@ -890,6 +890,7 @@ body.dark-mode .instagram-caption {
     pointer-events: none;
     /* Don't block events - we listen on container instead */
     z-index: 1;
+    will-change: transform, opacity;
 }
 
 .cta-background .gradient-mesh {

@@ -45,14 +45,15 @@ async function setupLocalFonts() {
     console.log('⚠️  Font Awesome webfonts not found.');
   }
   
-  // Create Inter fonts CSS template
+  // Create Inter fonts CSS template (Latin subset only)
   const interCssPath = join(projectRoot, 'css', 'inter-fonts.css');
-  const interCss = `/* Inter Font - Self-hosted */
+  const interCss = `/* Inter Font - Self-hosted (Latin subset only) */
 /* 
  * Download Inter fonts from: https://gwfh.mranftl.com/fonts/inter
  * Select weights: 400 (Regular), 600 (SemiBold), 700 (Bold)
+ * IMPORTANT: Select "Latin" subset only (not Latin Extended)
  * Download woff2 format and place in assets/fonts/inter/
- * Rename files to match the paths below
+ * Rename files to match the paths below (with -latin suffix)
  */
 
 @font-face {
@@ -60,7 +61,7 @@ async function setupLocalFonts() {
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url('../assets/fonts/inter/inter-regular.woff2') format('woff2');
+  src: url('../assets/fonts/inter/inter-regular-latin.woff2') format('woff2');
 }
 
 @font-face {
@@ -68,7 +69,7 @@ async function setupLocalFonts() {
   font-style: normal;
   font-weight: 600;
   font-display: swap;
-  src: url('../assets/fonts/inter/inter-semibold.woff2') format('woff2');
+  src: url('../assets/fonts/inter/inter-semibold-latin.woff2') format('woff2');
 }
 
 @font-face {
@@ -76,19 +77,21 @@ async function setupLocalFonts() {
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url('../assets/fonts/inter/inter-bold.woff2') format('woff2');
+  src: url('../assets/fonts/inter/inter-bold-latin.woff2') format('woff2');
 }
 `;
   
   writeFileSync(interCssPath, interCss);
-  console.log('✓ Created css/inter-fonts.css template');
+  console.log('✓ Created css/inter-fonts.css template (Latin subset)');
   
   console.log('\n📋 Next steps for Inter fonts:');
   console.log('  1. Visit: https://gwfh.mranftl.com/fonts/inter');
   console.log('  2. Select: Regular (400), SemiBold (600), Bold (700)');
-  console.log('  3. Choose: woff2 format');
-  console.log('  4. Download and extract to: assets/fonts/inter/');
-  console.log('  5. Rename files to: inter-regular.woff2, inter-semibold.woff2, inter-bold.woff2');
+  console.log('  3. IMPORTANT: Select "Latin" subset only (not Latin Extended)');
+  console.log('  4. Choose: woff2 format');
+  console.log('  5. Download and extract to: assets/fonts/inter/');
+  console.log('  6. Rename files to: inter-regular-latin.woff2, inter-semibold-latin.woff2, inter-bold-latin.woff2');
+  console.log('\n💡 Note: Full font files (without -latin suffix) will be excluded from builds');
   console.log('\n✨ Font setup complete!');
 }
 

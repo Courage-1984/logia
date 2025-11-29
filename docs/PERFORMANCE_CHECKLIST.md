@@ -44,21 +44,20 @@ Quick reference checklist for performance optimizations.
 - [x] **Blur-up placeholders** - ✅ Generated during build, stored in placeholders.json
 
 ### 🎨 Animation Optimization
-- [ ] **Add will-change hints** - Add for animated elements
-- [ ] **Respect reduced motion** - Add prefers-reduced-motion support
-- [ ] **Disable 3D tilt on mobile** - Reduce mobile animation complexity
+- [x] **Add will-change hints** - Add for animated elements
+- [x] **Disable 3D tilt on mobile** - Reduce mobile animation complexity
 
 ### 💾 Caching
 - [ ] **Configure cache headers** - Set proper cache headers on server
-- [ ] **Implement service worker** - Add offline support and caching
-- [ ] **Cache static assets** - Long-term caching for images, fonts, CSS, JS
-- [ ] **Cache HTML** - Short-term caching with revalidation
+- [x] **Implement service worker** - Add offline support and caching
+- [x] **Cache static assets** - Long-term caching for images, fonts, CSS, JS (via service worker)
+- [x] **Cache HTML** - Short-term caching with revalidation (via service worker)
 
 ### 📱 Mobile Optimization
-- [ ] **Optimize mobile bundle** - Reduce assets for mobile
-- [ ] **Touch optimization** - Ensure touch targets are adequate
-- [ ] **Mobile-first loading** - Load mobile assets first
-- [ ] **Reduce mobile animations** - Simplify on mobile devices
+- [x] **Optimize mobile bundle** - Reduce work for mobile (gate heavy effects and prefetch on constrained devices)
+- [x] **Touch optimization** - Ensure touch targets are adequate
+- [x] **Mobile-first loading** - Load mobile assets first
+- [x] **Reduce mobile animations** - Simplify on mobile devices and respect reduced motion
 
 ### 🔍 Monitoring
 - [x] **Add performance monitoring** - ✅ Core Web Vitals tracking (LCP, FID, INP, CLS, FCP, TTFB)

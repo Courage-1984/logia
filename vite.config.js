@@ -8,6 +8,7 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import { getBuildConfig } from './config/build-config.js';
 import { urlTransformPlugin } from './config/url-transform-plugin.js';
 import { staticFilesTransformPlugin } from './config/static-files-transform-plugin.js';
+import { purgeFontAwesomePlugin } from './config/purge-fontawesome-plugin.js';
 
 /**
  * Recursive copy function for directories
@@ -58,6 +59,7 @@ function copyComponents(outDir) {
 
 /**
  * Vite plugin to copy fonts folder to dist
+ * Only copies Latin subset fonts for Inter, all Font Awesome fonts
  * @param {string} outDir - Output directory
  */
 function copyFonts(outDir) {
@@ -74,8 +76,54 @@ function copyFonts(outDir) {
         mkdirSync(destDir, { recursive: true });
       }
       
-      copyRecursive(srcDir, destDir);
-      console.log(`✓ Copied fonts to ${outDir}`);
+      // Files to exclude (full Inter fonts - we only use Latin subsets)
+      const excludeFiles = [
+        'inter-regular.woff2',
+        'inter-semibold.woff2',
+        'inter-bold.woff2',
+      ];
+      
+      // Copy fonts selectively
+      const entries = readdirSync(srcDir, { withFileTypes: true });
+      let copiedCount = 0;
+      
+      for (const entry of entries) {
+        const srcPath = join(srcDir, entry.name);
+        const destPath = join(destDir, entry.name);
+        
+        if (entry.isDirectory()) {
+          // For directories (fontawesome, inter), copy selectively
+          if (!existsSync(destPath)) {
+            mkdirSync(destPath, { recursive: true });
+          }
+          
+          const subEntries = readdirSync(srcPath, { withFileTypes: true });
+          for (const subEntry of subEntries) {
+            const subSrcPath = join(srcPath, subEntry.name);
+            const subDestPath = join(destPath, subEntry.name);
+            
+            // Skip excluded files (full Inter fonts)
+            if (excludeFiles.includes(subEntry.name)) {
+              continue;
+            }
+            
+            // Copy file
+            copyFileSync(subSrcPath, subDestPath);
+            copiedCount++;
+          }
+        } else {
+          // Top-level file - skip if excluded
+          if (excludeFiles.includes(entry.name)) {
+            continue;
+          }
+          copyFileSync(srcPath, destPath);
+          copiedCount++;
+        }
+      }
+      
+      if (copiedCount > 0) {
+        console.log(`✓ Copied ${copiedCount} font file(s) (Latin subsets only) to ${outDir}`);
+      }
     },
   };
 }
@@ -199,6 +247,8 @@ function copyStaticAssets(outDir) {
         { src: '404.html', dest: `${outDir}/404.html` },
         { src: 'privacy-policy.html', dest: `${outDir}/privacy-policy.html` },
         { src: 'terms-of-service.html', dest: `${outDir}/terms-of-service.html` },
+        // Copy theme-init.js as static file (not bundled - runs synchronously before CSS)
+        { src: 'js/utils/theme-init.js', dest: `${outDir}/js/utils/theme-init.js` },
       ];
       
       let copiedCount = 0;
@@ -354,6 +404,30 @@ export default defineConfig(({ mode = 'production' }) => {
     },
     
     plugins: [
+      // NOTE: Font Awesome purge is disabled for now to ensure all icons render correctly.
+      // If you re-enable this, verify all required icons still appear across all pages.
+      // purgeFontAwesomePlugin(),
+      // Exclude theme-init.js from bundling (it's copied as static file, runs synchronously before CSS)
+      {
+        name: 'exclude-theme-init',
+        enforce: 'pre',
+        transformIndexHtml(html, ctx) {
+          // Use absolute path with base to prevent Vite from processing it
+          const base = ctx.server?.config?.base || ctx.bundle?.base || '/';
+          const basePath = base === '/' ? '' : base;
+          return html.replace(
+            /<script src="js\/utils\/theme-init\.js"><\/script>/g,
+            `<script src="${basePath}js/utils/theme-init.js"></script>`
+          );
+        },
+        resolveId(id) {
+          // Mark theme-init.js as external to prevent bundling
+          if (id && (id.includes('theme-init.js') || id.endsWith('theme-init.js'))) {
+            return { id, external: true };
+          }
+          return null;
+        },
+      },
       copyComponents(outDir),
       copyFonts(outDir),
       copyFontCSS(outDir),

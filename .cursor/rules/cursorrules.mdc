@@ -374,6 +374,11 @@ The project supports two build targets:
 - Use event delegation instead of individual listeners
 - Remove unused code (tree-shaking enabled)
 
+### Animations & Motion
+- Respect `prefers-reduced-motion` globally in CSS (see `css/base.css`).
+- Disable heavier effects (3D tilt, particles) when `prefers-reduced-motion` is set or on coarse pointers (touch/mobile).
+- Use `will-change` only on elements with continuous animations (hero background, grid, scroll indicator, CTA particles).
+
 ### Image Optimization
 - **Source Format**: Use JPG or PNG in `assets/images/` (NOT WebP - generated during build)
 - Use responsive images with srcset (6 sizes: 320w-1920w)
@@ -653,7 +658,7 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 - **Particles Background**: Animated particle network in CTA sections (`js/particles-net.js`)
   - Compatible with particles.js configuration format
   - Mouse interaction (hover repulse, click to push)
-  - Lazy-loaded for performance
+  - Lazy-loaded for performance and disabled on touch/mobile devices and for users who prefer reduced motion
   - Configured via `js/particlesjs-config.json`
 - **Testimonials Carousel**: Centered active card, infinite loop, drag & shift+scroll navigation
 - **Instagram Feed**: Carousel with local image fallback (uses `assets/images/instagram/` if API unavailable)
@@ -662,6 +667,10 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 - **Address Links**: All addresses link to Google Maps (`https://maps.app.goo.gl/LxbQUQxCa3b6b7Jm6`)
 - **Services Dropdown**: Links to services page + individual service sections
 - **Theme Toggle**: Works on all pages with FOUC prevention
+- **Service Worker & Caching**: Runtime caching via `public/service-worker.js`
+  - Cache-first for static assets (JS, CSS, images, fonts)
+  - Network-first with cache fallback for HTML/navigations
+  - Registered in `js/main.js` (works for both production and GitHub Pages builds)
 
 ### Documentation
 **Core Documentation:**
@@ -678,7 +687,7 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 
 **Optimization & Best Practices:**
 - **Performance**: `docs/PERFORMANCE_OPTIMIZATION.md` (optimization strategies, browser compatibility)
-- **Performance Checklist**: `docs/PERFORMANCE_CHECKLIST.md` (quick reference)
+- **Performance Checklist**: `docs/PERFORMANCE_CHECKLIST.md` (primary quick reference)
 - **Image Guide**: `docs/IMAGE_GUIDE.md` (image implementation, source format guidelines)
 - **Fonts**: `docs/FONTS.md` (font self-hosting, Font Awesome optimization)
 - **Network**: `docs/NETWORK_OPTIMIZATION.md` (server-side optimization)

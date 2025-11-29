@@ -18,9 +18,9 @@ Quick reference guide to all project documentation.
 
 ## Performance & Optimization
 
-- **[PERFORMANCE_OPTIMIZATION.md](./PERFORMANCE_OPTIMIZATION.md)** - Detailed performance strategies and rationale (long-form guide)
-- **[PERFORMANCE_CHECKLIST.md](./PERFORMANCE_CHECKLIST.md)** - Quick “what’s done / what’s left” performance checklist
-- **[NETWORK_OPTIMIZATION.md](./NETWORK_OPTIMIZATION.md)** - Server-side and infrastructure optimization (HTTP/2, CDN, cache headers)
+- **[PERFORMANCE_CHECKLIST.md](./PERFORMANCE_CHECKLIST.md)** - Primary quick-reference checklist (what's done / what's left)
+- **[PERFORMANCE_OPTIMIZATION.md](./PERFORMANCE_OPTIMIZATION.md)** - Implementation summary and rationale
+- **[NETWORK_OPTIMIZATION.md](./NETWORK_OPTIMIZATION.md)** - Server-side playbook (HTTP/2, CDN, compression, cache headers)
 
 ## SEO & Standards
 
@@ -68,9 +68,10 @@ Quick reference guide to all project documentation.
 - `.github/workflows/static.yml` - GitHub Pages deployment
 
 ### Recent Updates (January 2025)
+- **Performance**: Service worker (runtime caching), mobile-aware animations, will-change hints
 - **Monitoring & Error Tracking**: Sentry integration, Core Web Vitals tracking, Lighthouse CI, bundle size monitoring
 - **Accessibility**: Skip navigation links on all pages
-- Particles background system (particles.js-compatible implementation in CTA sections)
+- Particles background system (particles.js-compatible, disabled on mobile/reduced motion)
 - Font Awesome cross-browser fixes (Firefox compatibility)
 - Theme system optimization (FOUC prevention, system preference detection)
 - Path utilities for GitHub Pages compatibility
