@@ -1,0 +1,69 @@
+# Lighthouse CI Workflow
+# Runs automated performance testing on pull requests and pushes to main
+name: Lighthouse CI
+
+on:
+  pull_request:
+    branches: ["main"]
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Fetch Google Reviews
+        env:
+          GOOGLE_PLACES_API_KEY: ${{ secrets.GOOGLE_PLACES_API_KEY }}
+          GOOGLE_PLACE_ID: ${{ secrets.GOOGLE_PLACE_ID }}
+        run: |
+          node scripts/fetch-google-reviews.js
+          node scripts/sync-reviews-to-public.js
+        continue-on-error: true
+
+      - name: Fetch Instagram Posts
+        env:
+          INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+        run: |
+          node scripts/fetch-instagram-posts.js
+          node scripts/sync-instagram-to-public.js
+        continue-on-error: true
+
+      - name: Build with Vite
+        run: npm run build
+
+      - name: Run Lighthouse CI
+        run: npm run lighthouse:ci
+
+      - name: Upload Lighthouse results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-results
+          path: .lighthouseci/
+          retention-days: 7
+
+      - name: Check bundle sizes
+        run: npm run check-bundles
+
+      - name: Upload bundle size history
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bundle-size-history
+          path: .bundle-history/
+          retention-days: 30
+

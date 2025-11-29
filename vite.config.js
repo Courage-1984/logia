@@ -138,6 +138,40 @@ function copyDataDirectory(outDir) {
 }
 
 /**
+ * Vite plugin to copy JS assets (JSON config files that are fetched at runtime)
+ * @param {string} outDir - Output directory
+ */
+function copyJSAssets(outDir) {
+  return {
+    name: 'copy-js-assets',
+    writeBundle() {
+      const jsFiles = [
+        { src: 'js/particlesjs-config.json', dest: `${outDir}/js/particlesjs-config.json` },
+      ];
+      
+      let copiedCount = 0;
+      jsFiles.forEach(({ src, dest }) => {
+        const srcPath = resolve(__dirname, src);
+        const destPath = resolve(__dirname, dest);
+        
+        if (existsSync(srcPath)) {
+          const destDir = resolve(destPath, '..');
+          if (!existsSync(destDir)) {
+            mkdirSync(destDir, { recursive: true });
+          }
+          copyFileSync(srcPath, destPath);
+          copiedCount++;
+        }
+      });
+      
+      if (copiedCount > 0) {
+        console.log(`✓ Copied ${copiedCount} JS asset file(s) to ${outDir}`);
+      }
+    },
+  };
+}
+
+/**
  * Vite plugin to copy any other static assets
  * @param {string} outDir - Output directory
  */
@@ -324,6 +358,7 @@ export default defineConfig(({ mode = 'production' }) => {
       copyFonts(outDir),
       copyFontCSS(outDir),
       copyDataDirectory(outDir),
+      copyJSAssets(outDir),
       copyStaticAssets(outDir),
       imageOptimization(mode),
       // URL transform plugin - transforms URLs based on build target

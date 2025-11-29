@@ -1,13 +1,15 @@
 # Monitoring & Error Tracking Setup Guide
 
-This guide explains how to set up error tracking (Sentry) and performance monitoring (Core Web Vitals) for the Logia Genesis website.
+This guide explains how to set up error tracking (Sentry), performance monitoring (Core Web Vitals), Lighthouse CI, and bundle size monitoring for the Logia Genesis website.
 
 ## Overview
 
 The monitoring system includes:
 1. **Error Tracking** - Sentry integration for JavaScript error monitoring
 2. **Performance Monitoring** - Core Web Vitals tracking (LCP, FID, INP, CLS, FCP, TTFB)
-3. **Skip Links** - Accessibility navigation links (already implemented)
+3. **Lighthouse CI** - Automated performance testing with budgets
+4. **Bundle Size Monitoring** - Track bundle sizes over time
+5. **Skip Links** - Accessibility navigation links (already implemented)
 
 ## Error Tracking (Sentry)
 
@@ -193,6 +195,144 @@ throw new Error('Test error for Sentry');
    - Test with keyboard navigation
    - Ensure all pages have proper main content structure
    - Keep skip link text descriptive
+
+## Lighthouse CI (Automated Performance Testing)
+
+### Setup
+
+Lighthouse CI is already configured and runs automatically on pull requests and pushes to main.
+
+### Configuration
+
+The configuration is in `lighthouserc.cjs` and includes:
+
+- **Performance Budgets**: Automatic failure if thresholds are not met
+- **Core Web Vitals**: LCP, FCP, CLS, TBT, Speed Index
+- **Resource Size Limits**: JS, CSS, Images, Fonts, HTML
+- **Score Thresholds**: Performance (85%), Accessibility (95%), Best Practices (90%), SEO (90%)
+
+### Running Locally
+
+```bash
+# Run Lighthouse CI (full test with 3 runs per URL)
+npm run lighthouse
+
+# Run Lighthouse CI (quick test with 1 run per URL)
+npm run lighthouse:ci
+```
+
+### Performance Budgets
+
+The following budgets are enforced:
+
+**Performance Scores:**
+- Performance: ≥ 85%
+- Accessibility: ≥ 95%
+- Best Practices: ≥ 90%
+- SEO: ≥ 90%
+
+**Core Web Vitals:**
+- LCP (Largest Contentful Paint): < 2.5s
+- FCP (First Contentful Paint): < 1.8s
+- CLS (Cumulative Layout Shift): < 0.1
+- TBT (Total Blocking Time): < 300ms
+- Speed Index: < 3.4s
+
+**Resource Sizes:**
+- JavaScript: < 500KB total, < 200KB per file
+- CSS: < 200KB total, < 100KB per file
+- Images: < 2MB total, < 500KB per image
+- Fonts: < 300KB total, < 150KB per font
+- HTML: < 50KB per file
+- Total Page Size: < 3MB
+- Network Requests: < 50 per page
+
+### GitHub Actions Integration
+
+Lighthouse CI runs automatically:
+- On pull requests to `main`
+- On pushes to `main`
+- Manually via workflow dispatch
+
+Results are uploaded as artifacts and can be viewed in the Actions tab.
+
+### Customizing Budgets
+
+Edit `lighthouserc.cjs` to adjust budgets:
+
+```javascript
+assertions: {
+  'categories:performance': ['error', { minScore: 0.90 }], // Increase to 90%
+  'largest-contentful-paint': ['error', { maxNumericValue: 2000 }], // Stricter LCP
+  // ... more budgets
+}
+```
+
+## Bundle Size Monitoring
+
+### Overview
+
+Bundle size monitoring tracks JavaScript, CSS, image, and font file sizes over time and compares against budgets.
+
+### Running Bundle Analysis
+
+```bash
+# Analyze production build (dist/)
+npm run check-bundles
+
+# Analyze GitHub Pages build (dist-gh-pages/)
+npm run check-bundles:gh-pages
+```
+
+### Features
+
+- **Size Tracking**: Tracks total and individual file sizes
+- **Budget Enforcement**: Fails if budgets are exceeded
+- **History Tracking**: Maintains history of bundle sizes over time
+- **Change Detection**: Shows size changes from previous build
+- **Largest Files**: Lists top 10 largest files
+
+### Budgets
+
+Default budgets (configurable in `scripts/check-bundle-sizes.js`):
+
+- **JavaScript**: 500KB total, 200KB per file
+- **CSS**: 200KB total, 100KB per file
+- **Images**: 2MB total, 500KB per image
+- **Fonts**: 300KB total, 150KB per font
+
+### History
+
+Bundle size history is stored in `.bundle-history/bundle-sizes.json` and tracks:
+- Timestamp of each build
+- Total sizes by type
+- Individual file sizes
+- Budget violations
+
+### Customizing Budgets
+
+Edit `scripts/check-bundle-sizes.js`:
+
+```javascript
+const BUDGETS = {
+  js: {
+    total: 600 * 1024, // Increase to 600KB
+    individual: 250 * 1024, // Increase to 250KB
+  },
+  // ... more budgets
+};
+```
+
+### Integration with CI/CD
+
+Add to your build process:
+
+```bash
+npm run build
+npm run check-bundles
+```
+
+The script exits with code 1 if budgets are violated, causing CI to fail.
 
 ## Related Documentation
 

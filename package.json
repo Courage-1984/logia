@@ -16,7 +16,11 @@
     "preview": "vite preview",
     "preview:gh-pages": "vite preview --outDir dist-gh-pages",
     "serve": "vite preview",
-    "setup-fonts": "node scripts/setup-local-fonts.js"
+    "setup-fonts": "node scripts/setup-local-fonts.js",
+    "lighthouse": "lhci autorun",
+    "lighthouse:ci": "lhci autorun --collect.numberOfRuns=1",
+    "check-bundles": "node scripts/check-bundle-sizes.js",
+    "check-bundles:gh-pages": "node scripts/check-bundle-sizes.js dist-gh-pages"
   },
   "keywords": [
     "business-technology",
@@ -28,6 +32,7 @@
   "license": "UNLICENSED",
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^7.1.0",
+    "@lhci/cli": "^0.12.0",
     "dotenv-cli": "^11.0.0",
     "rollup-plugin-visualizer": "^6.0.5",
     "sharp": "^0.34.5",

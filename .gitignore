@@ -20,6 +20,12 @@ build/
 # Public directory (contains synced data for dev server)
 public/data/
 
+# Lighthouse CI
+.lighthouseci/
+
+# Bundle size history (optional - uncomment if you don't want to track history)
+# .bundle-history/
+
 # IDE
 .vscode/
 .idea/
