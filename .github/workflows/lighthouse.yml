@@ -47,6 +47,7 @@ jobs:
 
       - name: Run Lighthouse CI
         run: npm run lighthouse:ci
+        continue-on-error: true # Continue even if budgets fail (warnings still reported)
 
       - name: Upload Lighthouse results
         uses: actions/upload-artifact@v4

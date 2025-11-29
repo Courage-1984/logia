@@ -72,9 +72,15 @@ export function imageOptimization(mode = 'production') {
             }
             await processDirectory(srcPath, destPath);
           } else if (/\.(jpg|jpeg|png)$/i.test(entry.name)) {
-            // Process image file
+            // Process image file (JPG/PNG only - WebP/AVIF are generated during build)
+            // Skip if WebP version already exists (user should remove WebP from source)
             const imageName = entry.name.replace(/\.(jpg|jpeg|png)$/i, '');
             const ext = entry.name.match(/\.(jpg|jpeg|png)$/i)?.[1] || 'jpg';
+            
+            // Skip if this is a generated file (has size suffix like -320w)
+            if (/-(\d+)w\.(jpg|jpeg|png)$/i.test(entry.name)) {
+              continue;
+            }
             
             try {
               const image = sharp(srcPath);

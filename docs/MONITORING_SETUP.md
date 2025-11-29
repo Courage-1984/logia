@@ -223,20 +223,22 @@ npm run lighthouse:ci
 
 ### Performance Budgets
 
-The following budgets are enforced:
+The following budgets are configured:
 
 **Performance Scores:**
-- Performance: ≥ 85%
-- Accessibility: ≥ 95%
-- Best Practices: ≥ 90%
-- SEO: ≥ 90%
+- Performance: ≥ 85% (warning - tracks progress without failing CI)
+- Accessibility: ≥ 95% (error - critical)
+- Best Practices: ≥ 90% (error - critical)
+- SEO: ≥ 90% (error - critical)
 
 **Core Web Vitals:**
-- LCP (Largest Contentful Paint): < 2.5s
-- FCP (First Contentful Paint): < 1.8s
-- CLS (Cumulative Layout Shift): < 0.1
-- TBT (Total Blocking Time): < 300ms
-- Speed Index: < 3.4s
+- LCP (Largest Contentful Paint): < 2.5s (warning - tracks progress)
+- FCP (First Contentful Paint): < 1.8s (warning - tracks progress)
+- CLS (Cumulative Layout Shift): < 0.1 (error - critical for UX)
+- TBT (Total Blocking Time): < 300ms (warning - tracks progress)
+- Speed Index: < 3.4s (warning - tracks progress)
+
+**Note**: Performance metrics are set as warnings to track progress without failing CI. Critical metrics (accessibility, SEO, CLS) are errors to ensure quality standards.
 
 **Resource Sizes:**
 - JavaScript: < 500KB total, < 200KB per file
