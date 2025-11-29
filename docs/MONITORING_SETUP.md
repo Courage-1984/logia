@@ -188,10 +188,14 @@ Already configured and runs automatically on pull requests and pushes to main.
 
 **Configuration**: `lighthouserc.cjs`
 
-**Performance Budgets**:
+**Performance Budgets** (defined in `lighthouserc.cjs`):
 - **Scores**: Performance ≥85% (warning), Accessibility ≥95% (error), Best Practices ≥90% (error), SEO ≥90% (error)
-- **Core Web Vitals**: LCP <2.5s, FCP <1.8s, CLS <0.1 (error), TBT <300ms, Speed Index <3.4s
-- **Resource Sizes**: JS <500KB, CSS <200KB, Images <2MB, Fonts <300KB
+- **Core Web Vitals**: LCP <2.5s, FCP <1.8s, CLS <0.1 (error), TBT <300ms, Speed Index <3.4s (warnings for most metrics)
+- **Resource Sizes**:
+  - JS total size <500KB (error)
+  - CSS total size <250KB (warning)
+  - Images total size <10MB (warning, accounts for responsive variants)
+  - Fonts total size <650KB (warning, accounts for Inter + Font Awesome)
 
 **Note**: Performance metrics are warnings (track progress), critical metrics (accessibility, SEO, CLS) are errors.
 
@@ -212,9 +216,9 @@ Tracks JavaScript, CSS, image, and font file sizes over time and compares agains
 
 **Default Budgets** (configurable in `scripts/check-bundle-sizes.js`):
 - JavaScript: 500KB total, 200KB per file
-- CSS: 200KB total, 100KB per file
-- Images: 2MB total, 500KB per image
-- Fonts: 300KB total, 150KB per font
+- CSS: 250KB total, 120KB per file
+- Images: 10MB total, 500KB per image
+- Fonts: 650KB total, 200KB per font
 
 **CI/CD**: Runs automatically in GitHub Actions workflow (`.github/workflows/lighthouse.yml`)
 

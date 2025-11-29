@@ -69,23 +69,24 @@ npm run setup-fonts
 ## Font Awesome Optimization
 
 ### Current Status
-- **File size**: `css/fontawesome-local.css` is ~95KB (8,844 lines)
-- **Icons used**: ~67 unique icons
-- **Optimization**: Full icon set included for flexibility
+- **CSS size**: `css/fontawesome-local.css` is ~95KB (8,844 lines)
+- **Icons used**: ~60–70 unique icons across the site
+- **Current approach**: Full free icon set self-hosted for maximum flexibility
 
 ### Optimization Options
 
-**Option 1: PurgeCSS (Recommended for production)**
-- Automatically removes unused CSS during build
-- Requires PostCSS configuration
-- No manual maintenance needed
+**Option 1: Custom Subset Font (Recommended once icon set is stable)**
+- Use IcoMoon / Fontello / Font Awesome tooling to generate a tiny font containing **only** the icons used in the HTML (`<i class="fas fa-...">`).
+- Replace `css/fontawesome-local.css` + 4 font files with:
+  - `assets/fonts/icons/logia-icons.woff2`
+  - A small `css/icons.css` that maps existing `.fas.fa-...` classes to the new font’s glyphs.
+- Keeps existing markup but dramatically reduces font + CSS footprint.
 
-**Option 2: Manual Subsetting**
-- Full control over included icons
-- Time-consuming to maintain
-- Must update when adding new icons
+**Option 2: Inline SVG Icons (For very small icon sets)**
+- Remove Font Awesome entirely and replace icons with inline `<svg>` or an SVG sprite.
+- Best if you only use a handful of icons and want maximum control.
 
-**Note**: Current approach includes full icon set for development flexibility. Consider PurgeCSS for production builds if file size becomes a concern.
+**Interim Status**: The full Font Awesome set remains in place today for compatibility. When you’re ready, migrate to Option 1 (custom subset) to reclaim font + CSS bytes without changing page markup.
 
 ## Benefits
 

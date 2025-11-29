@@ -18,9 +18,9 @@ Quick reference guide to all project documentation.
 
 ## Performance & Optimization
 
-- **[PERFORMANCE_OPTIMIZATION.md](./PERFORMANCE_OPTIMIZATION.md)** - Performance strategies, optimizations, and browser compatibility
-- **[PERFORMANCE_CHECKLIST.md](./PERFORMANCE_CHECKLIST.md)** - Quick performance reference checklist
-- **[NETWORK_OPTIMIZATION.md](./NETWORK_OPTIMIZATION.md)** - Server-side and infrastructure optimization
+- **[PERFORMANCE_OPTIMIZATION.md](./PERFORMANCE_OPTIMIZATION.md)** - Detailed performance strategies and rationale (long-form guide)
+- **[PERFORMANCE_CHECKLIST.md](./PERFORMANCE_CHECKLIST.md)** - Quick “what’s done / what’s left” performance checklist
+- **[NETWORK_OPTIMIZATION.md](./NETWORK_OPTIMIZATION.md)** - Server-side and infrastructure optimization (HTTP/2, CDN, cache headers)
 
 ## SEO & Standards
 

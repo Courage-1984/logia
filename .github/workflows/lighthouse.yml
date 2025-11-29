@@ -51,58 +51,18 @@ jobs:
       - name: Build with Vite
         run: npm run build
 
-      - name: Create directories for artifacts
-        run: |
-          mkdir -p .lighthouseci
-          mkdir -p .bundle-history
-
       - name: Run Lighthouse CI
         env:
           # Always set GITHUB_TOKEN, but only use it for PRs (configured in lighthouserc.cjs)
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # Only set LHCI token for PRs to enable status checks
           LHCI_GITHUB_APP_TOKEN: ${{ github.event_name == 'pull_request' && secrets.GITHUB_TOKEN || '' }}
+          # Disable built-in GH Actions plugin so we don't see "GitHub token not set" noise
+          LHCI_NO_GITHUB_ACTIONS_PLUGIN: '1'
         run: npm run lighthouse:ci
         continue-on-error: true # Continue even if budgets fail (warnings still reported)
-        
-      - name: Ensure Lighthouse artifact exists
-        if: always()
-        run: |
-          mkdir -p .lighthouseci
-          if [ ! "$(ls -A .lighthouseci 2>/dev/null)" ]; then
-            echo "No Lighthouse results were generated. See workflow logs for details." > .lighthouseci/README.txt
-          fi
-
-      - name: Upload Lighthouse results
-        if: always()
-        uses: actions/upload-artifact@v4
-        continue-on-error: true
-        with:
-          name: lighthouse-results
-          path: .lighthouseci/
-          retention-days: 7
-          if-no-files-found: ignore
 
       - name: Check bundle sizes
         run: npm run check-bundles
         continue-on-error: true
-        
-      - name: Ensure bundle history artifact exists
-        if: always()
-        run: |
-          mkdir -p .bundle-history
-          if [ ! "$(ls -A .bundle-history 2>/dev/null)" ]; then
-            echo "[]" > .bundle-history/bundle-sizes.json
-            echo "No bundle data generated. See workflow logs for details." > .bundle-history/README.txt
-          fi
-
-      - name: Upload bundle size history
-        if: always()
-        uses: actions/upload-artifact@v4
-        continue-on-error: true
-        with:
-          name: bundle-size-history
-          path: .bundle-history/
-          retention-days: 30
-          if-no-files-found: ignore
 

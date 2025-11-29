@@ -1,6 +1,7 @@
 # Image Guide - Logia Genesis
 
-Complete guide for image implementation, optimization, and best practices.
+Complete guide for image implementation, optimization, and best practices.  
+If you just need a **status + TODO list**, use the image section in `PERFORMANCE_CHECKLIST.md`.
 
 ## Quick Reference
 

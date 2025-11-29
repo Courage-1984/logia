@@ -21,7 +21,7 @@ build/
 public/data/
 
 # Lighthouse CI
-.lighthouseci/
+# .lighthouseci/
 
 # Bundle size history (optional - uncomment if you don't want to track history)
 # .bundle-history/

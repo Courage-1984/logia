@@ -186,32 +186,20 @@ element.dataset.initialized = 'true';
 <script type="module" src="js/main.js"></script>
 ```
 
-### FOUC Prevention (Required on All Pages)
-All HTML pages must include theme initialization script in `<head>` immediately after viewport meta:
+### FOUC Prevention & CSP (Required on All Pages)
+All HTML pages must include the theme initialization **script tag** in `<head>` immediately after the viewport meta and before any CSS, along with a Content Security Policy meta tag:
+
 ```html
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<!-- Content Security Policy -->
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' 'unsafe-inline' https://*.sentry.io; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://formspree.io https://*.sentry.io https://api.instagram.com; frame-src 'self' https://www.google.com; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests;">
+
 <!-- Theme initialization script - prevents FOUC (Flash of Unstyled Content) -->
 <!-- MUST be before any CSS or other content -->
-<script>
-    (function() {
-        try {
-            const storageKey = 'theme';
-            const defaultMode = 'light';
-            const stored = localStorage.getItem(storageKey);
-            const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const theme = stored === 'dark' || stored === 'light' ? stored : (systemPrefersDark ? 'dark' : defaultMode);
-            
-            if (theme === 'dark') {
-                document.documentElement.classList.add('dark-mode');
-                document.body.classList.add('dark-mode');
-            }
-        } catch (e) {
-            // Silently fail if localStorage or matchMedia not available
-        }
-    })();
-</script>
+<script src="js/utils/theme-init.js"></script>
 ```
 
 ### Meta Tags
@@ -430,7 +418,7 @@ See `docs/PERFORMANCE_OPTIMIZATION.md` and `docs/IMAGE_GUIDE.md` for detailed op
 ### Implementation
 - **Theme Manager**: Centralized theme management via `utils/theme.js` and `js/utils/theme.js`
 - **System Preference**: Automatically detects `prefers-color-scheme` if no user preference set
-- **FOUC Prevention**: Inline script in `<head>` applies theme before CSS loads
+- **FOUC Prevention**: Early `js/utils/theme-init.js` script in `<head>` applies theme before CSS loads
 - **Persistence**: Theme preference saved to localStorage
 - **Smooth Transitions**: 300ms transitions via `--transition-theme` CSS variable
 - **Event System**: Dispatches `themechange` event for component synchronization

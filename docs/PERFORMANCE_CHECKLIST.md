@@ -5,10 +5,9 @@ Quick reference checklist for performance optimizations.
 ## ✅ Completed Optimizations
 
 ### Font Loading
-- [x] **Reduce font weights** - Load only 400, 600, 700 (60% size reduction)
-- [x] **Add DNS prefetch** - Prefetch for fonts.googleapis.com, fonts.gstatic.com, cdn.jsdelivr.net
-- [x] **Load Font Awesome async** - Preload with onload for async loading
-- [x] **Preload Google Fonts** - Async loading with preload
+- [x] **Self-host Inter** - Local `woff2` files for 400, 600, 700 only (60% size reduction)
+- [x] **Self-host Font Awesome** - Local icon fonts, no external CDN requests
+- [x] **Font loading strategy** - `font-display: swap`, no Google Fonts or external font CDNs
 
 ### Resource Optimization
 - [x] **Add preconnect** - Preconnect for external domains with crossorigin

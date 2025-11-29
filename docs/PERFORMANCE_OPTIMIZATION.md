@@ -2,20 +2,22 @@
 
 Comprehensive performance optimization strategies and implementation status.
 
+> **Summary**  
+> This document describes the _why_ and _how_ of performance optimizations.  
+> For a quick “what’s done / what’s left” list, see **`PERFORMANCE_CHECKLIST.md`**.
+
 ## Executive Summary
 
 **Current Status:** Highly optimized with modern performance best practices implemented.
 
-**Completed Optimizations:**
-- ✅ Font self-hosting (zero external requests)
+**Completed Optimizations (high level):**
+- ✅ Font self-hosting (zero external font requests)
 - ✅ Lazy loading for non-critical JavaScript (FAQ, filters, search)
-- ✅ Unified scroll handler (consolidated event listeners)
-- ✅ Event delegation throughout
-- ✅ Code splitting (vendor, utils, components)
-- ✅ Compression (gzip/brotli)
-- ✅ Bundle analyzer
-- ✅ Image optimization (WebP, AVIF, responsive sizes)
-- ✅ Resource hints and prefetching
+- ✅ Unified scroll handler and event delegation
+- ✅ Code splitting (vendor, utils, components, lazy modules)
+- ✅ Build-time compression (gzip/brotli) and bundle analyzer
+- ✅ Image optimization (WebP, AVIF, responsive sizes, placeholders)
+- ✅ Resource hints (preload, prefetch) and dual-build aware URL handling
 
 ---
 
