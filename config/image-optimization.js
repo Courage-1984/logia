@@ -2,6 +2,7 @@ import { resolve } from 'path';
 import { readdirSync, statSync, existsSync, mkdirSync, copyFileSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import sharp from 'sharp';
+import { getBuildConfig } from './build-config.js';
 
 /**
  * Generate blur-up placeholder (base64 encoded low-quality image)
@@ -24,14 +25,19 @@ async function generateBlurPlaceholder(image) {
 /**
  * Vite plugin for image optimization and responsive image generation
  * Generates multiple sizes, WebP, AVIF versions, and blur-up placeholders
+ * @param {string} mode - Build mode ('production' or 'gh-pages')
  */
-export function imageOptimization() {
+export function imageOptimization(mode = 'production') {
   return {
     name: 'image-optimization',
-    async writeBundle() {
+    async writeBundle(options) {
+      // Get the output directory from build config or options
+      const buildConfig = getBuildConfig(mode);
+      const outDir = options.dir || buildConfig.outDir || 'dist';
+      
       const imagesDir = resolve(process.cwd(), 'assets/images');
-      const distImagesDir = resolve(process.cwd(), 'dist/assets/images');
-      const placeholdersDir = resolve(process.cwd(), 'dist/assets/images/placeholders');
+      const distImagesDir = resolve(process.cwd(), outDir, 'assets/images');
+      const placeholdersDir = resolve(process.cwd(), outDir, 'assets/images/placeholders');
       
       if (!existsSync(imagesDir)) return;
       

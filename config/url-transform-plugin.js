@@ -142,6 +142,15 @@ function transformUrls(html, config, filePath) {
     // basePath already has trailing slash removed, so we add it back
     const basePathWithSlash = `${basePath}/`;
     
+    // Transform Windows tile paths
+    html = html.replace(
+      /(<meta\s+name=["']msapplication[^"']*["']\s+content=["'])(\/mstile-[^"']+)(["'])/gi,
+      (match, prefix, tilePath, suffix) => {
+        const transformedPath = `${basePathWithSlash}${tilePath.replace(/^\//, '')}`;
+        return `${prefix}${transformedPath}${suffix}`;
+      }
+    );
+    
     // Transform src attributes with relative asset paths
     // Match: src="assets/..." or src="/assets/..." (but not absolute URLs or paths that already have basePath)
     html = html.replace(

@@ -325,7 +325,7 @@ export default defineConfig(({ mode = 'production' }) => {
       copyFontCSS(outDir),
       copyDataDirectory(outDir),
       copyStaticAssets(outDir),
-      imageOptimization(),
+      imageOptimization(mode),
       // URL transform plugin - transforms URLs based on build target
       urlTransformPlugin(mode),
       // Static files transform plugin - transforms sitemap.xml and robots.txt
