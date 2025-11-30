@@ -5,11 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://*.sentry.io https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://formspree.io https://*.sentry.io https://api.instagram.com; frame-src 'self' https://www.google.com; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://*.sentry.io https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://formspree.io https://*.sentry.io https://api.instagram.com https://www.googletagmanager.com https://*.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com; frame-src 'self' https://www.google.com; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests;">
     
     <!-- Theme initialization script - prevents FOUC (Flash of Unstyled Content) -->
     <!-- MUST be before any CSS or other content -->
     <script src="js/utils/theme-init.js"></script>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GT-WP4RJ46S"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'GT-WP4RJ46S');
+    </script>
     
     <meta name="description" content="Logia Genesis: Your trusted technology partner in Gauteng since 2009. Expert team delivering cutting-edge IT solutions for businesses across South Africa. Learn our story.">
     <title>About Logia Genesis | Business Technology Solutions Gauteng, South Africa</title>
@@ -111,10 +121,13 @@
     <!-- Navigation - Loaded via components.js -->
     <div id="navbar-placeholder"></div>
     
+    <!-- Breadcrumb - Loaded via components.js -->
+    <div id="breadcrumb-placeholder"></div>
+    
     <!-- Main Content -->
     <main id="main-content">
     <!-- Page Header -->
-    <section class="page-header">
+    <section class="page-header" id="page-header">
         <div class="hero-background">
             <div class="gradient-mesh"></div>
             <div class="grid-overlay"></div>
@@ -127,85 +140,117 @@
         </div>
     </section>
     
-    <!-- Company Story -->
-    <section class="section">
+    <!-- Company Story & Mission Vision - Apple-Inspired Bento Grid -->
+    <section class="section bento-about-section" id="company-story">
+        <div class="bento-about-background">
+            <div class="bento-gradient-orb bento-orb-1"></div>
+            <div class="bento-gradient-orb bento-orb-2"></div>
+            <div class="bento-gradient-orb bento-orb-3"></div>
+        </div>
         <div class="container">
-            <div class="two-column-layout">
-                <div class="column" data-aos="fade-right">
+            <div class="bento-about-header" data-aos="fade-up">
                     <span class="section-label">Our Story</span>
                     <h2 class="section-title">Who We Are</h2>
-                    <p>Logia Genesis is a comprehensive business technology solutions provider dedicated to empowering organizations to thrive in the digital age. Founded in Gauteng, South Africa, we have grown from a small team of passionate technologists into a trusted partner for businesses across the region.</p>
-                    <p>Our name reflects our mission: "Logia" represents logic and reasoning, while "Genesis" symbolizes new beginnings and creation. Together, we embody thoughtful innovation—switching evolved for the modern business landscape.</p>
-                    <p>We specialize in transforming complex technology challenges into elegant, scalable solutions. From enterprise wireless networks to AI-enhanced surveillance systems, structured cabling to custom web development, we deliver excellence across every service domain.</p>
+                <p class="section-intro">
+                    Empowering businesses through innovative technology solutions since 2009
+                </p>
+            </div>
+            
+            <div class="bento-grid bento-grid-about">
+                <!-- Row 1: Large Featured Card (2x2) + Medium Card (Our Expertise) = 4 columns -->
+                <div class="bento-card bento-card--large bento-card--featured" data-aos="fade-up" data-aos-delay="100">
+                    <div class="bento-card__icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="bento-card__title">Our Foundation</h3>
+                    <p class="bento-card__description">
+                        Logia Genesis is a comprehensive business technology solutions provider dedicated to empowering organizations to thrive in the digital age. Founded in Gauteng, South Africa, we have grown from a small team of passionate technologists into a trusted partner for businesses across the region.
+                    </p>
+                    <p class="bento-card__description" style="margin-top: var(--space-4);">
+                        Our name reflects our mission: "Logia" represents logic and reasoning, while "Genesis" symbolizes new beginnings and creation. Together, we embody thoughtful innovation—switching evolved for the modern business landscape.
+                    </p>
                 </div>
-                <div class="column" data-aos="fade-left">
-                    <div class="stats-card">
-                        <div class="stat-item-large">
-                            <div class="stat-icon">
+                
+                <div class="bento-card bento-card--medium bento-card--primary" data-aos="fade-up" data-aos-delay="150">
+                    <div class="bento-card__icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="bento-card__title">Our Expertise</h3>
+                    <p class="bento-card__description">
+                        We specialize in transforming complex technology challenges into elegant, scalable solutions. From enterprise wireless networks to AI-enhanced surveillance systems, structured cabling to custom web development, we deliver excellence across every service domain.
+                    </p>
+                </div>
+                
+                <!-- Row 2: (Large continues) + Small Stat + Small Stat = 4 columns -->
+                <div class="bento-card bento-card--small bento-card--accent bento-stat-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="bento-stat-icon">
                                 <i class="fas fa-calendar-alt"></i>
                             </div>
-                            <div class="stat-content">
-                                <div class="stat-number" data-count="15">0</div>
-                                <div class="stat-label">Years of Excellence</div>
+                    <div class="bento-stat-number stat-number" data-count="15">0</div>
+                    <div class="bento-stat-label">Years of Excellence</div>
                             </div>
-                        </div>
-                        <div class="stat-item-large">
-                            <div class="stat-icon">
+                
+                <div class="bento-card bento-card--small bento-card--highlight bento-stat-card" data-aos="fade-up" data-aos-delay="250">
+                    <div class="bento-stat-icon">
                                 <i class="fas fa-project-diagram"></i>
                             </div>
-                            <div class="stat-content">
-                                <div class="stat-number" data-count="500">0</div>
-                                <div class="stat-label">Projects Completed</div>
+                    <div class="bento-stat-number stat-number" data-count="500">0</div>
+                    <div class="bento-stat-label">Projects Completed</div>
                             </div>
-                        </div>
-                        <div class="stat-item-large">
-                            <div class="stat-icon">
-                                <i class="fas fa-smile"></i>
-                            </div>
-                            <div class="stat-content">
-                                <div class="stat-number" data-count="98">0</div>
-                                <div class="stat-label">% Client Satisfaction</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- Mission & Vision -->
-    <section class="section mission-section">
-        <div class="container">
-            <div class="mission-grid">
-                <div class="mission-card" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="mission-icon">
-                        <i class="fas fa-bullseye"></i>
-                    </div>
-                    <h3>Our Mission</h3>
-                    <p>To empower businesses with cutting-edge technology solutions that drive growth, enhance security, and transform operations. We strive to be more than a service provider—we're your strategic technology partner.</p>
-                </div>
                 
-                <div class="mission-card" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="mission-icon">
+                <!-- Row 3: Three equal-width cards (Our Vision + Client Satisfaction + Our Mission) = 4 columns -->
+                <div class="bento-card bento-card--equal bento-card--gradient" data-aos="fade-up" data-aos-delay="300">
+                    <div class="bento-card__icon">
                         <i class="fas fa-eye"></i>
                     </div>
-                    <h3>Our Vision</h3>
-                    <p>To be the leading technology solutions provider in South Africa, recognized for innovation, excellence, and unwavering commitment to client success. We envision a future where technology seamlessly enables business potential.</p>
+                    <h3 class="bento-card__title">Our Vision</h3>
+                    <p class="bento-card__description">
+                        To be the leading technology solutions provider in South Africa, recognized for innovation, excellence, and unwavering commitment to client success. We envision a future where technology seamlessly enables business potential.
+                    </p>
                 </div>
                 
-                <div class="mission-card" data-aos="zoom-in" data-aos-delay="300">
-                    <div class="mission-icon">
+                <div class="bento-card bento-card--equal bento-card--accent bento-stat-card" data-aos="fade-up" data-aos-delay="350">
+                    <div class="bento-stat-icon">
+                        <i class="fas fa-smile"></i>
+                    </div>
+                    <div class="bento-stat-number stat-number" data-count="98">0</div>
+                    <div class="bento-stat-label">% Client Satisfaction</div>
+                </div>
+                
+                <div class="bento-card bento-card--equal bento-card--primary" data-aos="fade-up" data-aos-delay="400">
+                    <div class="bento-card__icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3 class="bento-card__title">Our Mission</h3>
+                    <p class="bento-card__description">
+                        To empower businesses with cutting-edge technology solutions that drive growth, enhance security, and transform operations. We strive to be more than a service provider—we're your strategic technology partner.
+                    </p>
+                </div>
+                
+                <!-- Row 4: Small stat (Clients Served) + Our Values (fills remaining) = 12 columns -->
+                <div class="bento-card bento-card--small bento-card--highlight bento-stat-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="bento-stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="bento-stat-number stat-number" data-count="200">0</div>
+                    <div class="bento-stat-label">Clients Served</div>
+                </div>
+                
+                <div class="bento-card bento-card--fill-remaining bento-card--clean" data-aos="fade-up" data-aos-delay="450">
+                    <div class="bento-card__icon">
                         <i class="fas fa-heart"></i>
                     </div>
-                    <h3>Our Values</h3>
-                    <p>Innovation, integrity, excellence, and partnership. We believe in honest communication, continuous improvement, and building long-term relationships based on trust and exceptional results.</p>
+                    <h3 class="bento-card__title">Our Values</h3>
+                    <p class="bento-card__description">
+                        Innovation, integrity, excellence, and partnership. We believe in honest communication, continuous improvement, and building long-term relationships based on trust and exceptional results.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
     
     <!-- Why Choose Us -->
-    <section class="section">
+    <section class="section" id="why-choose-us">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <span class="section-label">Why Logia Genesis</span>
@@ -256,7 +301,7 @@
     </section>
     
     <!-- Team Section -->
-    <section class="section team-section">
+    <section class="section team-section" id="team">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <span class="section-label">Our Team</span>
@@ -266,56 +311,68 @@
                 </p>
             </div>
             
-            <div class="team-grid">
-                <div class="team-member" data-aos="fade-up" data-aos-delay="100">
+            <div class="team-grid team-grid-staggered">
+                <div class="team-member team-member-staggered" data-aos="fade-up" data-aos-delay="100">
                     <div class="member-photo">
                         <div class="photo-placeholder">
                             <i class="fas fa-user"></i>
                         </div>
+                        <div class="photo-overlay"></div>
                     </div>
+                    <div class="member-content">
                     <h3>Leadership Team</h3>
                     <p class="member-role">Strategic Vision</p>
                     <p class="member-bio">Guiding Logia Genesis with years of technology and business expertise, ensuring innovative solutions that drive client success.</p>
+                    </div>
                 </div>
                 
-                <div class="team-member" data-aos="fade-up" data-aos-delay="200">
+                <div class="team-member team-member-staggered" data-aos="fade-up" data-aos-delay="200">
                     <div class="member-photo">
                         <div class="photo-placeholder">
                             <i class="fas fa-network-wired"></i>
                         </div>
+                        <div class="photo-overlay"></div>
                     </div>
+                    <div class="member-content">
                     <h3>Network Engineers</h3>
                     <p class="member-role">Infrastructure Specialists</p>
                     <p class="member-bio">Certified experts in wireless networking, structured cabling, and network architecture. Building robust, scalable infrastructure.</p>
+                    </div>
                 </div>
                 
-                <div class="team-member" data-aos="fade-up" data-aos-delay="300">
+                <div class="team-member team-member-staggered" data-aos="fade-up" data-aos-delay="300">
                     <div class="member-photo">
                         <div class="photo-placeholder">
                             <i class="fas fa-shield-alt"></i>
                         </div>
+                        <div class="photo-overlay"></div>
                     </div>
+                    <div class="member-content">
                     <h3>Security Specialists</h3>
                     <p class="member-role">Protection Experts</p>
                     <p class="member-bio">Advanced training in surveillance systems, access control, and cybersecurity. Safeguarding your assets with cutting-edge solutions.</p>
+                    </div>
                 </div>
                 
-                <div class="team-member" data-aos="fade-up" data-aos-delay="400">
+                <div class="team-member team-member-staggered" data-aos="fade-up" data-aos-delay="400">
                     <div class="member-photo">
                         <div class="photo-placeholder">
                             <i class="fas fa-code"></i>
                         </div>
+                        <div class="photo-overlay"></div>
                     </div>
+                    <div class="member-content">
                     <h3>Development Team</h3>
                     <p class="member-role">Digital Creators</p>
                     <p class="member-bio">Full-stack developers and designers crafting beautiful, high-performance websites and custom software solutions.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
     
     <!-- Certifications & Partners -->
-    <section class="section partners-section">
+    <section class="section partners-section" id="certifications-partners">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <span class="section-label">Partnerships</span>
@@ -355,7 +412,7 @@
     </section>
     
     <!-- CTA Section -->
-    <section class="cta-section">
+    <section class="cta-section" id="cta">
         <div class="cta-background">
             <div class="gradient-mesh"></div>
         </div>

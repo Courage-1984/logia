@@ -5,11 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- Content Security Policy -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://*.sentry.io https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://formspree.io https://*.sentry.io https://api.instagram.com; frame-src 'self' https://www.google.com https://speed.cloudflare.com; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://*.sentry.io https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://formspree.io https://*.sentry.io https://api.instagram.com https://www.googletagmanager.com https://*.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com; frame-src 'self' https://www.google.com https://speed.cloudflare.com; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests;">
     
     <!-- Theme initialization script - prevents FOUC (Flash of Unstyled Content) -->
     <!-- MUST be before any CSS or other content -->
     <script src="js/utils/theme-init.js"></script>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GT-WP4RJ46S"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'GT-WP4RJ46S');
+    </script>
     
     <meta name="description" content="Test your internet speed with Logia Genesis Speed Test tool. Check download, upload speeds and network performance in Gauteng, South Africa.">
     <title>Internet Speed Test | Network Performance Tool | Logia Genesis</title>
@@ -107,9 +117,12 @@
     <!-- Navigation - Loaded via components.js -->
     <div id="navbar-placeholder"></div>
     
+    <!-- Breadcrumb - Loaded via components.js -->
+    <div id="breadcrumb-placeholder"></div>
+    
     <!-- Main Content -->
     <main id="main-content">
-    <section class="page-header">
+    <section class="page-header" id="page-header">
         <div class="hero-background">
             <div class="gradient-mesh"></div>
             <div class="grid-overlay"></div>
@@ -123,7 +136,7 @@
     </section>
     
     <!-- Speed Test Tool -->
-    <section class="section">
+    <section class="section" id="speed-test-tool">
         <div class="container">
             <div class="speedtest-container" data-aos="fade-up">
                 <div class="speedtest-header">
@@ -201,7 +214,7 @@
     </section>
     
     <!-- Network Improvement Tips -->
-    <section class="section" style="background: var(--color-surface);">
+    <section class="section" id="network-tips" style="background: var(--color-surface);">
         <div class="container">
             <div class="section-header" data-aos="fade-up">
                 <span class="section-label">Optimization Tips</span>
@@ -275,7 +288,7 @@
     </section>
     
     <!-- CTA -->
-    <section class="cta-section">
+    <section class="cta-section" id="cta">
         <div class="cta-background">
             <div class="gradient-mesh"></div>
         </div>

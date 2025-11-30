@@ -13,7 +13,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 60px; /* Account for fixed navbar */
+    margin-top: 80px; /* Account for fixed navbar (increased height) */
+}
+
+/* Remove top margin when breadcrumbs are present (breadcrumbs already account for navbar) */
+.breadcrumb ~ main .page-header {
+    margin-top: 0;
 }
 
 .page-header .container {

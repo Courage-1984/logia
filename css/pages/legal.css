@@ -7,7 +7,7 @@
 .page-header {
     padding: 80px 0 !important;
     min-height: 300px !important;
-    margin-top: 60px;
+    margin-top: 80px; /* Account for fixed navbar (increased height) */
 }
 
 .page-header .page-header-content h1 {

@@ -6,7 +6,8 @@
 logia/
 ├── components/          # Reusable HTML components
 │   ├── navbar.html     # Navigation component
-│   └── footer.html     # Footer component
+│   ├── footer.html     # Footer component
+│   └── breadcrumb.html # Breadcrumb navigation component
 ├── css/                # Stylesheets (modular structure)
 │   ├── core/           # Core foundation styles
 │   │   ├── variables.css    # Design tokens (colors, spacing, etc.)
@@ -19,7 +20,10 @@ logia/
 │   │   ├── forms.css       # Form elements
 │   │   ├── carousel.css    # Carousel component
 │   │   ├── floating-buttons.css # Scroll-to-top, WhatsApp buttons
-│   │   └── skeleton.css    # Skeleton loaders (animated loading placeholders)
+│   │   ├── skeleton.css    # Skeleton loaders (animated loading placeholders)
+│   │   ├── timeline.css    # Timeline component (vertical process/journey flow)
+│   │   ├── bento-grid.css  # Bento grid layout component
+│   │   └── breadcrumb.css  # Breadcrumb navigation component
 │   ├── layout/         # Layout components
 │   │   ├── container.css   # Container utilities
 │   │   ├── navbar.css      # Navigation bar
@@ -58,7 +62,7 @@ logia/
 │   ├── PERFORMANCE_CHECKLIST.md  # Performance quick reference
 │   ├── IMAGE_GUIDE.md  # Image implementation guide
 │   ├── FONTS.md  # Font self-hosting guide
-│   ├── NETWORK_OPTIMIZATION.md  # Server-side optimization
+│   ├── CPANEL_OPTIMIZATION_GUIDE.md  # Server-side optimization via cPanel
 │   └── RESPONSIVE_DESIGN.md  # Responsive design patterns
 ├── js/                 # JavaScript modules
 │   ├── components.js   # Component loader and initialization
@@ -71,6 +75,7 @@ logia/
 │   ├── page-transitions.js # Smooth page transitions with skeleton loading
 │   ├── cache-manager.js # In-memory cache manager for pages and data
 │   ├── cache-warming.js # Cache warming for critical pages and data
+│   ├── breadcrumbs.js  # Breadcrumb navigation generation from structured data
 │   ├── utils/          # JavaScript utilities
 │   │   └── theme.js    # Theme manager (loaded early to prevent FOUC)
 │   └── lazy/           # Lazy-loaded modules
@@ -122,9 +127,10 @@ logia/
 ### ✅ Strengths
 
 1. **Component-Based Architecture**
-   - Reusable navbar and footer components
+   - Reusable navbar, footer, and breadcrumb components
    - Single source of truth for shared UI elements
    - Easy to maintain and update
+   - Dynamic breadcrumb generation from JSON-LD structured data
 
 2. **Separation of Concerns**
    - CSS organized by page/feature
@@ -170,16 +176,18 @@ logia/
 ## Component Loading System
 
 The project uses a custom component loader (`js/components.js`) that:
-- Loads HTML components asynchronously
+- Loads HTML components asynchronously (navbar, footer, breadcrumb)
 - Replaces placeholder divs with actual content
-- Initializes dependent features after component load
+- Initializes dependent features after component load (breadcrumbs auto-initialize)
 - Handles active navigation state automatically
+- Breadcrumbs automatically extract data from JSON-LD structured data (BreadcrumbList schema)
 
 ### Usage
 
 ```html
 <!-- In any HTML file -->
 <div id="navbar-placeholder"></div>
+<div id="breadcrumb-placeholder"></div> <!-- Optional: only on non-homepage pages -->
 <div id="footer-placeholder"></div>
 
 <!-- ES6 modules with Vite -->
@@ -235,14 +243,16 @@ Each page has its own CSS file for:
 
 ### Initialization Flow
 1. `components.js` loads first
-2. Navbar and footer components are loaded
+2. Navbar, breadcrumb (if needed), and footer components are loaded
 3. `alpine-setup.js` initializes Alpine.js
 4. Dark mode is initialized after navbar loads
-5. `main.js` initializes all other features
+5. Breadcrumbs auto-initialize after component loads (extract from JSON-LD)
+6. `main.js` initializes all other features
 
 ### Feature Modules
 - Smooth scrolling (event delegation)
 - Unified scroll handler (navbar, scroll-to-top, active nav link)
+- Breadcrumb navigation (auto-generated from JSON-LD structured data)
 - Mobile menu (event delegation)
 - Dark mode toggle
 - Animated counters
@@ -253,6 +263,8 @@ Each page has its own CSS file for:
 - Lazy loading images
 - 3D card tilt effects (optimized)
 - Link prefetching
+- Page transitions with skeleton loading
+- Cache management (in-memory + service worker)
 
 ### Alpine.js Integration
 Alpine.js provides reactive components for:
@@ -284,10 +296,8 @@ Alpine.js provides reactive components for:
 - **Tree-shaking**: Automatic dead code elimination
 - **Performance monitoring utilities**
 
-### Future Enhancements
-- Critical CSS extraction
-- Service worker implementation
-- Performance monitoring (Core Web Vitals tracking)
+### Remaining Opportunities
+- Critical CSS extraction (future enhancement)
 
 ## Accessibility
 
@@ -334,28 +344,25 @@ The project supports two build targets with automatic URL transformation:
 - `config/build-config.js` - Build target URLs and paths
 - `.github/workflows/static.yml` - GitHub Pages deployment workflow
 
+## Page-Specific Features
+
+### About Page
+- **Bento Grid Layout**: Apple-inspired glassmorphism grid combining "Who We Are" and "Mission & Vision"
+  - 12-column flexible grid system (`bento-grid-about`)
+  - Card variants: large (6 cols, 2 rows), medium (6 cols), small (3 cols), equal (4 cols), fill-remaining (9 cols)
+  - Animated gradient orbs background (CSS-only)
+  - Location: `about.html` section `#company-story`, styled in `css/pages/about.css`
+- **Staggered Team Cards**: Modern reveal animations with clip-path effects
+  - Single-row layout on desktop (4 columns) with 60px vertical stagger for even cards
+  - Slide-in animations from sides (desktop) or bottom (mobile)
+  - Full-width gradient photo sections with glassmorphism placeholders
+  - Location: "Meet The Experts" section in `about.html`
+
 ## Future Enhancements
 
-1. **TypeScript** (Optional)
-   - Add type safety to JavaScript
-   - Better IDE support
-
-2. **CSS Preprocessor** (Optional)
-   - SASS/SCSS for better CSS organization
-   - Mixins and functions
-
-3. **Testing** (Recommended)
-   - Unit tests for JavaScript functions
-   - E2E tests for critical user flows
-
-4. **CI/CD** (Recommended)
-   - Automated testing
-   - Deployment pipeline
-
-5. **PWA Features** ✅ (Partially Implemented)
-   - ✅ Web app manifest (`site.webmanifest`)
-   - ✅ Favicon implementation (SVG, PNG, Windows tiles)
-   - ✅ Sitemap for SEO (`sitemap.xml`)
-   - ⏳ Service worker (future)
-   - ⏳ Offline support (future)
+1. **TypeScript** (Optional) - Add type safety to JavaScript
+2. **CSS Preprocessor** (Optional) - SASS/SCSS for better CSS organization
+3. **Testing** (Recommended) - Unit tests and E2E tests
+4. **CI/CD** (Recommended) - Automated testing and deployment pipeline
+5. **PWA Features** ✅ (Implemented) - Web app manifest, favicon, sitemap, service worker
 

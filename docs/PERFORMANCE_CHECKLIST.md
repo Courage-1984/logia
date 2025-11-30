@@ -48,7 +48,7 @@ Quick reference checklist for performance optimizations.
 - [x] **Disable 3D tilt on mobile** - Reduce mobile animation complexity
 
 ### 💾 Caching
-- [ ] **Configure cache headers** - Set proper cache headers on server (see NETWORK_OPTIMIZATION.md)
+- [ ] **Configure cache headers** - Set proper cache headers on server (see CPANEL_OPTIMIZATION_GUIDE.md)
 - [x] **Implement service worker** - Enhanced multi-layer caching with size limits and cleanup
 - [x] **Cache static assets** - Long-term caching (50MB) with stale-while-revalidate
 - [x] **Cache HTML** - Short-term caching (10MB) with network-first strategy
@@ -79,9 +79,9 @@ Quick reference checklist for performance optimizations.
 - [x] **Optimize chunk sizes** - ✅ Improved manual chunking (vendor, utils, components)
 
 ### 🌐 Network Optimization
-- [ ] **Enable HTTP/2** - Ensure server supports HTTP/2 (see NETWORK_OPTIMIZATION.md)
-- [ ] **Use CDN** - Serve static assets from CDN (see NETWORK_OPTIMIZATION.md)
-- [ ] **Enable compression** - gzip/brotli on server (see NETWORK_OPTIMIZATION.md)
+- [ ] **Enable HTTP/2** - Ensure server supports HTTP/2 (see CPANEL_OPTIMIZATION_GUIDE.md)
+- [ ] **Use CDN** - Consider Cloudflare for additional performance (see CPANEL_OPTIMIZATION_GUIDE.md)
+- [ ] **Enable compression** - gzip/brotli on server (see CPANEL_OPTIMIZATION_GUIDE.md)
 - [x] **Optimize DNS** - ✅ DNS prefetch pattern documented (no external domains currently, fonts self-hosted)
 
 ### 🔍 SEO & PWA

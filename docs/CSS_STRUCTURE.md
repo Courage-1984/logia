@@ -29,7 +29,8 @@ css/
 │   ├── floating-buttons.css # Scroll-to-top and WhatsApp floating buttons
 │   ├── skeleton.css    # Skeleton loaders (animated loading placeholders)
 │   ├── timeline.css    # Timeline component (vertical process/journey flow)
-│   └── bento-grid.css  # Bento grid layout component
+│   ├── bento-grid.css  # Bento grid layout component (Apple-inspired, glassmorphism)
+│   └── breadcrumb.css  # Breadcrumb navigation component
 │
 ├── layout/            # Structural layout components
 │   ├── container.css  # Container and section utilities
@@ -102,6 +103,7 @@ This order ensures proper cascade and dependency resolution.
 | Skeleton loaders | `components/skeleton.css` |
 | Timeline component | `components/timeline.css` |
 | Bento grid layout | `components/bento-grid.css` |
+| Breadcrumb navigation | `components/breadcrumb.css` |
 | Navigation bar | `layout/navbar.css` |
 | Footer | `layout/footer.css` |
 | Hero section | `layout/hero.css` |
@@ -138,6 +140,16 @@ This order ensures proper cascade and dependency resolution.
 ```
 
 ---
+
+## About Page Bento Grid
+
+The About page features an Apple-inspired bento grid layout combining "Who We Are" and "Mission & Vision" sections:
+
+- **Grid System**: 12-column grid (`bento-grid-about`) for flexible layouts
+- **Card Sizes**: Large (6 cols, 2 rows), Medium (6 cols), Small (3 cols), Equal (4 cols each), Fill-remaining (9 cols)
+- **Design**: Glassmorphism with `backdrop-filter: blur(20px)`, animated gradient orbs background
+- **Location**: `about.html` section `#company-story`, styled in `css/pages/about.css`
+- **Component**: Uses `css/components/bento-grid.css` with custom variants for About page
 
 ## Component Dependencies
 

@@ -406,7 +406,7 @@ LSCache is usually enabled automatically on LiteSpeed servers. Verify it's worki
 - **Build Process**: The Vite build process already generates `.br` (Brotli) compressed files in `dist/` - these are additional optimizations on top of server settings
 - **Cache Layering**: LiteSpeed Web Cache (server) + Service Worker (browser) + Browser Cache (headers) = Triple-layer caching for maximum performance!
 - **Cache Conflicts**: No conflicts between LiteSpeed and service worker - they work at different levels (server vs. browser) and complement each other
-- **CDN**: For additional performance, consider Cloudflare (see `NETWORK_OPTIMIZATION.md` section 4)
+- **CDN**: For additional performance, consider Cloudflare (configure via Cloudflare dashboard)
 
 ### Important: After Deploying New Builds
 

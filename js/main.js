@@ -15,6 +15,7 @@ import { initPageTransitions } from './page-transitions.js';
 import { warmCache, warmDataCache } from './cache-warming.js';
 import { initGoogleAnalytics } from './analytics.js';
 // Theme manager initializes automatically - no need to import here
+// Breadcrumbs initialize automatically via components.js callback
 
 // ============================================
 // SMOOTH SCROLL (Event Delegation)
@@ -778,6 +779,7 @@ const init = () => {
     preloadImages();
     initTestimonials(); // Load Google Reviews testimonials
     initInstagramFeed(); // Load Instagram feed carousel
+    // initBreadcrumbs() is called from components.js after breadcrumb component loads
     
     // Initialize page transitions (smooth navigation with skeleton loading)
     initPageTransitions();

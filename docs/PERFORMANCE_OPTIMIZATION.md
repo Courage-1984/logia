@@ -77,10 +77,13 @@ Implementation status and rationale for performance optimizations.
 
 ---
 
-## Server-Side (Remaining)
+## Server-Side Optimization
 
-See `docs/NETWORK_OPTIMIZATION.md` for:
-- HTTP/2, CDN, server compression, cache headers
+See `docs/CPANEL_OPTIMIZATION_GUIDE.md` for:
+- HTTP/2 configuration
+- Server compression (gzip/Brotli)
+- Cache headers via `.htaccess`
+- LiteSpeed cache management
 
 ---
 
@@ -97,8 +100,8 @@ See `docs/NETWORK_OPTIMIZATION.md` for:
 
 ## Remaining Opportunities
 
-- [ ] Extract critical CSS (inline above-fold)
-- [ ] Further animation fine-tuning (low priority)
+- [ ] Extract critical CSS (inline above-fold) - Low priority, minimal impact expected
+- [ ] Further animation fine-tuning - Low priority, animations already optimized
 
 ---
 
@@ -153,4 +156,5 @@ See `docs/NETWORK_OPTIMIZATION.md` for:
 ---
 
 **Last Updated**: January 2025  
-**Chrome Animation Optimization**: January 2025 - Fixed jittery animations, removed reduced motion rules
+**Chrome Animation Optimization**: January 2025 - Fixed jittery animations, removed reduced motion rules  
+**About Page Redesign**: January 2025 - Apple-inspired bento grid with glassmorphism, staggered team cards

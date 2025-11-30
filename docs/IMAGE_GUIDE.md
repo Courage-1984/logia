@@ -113,6 +113,9 @@ For critical above-the-fold images, use `loading="eager"` and `fetchpriority="hi
 - [ ] 3 Testimonial avatars (200x200px, 1:1)
 
 ### About Page
+- Uses bento grid layout with glassmorphism cards
+- Team member cards with gradient photo sections
+- Animated gradient orbs background (CSS-only, no images)
 - [ ] Company story image (800x600px, 4:3)
 - [ ] 4 Team member photos (400x400px, 1:1)
 - [ ] 4+ Partner logos (200px width, PNG with transparency)

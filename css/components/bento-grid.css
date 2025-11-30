@@ -17,11 +17,17 @@
     }
 }
 
-/* Desktop: 3 columns with varied sizes */
+/* Desktop: 4 columns for rectangular/square grid */
 @media (min-width: 1025px) {
     .bento-grid {
         grid-template-columns: repeat(4, 1fr);
         gap: var(--space-6);
+    }
+    
+    /* Use 12-column grid for bento-grid-about to allow equal 3-card rows */
+    .bento-grid-about {
+        grid-template-columns: repeat(12, 1fr);
+        grid-template-rows: repeat(4, auto);
     }
 }
 
@@ -121,6 +127,67 @@ body.dark-mode .bento-card:hover::before {
 .bento-card--full {
     grid-column: span 4;
     grid-row: span 1;
+}
+
+/* For bento-grid-about: ensure perfect rectangle/square */
+@media (min-width: 1025px) {
+    .bento-grid-about .bento-card--large {
+        grid-column: span 2;
+        grid-row: span 2;
+    }
+
+    .bento-grid-about .bento-card--medium {
+        grid-column: span 2;
+        grid-row: span 1;
+    }
+
+    .bento-grid-about .bento-card--small {
+        grid-column: span 1;
+        grid-row: span 1;
+    }
+
+    .bento-grid-about .bento-card--full {
+        grid-column: span 4;
+        grid-row: span 1;
+    }
+    
+    /* Card sizing for 12-column grid */
+    .bento-grid-about .bento-card--large {
+        grid-column: span 6; /* 2x2 in 4-column equivalent */
+        grid-row: span 2;
+    }
+    
+    .bento-grid-about .bento-card--medium {
+        grid-column: span 6; /* 2x1 in 4-column equivalent */
+        grid-row: span 1;
+    }
+    
+    .bento-grid-about .bento-card--small {
+        grid-column: span 3; /* 1x1 in 4-column equivalent */
+        grid-row: span 1;
+    }
+    
+    .bento-grid-about .bento-card--full {
+        grid-column: span 12; /* Full width */
+        grid-row: span 1;
+    }
+    
+    /* Equal-width cards: 3 cards each spanning 4 columns = 12 columns total */
+    .bento-grid-about .bento-card--equal {
+        grid-column: span 4;
+        grid-row: span 1;
+    }
+    
+    /* Fill remaining space card - spans remaining columns after small card */
+    .bento-grid-about .bento-card--fill-remaining {
+        grid-column: span 9; /* 12 - 3 (small card) = 9 columns */
+        grid-row: span 1;
+    }
+    
+    /* Center the last stat card - spans full width but content is centered */
+    .bento-grid-about .bento-stat-center {
+        grid-column: span 12;
+    }
 }
 
 /* Responsive adjustments */

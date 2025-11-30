@@ -36,7 +36,7 @@ Examples of changes that require updates:
 ### Directory Structure
 ```
 logia/
-├── components/          # Reusable HTML components (navbar, footer)
+├── components/          # Reusable HTML components (navbar, footer, breadcrumb)
 ├── public/              # Public static files (service worker, data)
 │   ├── service-worker.js # Enhanced service worker with multi-layer caching
 │   └── data/            # Runtime data (copied to build output)
@@ -54,7 +54,8 @@ logia/
 │   │   ├── floating-buttons.css # Scroll-to-top, WhatsApp buttons
 │   │   ├── skeleton.css    # Skeleton loaders (animated loading placeholders)
 │   │   ├── timeline.css    # Timeline component (vertical process/journey flow)
-│   │   └── bento-grid.css  # Bento grid layout component
+│   │   ├── bento-grid.css  # Bento grid layout component
+│   │   └── breadcrumb.css  # Breadcrumb navigation component
 │   ├── layout/         # Layout components
 │   │   ├── container.css   # Container utilities
 │   │   ├── navbar.css      # Navigation bar
@@ -91,6 +92,7 @@ logia/
 │   ├── page-transitions.js # Smooth page transitions with skeleton loading
 │   ├── cache-manager.js # In-memory cache manager for pages and data
 │   ├── cache-warming.js # Cache warming for critical pages and data
+│   ├── breadcrumbs.js   # Breadcrumb navigation generation from structured data
 │   └── *.js            # Other JS modules
 ├── utils/              # Utility functions
 │   ├── theme.js        # Theme management (dark/light mode)
@@ -194,6 +196,7 @@ Use utility functions from `utils/`:
 - **Particles**: `initCTANetBackgrounds()` from `js/particles-net.js` (lazy-loaded, auto-initializes on CTA sections, uses static imports for proper bundling)
 - **Cache**: `cacheManager` from `js/cache-manager.js` (in-memory caching for pages and data)
 - **Page Transitions**: `initPageTransitions()` from `js/page-transitions.js` (smooth navigation with skeleton loading)
+- **Breadcrumbs**: `initBreadcrumbs()` from `js/breadcrumbs.js` (auto-initialized via components.js, extracts from JSON-LD structured data)
 
 ### Code Style
 - Use `const` by default, `let` when reassignment needed, avoid `var`
@@ -235,6 +238,7 @@ element.dataset.initialized = 'true';
 ```html
 <!-- Component placeholders -->
 <div id="navbar-placeholder"></div>
+<div id="breadcrumb-placeholder"></div> <!-- Optional: only on non-homepage pages -->
 <div id="footer-placeholder"></div>
 
 <!-- Scripts (in order) -->
@@ -336,9 +340,10 @@ All HTML files must include complete favicon setup:
 
 ### Component Loading
 - Components loaded via `js/components.js`
-- Components are HTML files in `components/` directory
+- Components are HTML files in `components/` directory (navbar, footer, breadcrumb)
 - Loaded asynchronously and inserted into placeholders
 - Initialization callbacks run after component load
+- Breadcrumbs automatically initialized after component loads (reads from JSON-LD structured data)
 
 ### Component Pattern
 ```html
@@ -767,6 +772,19 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
   - Shimmer animation with dark mode support
   - Used for components, testimonials, Instagram feed, page transitions
   - Respects `prefers-reduced-motion`
+- **Breadcrumb Navigation**: Accessible breadcrumb component (`components/breadcrumb.html`, `js/breadcrumbs.js`, `css/components/breadcrumb.css`)
+  - Dynamically generated from JSON-LD structured data (BreadcrumbList schema)
+  - Automatically hidden on homepage
+  - Responsive design with home icon
+  - Integrated with page transitions (structured data updated on navigation)
+- **Bento Grid Component**: Apple-inspired bento grid layout (`css/components/bento-grid.css`)
+  - Flexible grid system with varied card sizes (small, medium, large, full, equal, fill-remaining)
+  - 12-column grid for complex layouts (bento-grid-about)
+  - Glassmorphism effects with backdrop-filter blur
+  - Smooth animations and hover effects
+  - Used on About page for "Who We Are" section (combines company story + mission/vision)
+  - Card variants: featured, primary, accent, gradient, clean, highlight
+  - Responsive: adapts to mobile (1 col), tablet (2 cols), desktop (4/12 cols)
 - **Enhanced Caching**: Multi-layer caching strategy
   - Service worker: Long-term cache for static assets, short-term for HTML
   - In-memory cache: Fast access for pages and data
@@ -792,9 +810,8 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 - **Performance Checklist**: `docs/PERFORMANCE_CHECKLIST.md` (primary quick reference)
 - **Image Guide**: `docs/IMAGE_GUIDE.md` (image implementation, source format guidelines)
 - **Fonts**: `docs/FONTS.md` (font self-hosting, Font Awesome optimization, path resolution)
-- **Network**: `docs/NETWORK_OPTIMIZATION.md` (server-side optimization)
+- **Server Optimization**: `docs/CPANEL_OPTIMIZATION_GUIDE.md` (server-side optimization via cPanel)
 - **Responsive**: `docs/RESPONSIVE_DESIGN.md` (responsive patterns)
-- **SEO**: `docs/SEO_RECOMMENDATIONS.md` (SEO strategy)
 
 **Deployment:**
 - **Dual Build System**: `docs/DUAL_BUILD_GUIDE.md` (production + GitHub Pages)
@@ -802,9 +819,20 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 ---
 
 **Last Updated**: January 2025
-**Version**: 3.4
+**Version**: 3.6
 
 ## Recent Major Updates (January 2025)
+
+### Breadcrumb Navigation ✅ (January 2025)
+- **Breadcrumb Component**: Accessible navigation component showing page hierarchy
+  - HTML: `components/breadcrumb.html` - Semantic `<nav>` with `<ol>` list structure
+  - CSS: `css/components/breadcrumb.css` - Responsive styling with dark mode support
+  - JavaScript: `js/breadcrumbs.js` - Extracts breadcrumb data from JSON-LD structured data
+  - Integrated with component loading system (loaded via `js/components.js`)
+  - Automatically hidden on homepage
+  - Page transitions update structured data for correct breadcrumbs on navigation
+  - Home icon on first item, separator slashes, current page indication
+  - Navbar height increased to 80px, breadcrumb padding optimized
 
 ### Google Reviews Integration ✅
 - Dynamic Google Reviews carousel in testimonials section
@@ -993,3 +1021,18 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
   - Carousel JavaScript updated to use CSS classes (`is-dragging`) instead of inline styles
 - **Files Updated**: `css/sections/portfolio-preview.css`, `css/layout/hero.css`, `css/sections/testimonials.css`, `css/sections/instagram.css`, `css/core/reset.css`, `js/main.js`, `js/testimonials.js`, `js/instagram-feed.js`
 - **Result**: Smooth animations in Chrome matching Firefox performance
+
+### About Page Redesign ✅ (January 2025)
+- **Apple-Inspired Bento Grid**: Combined "Who We Are" and "Mission & Vision" sections into unified bento grid
+  - Layout: 12-column grid system for flexible card arrangements
+  - Cards: Large (2x2), Medium (2x1), Small (1x1), Equal (4 cols each for 3-card rows), Fill-remaining (9 cols)
+  - Design: Glassmorphism with backdrop-filter blur, subtle gradients, animated gradient orbs background
+  - Content: Our Foundation (large), Our Expertise, Our Mission, Our Vision, Our Values, plus stat cards
+  - Stats: Years of Excellence (15), Projects Completed (500), Client Satisfaction (98%), Clients Served (200)
+  - Location: `about.html` section `#company-story`, styled in `css/pages/about.css`
+- **Staggered Team Cards**: Modern staggered card layout for "Meet The Experts" section
+  - Layout: All cards in single row on desktop (4 columns) with vertical stagger (60px offset for even cards)
+  - Design: Full-width gradient photo sections, glassmorphism photo placeholders, smooth hover effects
+  - Animations: Reveal entrance animations with clip-path, slide-in from sides (desktop) or bottom (mobile)
+  - Responsive: Single column mobile, 2 columns tablet, 4 columns desktop with stagger
+  - Location: `about.html` team section, styled in `css/pages/about.css`

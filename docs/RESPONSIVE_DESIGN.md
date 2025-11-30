@@ -1,28 +1,12 @@
 # Responsive Design Guide - Logia Genesis
 
-**Comprehensive responsive design documentation and implementation guide**
-
----
-
-## Table of Contents
-
-1. [Overview](#overview)
-2. [Breakpoint System](#breakpoint-system)
-3. [Mobile-First Approach](#mobile-first-approach)
-4. [Component Responsiveness](#component-responsiveness)
-5. [Typography Scaling](#typography-scaling)
-6. [Layout Patterns](#layout-patterns)
-7. [Navigation](#navigation)
-8. [Images & Media](#images--media)
-9. [Forms](#forms)
-10. [Testing Guidelines](#testing-guidelines)
-11. [Implementation Checklist](#implementation-checklist)
+**Mobile-first responsive design documentation**
 
 ---
 
 ## Overview
 
-The Logia Genesis website uses a **mobile-first responsive design** approach, ensuring optimal viewing experiences across all device sizes from mobile phones to large desktop displays.
+The website uses a **mobile-first responsive design** approach, ensuring optimal viewing experiences across all device sizes.
 
 ### Design Philosophy
 
@@ -36,10 +20,6 @@ The Logia Genesis website uses a **mobile-first responsive design** approach, en
 
 ## Breakpoint System
 
-### Standard Breakpoints
-
-The design system uses three primary breakpoints:
-
 | Breakpoint | Width | Device Type | Usage |
 |------------|-------|-------------|-------|
 | **Small Mobile** | `≤ 480px` | Small phones | Compact layouts, single column |
@@ -47,7 +27,7 @@ The design system uses three primary breakpoints:
 | **Tablet** | `≤ 1024px` | Tablets, small laptops | Adjusted grid columns |
 | **Desktop** | `> 1024px` | Desktop, large screens | Full multi-column layouts |
 
-### Breakpoint Implementation
+### Implementation Pattern
 
 ```css
 /* Mobile First - Base styles (no media query) */
@@ -68,26 +48,6 @@ The design system uses three primary breakpoints:
     /* Desktop styles */
   }
 }
-
-/* Alternative: Max-width approach */
-@media (max-width: 768px) {
-  .component {
-    /* Mobile overrides */
-  }
-}
-```
-
-### Breakpoint Variables (Recommended)
-
-For consistency, consider defining breakpoints as CSS variables:
-
-```css
-:root {
-  --breakpoint-mobile: 480px;
-  --breakpoint-tablet: 768px;
-  --breakpoint-desktop: 1024px;
-  --breakpoint-large: 1280px;
-}
 ```
 
 ---
@@ -104,7 +64,6 @@ For consistency, consider defining breakpoints as CSS variables:
 ### Base Styles (Mobile)
 
 ```css
-/* Mobile-first base styles */
 .container {
   width: 100%;
   padding: 0 var(--space-4);
@@ -120,7 +79,6 @@ For consistency, consider defining breakpoints as CSS variables:
 ### Enhanced Styles (Larger Screens)
 
 ```css
-/* Tablet and up */
 @media (min-width: 769px) {
   .container {
     padding: 0 var(--space-6);
@@ -132,7 +90,6 @@ For consistency, consider defining breakpoints as CSS variables:
   }
 }
 
-/* Desktop and up */
 @media (min-width: 1025px) {
   .grid {
     grid-template-columns: repeat(3, 1fr);
@@ -147,101 +104,23 @@ For consistency, consider defining breakpoints as CSS variables:
 
 ### Navigation
 
-#### Desktop Navigation
-- Horizontal menu bar
-- Dropdown menus on hover
-- Logo and actions on same row
-
-#### Mobile Navigation
-- Hamburger menu toggle
-- Full-screen overlay menu
-- Stacked navigation links
-- Touch-friendly tap targets (min 44px height)
-
-**Implementation:**
-```css
-.nav-menu {
-  display: flex;
-  align-items: center;
-  gap: var(--space-8);
-}
-
-@media (max-width: 768px) {
-  .mobile-menu-toggle {
-    display: flex;
-  }
-  
-  .nav-menu {
-    position: fixed;
-    top: 60px;
-    left: 0;
-    right: 0;
-    flex-direction: column;
-    background: var(--color-white);
-    transform: translateY(-100%);
-    opacity: 0;
-    visibility: hidden;
-  }
-  
-  .nav-menu.active {
-    transform: translateY(0);
-    opacity: 1;
-    visibility: visible;
-  }
-}
-```
+- **Desktop**: Horizontal menu bar, dropdown menus on hover
+- **Mobile**: Hamburger menu toggle, full-screen overlay menu, stacked navigation links
 
 ### Hero Section
 
-#### Responsive Behavior
 - **Mobile**: Full viewport height, centered content, stacked CTAs
 - **Tablet**: Adjusted padding, side-by-side CTAs
 - **Desktop**: Maximum content width, optimal spacing
 
-**Key Features:**
-- Fluid typography using `clamp()`
-- Responsive button layouts
-- Adaptive padding and margins
+### Service Cards Grid
 
-### Service Cards
-
-#### Grid Layout
 - **Mobile**: Single column
 - **Tablet**: 2 columns
 - **Desktop**: 3 columns
 
-**Implementation:**
-```css
-.services-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-6);
-}
-
-@media (min-width: 769px) {
-  .services-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1025px) {
-  .services-grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-```
-
-### Cards & Components
-
-#### Responsive Patterns
-- **Padding**: Reduced on mobile, increased on desktop
-- **Font Sizes**: Scale down on mobile
-- **Spacing**: Tighter on mobile, generous on desktop
-- **Images**: Full width on mobile, constrained on desktop
-
 ### Footer
 
-#### Layout
 - **Mobile**: Single column, stacked sections
 - **Tablet**: 2 columns
 - **Desktop**: 4 columns
@@ -279,7 +158,6 @@ p {
 | H2 | 1.5rem | 2rem | 3rem |
 | H3 | 1.25rem | 1.5rem | 2rem |
 | Body | 0.875rem | 0.9375rem | 1rem |
-| Small | 0.75rem | 0.8125rem | 0.875rem |
 
 ---
 
@@ -308,33 +186,13 @@ p {
 }
 ```
 
-### Grid Systems
+### Auto-Fit Grid
 
-#### Auto-Fit Grid
 ```css
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: var(--space-4);
-}
-
-@media (min-width: 769px) {
-  .grid {
-    gap: var(--space-6);
-  }
-}
-```
-
-#### Responsive Columns
-```css
-.grid-2 {
-  grid-template-columns: 1fr; /* Mobile */
-}
-
-@media (min-width: 769px) {
-  .grid-2 {
-    grid-template-columns: repeat(2, 1fr); /* Tablet+ */
-  }
 }
 ```
 
@@ -356,64 +214,21 @@ p {
 
 ---
 
-## Navigation
-
-### Mobile Menu
-
-**Features:**
-- Hamburger icon toggle
-- Full-screen overlay
-- Smooth slide-in animation
-- Touch-friendly tap targets
-- Close on link click
-- Dark mode support
-
-**Implementation Checklist:**
-- [x] Hamburger menu toggle
-- [x] Overlay menu
-- [x] Dropdown support
-- [x] Theme toggle accessible
-- [x] Smooth animations
-- [x] Body scroll lock when open
-
-### Desktop Navigation
-
-**Features:**
-- Horizontal menu bar
-- Hover dropdowns
-- Active state indicators
-- Smooth transitions
-
----
-
 ## Images & Media
 
 ### Responsive Images
 
 ```html
-<!-- Responsive image -->
-<img 
-  src="image.jpg" 
-  srcset="image-small.jpg 480w, image-medium.jpg 768w, image-large.jpg 1024w"
-  sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, 33vw"
-  alt="Description"
->
-```
-
-### Image Containers
-
-```css
-.image-container {
-  width: 100%;
-  height: auto;
-  overflow: hidden;
-}
-
-.image-container img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-}
+<picture>
+  <source srcset="image-small.webp 480w, image-medium.webp 768w, image-large.webp 1024w" type="image/webp">
+  <img 
+    src="image.jpg" 
+    srcset="image-small.jpg 480w, image-medium.jpg 768w, image-large.jpg 1024w"
+    sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, 33vw"
+    alt="Description"
+    loading="lazy"
+  >
+</picture>
 ```
 
 ### Aspect Ratios
@@ -451,8 +266,7 @@ p {
 ### Form Inputs
 
 - Full width on mobile
-- Appropriate sizing for touch
-- Minimum 44px height for touch targets
+- Appropriate sizing for touch (minimum 44px height)
 - Proper spacing between fields
 
 ---
@@ -462,22 +276,9 @@ p {
 ### Device Testing
 
 Test on actual devices when possible:
-
-**Mobile:**
-- iPhone (various sizes)
-- Android phones (various sizes)
-- Small tablets (7-8 inches)
-
-**Tablet:**
-- iPad
-- Android tablets
-- Small laptops
-
-**Desktop:**
-- 1366x768 (common laptop)
-- 1920x1080 (Full HD)
-- 2560x1440 (2K)
-- 3840x2160 (4K)
+- **Mobile**: iPhone, Android phones, small tablets
+- **Tablet**: iPad, Android tablets, small laptops
+- **Desktop**: 1366x768, 1920x1080, 2560x1440, 3840x2160
 
 ### Browser Testing
 
@@ -497,7 +298,6 @@ Test in:
 - [ ] No content overflow
 - [ ] Dark mode works on all breakpoints
 - [ ] Animations are smooth
-- [ ] Performance is acceptable
 
 ### Tools
 
@@ -508,124 +308,21 @@ Test in:
 
 ---
 
-## Implementation Checklist
-
-### Core Components
-
-- [x] Navigation (mobile menu)
-- [x] Hero section
-- [x] Service cards grid
-- [x] Footer
-- [ ] Testimonials grid
-- [ ] Portfolio grid
-- [ ] Contact forms
-- [ ] About page sections
-- [ ] Services detail pages
-- [ ] Resources/FAQ page
-
-### Typography
-
-- [x] Fluid heading sizes
-- [x] Responsive body text
-- [ ] Line height adjustments
-- [ ] Letter spacing on mobile
-
-### Layout
-
-- [x] Container responsive padding
-- [x] Grid systems
-- [x] Flexbox patterns
-- [ ] Section spacing
-
-### Interactive Elements
-
-- [x] Touch-friendly buttons
-- [x] Mobile menu
-- [ ] Dropdown menus
-- [ ] Accordions
-- [ ] Modals
-
-### Media
-
-- [ ] Responsive images
-- [ ] Video embeds
-- [ ] Icon sizing
-
-### Performance
-
-- [ ] Image optimization
-- [ ] Lazy loading
-- [ ] Conditional loading
-
----
-
 ## Best Practices
 
-### 1. Use Relative Units
-
-Prefer `rem`, `em`, `%`, and `vw/vh` over fixed pixels:
-
-```css
-/* Good */
-padding: var(--space-4);
-font-size: clamp(1rem, 2vw, 1.25rem);
-
-/* Avoid */
-padding: 16px;
-font-size: 18px;
-```
-
-### 2. Flexible Grids
-
-Use CSS Grid with `auto-fit` and `minmax()`:
-
-```css
-.grid {
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-}
-```
-
-### 3. Touch Targets
-
-Ensure interactive elements are at least 44x44px:
-
-```css
-button, a {
-  min-height: 44px;
-  min-width: 44px;
-}
-```
-
-### 4. Avoid Horizontal Scroll
-
-Never allow horizontal scrolling:
-
-```css
-* {
-  max-width: 100%;
-  box-sizing: border-box;
-}
-```
-
-### 5. Test in Multiple Orientations
-
-- Portrait (mobile)
-- Landscape (tablet/desktop)
-
-### 6. Performance
-
-- Optimize images for different screen sizes
-- Use `srcset` and `sizes` attributes
-- Lazy load below-the-fold content
-- Minimize JavaScript on mobile
+1. **Use Relative Units**: Prefer `rem`, `em`, `%`, and `vw/vh` over fixed pixels
+2. **Flexible Grids**: Use CSS Grid with `auto-fit` and `minmax()`
+3. **Touch Targets**: Ensure interactive elements are at least 44x44px
+4. **Avoid Horizontal Scroll**: Never allow horizontal scrolling
+5. **Test in Multiple Orientations**: Portrait (mobile) and Landscape (tablet/desktop)
+6. **Performance**: Optimize images for different screen sizes, use `srcset` and `sizes`, lazy load below-the-fold content
 
 ---
 
 ## Common Issues & Solutions
 
-### Issue: Text Too Small on Mobile
+### Text Too Small on Mobile
 
-**Solution:**
 ```css
 p {
   font-size: clamp(0.875rem, 2vw, 1rem);
@@ -633,9 +330,8 @@ p {
 }
 ```
 
-### Issue: Images Overflowing Container
+### Images Overflowing Container
 
-**Solution:**
 ```css
 img {
   max-width: 100%;
@@ -643,9 +339,8 @@ img {
 }
 ```
 
-### Issue: Buttons Too Small for Touch
+### Buttons Too Small for Touch
 
-**Solution:**
 ```css
 button {
   min-height: 44px;
@@ -654,9 +349,8 @@ button {
 }
 ```
 
-### Issue: Grid Items Too Narrow
+### Grid Items Too Narrow
 
-**Solution:**
 ```css
 .grid {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -665,13 +359,4 @@ button {
 
 ---
 
-## Version History
-
-- **v1.0** - Initial responsive design documentation
-- Created: 2025
-- Last Updated: 2025
-
----
-
-**Note**: This guide should be referenced when implementing new components or modifying existing ones to ensure consistent responsive behavior across the Logia Genesis website.
-
+**Last Updated**: January 2025

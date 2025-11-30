@@ -8,11 +8,21 @@
     <!-- Content Security Policy -->
     <!-- Note: Using 'unsafe-inline' for JSON-LD structured data. For better security, consider using hashes or nonces. -->
     <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self' 'unsafe-inline' https://*.sentry.io https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://formspree.io https://*.sentry.io https://api.instagram.com https://www.google-analytics.com https://*.google-analytics.com; frame-src 'self' https://www.google.com; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests;">
+        content="default-src 'self'; script-src 'self' 'unsafe-inline' https://*.sentry.io https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://formspree.io https://*.sentry.io https://api.instagram.com https://www.googletagmanager.com https://*.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com; frame-src 'self' https://www.google.com; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests;">
 
     <!-- Theme initialization script - prevents FOUC (Flash of Unstyled Content) -->
     <!-- MUST be before any CSS or other content -->
     <script src="js/utils/theme-init.js"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GT-WP4RJ46S"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'GT-WP4RJ46S');
+    </script>
 
     <meta name="description"
         content="Logia Genesis provides enterprise IT solutions in Gauteng, South Africa. Expert wireless networking, AI surveillance systems, access control, and web development. 15+ years experience. Get your free consultation today.">
@@ -22,7 +32,7 @@
     <title>Logia Genesis | IT Solutions Gauteng | Wireless Networking & Surveillance</title>
 
     <!-- Open Graph Tags -->
-    <meta property="og:title" content="Logia Genesis | Switching Evolved | Thoughtful Innovations">
+    <meta property="og:title" content="Logia Genesis | IT Solutions Gauteng | Wireless Networking & Surveillance">
     <meta property="og:description"
         content="Comprehensive business technology solutions provider in Gauteng, South Africa. Wireless Networking, Surveillance, Access Control, Web Development & More.">
     <meta property="og:image" content="https://logia.co.za/assets/images/og-image.jpg">
@@ -34,7 +44,7 @@
 
     <!-- Twitter Card Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Logia Genesis | Switching Evolved">
+    <meta name="twitter:title" content="Logia Genesis | IT Solutions Gauteng | Wireless Networking & Surveillance">
     <meta name="twitter:description"
         content="Comprehensive business technology solutions provider in Gauteng, South Africa.">
     <meta name="twitter:image" content="https://logia.co.za/assets/images/twitter-card.jpg">
@@ -382,7 +392,7 @@
         </section>
 
         <!-- Why Choose Us Section (Bento Grid) -->
-        <section class="section why-choose-section bento-why-choose">
+        <section class="section why-choose-section bento-why-choose" id="why-choose-us">
             <div class="container">
                 <div class="section-header" data-aos="fade-up">
                     <span class="section-label">Why Logia Genesis</span>
@@ -457,7 +467,7 @@
         </section>
 
         <!-- Portfolio Preview Section -->
-        <section class="section portfolio-preview-section">
+        <section class="section portfolio-preview-section" id="portfolio-preview">
             <div class="container">
                 <div class="section-header" data-aos="fade-up">
                     <span class="section-label">Our Work</span>
@@ -619,11 +629,11 @@
         </section>
 
         <!-- Testimonials Section -->
-        <section class="section testimonials-section">
+        <section class="section testimonials-section" id="testimonials">
             <div class="container">
                 <div class="section-header" data-aos="fade-up">
                     <span class="section-label">Client Testimonials</span>
-                    <h2 class="section-title" id="testimonials">What Our Clients Say</h2>
+                    <h2 class="section-title">What Our Clients Say</h2>
                     <p class="section-description">
                         Don't just take our word for it – hear from businesses we've helped
                     </p>
@@ -705,7 +715,7 @@
         </section>
 
         <!-- Instagram Feed Section -->
-        <section class="section instagram-section">
+        <section class="section instagram-section" id="instagram">
             <div class="container">
                 <div class="section-header" data-aos="fade-up">
                     <span class="section-label">Follow Us</span>
@@ -729,7 +739,7 @@
         </section>
 
         <!-- CTA Section -->
-        <section class="cta-section">
+        <section class="cta-section" id="cta">
             <div class="cta-background">
                 <div class="gradient-mesh"></div>
             </div>

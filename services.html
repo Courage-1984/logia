@@ -7,11 +7,21 @@
 
     <!-- Content Security Policy -->
     <meta http-equiv="Content-Security-Policy"
-        content="default-src 'self'; script-src 'self' 'unsafe-inline' https://*.sentry.io https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://formspree.io https://*.sentry.io https://api.instagram.com; frame-src 'self' https://www.google.com; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests;">
+        content="default-src 'self'; script-src 'self' 'unsafe-inline' https://*.sentry.io https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' https://formspree.io https://*.sentry.io https://api.instagram.com https://www.googletagmanager.com https://*.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com; frame-src 'self' https://www.google.com; form-action 'self' https://formspree.io; base-uri 'self'; object-src 'none'; upgrade-insecure-requests;">
 
     <!-- Theme initialization script - prevents FOUC (Flash of Unstyled Content) -->
     <!-- MUST be before any CSS or other content -->
     <script src="js/utils/theme-init.js"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GT-WP4RJ46S"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'GT-WP4RJ46S');
+    </script>
 
     <meta name="description"
         content="Comprehensive IT services in Gauteng: Enterprise WiFi, AI surveillance, access control, structured cabling, web development & cloud solutions. Trusted by businesses across South Africa.">
@@ -90,6 +100,86 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Surveillance Systems",
+      "provider": {
+        "@type": "Organization",
+        "name": "Logia Genesis"
+      },
+      "areaServed": {
+        "@type": "State",
+        "name": "Gauteng"
+      },
+      "description": "Smart security solutions with artificial intelligence at their core. AI-powered surveillance systems with 4K cameras, facial recognition, and real-time alerts."
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Access Control",
+      "provider": {
+        "@type": "Organization",
+        "name": "Logia Genesis"
+      },
+      "areaServed": {
+        "@type": "State",
+        "name": "Gauteng"
+      },
+      "description": "Modern access management systems delivering incredible user experiences. Control who enters where, when, and how with intuitive, secure access control solutions."
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Structured Cabling",
+      "provider": {
+        "@type": "Organization",
+        "name": "Logia Genesis"
+      },
+      "areaServed": {
+        "@type": "State",
+        "name": "Gauteng"
+      },
+      "description": "Professional network infrastructure installation supporting increasing traffic demands. The foundation of your digital operations built to industry standards."
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Web Design & Development",
+      "provider": {
+        "@type": "Organization",
+        "name": "Logia Genesis"
+      },
+      "areaServed": {
+        "@type": "State",
+        "name": "Gauteng"
+      },
+      "description": "Custom websites and software solutions from concept to thriving business. High-performing, SEO-optimized platforms that drive results and transform your digital presence."
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "serviceType": "Cloud & IT Solutions",
+      "provider": {
+        "@type": "Organization",
+        "name": "Logia Genesis"
+      },
+      "areaServed": {
+        "@type": "State",
+        "name": "Gauteng"
+      },
+      "description": "Comprehensive cloud storage, mail migrations, and IT consulting services. Navigate the complexities of modern business technology with confidence and expert guidance."
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       "itemListElement": [
         {
@@ -117,11 +207,14 @@
 
     <!-- Navigation - Loaded via components.js -->
     <div id="navbar-placeholder"></div>
+    
+    <!-- Breadcrumb - Loaded via components.js -->
+    <div id="breadcrumb-placeholder"></div>
 
     <!-- Main Content -->
     <main id="main-content">
         <!-- Page Header -->
-        <section class="page-header">
+        <section class="page-header" id="page-header">
             <div class="hero-background">
                 <div class="gradient-mesh"></div>
                 <div class="grid-overlay"></div>
@@ -664,7 +757,7 @@
         </section>
 
         <!-- CTA Section -->
-        <section class="cta-section">
+        <section class="cta-section" id="cta">
             <div class="cta-background">
                 <div class="gradient-mesh"></div>
             </div>

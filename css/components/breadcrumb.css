@@ -1,0 +1,155 @@
+/* ============================================
+   LOGIA GENESIS - BREADCRUMB COMPONENT
+   Accessible breadcrumb navigation
+   ============================================ */
+
+/* Hide placeholder when breadcrumbs shouldn't show */
+#breadcrumb-placeholder {
+    min-height: 0;
+}
+
+#breadcrumb-placeholder:empty {
+    display: none !important;
+    min-height: 0 !important;
+    height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Breadcrumb Container */
+.breadcrumb {
+    background: var(--color-white);
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid var(--color-gray-200);
+    position: relative;
+    z-index: 10;
+    margin-top: 80px; /* Account for fixed navbar (increased height) */
+    margin-bottom: 0; /* No bottom margin - page-header follows directly */
+}
+
+/* Ensure no gap between breadcrumb and main content */
+.breadcrumb + main,
+.breadcrumb ~ main {
+    margin-top: 0;
+}
+
+/* Hide breadcrumb when list is empty (before content is added) */
+.breadcrumb-list:empty {
+    display: none;
+}
+
+.breadcrumb:has(.breadcrumb-list:empty) {
+    display: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+    border: none !important;
+}
+
+body.dark-mode .breadcrumb {
+    background: var(--color-dark-surface);
+    border-bottom-color: var(--color-dark-border);
+}
+
+/* Breadcrumb List */
+.breadcrumb-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    font-size: 0.875rem;
+}
+
+/* Breadcrumb Item */
+.breadcrumb-list li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+/* Breadcrumb Link */
+.breadcrumb-list a {
+    color: var(--color-gray-600);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+}
+
+body.dark-mode .breadcrumb-list a {
+    color: var(--color-gray-400);
+}
+
+.breadcrumb-list a:hover,
+.breadcrumb-list a:focus {
+    color: var(--color-primary);
+    text-decoration: underline;
+}
+
+body.dark-mode .breadcrumb-list a:hover,
+body.dark-mode .breadcrumb-list a:focus {
+    color: var(--color-accent);
+}
+
+/* Breadcrumb Separator */
+.breadcrumb-list li:not(:last-child)::after {
+    content: '/';
+    color: var(--color-gray-400);
+    margin-left: var(--space-2);
+    font-weight: 400;
+}
+
+body.dark-mode .breadcrumb-list li:not(:last-child)::after {
+    color: var(--color-gray-600);
+}
+
+/* Current Page (Last Item) */
+.breadcrumb-list li[aria-current="page"] {
+    color: var(--color-gray-900);
+    font-weight: 500;
+}
+
+body.dark-mode .breadcrumb-list li[aria-current="page"] {
+    color: var(--color-gray-100);
+}
+
+/* Current page item doesn't have a link - text is directly in the li element */
+
+/* Home Icon */
+.breadcrumb-list .breadcrumb-home-icon {
+    font-size: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Responsive: Mobile */
+@media (max-width: 768px) {
+    .breadcrumb {
+        padding: var(--space-2) 0;
+        margin-top: 80px; /* Account for increased navbar height */
+    }
+    
+    .breadcrumb-list {
+        font-size: 0.8125rem;
+        gap: var(--space-1);
+    }
+    
+    .breadcrumb-list li:not(:last-child)::after {
+        margin-left: var(--space-1);
+    }
+    
+    /* Show all items on mobile - most breadcrumbs only have 2 items anyway */
+    /* Long breadcrumbs will wrap to multiple lines if needed */
+}
+
+/* Print Styles - Hide breadcrumbs */
+@media print {
+    .breadcrumb {
+        display: none;
+    }
+}

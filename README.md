@@ -62,7 +62,7 @@ logia/
 │   ├── PERFORMANCE_CHECKLIST.md  # Performance quick reference
 │   ├── IMAGE_GUIDE.md  # Image implementation guide
 │   ├── FONTS.md  # Font self-hosting guide
-│   ├── NETWORK_OPTIMIZATION.md  # Server-side optimization
+│   ├── CPANEL_OPTIMIZATION_GUIDE.md  # Server-side optimization via cPanel
 │   └── RESPONSIVE_DESIGN.md  # Responsive design patterns
 ├── public/             # Public assets (for Vite)
 ├── config/             # Configuration files
@@ -243,7 +243,7 @@ Comprehensive performance optimizations implemented:
 - ✅ **SEO**: XML sitemap and web app manifest for PWA support
 - ✅ **Favicons**: Complete favicon implementation (SVG, PNG, Windows tiles)
 
-See [docs/PERFORMANCE_OPTIMIZATION.md](./docs/PERFORMANCE_OPTIMIZATION.md) for detailed strategies, [docs/PERFORMANCE_CHECKLIST.md](./docs/PERFORMANCE_CHECKLIST.md) for a quick reference checklist, and [docs/NETWORK_OPTIMIZATION.md](./docs/NETWORK_OPTIMIZATION.md) for server-side optimization guidance.
+See [docs/PERFORMANCE_OPTIMIZATION.md](./docs/PERFORMANCE_OPTIMIZATION.md) for detailed strategies, [docs/PERFORMANCE_CHECKLIST.md](./docs/PERFORMANCE_CHECKLIST.md) for a quick reference checklist, and [docs/CPANEL_OPTIMIZATION_GUIDE.md](./docs/CPANEL_OPTIMIZATION_GUIDE.md) for server-side optimization guidance.
 
 ## Documentation
 
@@ -257,7 +257,6 @@ See [docs/README.md](./docs/README.md) for complete documentation index.
 - **[Dual Build Guide](./docs/DUAL_BUILD_GUIDE.md)** - Deployment guide
 - **[Architecture](./docs/ARCHITECTURE.md)** - Project structure
 - **[Performance Optimization](./docs/PERFORMANCE_OPTIMIZATION.md)** - Performance strategies
-- **[SEO Recommendations](./docs/SEO_RECOMMENDATIONS.md)** - SEO strategy
 - **[Style Guide](./docs/STYLE_GUIDE.md)** - CSS conventions
 
 ## License

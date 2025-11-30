@@ -21,11 +21,7 @@ Quick reference guide to all project documentation.
 
 - **[PERFORMANCE_CHECKLIST.md](./PERFORMANCE_CHECKLIST.md)** - Primary quick-reference checklist (what's done / what's left)
 - **[PERFORMANCE_OPTIMIZATION.md](./PERFORMANCE_OPTIMIZATION.md)** - Implementation summary, caching strategy, and rationale
-- **[NETWORK_OPTIMIZATION.md](./NETWORK_OPTIMIZATION.md)** - Server-side playbook (HTTP/2, CDN, compression, cache headers)
-
-## SEO & Standards
-
-- **[SEO_RECOMMENDATIONS.md](./SEO_RECOMMENDATIONS.md)** - Complete SEO strategy and implementation guide
+- **[CPANEL_OPTIMIZATION_GUIDE.md](./CPANEL_OPTIMIZATION_GUIDE.md)** - Server-side optimization via cPanel (HTTP/2, compression, cache headers, LiteSpeed cache)
 
 ## Implementation Guides
 
@@ -60,6 +56,7 @@ Quick reference guide to all project documentation.
 - ✅ Floating action buttons (WhatsApp, scroll-to-top)
 - ✅ Timeline component (vertical process/journey flow with curved connectors)
 - ✅ Bento grid layout component
+- ✅ Breadcrumb navigation (dynamically generated from JSON-LD structured data)
 - ✅ Form backend integration (Formspree)
 - ✅ Legal pages (Privacy Policy, Terms of Service, 404)
 - ✅ Automatic URL transformation based on build target
@@ -74,21 +71,19 @@ Quick reference guide to all project documentation.
 - `.github/workflows/static.yml` - GitHub Pages deployment
 
 ### Recent Updates (January 2025)
+- **About Page Redesign**: Apple-inspired bento grid combining "Who We Are" and "Mission & Vision" sections
+  - 12-column flexible grid with glassmorphism effects
+  - Staggered team cards with reveal animations
+  - Animated gradient orbs background
 - **Page Transitions & Loading**: Skeleton loaders with shimmer animation, smooth page transitions with instant navigation
 - **Enhanced Caching**: Multi-layer caching (service worker + in-memory cache + cache warming) with automatic cleanup
-- **UI Components**: Timeline component (vertical process flow with curved connectors), bento grid layout
+- **UI Components**: Timeline component (vertical process flow with curved connectors), bento grid layout, breadcrumb navigation
 - **Performance**: Connection-aware optimizations, cache warming for critical pages/data
 - **Build & Development**: Preload optimization, dynamic import fixes, preview server improvements
 - **UI Improvements**: Footer logo links, Featured Projects styling updates, timeline component alignment fixes
 - **Monitoring & Error Tracking**: Sentry integration, Core Web Vitals, Lighthouse CI, bundle monitoring
-- **Accessibility**: Skip navigation links on all pages
-- Particles background system (particles.js-compatible, disabled on mobile/coarse pointers)
-- Font Awesome cross-browser fixes (Firefox compatibility)
-- Theme system optimization (FOUC prevention, system preference detection)
-- Path utilities for GitHub Pages compatibility
-- CSS modularization (complete modular structure)
-- Instagram feed local image fallback
-- GitHub Actions secrets support
+- **Accessibility**: Skip navigation links on all pages, comprehensive testing tools
+- **Chrome Animation Optimization**: Fixed jittery animations with will-change, CSS containment, transform optimizations
 
 ---
 

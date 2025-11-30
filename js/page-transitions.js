@@ -357,6 +357,8 @@ class PageTransitionManager {
             // Extract main content and other important elements
             const newMain = doc.querySelector('main');
             const newTitle = doc.querySelector('title');
+            const newBreadcrumbPlaceholder = doc.querySelector('#breadcrumb-placeholder');
+            const newStructuredData = doc.querySelectorAll('script[type="application/ld+json"]');
             const currentMain = document.querySelector('main');
             
             if (currentMain && newMain) {
@@ -368,6 +370,31 @@ class PageTransitionManager {
                     document.title = newTitle.textContent;
                 }
                 
+                // Update structured data in head (needed for breadcrumbs)
+                // Remove old structured data scripts
+                const oldStructuredData = document.querySelectorAll('head script[type="application/ld+json"]');
+                oldStructuredData.forEach(script => script.remove());
+                
+                // Add new structured data from the new page
+                newStructuredData.forEach(script => {
+                    const newScript = script.cloneNode(true);
+                    document.head.appendChild(newScript);
+                });
+                
+                // Ensure breadcrumb placeholder exists (it might have been replaced by component)
+                const existingBreadcrumbPlaceholder = document.querySelector('#breadcrumb-placeholder');
+                if (!existingBreadcrumbPlaceholder && newBreadcrumbPlaceholder) {
+                    // Placeholder doesn't exist but should - recreate it before main content
+                    const navbar = document.querySelector('.navbar');
+                    const placeholder = document.createElement('div');
+                    placeholder.id = 'breadcrumb-placeholder';
+                    if (navbar && navbar.nextSibling) {
+                        navbar.parentNode.insertBefore(placeholder, navbar.nextSibling);
+                    } else if (navbar) {
+                        navbar.parentNode.insertBefore(placeholder, navbar.nextSibling || navbar);
+                    }
+                }
+                
                 // Update main content with fade transition
                 currentMain.style.opacity = '0';
                 currentMain.style.transition = 'opacity 0.2s ease-out';
@@ -376,6 +403,26 @@ class PageTransitionManager {
                 
                 // Replace content
                 currentMain.innerHTML = newMain.innerHTML;
+                
+                // Clean up breadcrumbs and restore placeholder
+                // The placeholder might have been replaced by breadcrumb component
+                const staleBreadcrumb = document.querySelector('.breadcrumb');
+                const existingPlaceholder = document.querySelector('#breadcrumb-placeholder');
+                
+                if (staleBreadcrumb) {
+                    // Remove the breadcrumb component
+                    staleBreadcrumb.remove();
+                }
+                
+                // If placeholder doesn't exist, recreate it (it was replaced by breadcrumb component)
+                if (!existingPlaceholder && newBreadcrumbPlaceholder) {
+                    const navbar = document.querySelector('.navbar');
+                    if (navbar && navbar.parentNode) {
+                        const placeholder = document.createElement('div');
+                        placeholder.id = 'breadcrumb-placeholder';
+                        navbar.parentNode.insertBefore(placeholder, navbar.nextSibling);
+                    }
+                }
                 
                 // Update URL without reload
                 window.history.pushState({}, '', url);
@@ -422,13 +469,22 @@ class PageTransitionManager {
      * Reinitialize page features after transition
      */
     async reinitializePage() {
+        // Clean up breadcrumbs first - will be re-added if needed for the new page
+        const existingBreadcrumb = document.querySelector('.breadcrumb');
+        const breadcrumbPlaceholder = document.querySelector('#breadcrumb-placeholder');
+        
+        // Always remove any existing breadcrumb component first (clean slate)
+        if (existingBreadcrumb) {
+            existingBreadcrumb.remove();
+        }
+        
         // Dispatch custom event for other scripts to reinitialize
         const event = new CustomEvent('pageTransitionComplete', {
             detail: { url: window.location.href }
         });
         window.dispatchEvent(event);
         
-        // Reload components (navbar and footer) if placeholders exist
+        // Reload components (navbar, breadcrumb, footer) if placeholders exist
         const navbarPlaceholder = document.querySelector('#navbar-placeholder');
         const footerPlaceholder = document.querySelector('#footer-placeholder');
         
@@ -450,6 +506,54 @@ class PageTransitionManager {
         } else if (typeof window.setActiveNavLink === 'function') {
             // Just update active nav link
             window.setActiveNavLink();
+        }
+        
+        // Reinitialize breadcrumbs after navbar is ready
+        // Check if we're on homepage first
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        const basePath = getBasePath();
+        const isHomepage = currentPage === 'index.html' || 
+                           window.location.pathname === '/' || 
+                           window.location.pathname === `${basePath}/` ||
+                           window.location.pathname.endsWith('/');
+        
+        if (isHomepage) {
+            // Homepage - ensure breadcrumb is removed
+            const existingBreadcrumb = document.querySelector('.breadcrumb');
+            if (existingBreadcrumb) {
+                existingBreadcrumb.remove();
+            }
+            // Remove placeholder if it exists
+            if (breadcrumbPlaceholder) {
+                breadcrumbPlaceholder.remove();
+            }
+        } else {
+            // Not homepage - ensure placeholder exists and load breadcrumb component
+            let placeholder = document.querySelector('#breadcrumb-placeholder');
+            
+            // If placeholder doesn't exist (was replaced by breadcrumb component), recreate it
+            if (!placeholder) {
+                const navbar = document.querySelector('.navbar');
+                if (navbar && navbar.parentNode) {
+                    placeholder = document.createElement('div');
+                    placeholder.id = 'breadcrumb-placeholder';
+                    // Insert after navbar
+                    navbar.parentNode.insertBefore(placeholder, navbar.nextSibling);
+                }
+            }
+            
+            // Load breadcrumb component if placeholder exists
+            if (placeholder && typeof window.loadComponent === 'function') {
+                // Small delay to ensure structured data is fully updated
+                await new Promise(resolve => setTimeout(resolve, 100));
+                await window.loadComponent('components/breadcrumb.html', '#breadcrumb-placeholder', async () => {
+                    // Additional small delay to ensure DOM is ready
+                    await new Promise(resolve => setTimeout(resolve, 50));
+                    // Initialize breadcrumbs after component loads
+                    const { initBreadcrumbs } = await import('./breadcrumbs.js');
+                    initBreadcrumbs();
+                });
+            }
         }
         
         if (footerPlaceholder && !document.querySelector('footer .footer-content')) {

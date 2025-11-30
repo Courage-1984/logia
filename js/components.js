@@ -142,6 +142,21 @@ export const initComponents = async () => {
         }
     }, 'skeleton-navbar');
     
+    // Load breadcrumb (if placeholder exists and not on homepage)
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const isHomepage = currentPage === 'index.html' || window.location.pathname === '/' || window.location.pathname.endsWith('/');
+    if (!isHomepage) {
+        await loadComponent('components/breadcrumb.html', '#breadcrumb-placeholder', async () => {
+            // Initialize breadcrumbs after component loads
+            const { initBreadcrumbs } = await import('./breadcrumbs.js');
+            initBreadcrumbs();
+        });
+    } else {
+        // Remove placeholder on homepage
+        const placeholder = document.getElementById('breadcrumb-placeholder');
+        if (placeholder) placeholder.remove();
+    }
+    
     // Load footer with skeleton
     await loadComponent('components/footer.html', '#footer-placeholder', () => {
         // Re-initialize scroll handlers after footer loads (for scroll-to-top button)
