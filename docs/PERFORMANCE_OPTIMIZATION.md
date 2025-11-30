@@ -59,21 +59,27 @@ Implementation status and rationale for performance optimizations.
   - Data cache: 50 entries, 5-minute TTL (used by testimonials, Instagram)
   - LRU eviction, automatic expiration every 5 minutes
 - **Cache Warming**: `js/cache-warming.js` - Background pre-loading
-  - Pre-loads critical pages (2s after page load)
-  - Pre-loads critical data (3s after page load)
+  - Pre-loads critical pages (about, services) - 3s delay after page load
+  - Pre-loads critical data (Google Reviews, Instagram) - 4s delay after page load
   - Connection-aware (disabled on slow connections/data saver)
+  - Parallel component loading (navbar + footer load simultaneously)
 - Registered from `js/main.js`
 - Works in dev, preview, production, and GitHub Pages (with base path handling)
 
 ### Animations & Motion ✅
+- **GPU-Accelerated Properties**: All animations use GPU-accelerated properties only
+  - ✅ `transform` (translate, scale, rotate) instead of `left`, `top`, `width`, `height`
+  - ✅ `opacity` for fade effects
+  - ✅ Replaced all `transition: all` with specific properties (61 instances fixed)
+  - ✅ Fixed `.carousel-dot.active` to use `transform: scaleX()` instead of `width`
 - **Chrome Optimization**: Optimized for smooth animations in Chrome
-  - `will-change` only set during active animations (hover states)
-  - CSS containment (`contain: layout style paint`) for better rendering isolation
-  - Avoid unnecessary `translate3d(0,0,0)` - use only needed transforms (`scale()`, `translateY()`, etc.)
+  - `will-change` only set during active animations (hover states), removed when idle
+  - CSS containment (`contain: layout style paint`) on all animated elements
+  - Avoid unnecessary `translate3d(0,0,0)` - use only needed transforms
   - Separate transition properties for better Chrome performance
 - **Hardware Acceleration**: `backface-visibility: hidden` on animated elements
 - **Mobile Optimization**: 3D tilt and particles disabled on mobile/coarse pointers
-- See `css/sections/portfolio-preview.css`, `css/layout/hero.css`, `js/main.js`
+- **Files Optimized**: `css/components/carousel.css`, `css/components/buttons.css`, `css/components/cards.css`, `css/components/floating-buttons.css`, `css/sections/testimonials.css`, `css/sections/instagram.css`, `css/sections/why-choose.css`, `css/layout/navbar.css`, `css/layout/footer.css`
 
 ---
 
@@ -98,10 +104,34 @@ See `docs/CPANEL_OPTIMIZATION_GUIDE.md` for:
   - Uses in-memory cache for instant subsequent loads
   - Connection-aware (disabled on slow connections)
 
+## Recent PageSpeed Optimizations (January 2025) ✅
+
+### Font Loading
+- ✅ Font Awesome `font-display: swap` (400ms FCP improvement)
+
+### Image Optimization
+- ✅ Logo responsive images (31.2 KiB reduction)
+- ✅ Hero image compression improved (22.6 KiB reduction)
+
+### Render Optimization
+- ✅ Google Tag Manager deferred to end of `<body>` (143 KiB, 140ms saved)
+- ✅ Hero section layout shifts fixed (CLS reduced from 0.170)
+
+### Network Optimization
+- ✅ Parallel component loading (navbar + footer)
+- ✅ Reduced cache warming aggressiveness (2 pages instead of 4, longer delays)
+
+### Animation Optimization
+- ✅ All animations use GPU-accelerated properties (37 elements optimized)
+- ✅ Replaced `transition: all` with specific properties (61 instances)
+- ✅ Fixed non-GPU animations (carousel dots use `transform` instead of `width`)
+
 ## Remaining Opportunities
 
 - [ ] Extract critical CSS (inline above-fold) - Low priority, minimal impact expected
-- [ ] Further animation fine-tuning - Low priority, animations already optimized
+- [ ] Reduce unused JavaScript (56 KiB) - Medium priority
+- [ ] Reduce unused CSS (26 KiB) - Medium priority
+- [ ] Fix long main-thread tasks (3 found) - Medium priority
 
 ---
 
@@ -156,5 +186,6 @@ See `docs/CPANEL_OPTIMIZATION_GUIDE.md` for:
 ---
 
 **Last Updated**: January 2025  
-**Chrome Animation Optimization**: January 2025 - Fixed jittery animations, removed reduced motion rules  
+**PageSpeed Optimizations**: January 2025 - Font display, image optimization, GTM deferral, layout shifts, network optimization, GPU-accelerated animations  
+**Chrome Animation Optimization**: January 2025 - Fixed jittery animations, GPU-accelerated properties only, optimized will-change usage  
 **About Page Redesign**: January 2025 - Apple-inspired bento grid with glassmorphism, staggered team cards

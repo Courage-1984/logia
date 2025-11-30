@@ -1,0 +1,15 @@
+/* ============================================
+   LOGIA GENESIS - CARDS - HOVER EFFECTS
+   Card hover effects and interactions
+   ============================================ */
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-xl);
+    will-change: transform;
+}
+
+.card:not(:hover) {
+    will-change: auto;
+}
+

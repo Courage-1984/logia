@@ -12,7 +12,7 @@ Quick reference checklist for performance optimizations.
 ### Resource Optimization
 - [x] **Add preconnect** - Preconnect for external domains with crossorigin
 - [x] **Add modulepreload** - Preload critical JS modules (components.js, main.js)
-- [x] **Add prefetch for next pages** - Prefetch about.html, services.html, contact.html on homepage
+- [x] **Add prefetch for next pages** - Prefetch `/about`, `/services`, `/contact` on homepage
 - [x] **Link prefetch on hover** - Prefetch pages when hovering over links
 - [x] **Responsive images** - ✅ Already implemented
 - [x] **WebP format** - ✅ Already implemented
@@ -44,8 +44,11 @@ Quick reference checklist for performance optimizations.
 - [x] **Blur-up placeholders** - ✅ Generated during build, stored in placeholders.json
 
 ### 🎨 Animation Optimization
-- [x] **Add will-change hints** - Add for animated elements
+- [x] **Add will-change hints** - Add for animated elements (only during active animations)
 - [x] **Disable 3D tilt on mobile** - Reduce mobile animation complexity
+- [x] **GPU-accelerated properties only** - All animations use `transform` and `opacity` (37 elements optimized)
+- [x] **Replace transition: all** - Replaced with specific properties (61 instances fixed)
+- [x] **CSS containment** - Added to all animated elements for better rendering isolation
 
 ### 💾 Caching
 - [ ] **Configure cache headers** - Set proper cache headers on server (see CPANEL_OPTIMIZATION_GUIDE.md)
@@ -83,6 +86,8 @@ Quick reference checklist for performance optimizations.
 - [ ] **Use CDN** - Consider Cloudflare for additional performance (see CPANEL_OPTIMIZATION_GUIDE.md)
 - [ ] **Enable compression** - gzip/brotli on server (see CPANEL_OPTIMIZATION_GUIDE.md)
 - [x] **Optimize DNS** - ✅ DNS prefetch pattern documented (no external domains currently, fonts self-hosted)
+- [x] **Parallel component loading** - ✅ Navbar and footer load simultaneously
+- [x] **Optimize cache warming** - ✅ Reduced from 4 pages to 2, increased delays (3s/4s)
 
 ### 🔍 SEO & PWA
 - [x] **XML Sitemap** - ✅ sitemap.xml created with all pages
@@ -129,4 +134,5 @@ Quick reference checklist for performance optimizations.
 See [PERFORMANCE_OPTIMIZATION.md](./PERFORMANCE_OPTIMIZATION.md) for detailed implementation instructions.
 
 **Last Updated:** January 2025  
-**Chrome Animation Optimization**: January 2025 - Fixed jittery animations, optimized will-change usage
+**PageSpeed Optimizations**: January 2025 - Font display, image optimization, GTM deferral, layout shifts, network optimization, GPU-accelerated animations  
+**Chrome Animation Optimization**: January 2025 - Fixed jittery animations, GPU-accelerated properties only, optimized will-change usage

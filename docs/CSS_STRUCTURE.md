@@ -148,7 +148,7 @@ The About page features an Apple-inspired bento grid layout combining "Who We Ar
 - **Grid System**: 12-column grid (`bento-grid-about`) for flexible layouts
 - **Card Sizes**: Large (6 cols, 2 rows), Medium (6 cols), Small (3 cols), Equal (4 cols each), Fill-remaining (9 cols)
 - **Design**: Glassmorphism with `backdrop-filter: blur(20px)`, animated gradient orbs background
-- **Location**: `about.html` section `#company-story`, styled in `css/pages/about.css`
+- **Location**: `/about` section `#company-story`, styled in `css/pages/about.css`
 - **Component**: Uses `css/components/bento-grid.css` with custom variants for About page
 
 ## Component Dependencies

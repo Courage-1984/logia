@@ -8,12 +8,11 @@ import cacheManager from './cache-manager.js';
 
 /**
  * Critical pages to warm up (pre-load)
+ * Reduced to only most critical pages to avoid aggressive prefetching
  */
 const CRITICAL_PAGES = [
   'about.html',
-  'services.html',
-  'contact.html',
-  'portfolio.html'
+  'services.html'
 ];
 
 /**
@@ -32,12 +31,13 @@ export const warmCache = () => {
   }
   
   // Wait for page to be fully loaded
+  // Increased delay to be less aggressive and avoid blocking critical resources
   if (document.readyState === 'loading') {
     window.addEventListener('load', () => {
-      setTimeout(warmPages, 2000); // Wait 2 seconds after load
+      setTimeout(warmPages, 3000); // Wait 3 seconds after load (increased from 2s)
     });
   } else {
-    setTimeout(warmPages, 2000);
+    setTimeout(warmPages, 3000);
   }
 };
 
@@ -75,7 +75,7 @@ const warmPages = () => {
           // Silently fail - cache warming is optional
           console.debug(`Cache warming failed for ${page}:`, error);
         });
-    }, index * 500); // 500ms delay between each page
+    }, index * 1000); // 1 second delay between each page (increased from 500ms)
   });
 };
 
@@ -94,12 +94,13 @@ export const warmDataCache = () => {
   }
   
   // Wait for page to be fully loaded
+  // Increased delay to be less aggressive and avoid blocking critical resources
   if (document.readyState === 'loading') {
     window.addEventListener('load', () => {
-      setTimeout(warmData, 3000); // Wait 3 seconds after load
+      setTimeout(warmData, 4000); // Wait 4 seconds after load (increased from 3s)
     });
   } else {
-    setTimeout(warmData, 3000);
+    setTimeout(warmData, 4000);
   }
 };
 

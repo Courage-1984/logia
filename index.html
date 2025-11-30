@@ -12,17 +12,7 @@
 
     <!-- Theme initialization script - prevents FOUC (Flash of Unstyled Content) -->
     <!-- MUST be before any CSS or other content -->
-    <script src="js/utils/theme-init.js"></script>
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GT-WP4RJ46S"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'GT-WP4RJ46S');
-    </script>
+    <script src="/js/utils/theme-init.js"></script>
 
     <meta name="description"
         content="Logia Genesis provides enterprise IT solutions in Gauteng, South Africa. Expert wireless networking, AI surveillance systems, access control, and web development. 15+ years experience. Get your free consultation today.">
@@ -58,13 +48,13 @@
 
     <!-- Self-hosted Fonts -->
     <!-- Inter Font (self-hosted) -->
-    <link rel="stylesheet" href="css/fonts/inter-fonts.css">
+    <link rel="stylesheet" href="/css/fonts/inter-fonts.css">
 
     <!-- Font Awesome (self-hosted) -->
-    <link rel="stylesheet" href="css/fonts/fontawesome-local.css">
+    <link rel="stylesheet" href="/css/fonts/fontawesome-local.css">
 
     <!-- Main Stylesheet -->
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="/css/style.css">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -90,13 +80,13 @@
     <!-- Preloading responsive images is complex and can cause warnings when browser selects different size -->
 
     <!-- Preload critical JavaScript modules -->
-    <link rel="modulepreload" href="js/components.js">
-    <link rel="modulepreload" href="js/main.js">
+    <link rel="modulepreload" href="/js/components.js">
+    <link rel="modulepreload" href="/js/main.js">
 
     <!-- Prefetch likely next pages -->
-    <link rel="prefetch" href="about.html">
-    <link rel="prefetch" href="services.html">
-    <link rel="prefetch" href="contact.html">
+    <link rel="prefetch" href="/about">
+    <link rel="prefetch" href="/services">
+    <link rel="prefetch" href="/contact">
 
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
@@ -193,28 +183,28 @@
         <section class="hero" id="hero">
             <div class="hero-background">
                 <picture>
-                    <source srcset="assets/images/hero-background-320w.webp 320w,
-                            assets/images/hero-background-640w.webp 640w,
-                            assets/images/hero-background-768w.webp 768w,
-                            assets/images/hero-background-1024w.webp 1024w,
-                            assets/images/hero-background-1280w.webp 1280w,
-                            assets/images/hero-background-1920w.webp 1920w,
-                            assets/images/hero-background.webp" sizes="100vw" type="image/webp">
-                    <source srcset="assets/images/hero-background-320w.jpg 320w,
-                            assets/images/hero-background-640w.jpg 640w,
-                            assets/images/hero-background-768w.jpg 768w,
-                            assets/images/hero-background-1024w.jpg 1024w,
-                            assets/images/hero-background-1280w.jpg 1280w,
-                            assets/images/hero-background-1920w.jpg 1920w,
-                            assets/images/hero-background.jpg" sizes="100vw" type="image/jpeg">
-                    <img src="assets/images/hero-background.jpg" srcset="assets/images/hero-background-320w.jpg 320w,
-                            assets/images/hero-background-640w.jpg 640w,
-                            assets/images/hero-background-768w.jpg 768w,
-                            assets/images/hero-background-1024w.jpg 1024w,
-                            assets/images/hero-background-1280w.jpg 1280w,
-                            assets/images/hero-background-1920w.jpg 1920w" sizes="100vw"
+                    <source srcset="/assets/images/hero-background-320w.webp 320w,
+                            /assets/images/hero-background-640w.webp 640w,
+                            /assets/images/hero-background-768w.webp 768w,
+                            /assets/images/hero-background-1024w.webp 1024w,
+                            /assets/images/hero-background-1280w.webp 1280w,
+                            /assets/images/hero-background-1920w.webp 1920w,
+                            /assets/images/hero-background.webp" sizes="100vw" type="image/webp">
+                    <source srcset="/assets/images/hero-background-320w.jpg 320w,
+                            /assets/images/hero-background-640w.jpg 640w,
+                            /assets/images/hero-background-768w.jpg 768w,
+                            /assets/images/hero-background-1024w.jpg 1024w,
+                            /assets/images/hero-background-1280w.jpg 1280w,
+                            /assets/images/hero-background-1920w.jpg 1920w,
+                            /assets/images/hero-background.jpg" sizes="100vw" type="image/jpeg">
+                    <img src="/assets/images/hero-background.jpg" srcset="/assets/images/hero-background-320w.jpg 320w,
+                            /assets/images/hero-background-640w.jpg 640w,
+                            /assets/images/hero-background-768w.jpg 768w,
+                            /assets/images/hero-background-1024w.jpg 1024w,
+                            /assets/images/hero-background-1280w.jpg 1280w,
+                            /assets/images/hero-background-1920w.jpg 1920w" sizes="100vw"
                         alt="Modern technology infrastructure" class="hero-bg-image" loading="eager" decoding="async"
-                        fetchpriority="high">
+                        fetchpriority="high" width="1920" height="1080">
                 </picture>
                 <div class="gradient-mesh"></div>
                 <div class="grid-overlay"></div>
@@ -234,13 +224,13 @@
                     </p>
                     <ul class="hero-cta" role="list">
                         <li>
-                            <a href="contact.html#quote" class="btn btn-primary btn-lg">
+                            <a href="/contact#quote" class="btn btn-primary btn-lg">
                                 <span>Get Started</span>
                                 <i class="fas fa-arrow-right"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="about.html" class="btn btn-outline btn-lg">
+                            <a href="/about" class="btn btn-outline btn-lg">
                                 <span>Learn More</span>
                             </a>
                         </li>
@@ -283,7 +273,7 @@
                             <li><i class="fas fa-check"></i> Enterprise mesh networks</li>
                             <li><i class="fas fa-check"></i> Real-time monitoring & management</li>
                         </ul>
-                        <a href="services.html#wireless" class="service-link">
+                        <a href="/services#wireless" class="service-link">
                             Learn More <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
@@ -303,7 +293,7 @@
                             <li><i class="fas fa-check"></i> 4K ultra-HD cameras</li>
                             <li><i class="fas fa-check"></i> Cloud & local storage</li>
                         </ul>
-                        <a href="services.html#surveillance" class="service-link">
+                        <a href="/services#surveillance" class="service-link">
                             Learn More <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
@@ -323,7 +313,7 @@
                             <li><i class="fas fa-check"></i> Mobile access credentials</li>
                             <li><i class="fas fa-check"></i> Integration with surveillance</li>
                         </ul>
-                        <a href="services.html#access-control" class="service-link">
+                        <a href="/services#access-control" class="service-link">
                             Learn More <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
@@ -343,7 +333,7 @@
                             <li><i class="fas fa-check"></i> Fiber optic solutions</li>
                             <li><i class="fas fa-check"></i> Cable management systems</li>
                         </ul>
-                        <a href="services.html#cabling" class="service-link">
+                        <a href="/services#cabling" class="service-link">
                             Learn More <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
@@ -363,7 +353,7 @@
                             <li><i class="fas fa-check"></i> Custom software development</li>
                             <li><i class="fas fa-check"></i> E-commerce solutions</li>
                         </ul>
-                        <a href="services.html#web-design" class="service-link">
+                        <a href="/services#web-design" class="service-link">
                             Learn More <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
@@ -383,7 +373,7 @@
                             <li><i class="fas fa-check"></i> Data backup solutions</li>
                             <li><i class="fas fa-check"></i> IT consulting & support</li>
                         </ul>
-                        <a href="services.html#cloud-it" class="service-link">
+                        <a href="/services#cloud-it" class="service-link">
                             Learn More <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
@@ -482,30 +472,30 @@
                         <div class="portfolio-image">
                             <picture>
                                 <source srcset="
-                                        assets/images/portfolio/corporate-campus-wifi-320w.webp 320w,
-                                        assets/images/portfolio/corporate-campus-wifi-640w.webp 640w,
-                                        assets/images/portfolio/corporate-campus-wifi-768w.webp 768w,
-                                        assets/images/portfolio/corporate-campus-wifi-1024w.webp 1024w,
-                                        assets/images/portfolio/corporate-campus-wifi-1280w.webp 1280w,
-                                        assets/images/portfolio/corporate-campus-wifi-1920w.webp 1920w
+                                        /assets/images/portfolio/corporate-campus-wifi-320w.webp 320w,
+                                        /assets/images/portfolio/corporate-campus-wifi-640w.webp 640w,
+                                        /assets/images/portfolio/corporate-campus-wifi-768w.webp 768w,
+                                        /assets/images/portfolio/corporate-campus-wifi-1024w.webp 1024w,
+                                        /assets/images/portfolio/corporate-campus-wifi-1280w.webp 1280w,
+                                        /assets/images/portfolio/corporate-campus-wifi-1920w.webp 1920w
                                     " sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                     type="image/webp">
                                 <source srcset="
-                                        assets/images/portfolio/corporate-campus-wifi-320w.jpg 320w,
-                                        assets/images/portfolio/corporate-campus-wifi-640w.jpg 640w,
-                                        assets/images/portfolio/corporate-campus-wifi-768w.jpg 768w,
-                                        assets/images/portfolio/corporate-campus-wifi-1024w.jpg 1024w,
-                                        assets/images/portfolio/corporate-campus-wifi-1280w.jpg 1280w,
-                                        assets/images/portfolio/corporate-campus-wifi-1920w.jpg 1920w
+                                        /assets/images/portfolio/corporate-campus-wifi-320w.jpg 320w,
+                                        /assets/images/portfolio/corporate-campus-wifi-640w.jpg 640w,
+                                        /assets/images/portfolio/corporate-campus-wifi-768w.jpg 768w,
+                                        /assets/images/portfolio/corporate-campus-wifi-1024w.jpg 1024w,
+                                        /assets/images/portfolio/corporate-campus-wifi-1280w.jpg 1280w,
+                                        /assets/images/portfolio/corporate-campus-wifi-1920w.jpg 1920w
                                     " sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                     type="image/jpeg">
-                                <img src="assets/images/portfolio/corporate-campus-wifi.jpg" srcset="
-                                        assets/images/portfolio/corporate-campus-wifi-320w.jpg 320w,
-                                        assets/images/portfolio/corporate-campus-wifi-640w.jpg 640w,
-                                        assets/images/portfolio/corporate-campus-wifi-768w.jpg 768w,
-                                        assets/images/portfolio/corporate-campus-wifi-1024w.jpg 1024w,
-                                        assets/images/portfolio/corporate-campus-wifi-1280w.jpg 1280w,
-                                        assets/images/portfolio/corporate-campus-wifi-1920w.jpg 1920w
+                                <img src="/assets/images/portfolio/corporate-campus-wifi.jpg" srcset="
+                                        /assets/images/portfolio/corporate-campus-wifi-320w.jpg 320w,
+                                        /assets/images/portfolio/corporate-campus-wifi-640w.jpg 640w,
+                                        /assets/images/portfolio/corporate-campus-wifi-768w.jpg 768w,
+                                        /assets/images/portfolio/corporate-campus-wifi-1024w.jpg 1024w,
+                                        /assets/images/portfolio/corporate-campus-wifi-1280w.jpg 1280w,
+                                        /assets/images/portfolio/corporate-campus-wifi-1920w.jpg 1920w
                                     " sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                     alt="Overhead view of a corporate campus with enterprise WiFi access points across multiple buildings"
                                     loading="lazy" decoding="async">
@@ -529,30 +519,30 @@
                         <div class="portfolio-image">
                             <picture>
                                 <source srcset="
-                                        assets/images/portfolio/ai-security-system-320w.webp 320w,
-                                        assets/images/portfolio/ai-security-system-640w.webp 640w,
-                                        assets/images/portfolio/ai-security-system-768w.webp 768w,
-                                        assets/images/portfolio/ai-security-system-1024w.webp 1024w,
-                                        assets/images/portfolio/ai-security-system-1280w.webp 1280w,
-                                        assets/images/portfolio/ai-security-system-1920w.webp 1920w
+                                        /assets/images/portfolio/ai-security-system-320w.webp 320w,
+                                        /assets/images/portfolio/ai-security-system-640w.webp 640w,
+                                        /assets/images/portfolio/ai-security-system-768w.webp 768w,
+                                        /assets/images/portfolio/ai-security-system-1024w.webp 1024w,
+                                        /assets/images/portfolio/ai-security-system-1280w.webp 1280w,
+                                        /assets/images/portfolio/ai-security-system-1920w.webp 1920w
                                     " sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                     type="image/webp">
                                 <source srcset="
-                                        assets/images/portfolio/ai-security-system-320w.jpg 320w,
-                                        assets/images/portfolio/ai-security-system-640w.jpg 640w,
-                                        assets/images/portfolio/ai-security-system-768w.jpg 768w,
-                                        assets/images/portfolio/ai-security-system-1024w.jpg 1024w,
-                                        assets/images/portfolio/ai-security-system-1280w.jpg 1280w,
-                                        assets/images/portfolio/ai-security-system-1920w.jpg 1920w
+                                        /assets/images/portfolio/ai-security-system-320w.jpg 320w,
+                                        /assets/images/portfolio/ai-security-system-640w.jpg 640w,
+                                        /assets/images/portfolio/ai-security-system-768w.jpg 768w,
+                                        /assets/images/portfolio/ai-security-system-1024w.jpg 1024w,
+                                        /assets/images/portfolio/ai-security-system-1280w.jpg 1280w,
+                                        /assets/images/portfolio/ai-security-system-1920w.jpg 1920w
                                     " sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                     type="image/jpeg">
-                                <img src="assets/images/portfolio/ai-security-system.jpg" srcset="
-                                        assets/images/portfolio/ai-security-system-320w.jpg 320w,
-                                        assets/images/portfolio/ai-security-system-640w.jpg 640w,
-                                        assets/images/portfolio/ai-security-system-768w.jpg 768w,
-                                        assets/images/portfolio/ai-security-system-1024w.jpg 1024w,
-                                        assets/images/portfolio/ai-security-system-1280w.jpg 1280w,
-                                        assets/images/portfolio/ai-security-system-1920w.jpg 1920w
+                                <img src="/assets/images/portfolio/ai-security-system.jpg" srcset="
+                                        /assets/images/portfolio/ai-security-system-320w.jpg 320w,
+                                        /assets/images/portfolio/ai-security-system-640w.jpg 640w,
+                                        /assets/images/portfolio/ai-security-system-768w.jpg 768w,
+                                        /assets/images/portfolio/ai-security-system-1024w.jpg 1024w,
+                                        /assets/images/portfolio/ai-security-system-1280w.jpg 1280w,
+                                        /assets/images/portfolio/ai-security-system-1920w.jpg 1920w
                                     " sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                     alt="Security operations center with multiple AI-powered surveillance camera feeds on wall displays"
                                     loading="lazy" decoding="async">
@@ -576,30 +566,30 @@
                         <div class="portfolio-image">
                             <picture>
                                 <source srcset="
-                                        assets/images/portfolio/e-commerce-platform-320w.webp 320w,
-                                        assets/images/portfolio/e-commerce-platform-640w.webp 640w,
-                                        assets/images/portfolio/e-commerce-platform-768w.webp 768w,
-                                        assets/images/portfolio/e-commerce-platform-1024w.webp 1024w,
-                                        assets/images/portfolio/e-commerce-platform-1280w.webp 1280w,
-                                        assets/images/portfolio/e-commerce-platform-1920w.webp 1920w
+                                        /assets/images/portfolio/e-commerce-platform-320w.webp 320w,
+                                        /assets/images/portfolio/e-commerce-platform-640w.webp 640w,
+                                        /assets/images/portfolio/e-commerce-platform-768w.webp 768w,
+                                        /assets/images/portfolio/e-commerce-platform-1024w.webp 1024w,
+                                        /assets/images/portfolio/e-commerce-platform-1280w.webp 1280w,
+                                        /assets/images/portfolio/e-commerce-platform-1920w.webp 1920w
                                     " sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                     type="image/webp">
                                 <source srcset="
-                                        assets/images/portfolio/e-commerce-platform-320w.jpg 320w,
-                                        assets/images/portfolio/e-commerce-platform-640w.jpg 640w,
-                                        assets/images/portfolio/e-commerce-platform-768w.jpg 768w,
-                                        assets/images/portfolio/e-commerce-platform-1024w.jpg 1024w,
-                                        assets/images/portfolio/e-commerce-platform-1280w.jpg 1280w,
-                                        assets/images/portfolio/e-commerce-platform-1920w.jpg 1920w
+                                        /assets/images/portfolio/e-commerce-platform-320w.jpg 320w,
+                                        /assets/images/portfolio/e-commerce-platform-640w.jpg 640w,
+                                        /assets/images/portfolio/e-commerce-platform-768w.jpg 768w,
+                                        /assets/images/portfolio/e-commerce-platform-1024w.jpg 1024w,
+                                        /assets/images/portfolio/e-commerce-platform-1280w.jpg 1280w,
+                                        /assets/images/portfolio/e-commerce-platform-1920w.jpg 1920w
                                     " sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                     type="image/jpeg">
-                                <img src="assets/images/portfolio/e-commerce-platform.jpg" srcset="
-                                        assets/images/portfolio/e-commerce-platform-320w.jpg 320w,
-                                        assets/images/portfolio/e-commerce-platform-640w.jpg 640w,
-                                        assets/images/portfolio/e-commerce-platform-768w.jpg 768w,
-                                        assets/images/portfolio/e-commerce-platform-1024w.jpg 1024w,
-                                        assets/images/portfolio/e-commerce-platform-1280w.jpg 1280w,
-                                        assets/images/portfolio/e-commerce-platform-1920w.jpg 1920w
+                                <img src="/assets/images/portfolio/e-commerce-platform.jpg" srcset="
+                                        /assets/images/portfolio/e-commerce-platform-320w.jpg 320w,
+                                        /assets/images/portfolio/e-commerce-platform-640w.jpg 640w,
+                                        /assets/images/portfolio/e-commerce-platform-768w.jpg 768w,
+                                        /assets/images/portfolio/e-commerce-platform-1024w.jpg 1024w,
+                                        /assets/images/portfolio/e-commerce-platform-1280w.jpg 1280w,
+                                        /assets/images/portfolio/e-commerce-platform-1920w.jpg 1920w
                                     " sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                     alt="Developer workstation showing a responsive e-commerce website across desktop and mobile screens"
                                     loading="lazy" decoding="async">
@@ -621,7 +611,7 @@
                 </div>
 
                 <div class="text-center" data-aos="fade-up">
-                    <a href="portfolio.html" class="btn btn-outline btn-lg">
+                    <a href="/portfolio" class="btn btn-outline btn-lg">
                         View All Projects <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
@@ -752,7 +742,7 @@
                     </p>
                     <ul class="cta-buttons" role="list">
                         <li>
-                            <a href="contact.html#quote" class="btn btn-primary btn-lg">
+                            <a href="/contact#quote" class="btn btn-primary btn-lg">
                                 <span>Get A Quote</span>
                                 <i class="fas fa-arrow-right"></i>
                             </a>
@@ -776,10 +766,19 @@
 
     <!-- JavaScript -->
     <!-- Theme Manager - Load early to prevent FOUC -->
-    <script type="module" src="js/utils/theme.js"></script>
-    <script type="module" src="js/components.js"></script>
-    <script type="module" src="js/alpine-setup.js"></script>
-    <script type="module" src="js/main.js"></script>
+    <script type="module" src="/js/utils/theme.js"></script>
+    <script type="module" src="/js/components.js"></script>
+    <script type="module" src="/js/alpine-setup.js"></script>
+    <script type="module" src="/js/main.js"></script>
+
+    <!-- Google tag (gtag.js) - Deferred to end of body for better performance -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GT-WP4RJ46S"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'GT-WP4RJ46S');
+    </script>
 
 </body>
 

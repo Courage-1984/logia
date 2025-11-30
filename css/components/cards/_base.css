@@ -1,0 +1,40 @@
+/* ============================================
+   LOGIA GENESIS - CARDS - BASE
+   Base card pattern and structure
+   ============================================ */
+
+.card {
+    background: var(--color-white);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    border: 1px solid var(--color-border);
+    transition-property: transform, box-shadow;
+    transition-duration: var(--transition-base);
+    transition-timing-function: ease;
+    contain: layout style paint;
+}
+
+@media (min-width: 769px) {
+    .card {
+        padding: var(--space-8);
+    }
+}
+
+body.dark-mode .card {
+    background: var(--color-dark-surface);
+}
+
+/* Card Title */
+.card-title {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-2);
+    color: var(--color-text);
+}
+
+/* Card Description */
+.card-description {
+    margin-bottom: var(--space-6);
+    line-height: 1.7;
+    color: var(--color-text-muted);
+}
+

@@ -122,29 +122,39 @@ export const setActiveNavLink = () => {
 
 /**
  * Initialize all components
- * Loads navbar and footer components and initializes dependent features
+ * Loads navbar and footer components in parallel for better performance
  * @returns {Promise<void>}
  */
 export const initComponents = async () => {
-    // Load navbar with skeleton
-    await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
-        setActiveNavLink();
-        // Initialize dark mode toggle after navbar loads
-        // Theme manager initializes automatically, but we ensure toggle button is set up
-        if (window.themeManager) {
-            window.themeManager.initToggleButton();
-        } else if (typeof window.initDarkMode === 'function') {
-            window.initDarkMode();
-        }
-        // Initialize mobile menu after navbar is loaded
-        if (typeof window.initMobileMenu === 'function') {
-            window.initMobileMenu();
-        }
-    }, 'skeleton-navbar');
-    
     // Load breadcrumb (if placeholder exists and not on homepage)
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
     const isHomepage = currentPage === 'index.html' || window.location.pathname === '/' || window.location.pathname.endsWith('/');
+    
+    // Load navbar and footer in parallel to reduce critical path latency
+    await Promise.all([
+        loadComponent('components/navbar.html', '#navbar-placeholder', () => {
+            setActiveNavLink();
+            // Initialize dark mode toggle after navbar loads
+            // Theme manager initializes automatically, but we ensure toggle button is set up
+            if (window.themeManager) {
+                window.themeManager.initToggleButton();
+            } else if (typeof window.initDarkMode === 'function') {
+                window.initDarkMode();
+            }
+            // Initialize mobile menu after navbar is loaded
+            if (typeof window.initMobileMenu === 'function') {
+                window.initMobileMenu();
+            }
+        }, 'skeleton-navbar'),
+        loadComponent('components/footer.html', '#footer-placeholder', () => {
+            // Re-initialize scroll handlers after footer loads (for scroll-to-top button)
+            if (typeof window.reinitScrollHandlers === 'function') {
+                window.reinitScrollHandlers();
+            }
+        }, 'skeleton-footer')
+    ]);
+    
+    // Load breadcrumb after navbar/footer (not critical path)
     if (!isHomepage) {
         await loadComponent('components/breadcrumb.html', '#breadcrumb-placeholder', async () => {
             // Initialize breadcrumbs after component loads
@@ -156,14 +166,6 @@ export const initComponents = async () => {
         const placeholder = document.getElementById('breadcrumb-placeholder');
         if (placeholder) placeholder.remove();
     }
-    
-    // Load footer with skeleton
-    await loadComponent('components/footer.html', '#footer-placeholder', () => {
-        // Re-initialize scroll handlers after footer loads (for scroll-to-top button)
-        if (typeof window.reinitScrollHandlers === 'function') {
-            window.reinitScrollHandlers();
-        }
-    }, 'skeleton-footer');
 };
 
 // Make setActiveNavLink and loadComponent available globally for page transitions

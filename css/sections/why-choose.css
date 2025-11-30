@@ -33,7 +33,10 @@
     border-radius: var(--radius-xl);
     background: var(--color-surface);
     border: 1px solid var(--color-border);
-    transition: all var(--transition-base);
+    transition-property: transform, box-shadow;
+    transition-duration: var(--transition-base);
+    transition-timing-function: ease;
+    contain: layout style paint;
 }
 
 @media (min-width: 769px) {
@@ -55,13 +58,21 @@
     font-size: 2rem;
     color: var(--color-accent-text);
     margin: 0 auto var(--space-6);
-    transition: all var(--transition-base);
+    transition-property: transform, background, color;
+    transition-duration: var(--transition-base);
+    transition-timing-function: ease;
+    contain: layout style paint;
 }
 
 .why-card:hover .why-icon {
     transform: scale(1.1);
     background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
     color: var(--color-white);
+    will-change: transform;
+}
+
+.why-card:not(:hover) .why-icon {
+    will-change: auto;
 }
 
 .why-card h3 {

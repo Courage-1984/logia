@@ -52,6 +52,7 @@ npm run accessibility:pa11y
 ```bash
 # Test built files
 npm run accessibility:axe dist/index.html
+# Note: Pages use clean URLs (/about, /contact) but built files still have .html extensions
 
 # Test local development server
 npm run accessibility:axe http://localhost:3000

@@ -20,11 +20,14 @@
     opacity: 0;
     visibility: hidden;
     transform: translateY(20px);
-    transition: all var(--transition-base);
+    transition-property: transform, opacity, visibility, background-color;
+    transition-duration: var(--transition-base);
+    transition-timing-function: ease;
     z-index: var(--z-fixed);
     cursor: pointer;
     border: none;
     pointer-events: none;
+    contain: layout style paint;
 }
 
 .scroll-top.visible {
@@ -53,10 +56,13 @@
     align-items: center;
     justify-content: center;
     box-shadow: var(--shadow-lg);
-    transition: all var(--transition-base);
+    transition-property: transform, background-color, box-shadow;
+    transition-duration: var(--transition-base);
+    transition-timing-function: ease;
     z-index: var(--z-fixed);
     text-decoration: none;
     font-size: 28px;
+    contain: layout style paint;
 }
 
 .whatsapp-float:hover {
@@ -64,6 +70,11 @@
     /* Darker for hover state */
     transform: translateY(-4px) scale(1.05);
     box-shadow: var(--shadow-xl);
+    will-change: transform;
+}
+
+.whatsapp-float:not(:hover) {
+    will-change: auto;
 }
 
 .whatsapp-float:active {
@@ -85,9 +96,12 @@
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: all var(--transition-base);
+    transition-property: transform, opacity, visibility;
+    transition-duration: var(--transition-base);
+    transition-timing-function: ease;
     font-weight: 500;
     box-shadow: var(--shadow-md);
+    contain: layout style paint;
 }
 
 .whatsapp-tooltip::after {
@@ -105,5 +119,10 @@
     opacity: 1;
     visibility: visible;
     transform: translateY(-50%) translateX(4px);
+    will-change: transform, opacity;
+}
+
+.whatsapp-float:not(:hover) .whatsapp-tooltip {
+    will-change: auto;
 }
 

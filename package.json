@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "find-place-id": "dotenv -e .env -- node scripts/find-place-id.js",
+    "test-instagram-token": "dotenv -e .env -- node scripts/test-instagram-token.js",
+    "get-facebook-page-id": "dotenv -e .env -- node scripts/get-facebook-page-id.js",
     "fetch-reviews": "dotenv -e .env -- node scripts/fetch-google-reviews.js && node scripts/sync-reviews-to-public.js",
     "fetch-instagram": "dotenv -e .env -- node scripts/fetch-instagram-posts.js && node scripts/sync-instagram-to-public.js",
     "download-instagram-images": "node scripts/download-instagram-images.js && node scripts/sync-instagram-to-public.js",

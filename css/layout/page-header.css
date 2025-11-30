@@ -10,6 +10,7 @@
     text-align: center;
     overflow: hidden;
     min-height: 500px;
+    aspect-ratio: 16 / 9; /* Reserve space to prevent layout shift */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -52,6 +53,11 @@
     position: absolute;
     inset: 0;
     z-index: 0;
+    width: 100%;
+    height: 100%;
+    /* Reserve space to prevent layout shift */
+    min-height: 500px;
+    aspect-ratio: 16 / 9;
 }
 
 .page-header .gradient-mesh {

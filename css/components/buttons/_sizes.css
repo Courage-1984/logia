@@ -1,0 +1,10 @@
+/* ============================================
+   LOGIA GENESIS - BUTTONS - SIZES
+   Button size modifiers
+   ============================================ */
+
+.btn-lg {
+    padding: 1.125rem 2.5rem;
+    font-size: 1.0625rem;
+}
+

@@ -1,0 +1,11 @@
+/* ============================================
+   LOGIA GENESIS - FORMS - VALIDATION
+   Form validation states and error styles
+   ============================================ */
+
+.form-group input.error,
+.form-group select.error,
+.form-group textarea.error {
+    border-color: var(--color-error);
+}
+

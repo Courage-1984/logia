@@ -234,6 +234,22 @@ element.dataset.initialized = 'true';
 - Add ARIA labels for icon-only buttons and complex components
 - Include alt text for all images
 
+### URL Structure & Paths
+- **Clean URLs**: All internal page links use clean URLs without `.html` extensions (e.g., `/about`, `/contact`, `/services`)
+  - Old `.html` URLs automatically redirect to clean URLs via `.htaccess` (301 redirect)
+  - Homepage: `/` (not `/index.html`)
+- **Absolute Paths**: All resource paths (CSS, JS, images) must use absolute paths starting with `/`
+  - ✅ Correct: `href="/css/style.css"`, `src="/js/main.js"`, `src="/assets/images/logo.webp"`
+  - ❌ Incorrect: `href="css/style.css"`, `src="js/main.js"` (relative paths break on root URL)
+  - **Why**: Ensures resources load correctly when accessing root URL (`/`) vs `/index.html`
+- **Internal Links**: Use clean URLs for all internal navigation
+  - ✅ Correct: `<a href="/about">`, `<a href="/contact#quote">`
+  - ❌ Incorrect: `<a href="about.html">`, `<a href="/about.html">`
+- **URL Rewriting**: `.htaccess` handles URL rewriting and redirects
+  - Clean URLs (`/about`) internally serve from `about.html`
+  - Old `.html` URLs redirect to clean URLs (301 permanent redirect)
+  - Works for both production and development environments
+
 ### Component Loading
 ```html
 <!-- Component placeholders -->
@@ -241,12 +257,12 @@ element.dataset.initialized = 'true';
 <div id="breadcrumb-placeholder"></div> <!-- Optional: only on non-homepage pages -->
 <div id="footer-placeholder"></div>
 
-<!-- Scripts (in order) -->
+<!-- Scripts (in order) - Use absolute paths -->
 <!-- Theme Manager - Load early to prevent FOUC -->
-<script type="module" src="js/utils/theme.js"></script>
-<script type="module" src="js/components.js"></script>
-<script type="module" src="js/alpine-setup.js"></script>
-<script type="module" src="js/main.js"></script>
+<script type="module" src="/js/utils/theme.js"></script>
+<script type="module" src="/js/components.js"></script>
+<script type="module" src="/js/alpine-setup.js"></script>
+<script type="module" src="/js/main.js"></script>
 ```
 
 ### FOUC Prevention & CSP (Required on All Pages)
@@ -263,7 +279,8 @@ All HTML pages must include the theme initialization **script tag** in `<head>` 
 
 <!-- Theme initialization script - prevents FOUC (Flash of Unstyled Content) -->
 <!-- MUST be before any CSS or other content -->
-<script src="js/utils/theme-init.js"></script>
+<!-- Use absolute path for root URL compatibility -->
+<script src="/js/utils/theme-init.js"></script>
 ```
 
 ### Meta Tags
@@ -292,13 +309,14 @@ All HTML files must include complete favicon setup:
 ```
 
 ### SEO Files
-- `sitemap.xml` - XML sitemap for search engines (all pages included, URLs auto-transformed)
+- `sitemap.xml` - XML sitemap for search engines (uses clean URLs without `.html`, auto-transformed for GitHub Pages)
 - `site.webmanifest` - Web app manifest for PWA support
 - `robots.txt` - Robots exclusion file (sitemap URL auto-transformed)
-- **Structured Data (JSON-LD)** - Organization, LocalBusiness, Service, BreadcrumbList schemas on all pages
-- **404.html** - Custom error page
-- **privacy-policy.html** - Privacy policy page
-- **terms-of-service.html** - Terms of service page
+- **Structured Data (JSON-LD)** - Organization, LocalBusiness, Service, BreadcrumbList schemas on all pages (uses clean URLs)
+- **404.html** - Custom error page (accessible at `/404`)
+- **privacy-policy.html** - Privacy policy page (accessible at `/privacy-policy`)
+- **terms-of-service.html** - Terms of service page (accessible at `/terms-of-service`)
+- **URL Rewriting**: `.htaccess` handles clean URLs and redirects old `.html` URLs
 
 ### Resource Hints
 - Use `preconnect` for external domains (fonts, CDNs)
@@ -327,10 +345,11 @@ All HTML files must include complete favicon setup:
 
 ### Image Patterns
 ```html
+<!-- Use absolute paths for all image sources -->
 <picture>
-  <source srcset="..." sizes="..." type="image/webp">
-  <source srcset="..." sizes="..." type="image/jpeg">
-  <img src="..." srcset="..." sizes="..." alt="..." loading="..." decoding="async">
+  <source srcset="/assets/images/hero-320w.webp 320w, /assets/images/hero-640w.webp 640w" sizes="100vw" type="image/webp">
+  <source srcset="/assets/images/hero-320w.jpg 320w, /assets/images/hero-640w.jpg 640w" sizes="100vw" type="image/jpeg">
+  <img src="/assets/images/hero.jpg" srcset="/assets/images/hero-320w.jpg 320w, /assets/images/hero-640w.jpg 640w" sizes="100vw" alt="..." loading="..." decoding="async">
 </picture>
 ```
 
@@ -442,14 +461,35 @@ The project supports two build targets:
 - Remove unused code (tree-shaking enabled)
 
 ### Animations & Motion
+- **GPU-Accelerated Properties Only**: All animations use GPU-accelerated properties (`transform`, `opacity`)
+  - ✅ Use `transform` (translate, scale, rotate) instead of `left`, `top`, `width`, `height`
+  - ✅ Use `opacity` for fade effects
+  - ❌ Avoid animating: `width`, `height`, `top`, `left`, `background-color` (use `transform`/`opacity` instead)
+  - ✅ Replace `transition: all` with specific properties (`transition-property`, `transition-duration`, `transition-timing-function`)
 - **Chrome Optimization**: Optimized for smooth animations in Chrome
   - `will-change` only set during active animations (hover states), removed when idle (`will-change: auto`)
-  - CSS containment (`contain: layout style paint`) for better rendering isolation
+  - CSS containment (`contain: layout style paint`) on all animated elements for better rendering isolation
   - Avoid unnecessary `translate3d(0,0,0)` - use only needed transforms (`scale()`, `translateY()`, etc.)
   - Use separate transition properties (`transition-property`, `transition-duration`, `transition-timing-function`) for better Chrome performance
   - `backface-visibility: hidden` on animated elements for hardware acceleration
-- Disable heavier effects (3D tilt, particles) on coarse pointers (touch/mobile devices).
-- Use `will-change` only during active animations, not statically on all elements.
+- **Pattern**: Set `will-change` on hover/focus, remove on `:not(:hover)` with `will-change: auto`
+- Disable heavier effects (3D tilt, particles) on coarse pointers (touch/mobile devices)
+- **Example Pattern**:
+  ```css
+  .element {
+    transition-property: transform, opacity;
+    transition-duration: var(--transition-base);
+    transition-timing-function: ease;
+    contain: layout style paint;
+  }
+  .element:hover {
+    transform: scale(1.05);
+    will-change: transform;
+  }
+  .element:not(:hover) {
+    will-change: auto;
+  }
+  ```
 
 ### Image Optimization
 - **Source Format**: Use JPG or PNG in `assets/images/` (NOT WebP - generated during build)
@@ -623,6 +663,19 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 });
 ```
 
+### URL & Path Patterns
+```html
+<!-- Internal page links - use clean URLs -->
+<a href="/about">About</a>
+<a href="/contact#quote">Contact</a>
+<a href="/services#wireless">Wireless Services</a>
+
+<!-- Resource paths - use absolute paths -->
+<link rel="stylesheet" href="/css/style.css">
+<script src="/js/main.js"></script>
+<img src="/assets/images/logo.webp" alt="Logo">
+```
+
 ---
 
 ## Configuration
@@ -753,7 +806,7 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 - **WhatsApp Button**: Floating action button (bottom-left) with tooltip
 - **Scroll to Top**: Floating button (bottom-right) appears after 500px scroll
 - **Address Links**: All addresses link to Google Maps (`https://maps.app.goo.gl/LxbQUQxCa3b6b7Jm6`)
-- **Footer Logo**: Links to homepage (`index.html`) with proper accessibility attributes
+- **Footer Logo**: Links to homepage (`/`) with proper accessibility attributes
 - **Services Dropdown**: Links to services page + individual service sections
 - **Theme Toggle**: Works on all pages with FOUC prevention
 - **Page Transitions**: Smooth navigation with skeleton loading (`js/page-transitions.js`)
@@ -819,7 +872,7 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 ---
 
 **Last Updated**: January 2025
-**Version**: 3.6
+**Version**: 3.8
 
 ## Recent Major Updates (January 2025)
 
@@ -988,9 +1041,10 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
   - Data cache: 50 entries, 5-minute TTL (testimonials, Instagram)
   - LRU eviction and automatic expiration
 - **Cache Warming**: Background pre-loading (`js/cache-warming.js`)
-  - Pre-loads critical pages (about, services, contact, portfolio)
-  - Pre-loads critical data (Google Reviews, Instagram posts)
+  - Pre-loads critical pages (about, services) - 3s delay after page load
+  - Pre-loads critical data (Google Reviews, Instagram posts) - 4s delay after page load
   - Connection-aware, respects data saver mode
+  - Optimized: Reduced from 4 pages to 2, parallel component loading (navbar + footer)
 - **Works in all environments**: Dev, preview, production, GitHub Pages
 
 ### Timeline Component ✅ (January 2025)
@@ -1022,6 +1076,18 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
 - **Files Updated**: `css/sections/portfolio-preview.css`, `css/layout/hero.css`, `css/sections/testimonials.css`, `css/sections/instagram.css`, `css/core/reset.css`, `js/main.js`, `js/testimonials.js`, `js/instagram-feed.js`
 - **Result**: Smooth animations in Chrome matching Firefox performance
 
+### PageSpeed Optimizations ✅ (January 2025)
+- **Font Display**: Font Awesome `font-display: swap` (400ms FCP improvement)
+- **Image Optimization**: Logo responsive images (31.2 KiB), hero compression (22.6 KiB)
+- **Render Optimization**: Google Tag Manager deferred to end of `<body>` (143 KiB, 140ms saved)
+- **Layout Shifts**: Hero section CLS fixed (reduced from 0.170)
+- **Network Optimization**: Parallel component loading (navbar + footer), reduced cache warming (2 pages, 3s/4s delays)
+- **Animation Optimization**: GPU-accelerated properties only (37 elements, 61 `transition: all` replaced)
+  - All animations use `transform` and `opacity` only
+  - CSS containment on all animated elements
+  - `will-change` only during active animations
+  - Fixed non-GPU animations (carousel dots use `transform: scaleX()` instead of `width`)
+
 ### About Page Redesign ✅ (January 2025)
 - **Apple-Inspired Bento Grid**: Combined "Who We Are" and "Mission & Vision" sections into unified bento grid
   - Layout: 12-column grid system for flexible card arrangements
@@ -1029,10 +1095,27 @@ await loadComponent('components/navbar.html', '#navbar-placeholder', () => {
   - Design: Glassmorphism with backdrop-filter blur, subtle gradients, animated gradient orbs background
   - Content: Our Foundation (large), Our Expertise, Our Mission, Our Vision, Our Values, plus stat cards
   - Stats: Years of Excellence (15), Projects Completed (500), Client Satisfaction (98%), Clients Served (200)
-  - Location: `about.html` section `#company-story`, styled in `css/pages/about.css`
+  - Location: `/about` section `#company-story`, styled in `css/pages/about.css`
 - **Staggered Team Cards**: Modern staggered card layout for "Meet The Experts" section
   - Layout: All cards in single row on desktop (4 columns) with vertical stagger (60px offset for even cards)
   - Design: Full-width gradient photo sections, glassmorphism photo placeholders, smooth hover effects
   - Animations: Reveal entrance animations with clip-path, slide-in from sides (desktop) or bottom (mobile)
   - Responsive: Single column mobile, 2 columns tablet, 4 columns desktop with stagger
-  - Location: `about.html` team section, styled in `css/pages/about.css`
+  - Location: `/about` team section, styled in `css/pages/about.css`
+
+### Clean URLs & Absolute Paths ✅ (January 2025)
+- **Clean URLs**: Removed `.html` extensions from all URLs for SEO-friendly, modern URLs
+  - All internal links use clean URLs: `/about`, `/contact`, `/services` (not `/about.html`)
+  - Old `.html` URLs automatically redirect to clean URLs via `.htaccess` (301 permanent redirect)
+  - Homepage: `/` (not `/index.html`)
+- **Absolute Paths**: All resource paths (CSS, JS, images) use absolute paths starting with `/`
+  - Fixed root URL issue where `https://logia.co.za/` showed style-less page on mobile browsers
+  - Ensures resources load correctly regardless of URL format (`/` vs `/index.html`)
+  - Example: `href="/css/style.css"`, `src="/js/main.js"`, `src="/assets/images/logo.webp"`
+- **Updated Files**:
+  - `.htaccess`: Added URL rewriting rules for clean URLs and redirects
+  - All HTML pages: Updated internal links, canonical URLs, Open Graph URLs, structured data
+  - `sitemap.xml`: Updated to use clean URLs
+  - `config/url-transform-plugin.js`: Updated to handle clean URLs for GitHub Pages builds
+  - Components: Navbar and footer updated with clean URLs
+- **SEO Benefits**: Clean URLs improve SEO, user experience, and maintainability

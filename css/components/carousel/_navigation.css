@@ -1,0 +1,65 @@
+/* ============================================
+   LOGIA GENESIS - CAROUSEL - NAVIGATION
+   Carousel navigation button styles
+   ============================================ */
+
+/* Carousel Navigation Buttons */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--color-white);
+    border: 2px solid var(--color-border);
+    border-radius: var(--radius-full);
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition-property: transform, opacity;
+    transition-duration: var(--transition-base);
+    transition-timing-function: ease;
+    z-index: 10;
+    color: var(--color-text);
+    box-shadow: var(--shadow-md);
+}
+
+.carousel-btn:hover:not(:disabled) {
+    background: var(--color-primary);
+    color: var(--color-white);
+    border-color: var(--color-primary);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: var(--shadow-lg);
+    will-change: transform;
+}
+
+.carousel-btn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.carousel-btn-prev {
+    left: 0;
+}
+
+.carousel-btn-next {
+    right: 0;
+}
+
+@media (min-width: 769px) {
+    .carousel-btn-prev {
+        left: var(--space-2);
+    }
+
+    .carousel-btn-next {
+        right: var(--space-2);
+    }
+}
+
+body.dark-mode .carousel-btn {
+    background: var(--color-dark-surface);
+    border-color: var(--color-border);
+    color: var(--color-text);
+}
+

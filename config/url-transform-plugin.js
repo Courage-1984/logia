@@ -20,11 +20,12 @@ function transformUrls(html, config, filePath) {
   
   // Get relative path for this file (for canonical URLs)
   const fileName = filePath.split('/').pop() || 'index.html';
-  const pagePath = fileName === 'index.html' ? '' : fileName.replace(/^\//, '');
+  // Remove .html extension for clean URLs
+  let pagePath = fileName === 'index.html' ? '' : fileName.replace(/\.html$/, '').replace(/^\//, '');
   
-  // Build canonical URL: baseUrl + basePath + pagePath
-  // For GitHub Pages: https://courage-1984.github.io/logia/about.html
-  // For production: https://www.logia.co.za/about.html
+  // Build canonical URL: baseUrl + basePath + pagePath (clean URL without .html)
+  // For GitHub Pages: https://courage-1984.github.io/logia/about
+  // For production: https://www.logia.co.za/about
   let canonicalUrl;
   if (basePath && basePath !== '/') {
     // Has basePath (GitHub Pages case)
@@ -159,6 +160,60 @@ function transformUrls(html, config, filePath) {
         // Remove leading slash if present, then add basePath with slash
         const cleanPath = assetPath.replace(/^\//, '');
         const transformedPath = `${basePathWithSlash}${cleanPath}`;
+        return `${prefix}${transformedPath}${suffix}`;
+      }
+    );
+    
+    // Transform CSS and JavaScript paths in link and script tags
+    // Match: href="/css/..." or href="css/..." or src="/js/..." or src="js/..."
+    html = html.replace(
+      /(<link[^>]*\shref=["'])(?!https?:\/\/)(?!\/logia\/)(\/?)(css\/[^"']+)(["'])/gi,
+      (match, prefix, leadingSlash, cssPath, suffix) => {
+        const cleanPath = cssPath.replace(/^\//, '');
+        const transformedPath = `${basePathWithSlash}${cleanPath}`;
+        return `${prefix}${transformedPath}${suffix}`;
+      }
+    );
+    
+    html = html.replace(
+      /(<script[^>]*\ssrc=["'])(?!https?:\/\/)(?!\/logia\/)(\/?)(js\/[^"']+)(["'])/gi,
+      (match, prefix, leadingSlash, jsPath, suffix) => {
+        const cleanPath = jsPath.replace(/^\//, '');
+        const transformedPath = `${basePathWithSlash}${cleanPath}`;
+        return `${prefix}${transformedPath}${suffix}`;
+      }
+    );
+    
+    // Transform modulepreload and prefetch links
+    html = html.replace(
+      /(<link[^>]*\shref=["'])(?!https?:\/\/)(?!\/logia\/)(\/?)(js\/[^"']+)(["'])/gi,
+      (match, prefix, leadingSlash, jsPath, suffix) => {
+        const cleanPath = jsPath.replace(/^\//, '');
+        const transformedPath = `${basePathWithSlash}${cleanPath}`;
+        return `${prefix}${transformedPath}${suffix}`;
+      }
+    );
+    
+    // Transform internal HTML page links (clean URLs without .html)
+    // Match <a> tags with href="/about" or href="/contact#quote" but not CSS/JS/assets
+    html = html.replace(
+      /(<a[^>]*\shref=["'])(?!https?:\/\/)(?!\/logia\/)(?!mailto:)(?!tel:)(\/?)([^"']+?)(["'])/gi,
+      (match, prefix, leadingSlash, path, suffix) => {
+        // Skip if it's an anchor-only link (starts with #)
+        if (path.startsWith('#')) {
+          return match;
+        }
+        // Skip if it's an asset path (css/, js/, assets/)
+        if (path.startsWith('css/') || path.startsWith('js/') || path.startsWith('assets/')) {
+          return match;
+        }
+        // Handle fragment identifiers (e.g., /contact#quote)
+        const [pagePath, fragment] = path.split('#');
+        // Remove .html if present, then add basePath
+        const cleanPath = pagePath.replace(/\.html$/, '').replace(/^\//, '');
+        const transformedPath = cleanPath 
+          ? `${basePathWithSlash}${cleanPath}${fragment ? '#' + fragment : ''}` 
+          : basePathWithSlash;
         return `${prefix}${transformedPath}${suffix}`;
       }
     );

@@ -61,7 +61,9 @@
     border-radius: var(--radius-xl);
     padding: var(--space-6);
     border: 1px solid var(--color-border);
-    transition: all var(--transition-base);
+    transition-property: transform, opacity;
+    transition-duration: var(--transition-base);
+    transition-timing-function: ease;
     flex: 0 0 calc(100% - var(--space-6));
     min-width: 0;
     display: flex;
@@ -69,6 +71,7 @@
     min-height: 280px;
     height: auto;
     scroll-snap-align: center;
+    contain: layout style paint;
 }
 
 @media (min-width: 769px) {

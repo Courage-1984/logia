@@ -1,0 +1,9 @@
+/* ============================================
+   LOGIA GENESIS - CAROUSEL
+   Main carousel component file - imports all carousel modules
+   ============================================ */
+
+@import "./_base.css";
+@import "./_navigation.css";
+@import "./_dots.css";
+

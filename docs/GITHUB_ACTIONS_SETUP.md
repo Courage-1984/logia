@@ -13,6 +13,9 @@ You need to set up the following secrets in your GitHub repository:
 1. **GOOGLE_PLACES_API_KEY** - Your Google Places API key
 2. **GOOGLE_PLACE_ID** - Your Google Business Place ID
 3. **INSTAGRAM_ACCESS_TOKEN** (optional) - Instagram Graph API access token
+4. **INSTAGRAM_USER_ID** (optional) - Instagram Business Account User ID (will be auto-fetched if not provided)
+
+**Note:** For detailed instructions on obtaining Instagram credentials, see `docs/INSTAGRAM_FEED_SETUP.md`.
 
 **Note:** The `GITHUB_TOKEN` is automatically provided by GitHub Actions and doesn't need to be set manually. It's used by Lighthouse CI to post status checks and comments on pull requests.
 
@@ -25,7 +28,9 @@ You need to set up the following secrets in your GitHub repository:
    - Name: `GOOGLE_PLACES_API_KEY`
    - Value: Your Google Places API key
    - Click **Add secret**
-5. Repeat for `GOOGLE_PLACE_ID` and `INSTAGRAM_ACCESS_TOKEN` (if needed)
+5. Repeat for `GOOGLE_PLACE_ID`, `INSTAGRAM_ACCESS_TOKEN`, and `INSTAGRAM_USER_ID` (if needed)
+
+**Note:** `INSTAGRAM_USER_ID` is optional. If not provided, the fetch script will attempt to automatically fetch it using the access token. However, providing it explicitly can help avoid errors.
 
 ## How It Works
 

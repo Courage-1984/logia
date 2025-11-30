@@ -351,12 +351,12 @@ The project supports two build targets with automatic URL transformation:
   - 12-column flexible grid system (`bento-grid-about`)
   - Card variants: large (6 cols, 2 rows), medium (6 cols), small (3 cols), equal (4 cols), fill-remaining (9 cols)
   - Animated gradient orbs background (CSS-only)
-  - Location: `about.html` section `#company-story`, styled in `css/pages/about.css`
+  - Location: `/about` section `#company-story`, styled in `css/pages/about.css`
 - **Staggered Team Cards**: Modern reveal animations with clip-path effects
   - Single-row layout on desktop (4 columns) with 60px vertical stagger for even cards
   - Slide-in animations from sides (desktop) or bottom (mobile)
   - Full-width gradient photo sections with glassmorphism placeholders
-  - Location: "Meet The Experts" section in `about.html`
+  - Location: "Meet The Experts" section in `/about`
 
 ## Future Enhancements
 

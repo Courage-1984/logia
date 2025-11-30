@@ -12,15 +12,6 @@
     <!-- MUST be before any CSS or other content -->
     <script src="js/utils/theme-init.js"></script>
     
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GT-WP4RJ46S"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'GT-WP4RJ46S');
-    </script>
     
     <meta name="description"
         content="Contact Logia Genesis for IT solutions in Gauteng. Get a free consultation and quote for wireless networking, surveillance, access control & more. Call +27 79 552 3726.">
@@ -31,7 +22,7 @@
     <meta property="og:description"
         content="Contact Logia Genesis for IT solutions in Gauteng. Get a free consultation and quote for wireless networking, surveillance, access control & more.">
     <meta property="og:image" content="https://logia.co.za/assets/images/og-image.jpg">
-    <meta property="og:url" content="https://logia.co.za/contact.html">
+    <meta property="og:url" content="https://logia.co.za/contact">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Logia Genesis">
     <meta property="og:locale" content="en_ZA">
@@ -44,7 +35,7 @@
     <meta name="twitter:image" content="https://logia.co.za/assets/images/twitter-card.jpg">
 
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://logia.co.za/contact.html">
+    <link rel="canonical" href="https://logia.co.za/contact">
 
     <!-- Google Search Console Verification -->
     <!-- Set VITE_GSC_VERIFICATION environment variable to enable -->
@@ -86,14 +77,14 @@
       "@type": "ContactPage",
       "name": "Contact Logia Genesis",
       "description": "Contact Logia Genesis for IT solutions in Gauteng, South Africa.",
-      "url": "https://logia.co.za/contact.html"
+      "url": "https://logia.co.za/contact"
     }
     </script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
-      "@id": "https://logia.co.za/contact.html#organization",
+      "@id": "https://logia.co.za/contact#organization",
       "name": "Logia Genesis",
       "image": "https://logia.co.za/assets/images/logo/logo.webp",
       "description": "Comprehensive business technology solutions provider in Gauteng, South Africa.",
@@ -348,6 +339,15 @@
     <script type="module" src="js/components.js"></script>
     <script type="module" src="js/alpine-setup.js"></script>
     <script type="module" src="js/main.js"></script>
+
+    <!-- Google tag (gtag.js) - Deferred to end of body for better performance -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GT-WP4RJ46S"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'GT-WP4RJ46S');
+    </script>
 </body>
 
 </html>

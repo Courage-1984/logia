@@ -133,7 +133,10 @@ body.dark-mode .footer-logo .logo-picture-dark {
     align-items: center;
     justify-content: center;
     color: var(--color-white);
-    transition: all var(--transition-fast);
+    transition-property: transform, background-color;
+    transition-duration: var(--transition-fast);
+    transition-timing-function: ease;
+    contain: layout style paint;
 }
 
 .footer-social a i {
@@ -157,6 +160,11 @@ body.dark-mode .footer-logo .logo-picture-dark {
 .footer-social a:hover {
     background: var(--color-accent);
     transform: translateY(-3px);
+    will-change: transform;
+}
+
+.footer-social a:not(:hover) {
+    will-change: auto;
 }
 
 .footer-title {

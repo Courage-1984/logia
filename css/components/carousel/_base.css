@@ -1,0 +1,43 @@
+/* ============================================
+   LOGIA GENESIS - CAROUSEL - BASE
+   Base carousel container and track styles
+   ============================================ */
+
+/* Carousel Container */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    padding: 0 var(--space-16);
+}
+
+@media (max-width: 768px) {
+    .carousel-container {
+        padding: 0 var(--space-12);
+    }
+}
+
+/* Carousel Track */
+.carousel-track {
+    display: flex;
+    gap: var(--space-6);
+    transition: transform 0.3s ease;
+    will-change: transform;
+    align-items: stretch;
+    cursor: grab;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.carousel-track:active {
+    cursor: grabbing;
+}
+
+@media (min-width: 769px) {
+    .carousel-track {
+        gap: var(--space-8);
+    }
+}
+

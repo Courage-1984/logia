@@ -61,19 +61,34 @@ The build system is configured for:
 
 If you need to change these URLs, edit `config/build-config.js`.
 
+## URL Structure
+
+### Clean URLs
+- All pages use clean URLs without `.html` extensions (e.g., `/about`, `/contact`, `/services`)
+- Old `.html` URLs automatically redirect to clean URLs via `.htaccess` (301 permanent redirect)
+- Homepage: `/` (not `/index.html`)
+- **All resource paths use absolute paths** starting with `/` (e.g., `/css/style.css`, `/js/main.js`)
+  - This ensures resources load correctly when accessing root URL (`/`) vs `/index.html`
+
+### URL Rewriting
+- `.htaccess` handles URL rewriting for clean URLs
+- Clean URLs (`/about`) internally serve from `about.html` files
+- Works for both production and development environments
+
 ## What Gets Transformed
 
 The build system automatically transforms the following URLs based on your build target:
 
-- **Canonical URLs** (`<link rel="canonical">`)
+- **Canonical URLs** (`<link rel="canonical">`) - Uses clean URLs without `.html`
 - **Open Graph URLs** (`og:url`, `og:image`)
 - **Twitter Card URLs** (`twitter:image`)
-- **Structured Data URLs** (JSON-LD schemas):
+- **Structured Data URLs** (JSON-LD schemas) - Uses clean URLs:
   - `url` properties
   - `@id` properties
   - `item` properties (in BreadcrumbList)
   - `target` properties (in SearchAction)
   - `logo` and `image` properties
+- **Internal Links** - For GitHub Pages builds, internal page links are transformed to include base path
 
 ## Deployment
 

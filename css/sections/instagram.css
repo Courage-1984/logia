@@ -61,11 +61,14 @@
     border-radius: var(--radius-xl);
     overflow: hidden;
     border: 1px solid var(--color-border);
-    transition: all var(--transition-base);
+    transition-property: transform, opacity;
+    transition-duration: var(--transition-base);
+    transition-timing-function: ease;
     flex: 0 0 calc(100% - var(--space-6));
     min-width: 0;
     scroll-snap-align: center;
     box-shadow: var(--shadow-sm);
+    contain: layout style paint;
 }
 
 @media (min-width: 769px) {
@@ -111,6 +114,11 @@ body.dark-mode .instagram-card {
 
 .instagram-card:hover .instagram-image {
     transform: scale(1.05);
+    will-change: transform;
+}
+
+.instagram-card:not(:hover) .instagram-image {
+    will-change: auto;
 }
 
 .instagram-placeholder {
@@ -148,6 +156,11 @@ body.dark-mode .instagram-card {
 
 .instagram-card:hover .instagram-overlay {
     opacity: 1;
+    will-change: opacity;
+}
+
+.instagram-card:not(:hover) .instagram-overlay {
+    will-change: auto;
 }
 
 .instagram-overlay i {

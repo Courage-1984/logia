@@ -1,31 +1,7 @@
 /* ============================================
-   LOGIA GENESIS - CARD COMPONENTS
-   Generic card patterns and shared card utilities
+   LOGIA GENESIS - CARDS - ICONS
+   Card icon patterns and styles
    ============================================ */
-
-/* Base Card Pattern */
-.card {
-    background: var(--color-white);
-    border-radius: var(--radius-xl);
-    padding: var(--space-6);
-    border: 1px solid var(--color-border);
-    transition: all var(--transition-base);
-}
-
-@media (min-width: 769px) {
-    .card {
-        padding: var(--space-8);
-    }
-}
-
-body.dark-mode .card {
-    background: var(--color-dark-surface);
-}
-
-.card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-xl);
-}
 
 /* Card with Icon */
 .card-icon {
@@ -39,11 +15,19 @@ body.dark-mode .card {
     font-size: 1.75rem;
     color: var(--color-white);
     margin-bottom: var(--space-6);
-    transition: all var(--transition-base);
+    transition-property: transform;
+    transition-duration: var(--transition-base);
+    transition-timing-function: ease;
+    contain: layout style paint;
 }
 
 .card:hover .card-icon {
     transform: scale(1.1) rotate(5deg);
+    will-change: transform;
+}
+
+.card:not(:hover) .card-icon {
+    will-change: auto;
 }
 
 /* Card with Large Icon */
@@ -58,26 +42,20 @@ body.dark-mode .card {
     font-size: 2rem;
     color: var(--color-accent-text);
     margin: 0 auto var(--space-6);
-    transition: all var(--transition-base);
+    transition-property: transform, background, color;
+    transition-duration: var(--transition-base);
+    transition-timing-function: ease;
+    contain: layout style paint;
 }
 
 .card:hover .card-icon-large {
     transform: scale(1.1);
     background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
     color: var(--color-white);
+    will-change: transform;
 }
 
-/* Card Title */
-.card-title {
-    font-size: 1.5rem;
-    margin-bottom: var(--space-2);
-    color: var(--color-text);
-}
-
-/* Card Description */
-.card-description {
-    margin-bottom: var(--space-6);
-    line-height: 1.7;
-    color: var(--color-text-muted);
+.card:not(:hover) .card-icon-large {
+    will-change: auto;
 }
 

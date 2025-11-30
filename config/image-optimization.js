@@ -212,16 +212,16 @@ export function imageOptimization(mode = 'production') {
             }
             const newRelativePath = relativePath ? `${relativePath}/${entry.name}` : entry.name;
             await processDirectory(srcPath, destPath, newRelativePath);
-          } else if (/\.(jpg|jpeg|png)$/i.test(entry.name)) {
-            // Process image file (JPG/PNG only - WebP/AVIF are generated during build)
-            // Skip if WebP version already exists (user should remove WebP from source)
-            const imageName = entry.name.replace(/\.(jpg|jpeg|png)$/i, '');
-            const ext = entry.name.match(/\.(jpg|jpeg|png)$/i)?.[1] || 'jpg';
-            
+          } else if (/\.(jpg|jpeg|png|webp)$/i.test(entry.name)) {
+            // Process image file (JPG/PNG/WebP)
+            // WebP files are allowed in logo directory for responsive image generation
             // Skip if this is a generated file (has size suffix like -320w)
-            if (/-(\d+)w\.(jpg|jpeg|png)$/i.test(entry.name)) {
+            if (/-(\d+)w\.(jpg|jpeg|png|webp)$/i.test(entry.name)) {
               continue;
             }
+            
+            const imageName = entry.name.replace(/\.(jpg|jpeg|png|webp)$/i, '');
+            const ext = entry.name.match(/\.(jpg|jpeg|png|webp)$/i)?.[1] || 'jpg';
             
             // Check if this image is actually used in the codebase
             const currentRelativePath = relativePath ? `${relativePath}/${imageName}` : imageName;
@@ -232,6 +232,10 @@ export function imageOptimization(mode = 'production') {
             const shouldAlwaysInclude = alwaysIncludeDirs.some(dir => 
               relativePath.includes(dir) || srcPath.includes(`/${dir}/`)
             );
+            
+            // Use smaller responsive sizes for logo directory
+            const isLogoDir = relativePath.includes('logo') || srcPath.includes('/logo/');
+            const sizesToUse = isLogoDir ? [80, 160, 320] : responsiveSizes;
             
             if (!shouldAlwaysInclude && !isImageUsed(srcPath, currentRelativePath)) {
               // Image not used - skip it
@@ -248,7 +252,7 @@ export function imageOptimization(mode = 'production') {
               placeholders[imageName] = placeholder;
               
               // Generate responsive sizes
-              for (const width of responsiveSizes) {
+              for (const width of sizesToUse) {
                 // Only generate if original is larger than target width
                 if (metadata.width && metadata.width >= width) {
                   // Generate AVIF version (best compression)
@@ -258,28 +262,30 @@ export function imageOptimization(mode = 'production') {
                       withoutEnlargement: true,
                       fit: 'inside',
                     })
-                    .avif({ quality: 80, effort: 4 })
+                    .avif({ quality: 75, effort: 4 })
                     .toFile(join(destDir, `${imageName}-${width}w.avif`));
                   
-                  // Generate WebP version
+                  // Generate WebP version (for all source formats)
                   await image
                     .clone()
                     .resize(width, null, {
                       withoutEnlargement: true,
                       fit: 'inside',
                     })
-                    .webp({ quality: 85, effort: 6 })
+                    .webp({ quality: 80, effort: 6 })
                     .toFile(join(destDir, `${imageName}-${width}w.webp`));
                   
-                  // Generate original format version
-                  await image
-                    .clone()
-                    .resize(width, null, {
-                      withoutEnlargement: true,
-                      fit: 'inside',
-                    })
-                    .jpeg({ quality: 85, mozjpeg: true })
-                    .toFile(join(destDir, `${imageName}-${width}w.${ext === 'png' ? 'jpg' : ext}`));
+                  // Generate original format version (for JPG/PNG only - WebP already generated above)
+                  if (ext !== 'webp') {
+                    await image
+                      .clone()
+                      .resize(width, null, {
+                        withoutEnlargement: true,
+                        fit: 'inside',
+                      })
+                      .jpeg({ quality: 80, mozjpeg: true })
+                      .toFile(join(destDir, `${imageName}-${width}w.${ext === 'png' ? 'jpg' : ext}`));
+                  }
                 }
               }
               
@@ -287,13 +293,13 @@ export function imageOptimization(mode = 'production') {
               // AVIF
               await image
                 .clone()
-                .avif({ quality: 80, effort: 4 })
+                .avif({ quality: 75, effort: 4 })
                 .toFile(join(destDir, `${imageName}.avif`));
               
               // WebP
               await image
                 .clone()
-                .webp({ quality: 85, effort: 6 })
+                .webp({ quality: 80, effort: 6 })
                 .toFile(join(destDir, `${imageName}.webp`));
               
               // Optimized original format
@@ -305,7 +311,7 @@ export function imageOptimization(mode = 'production') {
               } else {
                 await image
                   .clone()
-                  .jpeg({ quality: 85, mozjpeg: true })
+                  .jpeg({ quality: 80, mozjpeg: true })
                   .toFile(join(destDir, entry.name));
               }
               

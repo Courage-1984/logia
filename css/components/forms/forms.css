@@ -1,0 +1,9 @@
+/* ============================================
+   LOGIA GENESIS - FORMS
+   Main form component file - imports all form modules
+   ============================================ */
+
+@import "./_base.css";
+@import "./_inputs.css";
+@import "./_validation.css";
+

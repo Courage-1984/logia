@@ -11,15 +11,6 @@
     <!-- MUST be before any CSS or other content -->
     <script src="js/utils/theme-init.js"></script>
     
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=GT-WP4RJ46S"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'GT-WP4RJ46S');
-    </script>
     
     <meta name="description" content="Test your internet speed with Logia Genesis Speed Test tool. Check download, upload speeds and network performance in Gauteng, South Africa.">
     <title>Internet Speed Test | Network Performance Tool | Logia Genesis</title>
@@ -28,7 +19,7 @@
     <meta property="og:title" content="Internet Speed Test | Network Performance Tool | Logia Genesis">
     <meta property="og:description" content="Test your internet speed with Logia Genesis Speed Test tool. Check download, upload speeds and network performance.">
     <meta property="og:image" content="https://logia.co.za/assets/images/og-image.jpg">
-    <meta property="og:url" content="https://logia.co.za/speedtest.html">
+    <meta property="og:url" content="https://logia.co.za/speedtest">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Logia Genesis">
     <meta property="og:locale" content="en_ZA">
@@ -40,7 +31,7 @@
     <meta name="twitter:image" content="https://logia.co.za/assets/images/twitter-card.jpg">
     
     <!-- Canonical URL -->
-    <link rel="canonical" href="https://logia.co.za/speedtest.html">
+    <link rel="canonical" href="https://logia.co.za/speedtest">
 
     <!-- Google Search Console Verification -->
     <!-- Set VITE_GSC_VERIFICATION environment variable to enable -->
@@ -82,7 +73,7 @@
       "@type": "WebApplication",
       "name": "Logia Genesis Speed Test",
       "description": "Test your internet speed with Logia Genesis Speed Test tool.",
-      "url": "https://logia.co.za/speedtest.html",
+      "url": "https://logia.co.za/speedtest",
       "applicationCategory": "Utility",
       "operatingSystem": "Web Browser"
     }
@@ -349,6 +340,15 @@
                 startBtn.addEventListener('click', window.startSpeedTest);
             }
         });
+    </script>
+
+    <!-- Google tag (gtag.js) - Deferred to end of body for better performance -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=GT-WP4RJ46S"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'GT-WP4RJ46S');
     </script>
 </body>
 </html>

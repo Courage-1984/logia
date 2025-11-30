@@ -40,7 +40,9 @@ Place ID: ChIJqVclNUpnlR4RS2IxBBZoo3E
 5. Restrict the API key to "Places API" for security
 6. Copy your API key
 
-AIzaSyAXG59WUVDJLXi4TXnyNvqPaMRf85dTx20
+
+AIzaSyD92wF2sKdblAnHjmRo41smwFDxNhkA18c
+
 
 #### Step 3: Create .env File
 

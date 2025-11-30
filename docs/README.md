@@ -71,6 +71,9 @@ Quick reference guide to all project documentation.
 - `.github/workflows/static.yml` - GitHub Pages deployment
 
 ### Recent Updates (January 2025)
+- **Clean URLs**: Removed `.html` extensions from all URLs for SEO-friendly, modern URLs (`/about`, `/contact`, `/services`)
+  - Old `.html` URLs automatically redirect to clean URLs (301 permanent redirect)
+  - All resource paths use absolute paths (`/css/style.css`, `/js/main.js`) for root URL compatibility
 - **About Page Redesign**: Apple-inspired bento grid combining "Who We Are" and "Mission & Vision" sections
   - 12-column flexible grid with glassmorphism effects
   - Staggered team cards with reveal animations
